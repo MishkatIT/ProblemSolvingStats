@@ -14,4 +14,4 @@
 | HackerRank | [MishkatIT](https://www.hackerrank.com/MishkatIT) | 1 |
 | Total | | 1437 |
 
-Last Updated: 17 October, 2023
+Last Updated: 23 October, 2023
