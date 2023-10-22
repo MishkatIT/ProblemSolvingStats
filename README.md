@@ -3,7 +3,7 @@
 
 | OJ | Username | Solve Count |
 | -- | -------- | ----------- |
-| Codeforces | [MishkatIT](https://codeforces.com/profile/MishkatIT) | 1251 |
+| Codeforces | [MishkatIT](https://codeforces.com/profile/MishkatIT) | 1267 |
 | Leetcode | [MishkatIT](https://leetcode.com/MishkatIT/) | 56 |
 | CodeChef | [MishkatIT](https://www.codechef.com/users/MishkatIT) | 12 |
 | AtCoder | [MishkatIT](https://atcoder.jp/users/MishkatIT) | 6 |
