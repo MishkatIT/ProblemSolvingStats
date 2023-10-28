@@ -1,72 +1,16 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Problem Solving Stats</title>
-</head>
-<body>
-    <div style="text-align: center;">
-        <img src="https://your-profile-image-url-here.png" alt="Profile Image" width="120" height="120">
-        <h1>Problem Solving Stats</h1>
-    </div>
+# Problem Solving Stats
 
-    <table align="center">
-        <tr style="background-color: #007BFF; color: #fff;">
-            <th>Platform</th>
-            <th>Username</th>
-            <th>Solved Problems</th>
-        </tr>
-        <tr>
-            <td>Codeforces</td>
-            <td><a href="https://codeforces.com/profile/MishkatIT">MishkatIT</a></td>
-            <td>1,267</td>
-        </tr>
-        <tr>
-            <td>LeetCode</td>
-            <td><a href="https://leetcode.com/MishkatIT/">MishkatIT</a></td>
-            <td>56</td>
-        </tr>
-        <tr>
-            <td>CodeChef</td>
-            <td><a href="https://www.codechef.com/users/MishkatIT">MishkatIT</a></td>
-            <td>12</td>
-        </tr>
-        <tr>
-            <td>AtCoder</td>
-            <td><a href="https://atcoder.jp/users/MishkatIT">MishkatIT</a></td>
-            <td>6</td>
-        </tr>
-        <tr>
-            <td>SPOJ</td>
-            <td><a href="https://www.spoj.com/users/MishkatIT/">MishkatIT</a></td>
-            <td>4</td>
-        </tr>
-        <tr>
-            <td>LightOJ</td>
-            <td><a href="https://lightoj.com/user/MishkatIT">MishkatIT</a></td>
-            <td>3</td>
-        </tr>
-        <tr>
-            <td>Toph</td>
-            <td><a href="https://toph.co/u/MishkatIT">MishkatIT</a></td>
-            <td>10</td>
-        </tr>
-        <tr>
-            <td>Vjudge</td>
-            <td><a href="https://vjudge.net/user/MishkatIT">MishkatIT</a></td>
-            <td>120</td>
-        </tr>
-        <tr>
-            <td>HackerRank</td>
-            <td><a href="https://www.hackerrank.com/MishkatIT">MishkatIT</a></td>
-            <td>1</td>
-        </tr>
-        <tr style="background-color: #007BFF; color: #fff;">
-            <td><strong>Total</strong></td>
-            <td></td>
-            <td><strong>1,437</strong></td>
-        </tr>
-    </table>
+<p align="center"><em>Last Updated: 23 October 2023</em></p>
 
-    <p style="text-align: center;"><em>Last Updated: 23 October 2023</em></p>
-</body>
-</html>
+| Platform     | Username                                     | Solved Problems |
+|--------------|----------------------------------------------|-----------------|
+| Codeforces   | [MishkatIT](https://codeforces.com/profile/MishkatIT) | 1,267 |
+| LeetCode     | [MishkatIT](https://leetcode.com/MishkatIT/) | 56 |
+| CodeChef     | [MishkatIT](https://www.codechef.com/users/MishkatIT) | 12 |
+| AtCoder      | [MishkatIT](https://atcoder.jp/users/MishkatIT) | 6 |
+| SPOJ         | [MishkatIT](https://www.spoj.com/users/MishkatIT/) | 4 |
+| LightOJ      | [MishkatIT](https://lightoj.com/user/MishkatIT) | 3 |
+| Toph         | [MishkatIT](https://toph.co/u/MishkatIT) | 10 |
+| Vjudge       | [MishkatIT](https://vjudge.net/user/MishkatIT) | 120 |
+| HackerRank   | [MishkatIT](https://www.hackerrank.com/MishkatIT) | 1 |
+| **Total**    |                                              | **1,437** |
