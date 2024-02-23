@@ -4,7 +4,7 @@
 
 | Platform     | Username                                     | Solved Problems |
 |--------------|----------------------------------------------|-----------------|
-| Codeforces   | [MishkatIT](https://codeforces.com/profile/MishkatIT) | 1452 |
+| Codeforces   | [MishkatIT](https://codeforces.com/profile/MishkatIT) | 1452|
 | LeetCode     | [MishkatIT](https://leetcode.com/MishkatIT/) | 68 |
 | CodeChef     | [MishkatIT](https://www.codechef.com/users/MishkatIT) | 14 |
 | AtCoder      | [MishkatIT](https://atcoder.jp/users/MishkatIT) | 6 |
