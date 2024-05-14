@@ -1,16 +1,18 @@
 # Problem Solving Stats
 
-<p align="center"><em>Last Updated: 04 February 2024</em></p>
+<p align="center"><em>Last Updated: 14 May 2024</em></p>
 
 | Platform     | Username                                     | Solved Problems |
 |--------------|----------------------------------------------|-----------------|
-| Codeforces   | [MishkatIT](https://codeforces.com/profile/MishkatIT) | 1452|
-| LeetCode     | [MishkatIT](https://leetcode.com/MishkatIT/) | 68 |
-| CodeChef     | [MishkatIT](https://www.codechef.com/users/MishkatIT) | 14 |
-| AtCoder      | [MishkatIT](https://atcoder.jp/users/MishkatIT) | 6 |
-| SPOJ         | [MishkatIT](https://www.spoj.com/users/MishkatIT/) | 7 |
-| LightOJ      | [MishkatIT](https://lightoj.com/user/MishkatIT) | 24 |
-| Toph         | [MishkatIT](https://toph.co/u/MishkatIT) | 19 |
-| Vjudge       | [MishkatIT](https://vjudge.net/user/MishkatIT) | 148 |
-| HackerRank   | [MishkatIT](https://www.hackerrank.com/MishkatIT) | 1 |
-| **Total**    |                                              | **1739** |
+| Codeforces   | [MishkatIT](https://codeforces.com/profile/MishkatIT)           | 1638 |
+| LeetCode     | [MishkatIT](https://leetcode.com/MishkatIT/)                    | 87 |
+| CodeChef     | [MishkatIT](https://www.codechef.com/users/MishkatIT)           | 35 |
+| AtCoder      | [MishkatIT](https://atcoder.jp/users/MishkatIT)                 | 34 |
+| SPOJ         | [MishkatIT](https://www.spoj.com/users/MishkatIT/)              | 10 |
+| LightOJ      | [MishkatIT](https://lightoj.com/user/MishkatIT)                 | 24 |
+| Toph         | [MishkatIT](https://toph.co/u/MishkatIT)                        | 20 |
+| Vjudge       | [MishkatIT](https://vjudge.net/user/MishkatIT)                  | 180 |
+| HackerRank   | [MishkatIT](https://www.hackerrank.com/MishkatIT)               | 2 |
+| UVa          | [MishkatIT](https://uhunt.onlinejudge.org/id/1615470)           | 1 |
+| HackerEarth  | [MishkatIT](https://www.hackerearth.com/@MishkatIT)             | 3 |
+| **Total**    |                                                              | **2034** |
