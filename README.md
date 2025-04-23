@@ -10,7 +10,7 @@
 | CodeChef     | [MishkatIT](https://www.codechef.com/users/MishkatIT)           | 35 |
 | AtCoder      | [MishkatIT](https://atcoder.jp/users/MishkatIT)                 | 34 |
 | SPOJ         | [MishkatIT](https://www.spoj.com/users/MishkatIT/)              | 10 |
-| LightOJ      | [MishkatIT](https://lightoj.com/user/MishkatIT)                 | 24 |
+| LightOJ      | [MishkatIT](https://lightoj.com/user/mishkatit)                 | 24 |
 | Toph         | [MishkatIT](https://toph.co/u/MishkatIT)                        | 20 |
 | Vjudge       | [MishkatIT](https://vjudge.net/user/MishkatIT)                  | 180 |
 | HackerRank   | [MishkatIT](https://www.hackerrank.com/MishkatIT)               | 2 |
