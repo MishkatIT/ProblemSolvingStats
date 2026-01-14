@@ -88,58 +88,38 @@ def update_readme(stats):
         'HackerEarth': ('HackerEarth', 'blue'),
     }
     
+    # Platform patterns for updating counts in README table
+    PLATFORM_PATTERNS = {
+        'Codeforces': r'(🔴\s+Codeforces.*?<td align="center"><strong>)[^<]+',
+        'LeetCode': r'(🟢\s+LeetCode.*?<td align="center"><strong>)[^<]+',
+        'Vjudge': r'(🟣\s+Vjudge.*?<td align="center"><strong>)[^<]+',
+        'AtCoder': r'(🟠\s+AtCoder.*?<td align="center"><strong>)[^<]+',
+        'CodeChef': r'(🟤\s+CodeChef.*?<td align="center"><strong>)[^<]+',
+        'CSES': r'(⚪\s+CSES.*?<td align="center"><strong>)[^<]+',
+        'Toph': r'(🔵\s+Toph.*?<td align="center"><strong>)[^<]+',
+        'LightOJ': r'(🟡\s+LightOJ.*?<td align="center"><strong>)[^<]+',
+        'SPOJ': r'(🟩\s+SPOJ.*?<td align="center"><strong>)[^<]+',
+        'HackerRank': r'(💚\s+HackerRank.*?<td align="center"><strong>)[^<]+',
+        'UVa': r'(🔷\s+UVa.*?<td align="center"><strong>)[^<]+',
+        'HackerEarth': r'(🌐\s+HackerEarth.*?<td align="center"><strong>)[^<]+',
+    }
+    
     # Update individual platform counts
     for platform, count in stats.items():
-        platform_name, color = platform_mapping.get(platform, (platform, 'blue'))
-        
         if count is None:
             # Handle failed fetches - mark as "Will be updated manually"
-            # Update solved count in table to show it couldn't be fetched
-            platform_patterns = {
-                'Codeforces': r'(🔴\s+Codeforces.*?<td align="center"><strong>)[^<]+',
-                'LeetCode': r'(🟢\s+LeetCode.*?<td align="center"><strong>)[^<]+',
-                'Vjudge': r'(🟣\s+Vjudge.*?<td align="center"><strong>)[^<]+',
-                'AtCoder': r'(🟠\s+AtCoder.*?<td align="center"><strong>)[^<]+',
-                'CodeChef': r'(🟤\s+CodeChef.*?<td align="center"><strong>)[^<]+',
-                'CSES': r'(⚪\s+CSES.*?<td align="center"><strong>)[^<]+',
-                'Toph': r'(🔵\s+Toph.*?<td align="center"><strong>)[^<]+',
-                'LightOJ': r'(🟡\s+LightOJ.*?<td align="center"><strong>)[^<]+',
-                'SPOJ': r'(🟩\s+SPOJ.*?<td align="center"><strong>)[^<]+',
-                'HackerRank': r'(💚\s+HackerRank.*?<td align="center"><strong>)[^<]+',
-                'UVa': r'(🔷\s+UVa.*?<td align="center"><strong>)[^<]+',
-                'HackerEarth': r'(🌐\s+HackerEarth.*?<td align="center"><strong>)[^<]+',
-            }
-            
-            if platform in platform_patterns:
-                pattern = platform_patterns[platform]
+            if platform in PLATFORM_PATTERNS:
+                pattern = PLATFORM_PATTERNS[platform]
                 replacement = rf'\g<1>⏳ Will be updated manually'
                 readme_content = re.sub(pattern, replacement, readme_content, flags=re.DOTALL)
             continue
         
+        platform_name, color = platform_mapping.get(platform, (platform, 'blue'))
         percentage = calculate_percentage(count, total)
         
         # Update solved count in table
-        # Pattern: <td align="center"><strong>NUMBER</strong></td>
-        # We need to find the row for this platform and update the count
-        
-        # Different platforms have different emoji markers
-        platform_patterns = {
-            'Codeforces': r'(🔴\s+Codeforces.*?<td align="center"><strong>)[^<]+',
-            'LeetCode': r'(🟢\s+LeetCode.*?<td align="center"><strong>)[^<]+',
-            'Vjudge': r'(🟣\s+Vjudge.*?<td align="center"><strong>)[^<]+',
-            'AtCoder': r'(🟠\s+AtCoder.*?<td align="center"><strong>)[^<]+',
-            'CodeChef': r'(🟤\s+CodeChef.*?<td align="center"><strong>)[^<]+',
-            'CSES': r'(⚪\s+CSES.*?<td align="center"><strong>)[^<]+',
-            'Toph': r'(🔵\s+Toph.*?<td align="center"><strong>)[^<]+',
-            'LightOJ': r'(🟡\s+LightOJ.*?<td align="center"><strong>)[^<]+',
-            'SPOJ': r'(🟩\s+SPOJ.*?<td align="center"><strong>)[^<]+',
-            'HackerRank': r'(💚\s+HackerRank.*?<td align="center"><strong>)[^<]+',
-            'UVa': r'(🔷\s+UVa.*?<td align="center"><strong>)[^<]+',
-            'HackerEarth': r'(🌐\s+HackerEarth.*?<td align="center"><strong>)[^<]+',
-        }
-        
-        if platform in platform_patterns:
-            pattern = platform_patterns[platform]
+        if platform in PLATFORM_PATTERNS:
+            pattern = PLATFORM_PATTERNS[platform]
             replacement = rf'\g<1>{count}'
             readme_content = re.sub(pattern, replacement, readme_content, flags=re.DOTALL)
         
