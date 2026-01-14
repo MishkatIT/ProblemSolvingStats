@@ -124,18 +124,18 @@ def update_readme(stats):
         
         # Different platforms have different emoji markers
         platform_patterns = {
-            'Codeforces': r'(🔴\s+Codeforces.*?<td align="center"><strong>)\d+',
-            'LeetCode': r'(🟢\s+LeetCode.*?<td align="center"><strong>)\d+',
-            'Vjudge': r'(🟣\s+Vjudge.*?<td align="center"><strong>)\d+',
-            'AtCoder': r'(🟠\s+AtCoder.*?<td align="center"><strong>)\d+',
-            'CodeChef': r'(🟤\s+CodeChef.*?<td align="center"><strong>)\d+',
-            'CSES': r'(⚪\s+CSES.*?<td align="center"><strong>)\d+',
-            'Toph': r'(🔵\s+Toph.*?<td align="center"><strong>)\d+',
-            'LightOJ': r'(🟡\s+LightOJ.*?<td align="center"><strong>)\d+',
-            'SPOJ': r'(🟩\s+SPOJ.*?<td align="center"><strong>)\d+',
-            'HackerRank': r'(💚\s+HackerRank.*?<td align="center"><strong>)\d+',
-            'UVa': r'(🔷\s+UVa.*?<td align="center"><strong>)\d+',
-            'HackerEarth': r'(🌐\s+HackerEarth.*?<td align="center"><strong>)\d+',
+            'Codeforces': r'(🔴\s+Codeforces.*?<td align="center"><strong>)[^<]+',
+            'LeetCode': r'(🟢\s+LeetCode.*?<td align="center"><strong>)[^<]+',
+            'Vjudge': r'(🟣\s+Vjudge.*?<td align="center"><strong>)[^<]+',
+            'AtCoder': r'(🟠\s+AtCoder.*?<td align="center"><strong>)[^<]+',
+            'CodeChef': r'(🟤\s+CodeChef.*?<td align="center"><strong>)[^<]+',
+            'CSES': r'(⚪\s+CSES.*?<td align="center"><strong>)[^<]+',
+            'Toph': r'(🔵\s+Toph.*?<td align="center"><strong>)[^<]+',
+            'LightOJ': r'(🟡\s+LightOJ.*?<td align="center"><strong>)[^<]+',
+            'SPOJ': r'(🟩\s+SPOJ.*?<td align="center"><strong>)[^<]+',
+            'HackerRank': r'(💚\s+HackerRank.*?<td align="center"><strong>)[^<]+',
+            'UVa': r'(🔷\s+UVa.*?<td align="center"><strong>)[^<]+',
+            'HackerEarth': r'(🌐\s+HackerEarth.*?<td align="center"><strong>)[^<]+',
         }
         
         if platform in platform_patterns:
