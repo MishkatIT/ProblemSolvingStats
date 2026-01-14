@@ -90,10 +90,32 @@ def update_readme(stats):
     
     # Update individual platform counts
     for platform, count in stats.items():
+        platform_name, color = platform_mapping.get(platform, (platform, 'blue'))
+        
         if count is None:
+            # Handle failed fetches - mark as "Will be updated manually"
+            # Update solved count in table to show it couldn't be fetched
+            platform_patterns = {
+                'Codeforces': r'(🔴\s+Codeforces.*?<td align="center"><strong>)[^<]+',
+                'LeetCode': r'(🟢\s+LeetCode.*?<td align="center"><strong>)[^<]+',
+                'Vjudge': r'(🟣\s+Vjudge.*?<td align="center"><strong>)[^<]+',
+                'AtCoder': r'(🟠\s+AtCoder.*?<td align="center"><strong>)[^<]+',
+                'CodeChef': r'(🟤\s+CodeChef.*?<td align="center"><strong>)[^<]+',
+                'CSES': r'(⚪\s+CSES.*?<td align="center"><strong>)[^<]+',
+                'Toph': r'(🔵\s+Toph.*?<td align="center"><strong>)[^<]+',
+                'LightOJ': r'(🟡\s+LightOJ.*?<td align="center"><strong>)[^<]+',
+                'SPOJ': r'(🟩\s+SPOJ.*?<td align="center"><strong>)[^<]+',
+                'HackerRank': r'(💚\s+HackerRank.*?<td align="center"><strong>)[^<]+',
+                'UVa': r'(🔷\s+UVa.*?<td align="center"><strong>)[^<]+',
+                'HackerEarth': r'(🌐\s+HackerEarth.*?<td align="center"><strong>)[^<]+',
+            }
+            
+            if platform in platform_patterns:
+                pattern = platform_patterns[platform]
+                replacement = rf'\g<1>⏳ Will be updated manually'
+                readme_content = re.sub(pattern, replacement, readme_content, flags=re.DOTALL)
             continue
         
-        platform_name, color = platform_mapping.get(platform, (platform, 'blue'))
         percentage = calculate_percentage(count, total)
         
         # Update solved count in table
@@ -132,32 +154,6 @@ def update_readme(stats):
         rf'\g<1>{total}',
         readme_content
     )
-    
-    # Update achievement breakdown (the ASCII bar chart)
-    # This is more complex, we'll update the numbers at the end of each line
-    breakdown_updates = {
-        'Codeforces': stats.get('Codeforces'),
-        'LeetCode': stats.get('LeetCode'),
-        'Vjudge': stats.get('Vjudge'),
-        'AtCoder': stats.get('AtCoder'),
-        'CodeChef': stats.get('CodeChef'),
-        'CSES': stats.get('CSES'),
-        'Toph': stats.get('Toph'),
-        'LightOJ': stats.get('LightOJ'),
-        'SPOJ': stats.get('SPOJ'),
-        'HackerRank': stats.get('HackerRank'),
-        'UVa': stats.get('UVa'),
-        'HackerEarth': stats.get('HackerEarth'),
-    }
-    
-    for platform, count in breakdown_updates.items():
-        if count is None:
-            continue
-        
-        # Pattern to match lines like: █████... Codeforces  2470
-        pattern = rf'(█*\s+{platform}\s+)\d+'
-        replacement = rf'\g<1>{count}'
-        readme_content = re.sub(pattern, replacement, readme_content)
     
     # Update key highlights if Codeforces is the top platform
     if stats.get('Codeforces'):
