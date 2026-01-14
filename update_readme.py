@@ -281,7 +281,8 @@ def update_readme(stats, last_known_info=None, update_source=None):
         readme_content = re.sub(progress_pattern, progress_replacement, readme_content, flags=re.DOTALL)
 
         # Update the "Updated On" column for each platform
-        updated_on_pattern = rf'({platform_name}.*?<td align="center">\d+.*?<td align="center">\d+\.\d+%.*?<td align="center">).*?;sljdkf.*?</td>'
+        # Pattern matches: platform name -> any content -> progress badge -> updated on cell
+        updated_on_pattern = rf'({platform_name}.*?Progress-{percentage}%25.*?<td align="center">).*?</td>'
         updated_on_replacement = rf'\g<1>{date_str}</td>'
         readme_content = re.sub(updated_on_pattern, updated_on_replacement, readme_content, flags=re.DOTALL)
     
@@ -290,6 +291,14 @@ def update_readme(stats, last_known_info=None, update_source=None):
         r'(<td align="center"><strong style="font-size: 1\.2em;">)\d+',
         rf'\g<1>{total}',
         readme_content
+    )
+    
+    # Update the "Updated On" column in the footer (total row)
+    readme_content = re.sub(
+        r'(TOTAL.*?<td align="center"><strong>100%</strong></td>\s*<td align="center">).*?</td>',
+        rf'\g<1>{current_date}</td>',
+        readme_content,
+        flags=re.DOTALL
     )
     
     # Update key highlights if Codeforces is the top platform
