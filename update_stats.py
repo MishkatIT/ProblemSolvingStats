@@ -30,6 +30,7 @@ class PlatformStats:
                 data = json.load(f)
                 return data
         except FileNotFoundError:
+            # File doesn't exist yet, will be created on first save
             pass
         except Exception as e:
             print(f"Warning: Could not load last known counts: {e}")
@@ -181,6 +182,9 @@ class PlatformStats:
     
     def get_codechef(self):
         """Fetch CodeChef statistics using web scraping."""
+        # Maximum reasonable problem count to detect parsing errors
+        MAX_REASONABLE_COUNT = 10000
+        
         try:
             url = "https://www.codechef.com/users/MishkatIT"
             html = self.fetch_url(url)
@@ -204,7 +208,7 @@ class PlatformStats:
                     if match:
                         count = int(match.group(1))
                         # Sanity check - CodeChef count should be reasonable
-                        if 0 < count < 10000:
+                        if 0 < count < MAX_REASONABLE_COUNT:
                             print(f"  Found using pattern: {pattern[:50]}...")
                             return count
                 

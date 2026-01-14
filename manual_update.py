@@ -67,8 +67,10 @@ def save_last_known_counts(stats):
         try:
             with open('last_known_counts.json', 'r') as f:
                 last_known = json.load(f)
-        except Exception:
-            pass
+        except (json.JSONDecodeError, IOError) as e:
+            # Log the error but continue with default structure
+            print(f"Warning: Could not load existing last_known_counts.json: {e}")
+            print("Starting with fresh data structure.")
     
     # Update with new stats
     for platform, count in stats.items():
