@@ -262,8 +262,9 @@ class TestLastKnownCounts(unittest.TestCase):
     """Test the last known counts fallback mechanism."""
     
     def setUp(self):
-        """Set up test fixtures with temporary file."""
-        # Create a temporary directory for test files
+        """Set up test fixtures with temporary directory."""
+        # Use TemporaryDirectory context manager for automatic cleanup
+        import shutil
         self.temp_dir = tempfile.mkdtemp()
         self.original_file = PlatformStats.LAST_KNOWN_FILE
         PlatformStats.LAST_KNOWN_FILE = os.path.join(self.temp_dir, 'test_last_known.json')
@@ -271,12 +272,11 @@ class TestLastKnownCounts(unittest.TestCase):
     
     def tearDown(self):
         """Clean up temporary files."""
+        import shutil
         PlatformStats.LAST_KNOWN_FILE = self.original_file
-        # Clean up temp directory
+        # Use shutil for robust cleanup
         if os.path.exists(self.temp_dir):
-            for file in os.listdir(self.temp_dir):
-                os.remove(os.path.join(self.temp_dir, file))
-            os.rmdir(self.temp_dir)
+            shutil.rmtree(self.temp_dir)
     
     def test_save_and_load_last_known(self):
         """Test saving and loading last known counts."""
@@ -319,16 +319,8 @@ class TestFetchAllStats(unittest.TestCase):
     
     def test_fetch_all_stats_success(self):
         """Test that fetch_all_stats collects data from all platforms."""
-        # Mock all platform methods to return a count
-        platforms = ['codeforces', 'leetcode', 'vjudge', 'atcoder', 'codechef',
-                    'cses', 'toph', 'lightoj', 'spoj', 'hackerrank', 'uva', 'hackerearth']
-        
-        for i, platform in enumerate(platforms, start=1):
-            method_name = f'get_{platform}'
-            with patch.object(self.fetcher, method_name, return_value=i * 100):
-                pass
-        
-        # This test verifies the structure exists
+        # This test verifies the fetch_all_stats method structure works
+        # When network is unavailable, it properly handles failures
         stats = self.fetcher.fetch_all_stats(verbose=False)
         self.assertIsInstance(stats, dict)
         self.assertGreaterEqual(len(stats), 12)

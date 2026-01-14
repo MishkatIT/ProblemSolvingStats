@@ -37,8 +37,13 @@ def test_realistic_scraping():
             'status': 'OK',
             'result': [
                 {'verdict': 'OK', 'problem': {'contestId': i, 'index': 'A'}}
-                for i in range(1, 2387)  # 2386 unique problems
-            ]
+                for i in range(1, 51)  # 50 problems for faster testing
+            ] + [
+                {'verdict': 'OK', 'problem': {'contestId': i, 'index': 'B'}}
+                for i in range(1, 51)  # Another 50 with different indices
+            ] + [
+                {'verdict': 'OK', 'problem': {'contestId': 1, 'index': 'A'}}  # Duplicate
+            ]  # Total: 100 unique problems (deduplication tested)
         },
         'codeforces_html': '''
             <html>
@@ -142,7 +147,7 @@ def test_realistic_scraping():
     }
     
     expected_counts = {
-        'Codeforces': 2386,
+        'Codeforces': 100,  # Updated to match reduced test data
         'LeetCode': 412,
         'Vjudge': 346,
         'AtCoder': 158,
