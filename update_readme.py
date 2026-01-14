@@ -5,6 +5,7 @@ Script to update README.md with the latest statistics from stats.json
 
 import json
 import re
+import os
 from datetime import datetime
 
 
@@ -19,6 +20,17 @@ def load_stats():
     except json.JSONDecodeError:
         print("Error parsing stats.json")
         return None
+
+
+def load_last_known_info():
+    """Load last known counts and dates."""
+    try:
+        if os.path.exists('last_known_counts.json'):
+            with open('last_known_counts.json', 'r') as f:
+                return json.load(f)
+    except Exception as e:
+        print(f"Warning: Could not load last known counts: {e}")
+    return {'counts': {}, 'dates': {}}
 
 
 def calculate_total(stats):
@@ -37,8 +49,13 @@ def calculate_percentage(solved, total):
     return round((solved / total) * 100, 1)
 
 
-def update_readme(stats):
-    """Update README.md with new statistics."""
+def update_readme(stats, last_known_info=None):
+    """Update README.md with new statistics.
+    
+    Args:
+        stats: Dictionary of platform stats (can contain None values)
+        last_known_info: Optional dict with 'counts' and 'dates' for platforms
+    """
     
     # Read current README
     try:
@@ -47,6 +64,10 @@ def update_readme(stats):
     except FileNotFoundError:
         print("README.md not found")
         return False
+    
+    # Load last known info if not provided
+    if last_known_info is None:
+        last_known_info = load_last_known_info()
     
     # Calculate total
     total = calculate_total(stats)
@@ -88,9 +109,9 @@ def update_readme(stats):
         'HackerEarth': ('HackerEarth', 'blue'),
     }
     
-    # Note format for failed fetches
-    NOT_UPDATED_NOTE = '<br/><small>(not updated this time)</small>'
-    NOT_UPDATED_TEXT = '(not updated this time)'  # Text portion for checking
+    # Note format for platforms using last known counts
+    NOT_UPDATED_NOTE = '<br/><small>(last updated: {date})</small>'
+    NOT_UPDATED_TEXT = '(last updated:'  # Text portion for checking
     NUMBER_PATTERN = r'\d+'  # Pattern to extract numbers
     
     # Platform patterns for updating counts in README table
@@ -109,6 +130,10 @@ def update_readme(stats):
         'UVa': r'(🔷\s+UVa.*?<td align="center"><strong>)(.*?)(</strong>)',
         'HackerEarth': r'(🌐\s+HackerEarth.*?<td align="center"><strong>)(.*?)(</strong>)',
     }
+    
+    # Determine which platforms were freshly updated vs using last known
+    last_known_counts = last_known_info.get('counts', {})
+    last_known_dates = last_known_info.get('dates', {})
     
     # Update individual platform counts
     for platform, count in stats.items():
@@ -130,18 +155,33 @@ def update_readme(stats):
                         if number_match:
                             number = number_match.group(0)
                             # Keep the existing count and add note
-                            replacement = rf'\g<1>{number} {NOT_UPDATED_NOTE}\g<3>'
+                            date_str = last_known_dates.get(platform, 'unknown')
+                            note = NOT_UPDATED_NOTE.format(date=date_str)
+                            replacement = rf'\g<1>{number} {note}\g<3>'
                             readme_content = re.sub(pattern, replacement, readme_content, flags=re.DOTALL, count=1)
             continue
         
         platform_name, color = platform_mapping.get(platform, (platform, 'blue'))
         percentage = calculate_percentage(count, total)
         
+        # Check if this is a fresh update or using last known count
+        is_fresh_update = (platform not in last_known_counts or 
+                          last_known_counts[platform] != count or
+                          last_known_dates.get(platform) == datetime.now().strftime('%Y-%m-%d'))
+        
         # Update solved count in table
         if platform in PLATFORM_PATTERNS:
             pattern = PLATFORM_PATTERNS[platform]
-            # Remove any "not updated" notes when we have a successful fetch
-            replacement = rf'\g<1>{count}\g<3>'
+            
+            if is_fresh_update:
+                # Remove any "not updated" notes when we have a fresh fetch
+                replacement = rf'\g<1>{count}\g<3>'
+            else:
+                # This is using last known count, add the date note
+                date_str = last_known_dates.get(platform, 'unknown')
+                note = NOT_UPDATED_NOTE.format(date=date_str)
+                replacement = rf'\g<1>{count} {note}\g<3>'
+            
             readme_content = re.sub(pattern, replacement, readme_content, flags=re.DOTALL, count=1)
         
         # Update progress percentage

@@ -4,6 +4,7 @@ Quick update script - Paste the solve counts directly here and run.
 """
 
 import json
+import os
 from datetime import datetime
 
 
@@ -31,6 +32,32 @@ CURRENT_STATS = {
 # ============================================================================
 
 
+def save_last_known_counts(stats):
+    """Save the manually entered statistics as last known counts."""
+    current_date = datetime.now().strftime('%Y-%m-%d')
+    
+    # Load existing data
+    last_known = {'counts': {}, 'dates': {}}
+    if os.path.exists('last_known_counts.json'):
+        try:
+            with open('last_known_counts.json', 'r') as f:
+                last_known = json.load(f)
+        except (json.JSONDecodeError, IOError) as e:
+            # Log the error but continue with default structure
+            print(f"Warning: Could not load existing last_known_counts.json: {e}")
+            print("Starting with fresh data structure.")
+    
+    # Update with new stats
+    for platform, count in stats.items():
+        if count is not None and isinstance(count, int):
+            last_known['counts'][platform] = count
+            last_known['dates'][platform] = current_date
+    
+    # Save
+    with open('last_known_counts.json', 'w') as f:
+        json.dump(last_known, f, indent=2)
+
+
 def main():
     """Update README with the stats defined above."""
     
@@ -56,6 +83,10 @@ def main():
     with open('stats.json', 'w') as f:
         json.dump(CURRENT_STATS, f, indent=2)
     print("\n✓ Statistics saved to stats.json")
+    
+    # Save last known counts with dates
+    save_last_known_counts(CURRENT_STATS)
+    print("✓ Last known counts updated")
     
     # Update README
     import update_readme
