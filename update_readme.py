@@ -89,29 +89,44 @@ def update_readme(stats):
     }
     
     # Platform patterns for updating counts in README table
+    # Match everything between <strong> and </strong> tags with 3 capture groups
     PLATFORM_PATTERNS = {
-        'Codeforces': r'(🔴\s+Codeforces.*?<td align="center"><strong>)[^<]+',
-        'LeetCode': r'(🟢\s+LeetCode.*?<td align="center"><strong>)[^<]+',
-        'Vjudge': r'(🟣\s+Vjudge.*?<td align="center"><strong>)[^<]+',
-        'AtCoder': r'(🟠\s+AtCoder.*?<td align="center"><strong>)[^<]+',
-        'CodeChef': r'(🟤\s+CodeChef.*?<td align="center"><strong>)[^<]+',
-        'CSES': r'(⚪\s+CSES.*?<td align="center"><strong>)[^<]+',
-        'Toph': r'(🔵\s+Toph.*?<td align="center"><strong>)[^<]+',
-        'LightOJ': r'(🟡\s+LightOJ.*?<td align="center"><strong>)[^<]+',
-        'SPOJ': r'(🟩\s+SPOJ.*?<td align="center"><strong>)[^<]+',
-        'HackerRank': r'(💚\s+HackerRank.*?<td align="center"><strong>)[^<]+',
-        'UVa': r'(🔷\s+UVa.*?<td align="center"><strong>)[^<]+',
-        'HackerEarth': r'(🌐\s+HackerEarth.*?<td align="center"><strong>)[^<]+',
+        'Codeforces': r'(🔴\s+Codeforces.*?<td align="center"><strong>)(.*?)(</strong>)',
+        'LeetCode': r'(🟢\s+LeetCode.*?<td align="center"><strong>)(.*?)(</strong>)',
+        'Vjudge': r'(🟣\s+Vjudge.*?<td align="center"><strong>)(.*?)(</strong>)',
+        'AtCoder': r'(🟠\s+AtCoder.*?<td align="center"><strong>)(.*?)(</strong>)',
+        'CodeChef': r'(🟤\s+CodeChef.*?<td align="center"><strong>)(.*?)(</strong>)',
+        'CSES': r'(⚪\s+CSES.*?<td align="center"><strong>)(.*?)(</strong>)',
+        'Toph': r'(🔵\s+Toph.*?<td align="center"><strong>)(.*?)(</strong>)',
+        'LightOJ': r'(🟡\s+LightOJ.*?<td align="center"><strong>)(.*?)(</strong>)',
+        'SPOJ': r'(🟩\s+SPOJ.*?<td align="center"><strong>)(.*?)(</strong>)',
+        'HackerRank': r'(💚\s+HackerRank.*?<td align="center"><strong>)(.*?)(</strong>)',
+        'UVa': r'(🔷\s+UVa.*?<td align="center"><strong>)(.*?)(</strong>)',
+        'HackerEarth': r'(🌐\s+HackerEarth.*?<td align="center"><strong>)(.*?)(</strong>)',
     }
     
     # Update individual platform counts
     for platform, count in stats.items():
         if count is None:
-            # Handle failed fetches - mark as "Will be updated manually"
+            # Handle failed fetches - keep the last count and add a note
             if platform in PLATFORM_PATTERNS:
                 pattern = PLATFORM_PATTERNS[platform]
-                replacement = rf'\g<1>⏳ Will be updated manually'
-                readme_content = re.sub(pattern, replacement, readme_content, flags=re.DOTALL)
+                # Extract the current count from README
+                match = re.search(pattern, readme_content, flags=re.DOTALL)
+                if match:
+                    current_value = match.group(2)  # The content between <strong> and </strong>
+                    # Extract just the number if there's a note already
+                    if 'not updated' in current_value.lower():
+                        # Already has note, keep as is
+                        continue
+                    else:
+                        # Extract just the number
+                        number_match = re.search(r'^\d+', current_value.strip())
+                        if number_match:
+                            number = number_match.group(0)
+                            # Keep the existing count and add note
+                            replacement = rf'\g<1>{number} <br/><small>(not updated this time)</small>\g<3>'
+                            readme_content = re.sub(pattern, replacement, readme_content, flags=re.DOTALL, count=1)
             continue
         
         platform_name, color = platform_mapping.get(platform, (platform, 'blue'))
@@ -120,8 +135,9 @@ def update_readme(stats):
         # Update solved count in table
         if platform in PLATFORM_PATTERNS:
             pattern = PLATFORM_PATTERNS[platform]
-            replacement = rf'\g<1>{count}'
-            readme_content = re.sub(pattern, replacement, readme_content, flags=re.DOTALL)
+            # Remove any "not updated" notes when we have a successful fetch
+            replacement = rf'\g<1>{count}\g<3>'
+            readme_content = re.sub(pattern, replacement, readme_content, flags=re.DOTALL, count=1)
         
         # Update progress percentage
         progress_pattern = rf'({platform_name}.*?Progress-)\d+\.?\d*%25'
