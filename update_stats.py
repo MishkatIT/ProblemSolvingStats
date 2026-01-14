@@ -570,6 +570,21 @@ def main():
     # Output JSON for easy parsing
     print("\n\nJSON Output:")
     print(json.dumps(stats, indent=2))
+
+    # Persist stats for README updater and repo tracking
+    try:
+        with open('stats.json', 'w', encoding='utf-8') as f:
+            json.dump(stats, f, indent=2)
+        print("\n✓ Saved statistics to stats.json")
+    except Exception as e:
+        print(f"\nWarning: Could not write stats.json: {e}")
+
+    # Update README after fetching (useful for scheduled automation)
+    try:
+        import update_readme
+        update_readme.update_readme(stats, last_known_info=fetcher.last_known_counts, update_source='automatic')
+    except Exception as e:
+        print(f"Warning: README update skipped/failed: {e}")
     
     return stats
 

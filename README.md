@@ -3,8 +3,12 @@
 # 🏆 Problem Solving Statistics
 
 [![Last Updated](https://img.shields.io/badge/Last%20Updated-15%20January%202026-blue?style=for-the-badge)](https://github.com/MishkatIT/ProblemSolvingStats)
-[![Total Problems](https://img.shields.io/badge/Total%20Solved-2600-success?style=for-the-badge&logo=leetcode)](https://github.com/MishkatIT/ProblemSolvingStats)
+[![Total Problems](https://img.shields.io/badge/Total%20Solved-3472-success?style=for-the-badge&logo=leetcode)](https://github.com/MishkatIT/ProblemSolvingStats)
 [![Platforms](https://img.shields.io/badge/Platforms-12-orange?style=for-the-badge)](https://github.com/MishkatIT/ProblemSolvingStats)
+
+<!-- UPDATE_METADATA_START -->
+<p align="center"><strong>Updated:</strong> 15 January 2026 • <strong>Mode:</strong> Automatic</p>
+<!-- UPDATE_METADATA_END -->
 
 ### 💻 Competitive Programming Journey
 
@@ -31,38 +35,38 @@
     <tr>
       <td><strong>🔴 Codeforces</strong></td>
       <td><a href="https://codeforces.com/profile/MishkatIT">MishkatIT</a></td>
-      <td align="center"><strong>2600</strong></td>
-      <td><img src="https://img.shields.io/badge/Progress-100.0%25-red?style=flat-square" alt="Codeforces Progress"/></td>
+      <td align="center"><strong>2386</strong></td>
+      <td><img src="https://img.shields.io/badge/Progress-68.7%25-red?style=flat-square" alt="Codeforces Progress"/></td>
     </tr>
     <tr>
       <td><strong>🟢 LeetCode</strong></td>
       <td><a href="https://leetcode.com/MishkatIT/">MishkatIT</a></td>
-      <td align="center"><strong>412 <br/><small>(last updated: unknown)</small></strong></td>
-      <td><img src="https://img.shields.io/badge/Progress-100.0%25-yellow?style=flat-square" alt="LeetCode Progress"/></td>
+      <td align="center"><strong>412</strong></td>
+      <td><img src="https://img.shields.io/badge/Progress-11.9%25-yellow?style=flat-square" alt="LeetCode Progress"/></td>
     </tr>
     <tr>
       <td><strong>🟣 Vjudge</strong></td>
       <td><a href="https://vjudge.net/user/MishkatIT">MishkatIT</a></td>
       <td align="center"><strong>346 <br/><small>(last updated: unknown)</small></strong></td>
-      <td><img src="https://img.shields.io/badge/Progress-14.5%25-blueviolet?style=flat-square" alt="Vjudge Progress"/></td>
+      <td><img src="https://img.shields.io/badge/Progress-10.0%25-blueviolet?style=flat-square" alt="Vjudge Progress"/></td>
     </tr>
     <tr>
       <td><strong>🟠 AtCoder</strong></td>
       <td><a href="https://atcoder.jp/users/MishkatIT">MishkatIT</a></td>
       <td align="center"><strong>158 <br/><small>(last updated: unknown)</small></strong></td>
-      <td><img src="https://img.shields.io/badge/Progress-4.4%25-orange?style=flat-square" alt="AtCoder Progress"/></td>
+      <td><img src="https://img.shields.io/badge/Progress-4.6%25-orange?style=flat-square" alt="AtCoder Progress"/></td>
     </tr>
     <tr>
       <td><strong>🟤 CodeChef</strong></td>
       <td><a href="https://www.codechef.com/users/MishkatIT">MishkatIT</a></td>
-      <td align="center"><strong>3 <br/><small>(last updated: unknown)</small></strong></td>
+      <td align="center"><strong>3</strong></td>
       <td><img src="https://img.shields.io/badge/Progress-0.1%25-brown?style=flat-square" alt="CodeChef Progress"/></td>
     </tr>
     <tr>
       <td><strong>⚪ CSES</strong></td>
       <td><a href="https://cses.fi/user/165802/">MishkatIT</a></td>
       <td align="center"><strong>64 <br/><small>(last updated: unknown)</small></strong></td>
-      <td><img src="https://img.shields.io/badge/Progress-0.1%25-lightgray?style=flat-square" alt="CSES Progress"/></td>
+      <td><img src="https://img.shields.io/badge/Progress-1.8%25-lightgray?style=flat-square" alt="CSES Progress"/></td>
     </tr>
     <tr>
       <td><strong>🔵 Toph</strong></td>
@@ -73,14 +77,14 @@
     <tr>
       <td><strong>🟡 LightOJ</strong></td>
       <td><a href="https://lightoj.com/user/mishkatit">MishkatIT</a></td>
-      <td align="center"><strong>31 <br/><small>(last updated: unknown)</small></strong></td>
-      <td><img src="https://img.shields.io/badge/Progress-1.1%25-yellow?style=flat-square" alt="LightOJ Progress"/></td>
+      <td align="center"><strong>31</strong></td>
+      <td><img src="https://img.shields.io/badge/Progress-0.9%25-yellow?style=flat-square" alt="LightOJ Progress"/></td>
     </tr>
     <tr>
       <td><strong>🟩 SPOJ</strong></td>
       <td><a href="https://www.spoj.com/users/mishkatit/">MishkatIT</a></td>
       <td align="center"><strong>21 <br/><small>(last updated: unknown)</small></strong></td>
-      <td><img src="https://img.shields.io/badge/Progress-1.1%25-green?style=flat-square" alt="SPOJ Progress"/></td>
+      <td><img src="https://img.shields.io/badge/Progress-0.6%25-green?style=flat-square" alt="SPOJ Progress"/></td>
     </tr>
     <tr>
       <td><strong>💚 HackerRank</strong></td>
@@ -91,20 +95,20 @@
     <tr>
       <td><strong>🔷 UVa</strong></td>
       <td><a href="https://uhunt.onlinejudge.org/id/1615470">MishkatIT</a></td>
-      <td align="center"><strong>6 <br/><small>(last updated: unknown)</small></strong></td>
+      <td align="center"><strong>6</strong></td>
       <td><img src="https://img.shields.io/badge/Progress-0.2%25-blue?style=flat-square" alt="UVa Progress"/></td>
     </tr>
     <tr>
       <td><strong>🌐 HackerEarth</strong></td>
       <td><a href="https://www.hackerearth.com/@MishkatIT">MishkatIT</a></td>
       <td align="center"><strong>3 <br/><small>(last updated: unknown)</small></strong></td>
-      <td><img src="https://img.shields.io/badge/Progress-0.2%25-blue?style=flat-square" alt="HackerEarth Progress"/></td>
+      <td><img src="https://img.shields.io/badge/Progress-0.1%25-blue?style=flat-square" alt="HackerEarth Progress"/></td>
     </tr>
   </tbody>
   <tfoot>
     <tr>
       <td colspan="2" align="center"><strong>🎖️ TOTAL</strong></td>
-      <td align="center"><strong style="font-size: 1.2em;">2600</strong></td>
+      <td align="center"><strong style="font-size: 1.2em;">3472</strong></td>
       <td align="center"><strong>100%</strong></td>
     </tr>
   </tfoot>
@@ -119,7 +123,7 @@
 | 🥇 Top Platform | 🎯 Main Focus | 📚 Platforms Active |
 |:---------------:|:-------------:|:------------------:|
 | **Codeforces** | **Competitive Programming** | **12** |
-| 2600 Problems | Algorithm Mastery | Multi-Platform |
+| 2386 Problems | Algorithm Mastery | Multi-Platform |
 
 </div>
 

@@ -6,6 +6,7 @@ Script to update README.md with the latest statistics from stats.json
 import json
 import re
 import os
+import sys
 from datetime import datetime
 
 
@@ -58,6 +59,60 @@ def calculate_total(stats):
     return total
 
 
+def _format_human_date(date_str):
+    """Convert an ISO date (YYYY-MM-DD) to a human-readable date.
+
+    Falls back to the original string if parsing fails.
+    """
+    if not date_str or date_str == 'unknown':
+        return 'unknown'
+    try:
+        return datetime.strptime(date_str, '%Y-%m-%d').strftime('%d %B %Y')
+    except Exception:
+        return date_str
+
+
+def _extract_first_int(text):
+    match = re.search(r'\d+', text or '')
+    return int(match.group(0)) if match else None
+
+
+def _upsert_update_metadata_block(readme_content, *, current_date_human, update_source):
+    """Insert or update a stable metadata block in README.
+
+    This prevents regex-based drift and makes updates idempotent.
+    """
+    update_source_title = {
+        'manual': 'Manual',
+        'automatic': 'Automatic',
+    }.get((update_source or '').strip().lower(), 'Unknown')
+
+    block = (
+        '<!-- UPDATE_METADATA_START -->\n'
+        f'<p align="center"><strong>Updated:</strong> {current_date_human} '
+        f'• <strong>Mode:</strong> {update_source_title}</p>\n'
+        '<!-- UPDATE_METADATA_END -->'
+    )
+
+    if '<!-- UPDATE_METADATA_START -->' in readme_content and '<!-- UPDATE_METADATA_END -->' in readme_content:
+        return re.sub(
+            r'<!-- UPDATE_METADATA_START -->.*?<!-- UPDATE_METADATA_END -->',
+            block,
+            readme_content,
+            flags=re.DOTALL,
+            count=1,
+        )
+
+    # Insert after the badge lines near the top.
+    badge_anchor = re.search(r'\[!\[Platforms\]\([^\n]*\)\]\([^\n]*\)\s*', readme_content)
+    if badge_anchor:
+        insert_at = badge_anchor.end()
+        return readme_content[:insert_at] + "\n\n" + block + readme_content[insert_at:]
+
+    # Fallback: insert at the beginning.
+    return block + "\n\n" + readme_content
+
+
 def calculate_percentage(solved, total):
     """Calculate percentage for progress bar."""
     if total == 0:
@@ -65,12 +120,13 @@ def calculate_percentage(solved, total):
     return round((solved / total) * 100, 1)
 
 
-def update_readme(stats, last_known_info=None):
+def update_readme(stats, last_known_info=None, update_source=None):
     """Update README.md with new statistics.
     
     Args:
         stats: Dictionary of platform stats (can contain None values)
         last_known_info: Optional dict with 'counts' and 'dates' for platforms
+        update_source: 'manual' or 'automatic' (used for README metadata)
     """
     
     # Read current README
@@ -84,29 +140,10 @@ def update_readme(stats, last_known_info=None):
     if last_known_info is None:
         last_known_info = load_last_known_info()
     
-    # Calculate total
-    total = calculate_total(stats)
-    
-    if total == 0:
-        print("No valid statistics found. Skipping README update.")
-        return False
-    
     # Get current date
-    current_date = datetime.now().strftime("%d %B %Y")
-    
-    # Update last updated badge
-    readme_content = re.sub(
-        r'Last%20Updated-[^-]+-blue',
-        f'Last%20Updated-{current_date.replace(" ", "%20")}-blue',
-        readme_content
-    )
-    
-    # Update total problems badge
-    readme_content = re.sub(
-        r'Total%20Solved-\d+-success',
-        f'Total%20Solved-{total}-success',
-        readme_content
-    )
+    now = datetime.now()
+    current_date = now.strftime("%d %B %Y")
+    today_iso = now.strftime('%Y-%m-%d')
     
     # Platform mappings
     platform_mapping = {
@@ -149,56 +186,87 @@ def update_readme(stats, last_known_info=None):
     # Determine which platforms were freshly updated vs using last known
     last_known_counts = last_known_info.get('counts', {})
     last_known_dates = last_known_info.get('dates', {})
-    
-    # Update individual platform counts
-    for platform, count in stats.items():
-        if count is None:
-            # Handle failed fetches - keep the last count and add a note
-            if platform in PLATFORM_PATTERNS:
-                pattern = PLATFORM_PATTERNS[platform]
-                # Extract the current count from README
-                match = re.search(pattern, readme_content, flags=re.DOTALL)
-                if match:
-                    current_value = match.group(2)  # The content between <strong> and </strong>
-                    # Check if note already exists
-                    if NOT_UPDATED_TEXT in current_value:
-                        # Already has note, keep as is
-                        continue
-                    else:
-                        # Extract just the number (handles any HTML/whitespace before it)
-                        number_match = re.search(NUMBER_PATTERN, current_value)
-                        if number_match:
-                            number = number_match.group(0)
-                            # Keep the existing count and add note
-                            date_str = last_known_dates.get(platform, 'unknown')
-                            note = NOT_UPDATED_NOTE.format(date=date_str)
-                            replacement = rf'\g<1>{number} {note}\g<3>'
-                            readme_content = re.sub(pattern, replacement, readme_content, flags=re.DOTALL, count=1)
+
+    # Build effective counts for totals/progress (prefer stats, then last-known, then README)
+    effective_counts = {}
+    for platform in PLATFORM_PATTERNS.keys():
+        value = stats.get(platform)
+        if isinstance(value, int):
+            effective_counts[platform] = value
             continue
-        
-        platform_name, color = platform_mapping.get(platform, (platform, 'blue'))
-        percentage = calculate_percentage(count, total)
-        
-        # Check if this is a fresh update or using last known count
-        is_fresh_update = (platform not in last_known_counts or 
-                          last_known_counts[platform] != count or
-                          last_known_dates.get(platform) == datetime.now().strftime('%Y-%m-%d'))
-        
+
+        cached = last_known_counts.get(platform)
+        if isinstance(cached, int):
+            effective_counts[platform] = cached
+            continue
+
+        # Last resort: parse existing README table value
+        pattern = PLATFORM_PATTERNS.get(platform)
+        match = re.search(pattern, readme_content, flags=re.DOTALL) if pattern else None
+        if match:
+            parsed = _extract_first_int(match.group(2))
+            if parsed is not None:
+                effective_counts[platform] = parsed
+                continue
+
+        effective_counts[platform] = None
+
+    # Calculate total from effective counts
+    total = sum(v for v in effective_counts.values() if isinstance(v, int))
+
+    if total == 0:
+        print("No valid statistics found. Skipping README update.")
+        return False
+
+    # Update last updated badge
+    readme_content = re.sub(
+        r'Last%20Updated-[^-]+-blue',
+        f'Last%20Updated-{current_date.replace(" ", "%20")}-blue',
+        readme_content
+    )
+
+    # Update total problems badge
+    readme_content = re.sub(
+        r'Total%20Solved-\d+-success',
+        f'Total%20Solved-{total}-success',
+        readme_content
+    )
+    
+    # Add/update the explicit update metadata block (date + manual/automatic)
+    readme_content = _upsert_update_metadata_block(
+        readme_content,
+        current_date_human=current_date,
+        update_source=update_source,
+    )
+
+    # Update individual platform counts and progress for all known platforms
+    for platform in PLATFORM_PATTERNS.keys():
+        count_effective = effective_counts.get(platform)
+        if not isinstance(count_effective, int):
+            # Nothing we can safely update for this row.
+            continue
+
+        platform_name, _color = platform_mapping.get(platform, (platform, 'blue'))
+        percentage = calculate_percentage(count_effective, total)
+
+        # Consider the platform "fresh" if last-known date is today AND stats provided a value.
+        is_fresh_update = (
+            last_known_dates.get(platform) == today_iso and isinstance(stats.get(platform), int)
+        )
+
         # Update solved count in table
-        if platform in PLATFORM_PATTERNS:
-            pattern = PLATFORM_PATTERNS[platform]
-            
-            if is_fresh_update:
-                # Remove any "not updated" notes when we have a fresh fetch
-                replacement = rf'\g<1>{count}\g<3>'
-            else:
-                # This is using last known count, add the date note
-                date_str = last_known_dates.get(platform, 'unknown')
-                note = NOT_UPDATED_NOTE.format(date=date_str)
-                replacement = rf'\g<1>{count} {note}\g<3>'
-            
-            readme_content = re.sub(pattern, replacement, readme_content, flags=re.DOTALL, count=1)
-        
+        pattern = PLATFORM_PATTERNS[platform]
+        if is_fresh_update:
+            # Remove any cached note
+            replacement = rf'\g<1>{count_effective}\g<3>'
+        else:
+            # Add cached note with last-known date (humanized)
+            date_str = _format_human_date(last_known_dates.get(platform, 'unknown'))
+            note = NOT_UPDATED_NOTE.format(date=date_str)
+            replacement = rf'\g<1>{count_effective} {note}\g<3>'
+
+        readme_content = re.sub(pattern, replacement, readme_content, flags=re.DOTALL, count=1)
+
         # Update progress percentage
         progress_pattern = rf'({platform_name}.*?Progress-)\d+\.?\d*%25'
         progress_replacement = rf'\g<1>{percentage}%25'
@@ -212,8 +280,8 @@ def update_readme(stats, last_known_info=None):
     )
     
     # Update key highlights if Codeforces is the top platform
-    if stats.get('Codeforces') is not None:
-        cf_count = stats['Codeforces']
+    if isinstance(effective_counts.get('Codeforces'), int):
+        cf_count = effective_counts['Codeforces']
         readme_content = re.sub(
             r'(\| )\d+( Problems \|)',
             rf'\g<1>{cf_count}\g<2>',
@@ -235,6 +303,11 @@ def update_readme(stats, last_known_info=None):
 
 def main():
     """Main function."""
+    # Allow passing update source via CLI or env var (useful for GitHub Actions).
+    update_source = os.environ.get('UPDATE_SOURCE')
+    if len(sys.argv) >= 3 and sys.argv[1] in ('--source', '-s'):
+        update_source = sys.argv[2]
+
     print("Loading statistics...")
     stats = load_stats()
     
@@ -247,7 +320,7 @@ def main():
             print(f"  {platform}: {count}")
     
     print("\nUpdating README.md...")
-    success = update_readme(stats)
+    success = update_readme(stats, update_source=update_source)
     
     return 0 if success else 1
 
