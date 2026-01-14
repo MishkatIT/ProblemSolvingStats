@@ -263,6 +263,31 @@ class PlatformStats:
             url = "https://www.codechef.com/users/MishkatIT"
             html = self.fetch_url(url)
             if html:
+                # Prefer the explicit summary line many profiles include:
+                # e.g. "Total Problems Solved: 123"
+                explicit_patterns = [
+                    r'Total\s+Problems\s+Solved\s*:\s*(\d+)',
+                    r'Total\s+Problems\s+Solved\s*</[^>]+>\s*(\d+)',
+                ]
+
+                # Search raw HTML first
+                for pattern in explicit_patterns:
+                    match = re.search(pattern, html, re.IGNORECASE | re.DOTALL)
+                    if match:
+                        count = int(match.group(1))
+                        if 0 <= count < self.MAX_REASONABLE_COUNT:
+                            return count
+
+                # Then search a tag-stripped version to handle HTML elements between words
+                text_only = re.sub(r'<[^>]+>', ' ', html)
+                text_only = re.sub(r'\s+', ' ', text_only)
+                for pattern in explicit_patterns:
+                    match = re.search(pattern, text_only, re.IGNORECASE)
+                    if match:
+                        count = int(match.group(1))
+                        if 0 <= count < self.MAX_REASONABLE_COUNT:
+                            return count
+
                 # Try multiple patterns to extract the problem count
                 patterns = [
                     # CodeChef specific patterns
@@ -284,7 +309,7 @@ class PlatformStats:
                     if match:
                         count = int(match.group(1))
                         # Sanity check - CodeChef count should be reasonable
-                        if 0 < count < self.MAX_REASONABLE_COUNT:
+                        if 0 <= count < self.MAX_REASONABLE_COUNT:
                             return count
                 
                 # If no pattern matched, log for debugging

@@ -3,7 +3,7 @@
 # 🏆 Problem Solving Statistics
 
 [![Last Updated](https://img.shields.io/badge/Last%20Updated-15%20January%202026-blue?style=for-the-badge)](https://github.com/MishkatIT/ProblemSolvingStats)
-[![Total Problems](https://img.shields.io/badge/Total%20Solved-3526-success?style=for-the-badge&logo=leetcode)](https://github.com/MishkatIT/ProblemSolvingStats)
+[![Total Problems](https://img.shields.io/badge/Total%20Solved-3646-success?style=for-the-badge&logo=leetcode)](https://github.com/MishkatIT/ProblemSolvingStats)
 [![Platforms](https://img.shields.io/badge/Platforms-12-orange?style=for-the-badge)](https://github.com/MishkatIT/ProblemSolvingStats)
 
 <!-- UPDATE_METADATA_START -->
@@ -36,31 +36,31 @@
       <td><strong>🔴 Codeforces</strong></td>
       <td><a href="https://codeforces.com/profile/MishkatIT">MishkatIT</a></td>
       <td align="center"><strong>2386</strong></td>
-      <td><img src="https://img.shields.io/badge/Progress-67.7%25-red?style=flat-square" alt="Codeforces Progress"/></td>
+      <td><img src="https://img.shields.io/badge/Progress-65.4%25-red?style=flat-square" alt="Codeforces Progress"/></td>
     </tr>
     <tr>
       <td><strong>🟢 LeetCode</strong></td>
       <td><a href="https://leetcode.com/MishkatIT/">MishkatIT</a></td>
       <td align="center"><strong>412</strong></td>
-      <td><img src="https://img.shields.io/badge/Progress-11.7%25-yellow?style=flat-square" alt="LeetCode Progress"/></td>
+      <td><img src="https://img.shields.io/badge/Progress-11.3%25-yellow?style=flat-square" alt="LeetCode Progress"/></td>
     </tr>
     <tr>
       <td><strong>🟣 Vjudge</strong></td>
       <td><a href="https://vjudge.net/user/MishkatIT">MishkatIT</a></td>
       <td align="center"><strong>400</strong></td>
-      <td><img src="https://img.shields.io/badge/Progress-11.3%25-blueviolet?style=flat-square" alt="Vjudge Progress"/></td>
+      <td><img src="https://img.shields.io/badge/Progress-11.0%25-blueviolet?style=flat-square" alt="Vjudge Progress"/></td>
     </tr>
     <tr>
       <td><strong>🟠 AtCoder</strong></td>
       <td><a href="https://atcoder.jp/users/MishkatIT">MishkatIT</a></td>
       <td align="center"><strong>158 <br/><small>(last updated: unknown)</small></strong></td>
-      <td><img src="https://img.shields.io/badge/Progress-4.5%25-orange?style=flat-square" alt="AtCoder Progress"/></td>
+      <td><img src="https://img.shields.io/badge/Progress-4.3%25-orange?style=flat-square" alt="AtCoder Progress"/></td>
     </tr>
     <tr>
       <td><strong>🟤 CodeChef</strong></td>
       <td><a href="https://www.codechef.com/users/MishkatIT">MishkatIT</a></td>
-      <td align="center"><strong>3</strong></td>
-      <td><img src="https://img.shields.io/badge/Progress-0.1%25-brown?style=flat-square" alt="CodeChef Progress"/></td>
+      <td align="center"><strong>123</strong></td>
+      <td><img src="https://img.shields.io/badge/Progress-3.4%25-brown?style=flat-square" alt="CodeChef Progress"/></td>
     </tr>
     <tr>
       <td><strong>⚪ CSES</strong></td>
@@ -108,7 +108,7 @@
   <tfoot>
     <tr>
       <td colspan="2" align="center"><strong>🎖️ TOTAL</strong></td>
-      <td align="center"><strong style="font-size: 1.2em;">3526</strong></td>
+      <td align="center"><strong style="font-size: 1.2em;">3646</strong></td>
       <td align="center"><strong>100%</strong></td>
     </tr>
   </tfoot>
