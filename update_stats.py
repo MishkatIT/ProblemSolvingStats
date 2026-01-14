@@ -26,10 +26,11 @@ class PlatformStats:
     def _load_last_known_counts(self):
         """Load the last known good counts from file."""
         try:
-            if os.path.exists(self.LAST_KNOWN_FILE):
-                with open(self.LAST_KNOWN_FILE, 'r') as f:
-                    data = json.load(f)
-                    return data
+            with open(self.LAST_KNOWN_FILE, 'r') as f:
+                data = json.load(f)
+                return data
+        except FileNotFoundError:
+            pass
         except Exception as e:
             print(f"Warning: Could not load last known counts: {e}")
         return {'counts': {}, 'dates': {}}

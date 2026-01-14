@@ -42,7 +42,7 @@ def save_last_known_counts(stats):
         try:
             with open('last_known_counts.json', 'r') as f:
                 last_known = json.load(f)
-        except:
+        except Exception:
             pass
     
     # Update with new stats
