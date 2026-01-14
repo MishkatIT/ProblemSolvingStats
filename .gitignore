@@ -1,0 +1,4 @@
+stats.json
+__pycache__/
+*.pyc
+*.pyo
