@@ -244,10 +244,8 @@ class PlatformStats:
                 # Count unique problems with AC (Accepted) result
                 solved = set()
                 for sub in data:
-                    if isinstance(sub, dict) and sub.get('result') == 'AC':
-                        problem_id = sub.get('problem_id')
-                        if problem_id:
-                            solved.add(problem_id)
+                    if isinstance(sub, dict) and sub.get('result') == 'AC' and sub.get('problem_id'):
+                        solved.add(sub['problem_id'])
                 count = len(solved)
                 if 0 < count < self.MAX_REASONABLE_COUNT:
                     return count
