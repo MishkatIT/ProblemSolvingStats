@@ -17,6 +17,7 @@ class PlatformStats:
     """Class to handle fetching statistics from different platforms."""
     
     LAST_KNOWN_FILE = 'last_known_counts.json'
+    MAX_REASONABLE_COUNT = 10000  # Maximum expected problem count for validation
     
     def __init__(self):
         self.stats = {}
@@ -182,9 +183,6 @@ class PlatformStats:
     
     def get_codechef(self):
         """Fetch CodeChef statistics using web scraping."""
-        # Maximum reasonable problem count to detect parsing errors
-        MAX_REASONABLE_COUNT = 10000
-        
         try:
             url = "https://www.codechef.com/users/MishkatIT"
             html = self.fetch_url(url)
@@ -208,7 +206,7 @@ class PlatformStats:
                     if match:
                         count = int(match.group(1))
                         # Sanity check - CodeChef count should be reasonable
-                        if 0 < count < MAX_REASONABLE_COUNT:
+                        if 0 < count < self.MAX_REASONABLE_COUNT:
                             return count
                 
                 # If no pattern matched, save HTML for debugging (in verbose mode)
