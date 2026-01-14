@@ -12,7 +12,7 @@ from datetime import datetime
 def load_stats():
     """Load statistics from stats.json file."""
     try:
-        with open('stats.json', 'r') as f:
+        with open('stats.json', 'r', encoding='utf-8') as f:
             return json.load(f)
     except FileNotFoundError:
         print("stats.json not found. Please run update_stats.py first.")
@@ -26,11 +26,27 @@ def load_last_known_info():
     """Load last known counts and dates."""
     try:
         if os.path.exists('last_known_counts.json'):
-            with open('last_known_counts.json', 'r') as f:
+            with open('last_known_counts.json', 'r', encoding='utf-8') as f:
                 return json.load(f)
     except Exception as e:
         print(f"Warning: Could not load last known counts: {e}")
     return {'counts': {}, 'dates': {}}
+
+
+def _read_text_file(path):
+    """Read a text file using UTF-8 (with BOM support).
+
+    On Windows, the default encoding can be cp1252 which may fail for UTF-8 files.
+    """
+    for encoding in ('utf-8', 'utf-8-sig'):
+        try:
+            with open(path, 'r', encoding=encoding) as f:
+                return f.read()
+        except UnicodeDecodeError:
+            continue
+    # Last resort: replace undecodable bytes so the update can proceed.
+    with open(path, 'r', encoding='utf-8', errors='replace') as f:
+        return f.read()
 
 
 def calculate_total(stats):
@@ -59,8 +75,7 @@ def update_readme(stats, last_known_info=None):
     
     # Read current README
     try:
-        with open('README.md', 'r') as f:
-            readme_content = f.read()
+        readme_content = _read_text_file('README.md')
     except FileNotFoundError:
         print("README.md not found")
         return False
@@ -207,7 +222,7 @@ def update_readme(stats, last_known_info=None):
     
     # Write updated README
     try:
-        with open('README.md', 'w') as f:
+        with open('README.md', 'w', encoding='utf-8', newline='\n') as f:
             f.write(readme_content)
         print(f"✓ README.md updated successfully!")
         print(f"  Total problems: {total}")
