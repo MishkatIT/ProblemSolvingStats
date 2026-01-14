@@ -9,6 +9,8 @@ on:
 jobs:
   update-stats:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write  # Required to push changes to repository
     
     steps:
       - name: Checkout repository
