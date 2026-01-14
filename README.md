@@ -125,6 +125,16 @@
 
 ---
 
+## 📝 How to Update Statistics
+
+This repository tracks problem-solving statistics manually. To update:
+
+1. Run `python3 manual_update.py` to input current statistics
+2. The script will prompt you to visit each platform and enter the current solve count
+3. Statistics are automatically saved and the README is updated
+
+---
+
 <div align="center">
 
 ### 🚀 Continuous Learning & Growth
