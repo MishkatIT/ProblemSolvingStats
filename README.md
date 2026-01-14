@@ -56,7 +56,7 @@
       <td><strong>🟤 CodeChef</strong></td>
       <td><a href="https://www.codechef.com/users/MishkatIT">MishkatIT</a></td>
       <td align="center"><strong>74</strong></td>
-      <td><img src="https://img.shields.io/badge/Progress-2.1%25-brown?style=flat-square" alt="CodeChef Progress"/></td>
+      <td><img src="https://img.shields.io/badge/Progress-2.1%25-8B4513?style=flat-square" alt="CodeChef Progress"/></td>
     </tr>
     <tr>
       <td><strong>⚪ CSES</strong></td>
