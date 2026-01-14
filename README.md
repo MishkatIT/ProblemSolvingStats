@@ -56,13 +56,13 @@
       <td><strong>🟤 CodeChef</strong></td>
       <td><a href="https://www.codechef.com/users/MishkatIT">MishkatIT</a></td>
       <td align="center"><strong>74</strong></td>
-      <td><img src="https://img.shields.io/badge/Progress-2.1%25-saddlebrown?style=flat-square" alt="CodeChef Progress"/></td>
+      <td><img src="https://img.shields.io/badge/Progress-2.1%25-brown?style=flat-square" alt="CodeChef Progress"/></td>
     </tr>
     <tr>
       <td><strong>⚪ CSES</strong></td>
       <td><a href="https://cses.fi/user/165802/">MishkatIT</a></td>
       <td align="center"><strong>64</strong></td>
-      <td><img src="https://img.shields.io/badge/Progress-1.8%25-lightgrey?style=flat-square" alt="CSES Progress"/></td>
+      <td><img src="https://img.shields.io/badge/Progress-1.8%25-lightgray?style=flat-square" alt="CSES Progress"/></td>
     </tr>
     <tr>
       <td><strong>🔵 Toph</strong></td>
