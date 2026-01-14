@@ -8,6 +8,16 @@ I've created automated tools to help you update your problem-solving statistics,
 
 This is the easiest way to update your statistics:
 
+### Step 0: Check which platforms are working (Optional)
+
+First, you can check which platforms are currently accessible:
+
+```bash
+python3 check_sites.py --check-all
+```
+
+This will show you which platforms are responding correctly and which ones are failing.
+
 ### Step 1: Visit each platform and note the current solve count
 
 1. **Codeforces**: https://codeforces.com/profile/MishkatIT
@@ -89,16 +99,19 @@ The workflow will:
 
 ## 📁 Files Created
 
+- `check_sites.py` - Diagnostic tool to check which platforms are working 🔍 **NEW**
 - `quick_update.py` - Easiest method: edit numbers and run ⭐ **RECOMMENDED**
 - `manual_update.py` - Interactive input method
 - `update_stats.py` - Automatic statistics fetcher
 - `update_readme.py` - Updates README from stats.json
 - `.github/workflows/update-stats.yml` - GitHub Actions workflow for automation
+- `SITE_CHECKER_GUIDE.md` - Complete guide for check_sites.py tool
 - `UPDATE_GUIDE.md` - Detailed guide with troubleshooting
 - `.gitignore` - Excludes temporary stats.json file
 
 ## 🎯 What I've Done
 
+✅ Created diagnostic tool to check platform status (`check_sites.py`)
 ✅ Created automated statistics fetching script
 ✅ Created README updater that preserves formatting
 ✅ Created interactive manual input script  
@@ -111,7 +124,12 @@ The workflow will:
 
 ## 💡 My Recommendation
 
-Use `quick_update.py` - it's the fastest and most reliable method:
+**Before updating**, check which platforms are working:
+```bash
+python3 check_sites.py --check-all
+```
+
+**Then use** `quick_update.py` - it's the fastest and most reliable method:
 
 1. Visit the 12 platforms (takes ~5-10 minutes)
 2. Update the numbers in `quick_update.py`
@@ -122,4 +140,6 @@ This gives you full control and works regardless of API availability or website 
 
 ---
 
-**Need help?** Check `UPDATE_GUIDE.md` for detailed instructions and troubleshooting.
+**Need help?** 
+- See `SITE_CHECKER_GUIDE.md` for platform diagnostics
+- Check `UPDATE_GUIDE.md` for detailed instructions and troubleshooting
