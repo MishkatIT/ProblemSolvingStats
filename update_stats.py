@@ -35,6 +35,8 @@ import os
 from urllib.request import urlopen, Request
 from urllib.error import URLError, HTTPError
 from datetime import datetime
+from bs4 import BeautifulSoup
+
 
 
 class PlatformStats:
@@ -106,38 +108,46 @@ class PlatformStats:
     def get_codeforces(self):
         """Fetch Codeforces statistics."""
         try:
-            # Try API first
-            url = "https://codeforces.com/api/user.status?handle=MishkatIT&from=1&count=10000"
-            data = self.fetch_url(url, use_api=True)
-            
-            if data and data.get('status') == 'OK':
-                submissions = data.get('result', [])
-                solved = set()
-                for sub in submissions:
-                    if sub.get('verdict') == 'OK':
-                        problem = sub.get('problem', {})
-                        problem_id = f"{problem.get('contestId')}_{problem.get('index')}"
-                        solved.add(problem_id)
-                return len(solved)
-            
-            # Fallback to scraping profile page
-            print("  API failed, trying web scraping...")
             url = "https://codeforces.com/profile/MishkatIT"
             html = self.fetch_url(url)
             if html:
-                # Try multiple patterns for problem count
                 patterns = [
-                    r'<div[^>]*>(\d+)</div>\s*<div[^>]*>problem',
-                    r'(\d+)\s+problem',
-                    r'>(\d+)<.*?>problem',
-                    r'problems?[:\s]+(\d+)',
+                    # actual current CF profile source (best)
+                    r'class="_UserActivityFrame_counterValue">\s*(\d+)\s+problems',
+
+                    # fallback (older / alternative)
+                    r'Problems\s+solved:\s*(\d+)',
+                    r'class="problem-count">\s*(\d+)\s*<',
+
+                    # legacy JS (rare)
+                    r'"solvedProblemCount"\s*:\s*(\d+)',
+                    r'"solvedProblems"\s*:\s*(\d+)',
+                    r'var\s+solvedProblems\s*=\s*(\d+)',
                 ]
-                for pattern in patterns:
-                    match = re.search(pattern, html, re.IGNORECASE)
-                    if match:
-                        count = int(match.group(1))
-                        if 0 < count < self.MAX_REASONABLE_COUNT:
-                            return count
+
+                for pat in patterns:
+                    m = re.search(pat, html, re.IGNORECASE)
+                    if m:
+                        cnt = int(m.group(1))
+                        if 0 < cnt < self.MAX_REASONABLE_COUNT:
+                            return cnt
+
+                print("  web scraping failed, Trying api...")
+            else:
+                url = "https://codeforces.com/api/user.status?handle=MishkatIT&from=1&count=10000"
+                data = self.fetch_url(url, use_api=True)
+                
+                if data and data.get('status') == 'OK':
+                    submissions = data.get('result', [])
+                    solved = set()
+                    for sub in submissions:
+                        if sub.get('verdict') == 'OK':
+                            problem = sub.get('problem', {})
+                            problem_id = f"{problem.get('contestId')}_{problem.get('index')}"
+                            solved.add(problem_id)
+                    return len(solved)
+                
+                print("  API failed")
         except Exception as e:
             print(f"  Error getting Codeforces stats: {e}")
         return None
@@ -214,8 +224,11 @@ class PlatformStats:
             url = "https://vjudge.net/user/MishkatIT"
             html = self.fetch_url(url)
             if html:
-                # Try multiple patterns for solved count
                 patterns = [
+                    # Exact match for current VJudge structure
+                    r'<a[^>]*title="Overall solved[^"]*"[^>]*>(\d+)</a>',
+
+                    # Fallbacks (in case HTML changes)
                     r'Solved[:\s]*<[^>]*>(\d+)',
                     r'Solved[:\s]*(\d+)',
                     r'<a[^>]*>(\d+)</a>[^<]*Solved',
@@ -223,12 +236,14 @@ class PlatformStats:
                     r'data-solved["\s:=]+(\d+)',
                     r'"solved"\s*:\s*(\d+)',
                 ]
+
                 for pattern in patterns:
                     match = re.search(pattern, html, re.IGNORECASE)
                     if match:
-                        count = int(match.group(1))
-                        if 0 < count < self.MAX_REASONABLE_COUNT:
-                            return count
+                        cnt = int(match.group(1))
+                        if 0 < cnt < self.MAX_REASONABLE_COUNT:
+                            return cnt
+
         except Exception as e:
             print(f"  Error getting Vjudge stats: {e}")
         return None
@@ -394,20 +409,13 @@ class PlatformStats:
             url = "https://toph.co/u/MishkatIT"
             html = self.fetch_url(url)
             if html:
-                # Try multiple patterns for solved count
-                patterns = [
-                    r'(\d+)\s+solved',
-                    r'Solved:\s*(\d+)',
-                    r'<span[^>]*>(\d+)</span>\s*<[^>]*>\s*solved',
-                    r'"solved"\s*:\s*(\d+)',
-                    r'data-solved["\s:=]+(\d+)',
-                ]
-                for pattern in patterns:
-                    match = re.search(pattern, html, re.IGNORECASE)
-                    if match:
-                        count = int(match.group(1))
-                        if 0 < count < self.MAX_REASONABLE_COUNT:
-                            return count
+                soup = BeautifulSoup(html, "html.parser")
+                for t in soup.select("div.title"):
+                    if t.text.strip() == "Solutions":
+                        cnt = int(t.find_previous("div", class_="value").text)
+                        return cnt
+
+
         except Exception as e:
             print(f"  Error getting Toph stats: {e}")
         return None

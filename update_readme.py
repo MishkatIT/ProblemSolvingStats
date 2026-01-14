@@ -162,7 +162,7 @@ def update_readme(stats, last_known_info=None, update_source=None):
     }
     
     # Note format for platforms using last known counts
-    NOT_UPDATED_NOTE = '<br/><small>(last updated: {date})</small>'
+    NOT_UPDATED_NOTE = '<br/><small>(Updated on {date})</small>'
     
     # Platform patterns for updating counts in README table
     # Match everything between <strong> and </strong> tags with 3 capture groups
@@ -294,7 +294,7 @@ def update_readme(stats, last_known_info=None, update_source=None):
             f.write(readme_content)
         print(f"✓ README.md updated successfully!")
         print(f"  Total problems: {total}")
-        print(f"  Last updated: {current_date}")
+        print(f"  Updated on {current_date}")
         return True
     except Exception as e:
         print(f"Error writing README.md: {e}")
