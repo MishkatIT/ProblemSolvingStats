@@ -8,7 +8,16 @@ The automated statistics fetcher (`update_stats.py`) cannot access external webs
 
 ## 📝 Available Tools
 
-### 1. quick_update.py ⭐ RECOMMENDED
+### 1. check_sites.py 🔍 NEW
+**Platform diagnostics and validation tool**
+
+- Check which platforms are working: `python3 check_sites.py --check-all`
+- Test specific platform: `python3 check_sites.py --site codeforces`
+- Validate against expected counts: `python3 check_sites.py --validate`
+- JSON output for automation: `python3 check_sites.py --check-all --json`
+- See **SITE_CHECKER_GUIDE.md** for detailed documentation
+
+### 2. quick_update.py ⭐ RECOMMENDED
 **Fastest and most reliable method**
 
 - Edit the `CURRENT_STATS` dictionary in the file
@@ -16,21 +25,21 @@ The automated statistics fetcher (`update_stats.py`) cannot access external webs
 - Automatically updates README.md
 - No external dependencies needed
 
-### 2. manual_update.py
+### 3. manual_update.py
 **Interactive terminal interface**
 
 - Run `python3 manual_update.py`
 - Provides interactive prompts for each platform
 - Guides you through the update process step-by-step
 
-### 3. update_stats.py + update_readme.py
+### 4. update_stats.py + update_readme.py
 **Automatic fetching (when network available)**
 
 - `update_stats.py` - Attempts to fetch from all platforms automatically
 - `update_readme.py` - Updates README.md from stats.json
 - Works only with unrestricted internet access
 
-### 4. GitHub Actions Workflow
+### 5. GitHub Actions Workflow
 **Automated weekly updates**
 
 - Location: `.github/workflows/update-stats.yml`
@@ -43,9 +52,16 @@ The automated statistics fetcher (`update_stats.py`) cannot access external webs
 - **HOW_TO_UPDATE.md** - Quick start guide (read this first!)
 - **UPDATE_GUIDE.md** - Comprehensive guide with all methods
 - **COUNTS_TEMPLATE.md** - Simple template to fill in counts
+- **SITE_CHECKER_GUIDE.md** - Complete guide for the check_sites.py tool
 - **This file** - Overview of all tools
 
 ## 🎯 Quick Start
+
+### For checking which sites are working:
+
+```bash
+python3 check_sites.py --check-all
+```
 
 ### For immediate update:
 
@@ -105,10 +121,12 @@ Visit platforms → Get counts → Update stats → Run script → Commit → Pu
 
 ## 🐛 Troubleshooting
 
+- **Don't know which sites work?**: Run `python3 check_sites.py --check-all`
 - **Script fails**: Check Python version (3.12+ recommended)
 - **README not updating**: Ensure stats.json is valid JSON
 - **Formatting issues**: Don't manually edit README patterns
-- **Network errors**: Use manual update methods
+- **Network errors**: Use manual update methods or check with `check_sites.py`
+- **Count mismatch**: Run `python3 check_sites.py --validate` to compare
 
 ## 📞 Support
 
