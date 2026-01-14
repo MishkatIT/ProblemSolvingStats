@@ -1,0 +1,51 @@
+name: Update Problem Solving Statistics
+
+on:
+  schedule:
+    # Run every week on Sunday at 00:00 UTC
+    - cron: '0 0 * * 0'
+  workflow_dispatch:  # Allow manual trigger
+
+jobs:
+  update-stats:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      
+      - name: Fetch latest statistics
+        id: fetch_stats
+        run: |
+          python3 update_stats.py > stats_output.txt 2>&1 || true
+          cat stats_output.txt
+          
+          # Extract JSON output
+          sed -n '/JSON Output:/,${p;/^}$/q}' stats_output.txt | tail -n +2 > stats.json
+          cat stats.json
+      
+      - name: Update README if stats were fetched
+        run: |
+          if [ -f stats.json ]; then
+            echo "Statistics file found, updating README..."
+            python3 update_readme.py
+          else
+            echo "No statistics file found, skipping README update"
+          fi
+      
+      - name: Commit and push if changed
+        run: |
+          git config --global user.name 'GitHub Action'
+          git config --global user.email 'action@github.com'
+          git add README.md last_known_counts.json
+          if git diff --staged --quiet; then
+            echo "No changes to commit"
+          else
+            git commit -m "Auto-update: Problem solving statistics ($(date +'%Y-%m-%d'))"
+            git push
+          fi

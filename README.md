@@ -127,11 +127,22 @@
 
 ## 📝 How to Update Statistics
 
-This repository tracks problem-solving statistics manually. To update:
+This repository tracks problem-solving statistics using a hybrid approach:
+
+### Automatic Updates (GitHub Actions)
+- Runs weekly on Sundays at 00:00 UTC
+- Automatically fetches statistics from platforms with working APIs
+- Failed platforms fall back to last known values with date stamps
+- Updates are pushed automatically to the repository
+
+### Manual Updates
+If you need to update statistics manually:
 
 1. Run `python3 manual_update.py` to input current statistics
 2. The script will prompt you to visit each platform and enter the current solve count
 3. Statistics are automatically saved and the README is updated
+
+**Note:** Each platform shows the last update date in small text when using cached values.
 
 ---
 
