@@ -32,7 +32,7 @@ class PlatformStats:
         except FileNotFoundError:
             # File doesn't exist yet, will be created on first save
             pass
-        except Exception as e:
+        except (json.JSONDecodeError, IOError) as e:
             print(f"Warning: Could not load last known counts: {e}")
         return {'counts': {}, 'dates': {}}
     
@@ -41,7 +41,7 @@ class PlatformStats:
         try:
             with open(self.LAST_KNOWN_FILE, 'w') as f:
                 json.dump(self.last_known_counts, f, indent=2)
-        except Exception as e:
+        except (IOError, OSError) as e:
             print(f"Warning: Could not save last known counts: {e}")
     
     def _update_last_known(self, platform, count):
@@ -209,7 +209,6 @@ class PlatformStats:
                         count = int(match.group(1))
                         # Sanity check - CodeChef count should be reasonable
                         if 0 < count < MAX_REASONABLE_COUNT:
-                            print(f"  Found using pattern: {pattern[:50]}...")
                             return count
                 
                 # If no pattern matched, save HTML for debugging (in verbose mode)
