@@ -3,7 +3,7 @@
 # 🏆 Problem Solving Statistics
 
 [![Last Updated](https://img.shields.io/badge/Last%20Updated-14%20January%202026-blue?style=for-the-badge)](https://github.com/MishkatIT/ProblemSolvingStats)
-[![Total Problems](https://img.shields.io/badge/Total%20Solved-2807-success?style=for-the-badge&logo=leetcode)](https://github.com/MishkatIT/ProblemSolvingStats)
+[![Total Problems](https://img.shields.io/badge/Total%20Solved-2838-success?style=for-the-badge&logo=leetcode)](https://github.com/MishkatIT/ProblemSolvingStats)
 [![Platforms](https://img.shields.io/badge/Platforms-12-orange?style=for-the-badge)](https://github.com/MishkatIT/ProblemSolvingStats)
 
 ### 💻 Competitive Programming Journey
@@ -32,19 +32,19 @@
       <td><strong>🔴 Codeforces</strong></td>
       <td><a href="https://codeforces.com/profile/MishkatIT">MishkatIT</a></td>
       <td align="center"><strong>2386</strong></td>
-      <td><img src="https://img.shields.io/badge/Progress-85.0%25-red?style=flat-square" alt="Codeforces Progress"/></td>
+      <td><img src="https://img.shields.io/badge/Progress-84.1%25-red?style=flat-square" alt="Codeforces Progress"/></td>
     </tr>
     <tr>
       <td><strong>🟢 LeetCode</strong></td>
       <td><a href="https://leetcode.com/MishkatIT/">MishkatIT</a></td>
       <td align="center"><strong>412</strong></td>
-      <td><img src="https://img.shields.io/badge/Progress-14.7%25-yellow?style=flat-square" alt="LeetCode Progress"/></td>
+      <td><img src="https://img.shields.io/badge/Progress-14.5%25-yellow?style=flat-square" alt="LeetCode Progress"/></td>
     </tr>
     <tr>
       <td><strong>🟣 Vjudge</strong></td>
       <td><a href="https://vjudge.net/user/MishkatIT">MishkatIT</a></td>
       <td align="center"><strong>346 <br/><small>(last updated: unknown)</small></strong></td>
-      <td><img src="https://img.shields.io/badge/Progress-14.7%25-blueviolet?style=flat-square" alt="Vjudge Progress"/></td>
+      <td><img src="https://img.shields.io/badge/Progress-14.5%25-blueviolet?style=flat-square" alt="Vjudge Progress"/></td>
     </tr>
     <tr>
       <td><strong>🟠 AtCoder</strong></td>
@@ -73,14 +73,14 @@
     <tr>
       <td><strong>🟡 LightOJ</strong></td>
       <td><a href="https://lightoj.com/user/mishkatit">MishkatIT</a></td>
-      <td align="center"><strong>30 <br/><small>(last updated: unknown)</small></strong></td>
-      <td><img src="https://img.shields.io/badge/Progress-0.8%25-yellow?style=flat-square" alt="LightOJ Progress"/></td>
+      <td align="center"><strong>31</strong></td>
+      <td><img src="https://img.shields.io/badge/Progress-1.1%25-yellow?style=flat-square" alt="LightOJ Progress"/></td>
     </tr>
     <tr>
       <td><strong>🟩 SPOJ</strong></td>
       <td><a href="https://www.spoj.com/users/mishkatit/">MishkatIT</a></td>
       <td align="center"><strong>21 <br/><small>(last updated: unknown)</small></strong></td>
-      <td><img src="https://img.shields.io/badge/Progress-0.6%25-green?style=flat-square" alt="SPOJ Progress"/></td>
+      <td><img src="https://img.shields.io/badge/Progress-1.1%25-green?style=flat-square" alt="SPOJ Progress"/></td>
     </tr>
     <tr>
       <td><strong>💚 HackerRank</strong></td>
@@ -104,7 +104,7 @@
   <tfoot>
     <tr>
       <td colspan="2" align="center"><strong>🎖️ TOTAL</strong></td>
-      <td align="center"><strong style="font-size: 1.2em;">2807</strong></td>
+      <td align="center"><strong style="font-size: 1.2em;">2838</strong></td>
       <td align="center"><strong>100%</strong></td>
     </tr>
   </tfoot>
