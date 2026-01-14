@@ -255,7 +255,7 @@ class PlatformStats:
             print(f"Error getting HackerEarth stats: {e}")
         return None
     
-    def fetch_all_stats(self):
+    def fetch_all_stats(self, verbose=True):
         """Fetch statistics from all platforms."""
         platforms = {
             'Codeforces': self.get_codeforces,
@@ -272,22 +272,33 @@ class PlatformStats:
             'HackerEarth': self.get_hackerearth,
         }
         
-        print("Fetching statistics from all platforms...\n")
+        if verbose:
+            print("Fetching statistics from all platforms...\n")
+        
         results = {}
+        working_count = 0
         
         for platform, fetch_func in platforms.items():
-            print(f"Fetching {platform}...", end=' ')
+            if verbose:
+                print(f"Fetching {platform}...", end=' ')
             try:
                 count = fetch_func()
                 if count is not None:
                     results[platform] = count
-                    print(f"✓ {count} problems")
+                    working_count += 1
+                    if verbose:
+                        print(f"✓ {count} problems")
                 else:
-                    print("✗ Failed")
+                    if verbose:
+                        print("✗ Failed")
                     results[platform] = None
             except Exception as e:
-                print(f"✗ Error: {e}")
+                if verbose:
+                    print(f"✗ Error: {e}")
                 results[platform] = None
+        
+        if verbose:
+            print(f"\nSuccessfully fetched from {working_count}/{len(platforms)} platforms")
         
         return results
 
