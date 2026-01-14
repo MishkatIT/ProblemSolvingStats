@@ -2,12 +2,12 @@
 
 # 🏆 Problem Solving Statistics
 
-[![Last Updated](https://img.shields.io/badge/Last%20Updated-15%20January%202026-blue?style=for-the-badge)](https://github.com/MishkatIT/ProblemSolvingStats)
-[![Total Problems](https://img.shields.io/badge/Total%20Solved-3646-success?style=for-the-badge&logo=leetcode)](https://github.com/MishkatIT/ProblemSolvingStats)
+[![Last Updated](https://img.shields.io/badge/Last%20Updated-14%20January%202026-blue?style=for-the-badge)](https://github.com/MishkatIT/ProblemSolvingStats)
+[![Total Problems](https://img.shields.io/badge/Total%20Solved-3647-success?style=for-the-badge&logo=leetcode)](https://github.com/MishkatIT/ProblemSolvingStats)
 [![Platforms](https://img.shields.io/badge/Platforms-12-orange?style=for-the-badge)](https://github.com/MishkatIT/ProblemSolvingStats)
 
 <!-- UPDATE_METADATA_START -->
-<p align="center"><strong>Updated:</strong> 15 January 2026 • <strong>Mode:</strong> Automatic</p>
+<p align="center"><strong>Updated:</strong> 14 January 2026 • <strong>Mode:</strong> Automatic</p>
 <!-- UPDATE_METADATA_END -->
 
 ### 💻 Competitive Programming Journey
@@ -47,7 +47,7 @@
     <tr>
       <td><strong>🟣 Vjudge</strong></td>
       <td><a href="https://vjudge.net/user/MishkatIT">MishkatIT</a></td>
-      <td align="center"><strong>400</strong></td>
+      <td align="center"><strong>400 <br/><small>(last updated: unknown)</small></strong></td>
       <td><img src="https://img.shields.io/badge/Progress-11.0%25-blueviolet?style=flat-square" alt="Vjudge Progress"/></td>
     </tr>
     <tr>
@@ -59,7 +59,7 @@
     <tr>
       <td><strong>🟤 CodeChef</strong></td>
       <td><a href="https://www.codechef.com/users/MishkatIT">MishkatIT</a></td>
-      <td align="center"><strong>123</strong></td>
+      <td align="center"><strong>124</strong></td>
       <td><img src="https://img.shields.io/badge/Progress-3.4%25-brown?style=flat-square" alt="CodeChef Progress"/></td>
     </tr>
     <tr>
@@ -108,7 +108,7 @@
   <tfoot>
     <tr>
       <td colspan="2" align="center"><strong>🎖️ TOTAL</strong></td>
-      <td align="center"><strong style="font-size: 1.2em;">3646</strong></td>
+      <td align="center"><strong style="font-size: 1.2em;">3647</strong></td>
       <td align="center"><strong>100%</strong></td>
     </tr>
   </tfoot>
