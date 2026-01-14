@@ -136,7 +136,7 @@ def update_readme(stats):
     )
     
     # Update key highlights if Codeforces is the top platform
-    if stats.get('Codeforces'):
+    if stats.get('Codeforces') is not None:
         cf_count = stats['Codeforces']
         readme_content = re.sub(
             r'(\| )\d+( Problems \|)',
