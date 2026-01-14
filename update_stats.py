@@ -582,6 +582,7 @@ def main():
     # Update README after fetching (useful for scheduled automation)
     try:
         import update_readme
+        # Pass update_source as 'automatic' for auto-updates
         update_readme.update_readme(stats, last_known_info=fetcher.last_known_counts, update_source='automatic')
     except Exception as e:
         print(f"Warning: README update skipped/failed: {e}")

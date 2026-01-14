@@ -120,7 +120,9 @@ def main():
     update = input("\nUpdate README.md with these statistics? (y/n): ").strip().lower()
     if update == 'y':
         import update_readme
-        success = update_readme.update_readme(stats, update_source='manual')
+        # Load last_known_info for proper date tracking
+        last_known_info = update_readme.load_last_known_info()
+        success = update_readme.update_readme(stats, last_known_info=last_known_info, update_source='manual')
         if success:
             print("\n✓ README.md has been updated successfully!")
             print(f"  Last updated: {datetime.now().strftime('%d %B %Y')}")
