@@ -181,7 +181,7 @@ class PlatformStats:
                     return int(ac_stats[0].get('count', 0))
             
         except Exception as e:
-            print(f"  API failed: {e}")
+            print(f"  Error getting LeetCode stats (API): {e}")
         
         # Fallback to web scraping
         try:
@@ -375,8 +375,9 @@ class PlatformStats:
                 # Try multiple patterns for problems solved
                 patterns = [
                     r'Problems\s+solved[:\s]*(\d+)',
-                    r'Solved[:\s]*(\d+)',
                     r'<td[^>]*>Problems\s+solved[:\s]*</td>\s*<td[^>]*>(\d+)',
+                    r'solved[:\s]*</td>\s*<td[^>]*>(\d+)',
+                    r'Solved[:\s]*(\d+)',
                     r'"solved"\s*:\s*(\d+)',
                     r'data-solved["\s:=]+(\d+)',
                 ]
@@ -427,7 +428,7 @@ class PlatformStats:
                         solved.add(sub[1])  # problem ID
                 return len(solved)
         except Exception as e:
-            print(f"  API failed: {e}")
+            print(f"  Error getting UVa stats (API): {e}")
         
         # Fallback to web scraping uhunt profile
         try:
