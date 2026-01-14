@@ -47,13 +47,13 @@
     <tr>
       <td><strong>🟣 Vjudge</strong></td>
       <td><a href="https://vjudge.net/user/MishkatIT">MishkatIT</a></td>
-      <td align="center"><strong>400</strong></td>
+      <td align="center"><strong>400 <br/><small>(last updated: unknown)</small></strong></td>
       <td><img src="https://img.shields.io/badge/Progress-11.3%25-blueviolet?style=flat-square" alt="Vjudge Progress"/></td>
     </tr>
     <tr>
       <td><strong>🟠 AtCoder</strong></td>
       <td><a href="https://atcoder.jp/users/MishkatIT">MishkatIT</a></td>
-      <td align="center"><strong>158</strong></td>
+      <td align="center"><strong>158 <br/><small>(last updated: unknown)</small></strong></td>
       <td><img src="https://img.shields.io/badge/Progress-4.5%25-orange?style=flat-square" alt="AtCoder Progress"/></td>
     </tr>
     <tr>
@@ -65,13 +65,13 @@
     <tr>
       <td><strong>⚪ CSES</strong></td>
       <td><a href="https://cses.fi/user/165802/">MishkatIT</a></td>
-      <td align="center"><strong>64</strong></td>
+      <td align="center"><strong>64 <br/><small>(last updated: unknown)</small></strong></td>
       <td><img src="https://img.shields.io/badge/Progress-1.8%25-lightgray?style=flat-square" alt="CSES Progress"/></td>
     </tr>
     <tr>
       <td><strong>🔵 Toph</strong></td>
       <td><a href="https://toph.co/u/MishkatIT">MishkatIT</a></td>
-      <td align="center"><strong>35</strong></td>
+      <td align="center"><strong>35 <br/><small>(last updated: unknown)</small></strong></td>
       <td><img src="https://img.shields.io/badge/Progress-1.0%25-blue?style=flat-square" alt="Toph Progress"/></td>
     </tr>
     <tr>
@@ -83,13 +83,13 @@
     <tr>
       <td><strong>🟩 SPOJ</strong></td>
       <td><a href="https://www.spoj.com/users/mishkatit/">MishkatIT</a></td>
-      <td align="center"><strong>21</strong></td>
+      <td align="center"><strong>21 <br/><small>(last updated: unknown)</small></strong></td>
       <td><img src="https://img.shields.io/badge/Progress-0.6%25-green?style=flat-square" alt="SPOJ Progress"/></td>
     </tr>
     <tr>
       <td><strong>💚 HackerRank</strong></td>
       <td><a href="https://www.hackerrank.com/MishkatIT">MishkatIT</a></td>
-      <td align="center"><strong>7</strong></td>
+      <td align="center"><strong>7 <br/><small>(last updated: unknown)</small></strong></td>
       <td><img src="https://img.shields.io/badge/Progress-0.2%25-brightgreen?style=flat-square" alt="HackerRank Progress"/></td>
     </tr>
     <tr>
@@ -101,7 +101,7 @@
     <tr>
       <td><strong>🌐 HackerEarth</strong></td>
       <td><a href="https://www.hackerearth.com/@MishkatIT">MishkatIT</a></td>
-      <td align="center"><strong>3</strong></td>
+      <td align="center"><strong>3 <br/><small>(last updated: unknown)</small></strong></td>
       <td><img src="https://img.shields.io/badge/Progress-0.1%25-blue?style=flat-square" alt="HackerEarth Progress"/></td>
     </tr>
   </tbody>
