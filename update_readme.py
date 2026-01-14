@@ -88,6 +88,9 @@ def update_readme(stats):
         'HackerEarth': ('HackerEarth', 'blue'),
     }
     
+    # Note format for failed fetches
+    NOT_UPDATED_NOTE = '<br/><small>(not updated this time)</small>'
+    
     # Platform patterns for updating counts in README table
     # Match everything between <strong> and </strong> tags with 3 capture groups
     PLATFORM_PATTERNS = {
@@ -115,17 +118,17 @@ def update_readme(stats):
                 match = re.search(pattern, readme_content, flags=re.DOTALL)
                 if match:
                     current_value = match.group(2)  # The content between <strong> and </strong>
-                    # Extract just the number if there's a note already
-                    if 'not updated' in current_value.lower():
+                    # Check if note already exists using specific pattern
+                    if '(not updated this time)' in current_value:
                         # Already has note, keep as is
                         continue
                     else:
-                        # Extract just the number
-                        number_match = re.search(r'^\d+', current_value.strip())
+                        # Extract just the number (handles any HTML/whitespace before it)
+                        number_match = re.search(r'\d+', current_value)
                         if number_match:
                             number = number_match.group(0)
                             # Keep the existing count and add note
-                            replacement = rf'\g<1>{number} <br/><small>(not updated this time)</small>\g<3>'
+                            replacement = rf'\g<1>{number} {NOT_UPDATED_NOTE}\g<3>'
                             readme_content = re.sub(pattern, replacement, readme_content, flags=re.DOTALL, count=1)
             continue
         
