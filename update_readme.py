@@ -163,8 +163,6 @@ def update_readme(stats, last_known_info=None, update_source=None):
     
     # Note format for platforms using last known counts
     NOT_UPDATED_NOTE = '<br/><small>(last updated: {date})</small>'
-    NOT_UPDATED_TEXT = '(last updated:'  # Text portion for checking
-    NUMBER_PATTERN = r'\d+'  # Pattern to extract numbers
     
     # Platform patterns for updating counts in README table
     # Match everything between <strong> and </strong> tags with 3 capture groups
@@ -239,32 +237,34 @@ def update_readme(stats, last_known_info=None, update_source=None):
         update_source=update_source,
     )
 
-    # Update individual platform counts and progress for all known platforms
+    # Update individual platform counts and progress for all known platforms.
+    # Requirement: always show per-platform last-updated date.
     for platform in PLATFORM_PATTERNS.keys():
+        pattern = PLATFORM_PATTERNS[platform]
+        match = re.search(pattern, readme_content, flags=re.DOTALL)
+        if not match:
+            continue
+
+        # Pick count to display: effective count if known, else keep existing number in README.
         count_effective = effective_counts.get(platform)
         if not isinstance(count_effective, int):
-            # Nothing we can safely update for this row.
-            continue
+            count_from_readme = _extract_first_int(match.group(2))
+            if count_from_readme is None:
+                continue
+            count_effective = count_from_readme
 
         platform_name, _color = platform_mapping.get(platform, (platform, 'blue'))
         percentage = calculate_percentage(count_effective, total)
 
-        # Consider the platform "fresh" if last-known date is today AND stats provided a value.
-        is_fresh_update = (
-            last_known_dates.get(platform) == today_iso and isinstance(stats.get(platform), int)
-        )
-
-        # Update solved count in table
-        pattern = PLATFORM_PATTERNS[platform]
-        if is_fresh_update:
-            # Remove any cached note
-            replacement = rf'\g<1>{count_effective}\g<3>'
+        # Pick date to display: last-known date if available; else today if we have a count; else unknown.
+        raw_date = last_known_dates.get(platform)
+        if raw_date:
+            date_str = _format_human_date(raw_date)
         else:
-            # Add cached note with last-known date (humanized)
-            date_str = _format_human_date(last_known_dates.get(platform, 'unknown'))
-            note = NOT_UPDATED_NOTE.format(date=date_str)
-            replacement = rf'\g<1>{count_effective} {note}\g<3>'
+            date_str = current_date if isinstance(count_effective, int) else 'unknown'
 
+        note = NOT_UPDATED_NOTE.format(date=date_str)
+        replacement = rf'\g<1>{count_effective} {note}\g<3>'
         readme_content = re.sub(pattern, replacement, readme_content, flags=re.DOTALL, count=1)
 
         # Update progress percentage
