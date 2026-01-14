@@ -94,6 +94,21 @@ def _upsert_update_metadata_block(readme_content, *, current_date_human, update_
         '<!-- UPDATE_METADATA_END -->'
     )
 
+    # Ensure the metadata block is inserted at the top of the README, after the first heading.
+    heading_match = re.search(r'^(# .+?)\n', readme_content, flags=re.MULTILINE)
+    if heading_match:
+        insert_at = heading_match.end()
+        if '<!-- UPDATE_METADATA_START -->' in readme_content and '<!-- UPDATE_METADATA_END -->' in readme_content:
+            return re.sub(
+                r'<!-- UPDATE_METADATA_START -->.*?<!-- UPDATE_METADATA_END -->',
+                block,
+                readme_content,
+                flags=re.DOTALL,
+                count=1,
+            )
+        return readme_content[:insert_at] + "\n\n" + block + "\n" + readme_content[insert_at:]
+
+    # Fallback: insert at the very beginning if no heading is found.
     if '<!-- UPDATE_METADATA_START -->' in readme_content and '<!-- UPDATE_METADATA_END -->' in readme_content:
         return re.sub(
             r'<!-- UPDATE_METADATA_START -->.*?<!-- UPDATE_METADATA_END -->',
@@ -103,13 +118,6 @@ def _upsert_update_metadata_block(readme_content, *, current_date_human, update_
             count=1,
         )
 
-    # Insert after the badge lines near the top.
-    badge_anchor = re.search(r'\[!\[Platforms\]\([^\n]*\)\]\([^\n]*\)\s*', readme_content)
-    if badge_anchor:
-        insert_at = badge_anchor.end()
-        return readme_content[:insert_at] + "\n\n" + block + readme_content[insert_at:]
-
-    # Fallback: insert at the beginning.
     return block + "\n\n" + readme_content
 
 
@@ -271,6 +279,11 @@ def update_readme(stats, last_known_info=None, update_source=None):
         progress_pattern = rf'({platform_name}.*?Progress-)\d+\.?\d*%25'
         progress_replacement = rf'\g<1>{percentage}%25'
         readme_content = re.sub(progress_pattern, progress_replacement, readme_content, flags=re.DOTALL)
+
+        # Update the "Updated On" column for each platform
+        updated_on_pattern = rf'({platform_name}.*?<td align="center">\d+.*?<td align="center">\d+\.\d+%.*?<td align="center">).*?;sljdkf.*?</td>'
+        updated_on_replacement = rf'\g<1>{date_str}</td>'
+        readme_content = re.sub(updated_on_pattern, updated_on_replacement, readme_content, flags=re.DOTALL)
     
     # Update total in footer
     readme_content = re.sub(
