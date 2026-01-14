@@ -90,6 +90,8 @@ def update_readme(stats):
     
     # Note format for failed fetches
     NOT_UPDATED_NOTE = '<br/><small>(not updated this time)</small>'
+    NOT_UPDATED_TEXT = '(not updated this time)'  # Text portion for checking
+    NUMBER_PATTERN = r'\d+'  # Pattern to extract numbers
     
     # Platform patterns for updating counts in README table
     # Match everything between <strong> and </strong> tags with 3 capture groups
@@ -118,13 +120,13 @@ def update_readme(stats):
                 match = re.search(pattern, readme_content, flags=re.DOTALL)
                 if match:
                     current_value = match.group(2)  # The content between <strong> and </strong>
-                    # Check if note already exists using specific pattern
-                    if '(not updated this time)' in current_value:
+                    # Check if note already exists
+                    if NOT_UPDATED_TEXT in current_value:
                         # Already has note, keep as is
                         continue
                     else:
                         # Extract just the number (handles any HTML/whitespace before it)
-                        number_match = re.search(r'\d+', current_value)
+                        number_match = re.search(NUMBER_PATTERN, current_value)
                         if number_match:
                             number = number_match.group(0)
                             # Keep the existing count and add note
