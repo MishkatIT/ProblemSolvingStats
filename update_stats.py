@@ -236,20 +236,47 @@ class PlatformStats:
     def get_atcoder(self):
         """Fetch AtCoder statistics."""
         try:
-            # Try API first
-            # Note: API uses lowercase username as shown in the API documentation
-            url = "https://kenkoooo.com/atcoder/atcoder-api/v3/user/submissions?user=mishkatit&from_second=0"
-            data = self.fetch_url(url, use_api=True)
-            
-            if data and isinstance(data, list):
-                # Count unique problems with AC (Accepted) result
+            # Try API first (requests handles gzip/deflate reliably)
+            # Note: API expects lowercase username
+            try:
+                import requests
+
+                url = "https://kenkoooo.com/atcoder/atcoder-api/v3/user/submissions"
+                user = "mishkatit"
+
                 solved = set()
-                for sub in data:
-                    if isinstance(sub, dict) and sub.get('result') == 'AC' and sub.get('problem_id'):
-                        solved.add(sub['problem_id'])
+                from_second = 0
+
+                # The API supports incremental fetching via from_second.
+                # Some environments may get truncated responses; loop defensively.
+                with requests.Session() as session:
+                    for _ in range(50):
+                        res = session.get(url, params={"user": user, "from_second": from_second}, timeout=30)
+                        res.raise_for_status()
+                        batch = res.json()
+
+                        if not isinstance(batch, list) or not batch:
+                            break
+
+                        max_epoch = None
+                        for sub in batch:
+                            if not isinstance(sub, dict):
+                                continue
+                            if sub.get('result') == 'AC' and sub.get('problem_id'):
+                                solved.add(sub['problem_id'])
+                            epoch = sub.get('epoch_second')
+                            if isinstance(epoch, int):
+                                max_epoch = epoch if max_epoch is None else max(max_epoch, epoch)
+
+                        if max_epoch is None or max_epoch < from_second:
+                            break
+                        from_second = max_epoch + 1
+
                 count = len(solved)
-                if 0 < count < self.MAX_REASONABLE_COUNT:
+                if 0 <= count < self.MAX_REASONABLE_COUNT:
                     return count
+            except Exception as e:
+                print(f"  AtCoder requests API failed: {e}")
             
             # Fallback to web scraping profile page
             print("  API failed, trying web scraping...")
@@ -269,7 +296,7 @@ class PlatformStats:
                     match = re.search(pattern, html, re.IGNORECASE)
                     if match:
                         count = int(match.group(1))
-                        if 0 < count < self.MAX_REASONABLE_COUNT:
+                        if 0 <= count < self.MAX_REASONABLE_COUNT:
                             return count
         except Exception as e:
             print(f"  Error getting AtCoder stats: {e}")

@@ -3,7 +3,7 @@
 # 🏆 Problem Solving Statistics
 
 [![Last Updated](https://img.shields.io/badge/Last%20Updated-15%20January%202026-blue?style=for-the-badge)](https://github.com/MishkatIT/ProblemSolvingStats)
-[![Total Problems](https://img.shields.io/badge/Total%20Solved-4063-success?style=for-the-badge&logo=leetcode)](https://github.com/MishkatIT/ProblemSolvingStats)
+[![Total Problems](https://img.shields.io/badge/Total%20Solved-4220-success?style=for-the-badge&logo=leetcode)](https://github.com/MishkatIT/ProblemSolvingStats)
 [![Platforms](https://img.shields.io/badge/Platforms-12-orange?style=for-the-badge)](https://github.com/MishkatIT/ProblemSolvingStats)
 
 <!-- UPDATE_METADATA_START -->
@@ -36,49 +36,49 @@
       <td><strong>🔴 Codeforces</strong></td>
       <td><a href="https://codeforces.com/profile/MishkatIT">MishkatIT</a></td>
       <td align="center"><strong>2386 <br/><small>(last updated: 15 January 2026)</small></strong></td>
-      <td><img src="https://img.shields.io/badge/Progress-58.7%25-red?style=flat-square" alt="Codeforces Progress"/></td>
+      <td><img src="https://img.shields.io/badge/Progress-56.5%25-red?style=flat-square" alt="Codeforces Progress"/></td>
     </tr>
     <tr>
       <td><strong>🟢 LeetCode</strong></td>
       <td><a href="https://leetcode.com/MishkatIT/">MishkatIT</a></td>
       <td align="center"><strong>412 <br/><small>(last updated: 15 January 2026)</small></strong></td>
-      <td><img src="https://img.shields.io/badge/Progress-10.1%25-yellow?style=flat-square" alt="LeetCode Progress"/></td>
+      <td><img src="https://img.shields.io/badge/Progress-9.8%25-yellow?style=flat-square" alt="LeetCode Progress"/></td>
     </tr>
     <tr>
       <td><strong>🟣 Vjudge</strong></td>
       <td><a href="https://vjudge.net/user/MishkatIT">MishkatIT</a></td>
       <td align="center"><strong>400 <br/><small>(last updated: 15 January 2026)</small></strong></td>
-      <td><img src="https://img.shields.io/badge/Progress-9.8%25-blueviolet?style=flat-square" alt="Vjudge Progress"/></td>
+      <td><img src="https://img.shields.io/badge/Progress-9.5%25-blueviolet?style=flat-square" alt="Vjudge Progress"/></td>
     </tr>
     <tr>
       <td><strong>🟠 AtCoder</strong></td>
       <td><a href="https://atcoder.jp/users/MishkatIT">MishkatIT</a></td>
-      <td align="center"><strong>0 <br/><small>(last updated: 15 January 2026)</small></strong></td>
-      <td><img src="https://img.shields.io/badge/Progress-0.0%25-orange?style=flat-square" alt="AtCoder Progress"/></td>
+      <td align="center"><strong>157 <br/><small>(last updated: 15 January 2026)</small></strong></td>
+      <td><img src="https://img.shields.io/badge/Progress-3.7%25-orange?style=flat-square" alt="AtCoder Progress"/></td>
     </tr>
     <tr>
       <td><strong>🟤 CodeChef</strong></td>
       <td><a href="https://www.codechef.com/users/MishkatIT">MishkatIT</a></td>
       <td align="center"><strong>124 <br/><small>(last updated: 15 January 2026)</small></strong></td>
-      <td><img src="https://img.shields.io/badge/Progress-3.1%25-brown?style=flat-square" alt="CodeChef Progress"/></td>
+      <td><img src="https://img.shields.io/badge/Progress-2.9%25-brown?style=flat-square" alt="CodeChef Progress"/></td>
     </tr>
     <tr>
       <td><strong>⚪ CSES</strong></td>
       <td><a href="https://cses.fi/user/165802/">MishkatIT</a></td>
       <td align="center"><strong>121 <br/><small>(last updated: 15 January 2026)</small></strong></td>
-      <td><img src="https://img.shields.io/badge/Progress-3.0%25-lightgray?style=flat-square" alt="CSES Progress"/></td>
+      <td><img src="https://img.shields.io/badge/Progress-2.9%25-lightgray?style=flat-square" alt="CSES Progress"/></td>
     </tr>
     <tr>
       <td><strong>🔵 Toph</strong></td>
       <td><a href="https://toph.co/u/MishkatIT">MishkatIT</a></td>
       <td align="center"><strong>543 <br/><small>(last updated: 15 January 2026)</small></strong></td>
-      <td><img src="https://img.shields.io/badge/Progress-13.4%25-blue?style=flat-square" alt="Toph Progress"/></td>
+      <td><img src="https://img.shields.io/badge/Progress-12.9%25-blue?style=flat-square" alt="Toph Progress"/></td>
     </tr>
     <tr>
       <td><strong>🟡 LightOJ</strong></td>
       <td><a href="https://lightoj.com/user/mishkatit">MishkatIT</a></td>
       <td align="center"><strong>31 <br/><small>(last updated: 15 January 2026)</small></strong></td>
-      <td><img src="https://img.shields.io/badge/Progress-0.8%25-yellow?style=flat-square" alt="LightOJ Progress"/></td>
+      <td><img src="https://img.shields.io/badge/Progress-0.7%25-yellow?style=flat-square" alt="LightOJ Progress"/></td>
     </tr>
     <tr>
       <td><strong>🟩 SPOJ</strong></td>
@@ -108,7 +108,7 @@
   <tfoot>
     <tr>
       <td colspan="2" align="center"><strong>🎖️ TOTAL</strong></td>
-      <td align="center"><strong style="font-size: 1.2em;">4063</strong></td>
+      <td align="center"><strong style="font-size: 1.2em;">4220</strong></td>
       <td align="center"><strong>100%</strong></td>
     </tr>
   </tfoot>
