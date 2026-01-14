@@ -17,7 +17,7 @@ Supported Platforms:
 - Codeforces (API + web scraping fallback)
 - LeetCode (GraphQL API + web scraping fallback)
 - Vjudge (web scraping)
-- AtCoder (web scraping)
+- AtCoder (API + web scraping fallback)
 - CodeChef (web scraping)
 - CSES (web scraping)
 - Toph (web scraping)
@@ -236,6 +236,24 @@ class PlatformStats:
     def get_atcoder(self):
         """Fetch AtCoder statistics."""
         try:
+            # Try API first
+            # Note: API uses lowercase username as shown in the API documentation
+            url = "https://kenkoooo.com/atcoder/atcoder-api/v3/user/submissions?user=mishkatit&from_second=0"
+            data = self.fetch_url(url, use_api=True)
+            
+            if data and isinstance(data, list):
+                # Count unique problems with AC (Accepted) result
+                solved = set()
+                for sub in data:
+                    if isinstance(sub, dict) and sub.get('result') == 'AC' and sub.get('problem_id'):
+                        solved.add(sub['problem_id'])
+                count = len(solved)
+                if 0 < count < self.MAX_REASONABLE_COUNT:
+                    return count
+            
+            # Fallback to web scraping profile page
+            print("  API failed, trying web scraping...")
+            # Note: Profile page uses mixed case username
             url = "https://atcoder.jp/users/MishkatIT"
             html = self.fetch_url(url)
             if html:
