@@ -29,73 +29,73 @@
   </thead>
   <tbody>
     <tr>
-      <td><strong>🔴 Codeforces</strong></td>
+      <td><img src="https://img.shields.io/badge/Codeforces-1F8ACB?style=flat-square&logo=codeforces&logoColor=white" alt="Codeforces"/> <strong>Codeforces</strong></td>
       <td><a href="https://codeforces.com/profile/MishkatIT">MishkatIT</a></td>
       <td align="center"><strong>2470</strong></td>
       <td><img src="https://img.shields.io/badge/Progress-68.5%25-red?style=flat-square" alt="Codeforces Progress"/></td>
     </tr>
     <tr>
-      <td><strong>🟢 LeetCode</strong></td>
+      <td><img src="https://img.shields.io/badge/LeetCode-FFA116?style=flat-square&logo=leetcode&logoColor=white" alt="LeetCode"/> <strong>LeetCode</strong></td>
       <td><a href="https://leetcode.com/MishkatIT/">MishkatIT</a></td>
       <td align="center"><strong>393</strong></td>
       <td><img src="https://img.shields.io/badge/Progress-10.9%25-yellow?style=flat-square" alt="LeetCode Progress"/></td>
     </tr>
     <tr>
-      <td><strong>🟣 Vjudge</strong></td>
+      <td><img src="https://img.shields.io/badge/Vjudge-8A2BE2?style=flat-square&logo=v&logoColor=white" alt="Vjudge"/> <strong>Vjudge</strong></td>
       <td><a href="https://vjudge.net/user/MishkatIT">MishkatIT</a></td>
       <td align="center"><strong>346</strong></td>
       <td><img src="https://img.shields.io/badge/Progress-9.6%25-blueviolet?style=flat-square" alt="Vjudge Progress"/></td>
     </tr>
     <tr>
-      <td><strong>🟠 AtCoder</strong></td>
+      <td><img src="https://img.shields.io/badge/AtCoder-000000?style=flat-square&logo=atcoder&logoColor=white" alt="AtCoder"/> <strong>AtCoder</strong></td>
       <td><a href="https://atcoder.jp/users/MishkatIT">MishkatIT</a></td>
       <td align="center"><strong>158</strong></td>
       <td><img src="https://img.shields.io/badge/Progress-4.4%25-orange?style=flat-square" alt="AtCoder Progress"/></td>
     </tr>
     <tr>
-      <td><strong>🟤 CodeChef</strong></td>
+      <td><img src="https://img.shields.io/badge/CodeChef-5B4638?style=flat-square&logo=codechef&logoColor=white" alt="CodeChef"/> <strong>CodeChef</strong></td>
       <td><a href="https://www.codechef.com/users/MishkatIT">MishkatIT</a></td>
       <td align="center"><strong>74</strong></td>
       <td><img src="https://img.shields.io/badge/Progress-2.1%25-brown?style=flat-square" alt="CodeChef Progress"/></td>
     </tr>
     <tr>
-      <td><strong>⚪ CSES</strong></td>
+      <td><img src="https://img.shields.io/badge/CSES-0077BE?style=flat-square&logo=c&logoColor=white" alt="CSES"/> <strong>CSES</strong></td>
       <td><a href="https://cses.fi/user/165802/">MishkatIT</a></td>
       <td align="center"><strong>64</strong></td>
       <td><img src="https://img.shields.io/badge/Progress-1.8%25-lightgray?style=flat-square" alt="CSES Progress"/></td>
     </tr>
     <tr>
-      <td><strong>🔵 Toph</strong></td>
+      <td><img src="https://img.shields.io/badge/Toph-0088CC?style=flat-square&logo=trophy&logoColor=white" alt="Toph"/> <strong>Toph</strong></td>
       <td><a href="https://toph.co/u/MishkatIT">MishkatIT</a></td>
       <td align="center"><strong>35</strong></td>
       <td><img src="https://img.shields.io/badge/Progress-1.0%25-blue?style=flat-square" alt="Toph Progress"/></td>
     </tr>
     <tr>
-      <td><strong>🟡 LightOJ</strong></td>
+      <td><img src="https://img.shields.io/badge/LightOJ-FFD700?style=flat-square&logo=lightbulb&logoColor=black" alt="LightOJ"/> <strong>LightOJ</strong></td>
       <td><a href="https://lightoj.com/user/mishkatit">MishkatIT</a></td>
       <td align="center"><strong>30</strong></td>
       <td><img src="https://img.shields.io/badge/Progress-0.8%25-yellow?style=flat-square" alt="LightOJ Progress"/></td>
     </tr>
     <tr>
-      <td><strong>🟩 SPOJ</strong></td>
+      <td><img src="https://img.shields.io/badge/SPOJ-2E8B57?style=flat-square&logo=sphere&logoColor=white" alt="SPOJ"/> <strong>SPOJ</strong></td>
       <td><a href="https://www.spoj.com/users/mishkatit/">MishkatIT</a></td>
       <td align="center"><strong>21</strong></td>
       <td><img src="https://img.shields.io/badge/Progress-0.6%25-green?style=flat-square" alt="SPOJ Progress"/></td>
     </tr>
     <tr>
-      <td><strong>💚 HackerRank</strong></td>
+      <td><img src="https://img.shields.io/badge/HackerRank-00EA64?style=flat-square&logo=hackerrank&logoColor=white" alt="HackerRank"/> <strong>HackerRank</strong></td>
       <td><a href="https://www.hackerrank.com/MishkatIT">MishkatIT</a></td>
       <td align="center"><strong>7</strong></td>
       <td><img src="https://img.shields.io/badge/Progress-0.2%25-brightgreen?style=flat-square" alt="HackerRank Progress"/></td>
     </tr>
     <tr>
-      <td><strong>🔷 UVa</strong></td>
+      <td><img src="https://img.shields.io/badge/UVa-1E90FF?style=flat-square&logo=university&logoColor=white" alt="UVa"/> <strong>UVa</strong></td>
       <td><a href="https://uhunt.onlinejudge.org/id/1615470">MishkatIT</a></td>
       <td align="center"><strong>4</strong></td>
       <td><img src="https://img.shields.io/badge/Progress-0.1%25-blue?style=flat-square" alt="UVa Progress"/></td>
     </tr>
     <tr>
-      <td><strong>🌐 HackerEarth</strong></td>
+      <td><img src="https://img.shields.io/badge/HackerEarth-2C3454?style=flat-square&logo=hackerearth&logoColor=white" alt="HackerEarth"/> <strong>HackerEarth</strong></td>
       <td><a href="https://www.hackerearth.com/@MishkatIT">MishkatIT</a></td>
       <td align="center"><strong>3</strong></td>
       <td><img src="https://img.shields.io/badge/Progress-0.1%25-blue?style=flat-square" alt="HackerEarth Progress"/></td>
