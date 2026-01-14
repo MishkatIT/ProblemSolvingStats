@@ -2,6 +2,30 @@
 """
 Script to fetch and update problem-solving statistics from various competitive programming platforms.
 Author: MishkatIT
+
+This script fetches problem counts from 12 competitive programming platforms using:
+1. Official APIs where available (primary method)
+2. Web scraping as a fallback when APIs are unavailable or fail
+
+Web Scraping Features:
+- Multiple regex patterns for each platform to handle HTML structure changes
+- Automatic fallback from API to web scraping when needed
+- Sanity checks on scraped data to validate reasonable counts
+- Error handling to continue fetching from other platforms if one fails
+
+Supported Platforms:
+- Codeforces (API + web scraping fallback)
+- LeetCode (GraphQL API + web scraping fallback)
+- Vjudge (web scraping)
+- AtCoder (web scraping)
+- CodeChef (web scraping)
+- CSES (web scraping)
+- Toph (web scraping)
+- LightOJ (web scraping)
+- SPOJ (web scraping)
+- HackerRank (web scraping)
+- UVa (API + web scraping fallback)
+- HackerEarth (web scraping)
 """
 
 import re
@@ -97,21 +121,31 @@ class PlatformStats:
                 return len(solved)
             
             # Fallback to scraping profile page
+            print("  API failed, trying web scraping...")
             url = "https://codeforces.com/profile/MishkatIT"
             html = self.fetch_url(url)
             if html:
-                # Look for problem count in profile
-                match = re.search(r'(\d+)\s+problem', html, re.IGNORECASE)
-                if match:
-                    return int(match.group(1))
+                # Try multiple patterns for problem count
+                patterns = [
+                    r'<div[^>]*>(\d+)</div>\s*<div[^>]*>problem',
+                    r'(\d+)\s+problem',
+                    r'>(\d+)<.*?>problem',
+                    r'problems?[:\s]+(\d+)',
+                ]
+                for pattern in patterns:
+                    match = re.search(pattern, html, re.IGNORECASE)
+                    if match:
+                        count = int(match.group(1))
+                        if 0 < count < self.MAX_REASONABLE_COUNT:
+                            return count
         except Exception as e:
-            print(f"Error getting Codeforces stats: {e}")
+            print(f"  Error getting Codeforces stats: {e}")
         return None
     
     def get_leetcode(self):
         """Fetch LeetCode statistics."""
         try:
-            # LeetCode GraphQL API
+            # Try LeetCode GraphQL API first
             url = "https://leetcode.com/graphql"
             query = {
                 "query": """
@@ -145,8 +179,33 @@ class PlatformStats:
                 if ac_stats:
                     # First element is total accepted
                     return int(ac_stats[0].get('count', 0))
+            
         except Exception as e:
-            print(f"Error getting LeetCode stats: {e}")
+            print(f"  API failed: {e}")
+        
+        # Fallback to web scraping
+        try:
+            print("  Trying web scraping...")
+            url = "https://leetcode.com/MishkatIT/"
+            html = self.fetch_url(url)
+            if html:
+                # Try multiple patterns for LeetCode profile
+                patterns = [
+                    r'"solvedProblem"\s*:\s*(\d+)',
+                    r'Solved["\s:]+(\d+)',
+                    r'<span[^>]*>(\d+)</span>\s*<span[^>]*>Solved</span>',
+                    r'(\d+)\s+/\s+\d+\s+Solved',
+                    r'data-solved["\s:=]+(\d+)',
+                ]
+                for pattern in patterns:
+                    match = re.search(pattern, html, re.IGNORECASE)
+                    if match:
+                        count = int(match.group(1))
+                        if 0 < count < self.MAX_REASONABLE_COUNT:
+                            return count
+        except Exception as e:
+            print(f"  Web scraping failed: {e}")
+        
         return None
     
     def get_vjudge(self):
@@ -155,16 +214,23 @@ class PlatformStats:
             url = "https://vjudge.net/user/MishkatIT"
             html = self.fetch_url(url)
             if html:
-                # Look for solved count
-                match = re.search(r'Solved[:\s]*(\d+)', html, re.IGNORECASE)
-                if match:
-                    return int(match.group(1))
-                # Alternative pattern
-                match = re.search(r'<a[^>]*>(\d+)</a>[^<]*Solved', html, re.IGNORECASE)
-                if match:
-                    return int(match.group(1))
+                # Try multiple patterns for solved count
+                patterns = [
+                    r'Solved[:\s]*<[^>]*>(\d+)',
+                    r'Solved[:\s]*(\d+)',
+                    r'<a[^>]*>(\d+)</a>[^<]*Solved',
+                    r'solved["\s:=]+(\d+)',
+                    r'data-solved["\s:=]+(\d+)',
+                    r'"solved"\s*:\s*(\d+)',
+                ]
+                for pattern in patterns:
+                    match = re.search(pattern, html, re.IGNORECASE)
+                    if match:
+                        count = int(match.group(1))
+                        if 0 < count < self.MAX_REASONABLE_COUNT:
+                            return count
         except Exception as e:
-            print(f"Error getting Vjudge stats: {e}")
+            print(f"  Error getting Vjudge stats: {e}")
         return None
     
     def get_atcoder(self):
@@ -173,12 +239,22 @@ class PlatformStats:
             url = "https://atcoder.jp/users/MishkatIT"
             html = self.fetch_url(url)
             if html:
-                # Look for AC count
-                match = re.search(r'(\d+)\s+AC', html)
-                if match:
-                    return int(match.group(1))
+                # Try multiple patterns for AC count
+                patterns = [
+                    r'(\d+)\s+AC',
+                    r'AC[:\s]+(\d+)',
+                    r'<td[^>]*>(\d+)</td>\s*<td[^>]*>AC</td>',
+                    r'"ac"\s*:\s*(\d+)',
+                    r'data-ac["\s:=]+(\d+)',
+                ]
+                for pattern in patterns:
+                    match = re.search(pattern, html, re.IGNORECASE)
+                    if match:
+                        count = int(match.group(1))
+                        if 0 < count < self.MAX_REASONABLE_COUNT:
+                            return count
         except Exception as e:
-            print(f"Error getting AtCoder stats: {e}")
+            print(f"  Error getting AtCoder stats: {e}")
         return None
     
     def get_codechef(self):
@@ -188,17 +264,19 @@ class PlatformStats:
             html = self.fetch_url(url)
             if html:
                 # Try multiple patterns to extract the problem count
-                
-                # Pattern 1: Look for "Problems Solved" section with various HTML structures
                 patterns = [
+                    # CodeChef specific patterns
                     r'<h3>.*?Problems\s+Solved.*?</h3>\s*<div[^>]*>\s*<b>(\d+)</b>',
                     r'Problems\s+Solved[:\s]*</.*?>\s*<.*?>(\d+)</.*?>',
                     r'<div[^>]*>\s*Problems\s+Solved\s*</div>\s*<div[^>]*>\s*(\d+)',
-                    r'fully\s+solved.*?(\d+)',
-                    r'problems?[:\s]*(\d+)',
-                    # More specific pattern for CodeChef's current structure
                     r'<article[^>]*>.*?<h3>Problems.*?Solved</h3>.*?<div[^>]*>.*?<b>(\d+)</b>',
                     r'problems-solved[^>]*>.*?(\d+)',
+                    r'fully\s+solved.*?(\d+)',
+                    # Generic patterns
+                    r'"problemsSolved"\s*:\s*(\d+)',
+                    r'data-problems["\s:=]+(\d+)',
+                    r'problem[s]?\s+solved[:\s]*(\d+)',
+                    r'<span[^>]*>(\d+)</span>\s*<[^>]*>\s*Problems\s+Solved',
                 ]
                 
                 for pattern in patterns:
@@ -209,11 +287,11 @@ class PlatformStats:
                         if 0 < count < self.MAX_REASONABLE_COUNT:
                             return count
                 
-                # If no pattern matched, save HTML for debugging (in verbose mode)
+                # If no pattern matched, log for debugging
                 print("  Warning: Could not find problem count in CodeChef HTML")
                 
         except Exception as e:
-            print(f"Error getting CodeChef stats: {e}")
+            print(f"  Error getting CodeChef stats: {e}")
         return None
     
     def get_cses(self):
@@ -222,12 +300,22 @@ class PlatformStats:
             url = "https://cses.fi/user/165802/"
             html = self.fetch_url(url)
             if html:
-                # Look for tasks solved
-                match = re.search(r'(\d+)\s+/\s+\d+\s+task', html, re.IGNORECASE)
-                if match:
-                    return int(match.group(1))
+                # Try multiple patterns for tasks solved
+                patterns = [
+                    r'(\d+)\s+/\s+\d+\s+task',
+                    r'Solved:\s*(\d+)',
+                    r'<td[^>]*>(\d+)</td>\s*<td[^>]*>/\s*\d+\s+task',
+                    r'"solved"\s*:\s*(\d+)',
+                    r'data-solved["\s:=]+(\d+)',
+                ]
+                for pattern in patterns:
+                    match = re.search(pattern, html, re.IGNORECASE)
+                    if match:
+                        count = int(match.group(1))
+                        if 0 < count < self.MAX_REASONABLE_COUNT:
+                            return count
         except Exception as e:
-            print(f"Error getting CSES stats: {e}")
+            print(f"  Error getting CSES stats: {e}")
         return None
     
     def get_toph(self):
@@ -236,12 +324,22 @@ class PlatformStats:
             url = "https://toph.co/u/MishkatIT"
             html = self.fetch_url(url)
             if html:
-                # Look for solved count
-                match = re.search(r'(\d+)\s+solved', html, re.IGNORECASE)
-                if match:
-                    return int(match.group(1))
+                # Try multiple patterns for solved count
+                patterns = [
+                    r'(\d+)\s+solved',
+                    r'Solved:\s*(\d+)',
+                    r'<span[^>]*>(\d+)</span>\s*<[^>]*>\s*solved',
+                    r'"solved"\s*:\s*(\d+)',
+                    r'data-solved["\s:=]+(\d+)',
+                ]
+                for pattern in patterns:
+                    match = re.search(pattern, html, re.IGNORECASE)
+                    if match:
+                        count = int(match.group(1))
+                        if 0 < count < self.MAX_REASONABLE_COUNT:
+                            return count
         except Exception as e:
-            print(f"Error getting Toph stats: {e}")
+            print(f"  Error getting Toph stats: {e}")
         return None
     
     def get_lightoj(self):
@@ -250,12 +348,22 @@ class PlatformStats:
             url = "https://lightoj.com/user/mishkatit"
             html = self.fetch_url(url)
             if html:
-                # Look for solved problems
-                match = re.search(r'Solved[:\s]*(\d+)', html, re.IGNORECASE)
-                if match:
-                    return int(match.group(1))
+                # Try multiple patterns for solved problems
+                patterns = [
+                    r'Solved[:\s]*(\d+)',
+                    r'Problems\s+Solved[:\s]*(\d+)',
+                    r'<span[^>]*>(\d+)</span>\s*<[^>]*>\s*Solved',
+                    r'"solved"\s*:\s*(\d+)',
+                    r'data-solved["\s:=]+(\d+)',
+                ]
+                for pattern in patterns:
+                    match = re.search(pattern, html, re.IGNORECASE)
+                    if match:
+                        count = int(match.group(1))
+                        if 0 < count < self.MAX_REASONABLE_COUNT:
+                            return count
         except Exception as e:
-            print(f"Error getting LightOJ stats: {e}")
+            print(f"  Error getting LightOJ stats: {e}")
         return None
     
     def get_spoj(self):
@@ -264,12 +372,22 @@ class PlatformStats:
             url = "https://www.spoj.com/users/mishkatit/"
             html = self.fetch_url(url)
             if html:
-                # Look for problems solved
-                match = re.search(r'Problems\s+solved[:\s]*(\d+)', html, re.IGNORECASE)
-                if match:
-                    return int(match.group(1))
+                # Try multiple patterns for problems solved
+                patterns = [
+                    r'Problems\s+solved[:\s]*(\d+)',
+                    r'Solved[:\s]*(\d+)',
+                    r'<td[^>]*>Problems\s+solved[:\s]*</td>\s*<td[^>]*>(\d+)',
+                    r'"solved"\s*:\s*(\d+)',
+                    r'data-solved["\s:=]+(\d+)',
+                ]
+                for pattern in patterns:
+                    match = re.search(pattern, html, re.IGNORECASE)
+                    if match:
+                        count = int(match.group(1))
+                        if 0 < count < self.MAX_REASONABLE_COUNT:
+                            return count
         except Exception as e:
-            print(f"Error getting SPOJ stats: {e}")
+            print(f"  Error getting SPOJ stats: {e}")
         return None
     
     def get_hackerrank(self):
@@ -278,18 +396,28 @@ class PlatformStats:
             url = "https://www.hackerrank.com/MishkatIT"
             html = self.fetch_url(url)
             if html:
-                # Look for challenges solved
-                match = re.search(r'(\d+)\s+challenges?\s+solved', html, re.IGNORECASE)
-                if match:
-                    return int(match.group(1))
+                # Try multiple patterns for challenges solved
+                patterns = [
+                    r'(\d+)\s+challenges?\s+solved',
+                    r'challenges?\s+solved[:\s]*(\d+)',
+                    r'<span[^>]*>(\d+)</span>\s*<[^>]*>\s*challenges?\s+solved',
+                    r'"challengesSolved"\s*:\s*(\d+)',
+                    r'data-challenges["\s:=]+(\d+)',
+                ]
+                for pattern in patterns:
+                    match = re.search(pattern, html, re.IGNORECASE)
+                    if match:
+                        count = int(match.group(1))
+                        if 0 < count < self.MAX_REASONABLE_COUNT:
+                            return count
         except Exception as e:
-            print(f"Error getting HackerRank stats: {e}")
+            print(f"  Error getting HackerRank stats: {e}")
         return None
     
     def get_uva(self):
         """Fetch UVa statistics."""
         try:
-            # uhunt API
+            # Try uhunt API first
             url = "https://uhunt.onlinejudge.org/api/subs-user/1615470"
             data = self.fetch_url(url, use_api=True)
             if data:
@@ -299,7 +427,30 @@ class PlatformStats:
                         solved.add(sub[1])  # problem ID
                 return len(solved)
         except Exception as e:
-            print(f"Error getting UVa stats: {e}")
+            print(f"  API failed: {e}")
+        
+        # Fallback to web scraping uhunt profile
+        try:
+            print("  Trying web scraping...")
+            url = "https://uhunt.onlinejudge.org/id/1615470"
+            html = self.fetch_url(url)
+            if html:
+                # Try multiple patterns for solved count
+                patterns = [
+                    r'Solved[:\s]*(\d+)',
+                    r'<td[^>]*>Solved[:\s]*</td>\s*<td[^>]*>(\d+)',
+                    r'"solved"\s*:\s*(\d+)',
+                    r'data-solved["\s:=]+(\d+)',
+                ]
+                for pattern in patterns:
+                    match = re.search(pattern, html, re.IGNORECASE)
+                    if match:
+                        count = int(match.group(1))
+                        if 0 < count < self.MAX_REASONABLE_COUNT:
+                            return count
+        except Exception as e:
+            print(f"  Web scraping failed: {e}")
+        
         return None
     
     def get_hackerearth(self):
@@ -308,12 +459,22 @@ class PlatformStats:
             url = "https://www.hackerearth.com/@MishkatIT"
             html = self.fetch_url(url)
             if html:
-                # Look for problems solved
-                match = re.search(r'(\d+)\s+problem', html, re.IGNORECASE)
-                if match:
-                    return int(match.group(1))
+                # Try multiple patterns for problems solved
+                patterns = [
+                    r'(\d+)\s+problem',
+                    r'Problems\s+Solved[:\s]*(\d+)',
+                    r'<span[^>]*>(\d+)</span>\s*<[^>]*>\s*problem',
+                    r'"problemsSolved"\s*:\s*(\d+)',
+                    r'data-problems["\s:=]+(\d+)',
+                ]
+                for pattern in patterns:
+                    match = re.search(pattern, html, re.IGNORECASE)
+                    if match:
+                        count = int(match.group(1))
+                        if 0 < count < self.MAX_REASONABLE_COUNT:
+                            return count
         except Exception as e:
-            print(f"Error getting HackerEarth stats: {e}")
+            print(f"  Error getting HackerEarth stats: {e}")
         return None
     
     def fetch_all_stats(self, verbose=True):
