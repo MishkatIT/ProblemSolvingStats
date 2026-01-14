@@ -106,7 +106,6 @@ README.md
   ├─ 📊 Platform Table
   │   ├─ Individual counts
   │   └─ Progress percentages
-  ├─ 📈 Achievement Breakdown (ASCII chart)
   └─ 🏆 Key Highlights (top platform)
 ```
 

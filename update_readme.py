@@ -88,38 +88,61 @@ def update_readme(stats):
         'HackerEarth': ('HackerEarth', 'blue'),
     }
     
+    # Note format for failed fetches
+    NOT_UPDATED_NOTE = '<br/><small>(not updated this time)</small>'
+    NOT_UPDATED_TEXT = '(not updated this time)'  # Text portion for checking
+    NUMBER_PATTERN = r'\d+'  # Pattern to extract numbers
+    
+    # Platform patterns for updating counts in README table
+    # Match everything between <strong> and </strong> tags with 3 capture groups
+    PLATFORM_PATTERNS = {
+        'Codeforces': r'(🔴\s+Codeforces.*?<td align="center"><strong>)(.*?)(</strong>)',
+        'LeetCode': r'(🟢\s+LeetCode.*?<td align="center"><strong>)(.*?)(</strong>)',
+        'Vjudge': r'(🟣\s+Vjudge.*?<td align="center"><strong>)(.*?)(</strong>)',
+        'AtCoder': r'(🟠\s+AtCoder.*?<td align="center"><strong>)(.*?)(</strong>)',
+        'CodeChef': r'(🟤\s+CodeChef.*?<td align="center"><strong>)(.*?)(</strong>)',
+        'CSES': r'(⚪\s+CSES.*?<td align="center"><strong>)(.*?)(</strong>)',
+        'Toph': r'(🔵\s+Toph.*?<td align="center"><strong>)(.*?)(</strong>)',
+        'LightOJ': r'(🟡\s+LightOJ.*?<td align="center"><strong>)(.*?)(</strong>)',
+        'SPOJ': r'(🟩\s+SPOJ.*?<td align="center"><strong>)(.*?)(</strong>)',
+        'HackerRank': r'(💚\s+HackerRank.*?<td align="center"><strong>)(.*?)(</strong>)',
+        'UVa': r'(🔷\s+UVa.*?<td align="center"><strong>)(.*?)(</strong>)',
+        'HackerEarth': r'(🌐\s+HackerEarth.*?<td align="center"><strong>)(.*?)(</strong>)',
+    }
+    
     # Update individual platform counts
     for platform, count in stats.items():
         if count is None:
+            # Handle failed fetches - keep the last count and add a note
+            if platform in PLATFORM_PATTERNS:
+                pattern = PLATFORM_PATTERNS[platform]
+                # Extract the current count from README
+                match = re.search(pattern, readme_content, flags=re.DOTALL)
+                if match:
+                    current_value = match.group(2)  # The content between <strong> and </strong>
+                    # Check if note already exists
+                    if NOT_UPDATED_TEXT in current_value:
+                        # Already has note, keep as is
+                        continue
+                    else:
+                        # Extract just the number (handles any HTML/whitespace before it)
+                        number_match = re.search(NUMBER_PATTERN, current_value)
+                        if number_match:
+                            number = number_match.group(0)
+                            # Keep the existing count and add note
+                            replacement = rf'\g<1>{number} {NOT_UPDATED_NOTE}\g<3>'
+                            readme_content = re.sub(pattern, replacement, readme_content, flags=re.DOTALL, count=1)
             continue
         
         platform_name, color = platform_mapping.get(platform, (platform, 'blue'))
         percentage = calculate_percentage(count, total)
         
         # Update solved count in table
-        # Pattern: <td align="center"><strong>NUMBER</strong></td>
-        # We need to find the row for this platform and update the count
-        
-        # Different platforms have different emoji markers
-        platform_patterns = {
-            'Codeforces': r'(🔴\s+Codeforces.*?<td align="center"><strong>)\d+',
-            'LeetCode': r'(🟢\s+LeetCode.*?<td align="center"><strong>)\d+',
-            'Vjudge': r'(🟣\s+Vjudge.*?<td align="center"><strong>)\d+',
-            'AtCoder': r'(🟠\s+AtCoder.*?<td align="center"><strong>)\d+',
-            'CodeChef': r'(🟤\s+CodeChef.*?<td align="center"><strong>)\d+',
-            'CSES': r'(⚪\s+CSES.*?<td align="center"><strong>)\d+',
-            'Toph': r'(🔵\s+Toph.*?<td align="center"><strong>)\d+',
-            'LightOJ': r'(🟡\s+LightOJ.*?<td align="center"><strong>)\d+',
-            'SPOJ': r'(🟩\s+SPOJ.*?<td align="center"><strong>)\d+',
-            'HackerRank': r'(💚\s+HackerRank.*?<td align="center"><strong>)\d+',
-            'UVa': r'(🔷\s+UVa.*?<td align="center"><strong>)\d+',
-            'HackerEarth': r'(🌐\s+HackerEarth.*?<td align="center"><strong>)\d+',
-        }
-        
-        if platform in platform_patterns:
-            pattern = platform_patterns[platform]
-            replacement = rf'\g<1>{count}'
-            readme_content = re.sub(pattern, replacement, readme_content, flags=re.DOTALL)
+        if platform in PLATFORM_PATTERNS:
+            pattern = PLATFORM_PATTERNS[platform]
+            # Remove any "not updated" notes when we have a successful fetch
+            replacement = rf'\g<1>{count}\g<3>'
+            readme_content = re.sub(pattern, replacement, readme_content, flags=re.DOTALL, count=1)
         
         # Update progress percentage
         progress_pattern = rf'({platform_name}.*?Progress-)\d+\.?\d*%25'
@@ -133,34 +156,8 @@ def update_readme(stats):
         readme_content
     )
     
-    # Update achievement breakdown (the ASCII bar chart)
-    # This is more complex, we'll update the numbers at the end of each line
-    breakdown_updates = {
-        'Codeforces': stats.get('Codeforces'),
-        'LeetCode': stats.get('LeetCode'),
-        'Vjudge': stats.get('Vjudge'),
-        'AtCoder': stats.get('AtCoder'),
-        'CodeChef': stats.get('CodeChef'),
-        'CSES': stats.get('CSES'),
-        'Toph': stats.get('Toph'),
-        'LightOJ': stats.get('LightOJ'),
-        'SPOJ': stats.get('SPOJ'),
-        'HackerRank': stats.get('HackerRank'),
-        'UVa': stats.get('UVa'),
-        'HackerEarth': stats.get('HackerEarth'),
-    }
-    
-    for platform, count in breakdown_updates.items():
-        if count is None:
-            continue
-        
-        # Pattern to match lines like: █████... Codeforces  2470
-        pattern = rf'(█*\s+{platform}\s+)\d+'
-        replacement = rf'\g<1>{count}'
-        readme_content = re.sub(pattern, replacement, readme_content)
-    
     # Update key highlights if Codeforces is the top platform
-    if stats.get('Codeforces'):
+    if stats.get('Codeforces') is not None:
         cf_count = stats['Codeforces']
         readme_content = re.sub(
             r'(\| )\d+( Problems \|)',
