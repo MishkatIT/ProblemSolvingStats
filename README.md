@@ -77,25 +77,25 @@
       <td><img src="https://img.shields.io/badge/Progress-0.8%25-yellow?style=flat-square" alt="LightOJ Progress"/></td>
     </tr>
     <tr>
-      <td><strong>🟢 SPOJ</strong></td>
+      <td><strong>🟩 SPOJ</strong></td>
       <td><a href="https://www.spoj.com/users/mishkatit/">MishkatIT</a></td>
       <td align="center"><strong>21</strong></td>
       <td><img src="https://img.shields.io/badge/Progress-0.6%25-green?style=flat-square" alt="SPOJ Progress"/></td>
     </tr>
     <tr>
-      <td><strong>🟢 HackerRank</strong></td>
+      <td><strong>💚 HackerRank</strong></td>
       <td><a href="https://www.hackerrank.com/MishkatIT">MishkatIT</a></td>
       <td align="center"><strong>7</strong></td>
       <td><img src="https://img.shields.io/badge/Progress-0.2%25-brightgreen?style=flat-square" alt="HackerRank Progress"/></td>
     </tr>
     <tr>
-      <td><strong>🔵 UVa</strong></td>
+      <td><strong>🔷 UVa</strong></td>
       <td><a href="https://uhunt.onlinejudge.org/id/1615470">MishkatIT</a></td>
       <td align="center"><strong>4</strong></td>
       <td><img src="https://img.shields.io/badge/Progress-0.1%25-blue?style=flat-square" alt="UVa Progress"/></td>
     </tr>
     <tr>
-      <td><strong>🔵 HackerEarth</strong></td>
+      <td><strong>🌐 HackerEarth</strong></td>
       <td><a href="https://www.hackerearth.com/@MishkatIT">MishkatIT</a></td>
       <td align="center"><strong>3</strong></td>
       <td><img src="https://img.shields.io/badge/Progress-0.1%25-blue?style=flat-square" alt="HackerEarth Progress"/></td>
