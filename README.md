@@ -56,7 +56,7 @@
       <td><strong>🟤 CodeChef</strong></td>
       <td><a href="https://www.codechef.com/users/MishkatIT">MishkatIT</a></td>
       <td align="center"><strong>74</strong></td>
-      <td><img src="https://img.shields.io/badge/Progress-2.1%25-8B4513?style=flat-square" alt="CodeChef Progress"/></td>
+      <td><img src="https://img.shields.io/badge/Progress-2.1%25-saddlebrown?style=flat-square" alt="CodeChef Progress"/></td>
     </tr>
     <tr>
       <td><strong>⚪ CSES</strong></td>
@@ -127,15 +127,20 @@
 
 ## 📈 Achievement Breakdown
 
-```
-█████████████████████████████████████████████████████████████████  Codeforces   2470
-██████████                                                         LeetCode      393
-█████████                                                          Vjudge        346
-████                                                               AtCoder       158
-██                                                                 CodeChef       74
-█                                                                  CSES           64
-█                                                                  Others        106
-```
+<pre>
+█████████████████████████████████████████████████████████████  Codeforces  2470
+█████████                                                      LeetCode     393
+████████                                                       Vjudge       346
+███                                                            AtCoder      158
+█                                                              CodeChef      74
+█                                                              CSES          64
+█                                                              Toph          35
+█                                                              LightOJ       30
+█                                                              SPOJ          21
+█                                                              HackerRank     7
+█                                                              UVa            4
+█                                                              HackerEarth    3
+</pre>
 
 ---
 
