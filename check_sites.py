@@ -159,7 +159,7 @@ def validate_counts(expected_file='stats.json'):
         return False
     
     fetcher = PlatformStats()
-    stats = fetcher.fetch_all_stats()
+    stats = fetcher.fetch_all_stats(verbose=False)
     
     print("="*70)
     print("VALIDATION REPORT")
