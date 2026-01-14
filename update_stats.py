@@ -7,6 +7,7 @@ Author: MishkatIT
 import re
 import json
 import sys
+import os
 from urllib.request import urlopen, Request
 from urllib.error import URLError, HTTPError
 from datetime import datetime
@@ -15,9 +16,48 @@ from datetime import datetime
 class PlatformStats:
     """Class to handle fetching statistics from different platforms."""
     
+    LAST_KNOWN_FILE = 'last_known_counts.json'
+    
     def __init__(self):
         self.stats = {}
         self.user_agent = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36'
+        self.last_known_counts = self._load_last_known_counts()
+    
+    def _load_last_known_counts(self):
+        """Load the last known good counts from file."""
+        try:
+            if os.path.exists(self.LAST_KNOWN_FILE):
+                with open(self.LAST_KNOWN_FILE, 'r') as f:
+                    data = json.load(f)
+                    return data
+        except Exception as e:
+            print(f"Warning: Could not load last known counts: {e}")
+        return {'counts': {}, 'dates': {}}
+    
+    def _save_last_known_counts(self):
+        """Save the current known good counts to file."""
+        try:
+            with open(self.LAST_KNOWN_FILE, 'w') as f:
+                json.dump(self.last_known_counts, f, indent=2)
+        except Exception as e:
+            print(f"Warning: Could not save last known counts: {e}")
+    
+    def _update_last_known(self, platform, count):
+        """Update the last known count for a platform."""
+        if count is not None:
+            if 'counts' not in self.last_known_counts:
+                self.last_known_counts['counts'] = {}
+            if 'dates' not in self.last_known_counts:
+                self.last_known_counts['dates'] = {}
+            
+            self.last_known_counts['counts'][platform] = count
+            self.last_known_counts['dates'][platform] = datetime.now().strftime('%Y-%m-%d')
+    
+    def _get_last_known(self, platform):
+        """Get the last known count for a platform."""
+        if 'counts' in self.last_known_counts:
+            return self.last_known_counts['counts'].get(platform)
+        return None
     
     def fetch_url(self, url, use_api=False):
         """Fetch URL with proper headers."""
@@ -139,18 +179,37 @@ class PlatformStats:
         return None
     
     def get_codechef(self):
-        """Fetch CodeChef statistics."""
+        """Fetch CodeChef statistics using web scraping."""
         try:
             url = "https://www.codechef.com/users/MishkatIT"
             html = self.fetch_url(url)
             if html:
-                # Look for problems solved
-                match = re.search(r'Problems\s+Solved[^>]*>.*?(\d+)', html, re.IGNORECASE | re.DOTALL)
-                if match:
-                    return int(match.group(1))
-                match = re.search(r'(\d+)[^<]*Problems', html)
-                if match:
-                    return int(match.group(1))
+                # Try multiple patterns to extract the problem count
+                
+                # Pattern 1: Look for "Problems Solved" section with various HTML structures
+                patterns = [
+                    r'<h3>.*?Problems\s+Solved.*?</h3>\s*<div[^>]*>\s*<b>(\d+)</b>',
+                    r'Problems\s+Solved[:\s]*</.*?>\s*<.*?>(\d+)</.*?>',
+                    r'<div[^>]*>\s*Problems\s+Solved\s*</div>\s*<div[^>]*>\s*(\d+)',
+                    r'fully\s+solved.*?(\d+)',
+                    r'problems?[:\s]*(\d+)',
+                    # More specific pattern for CodeChef's current structure
+                    r'<article[^>]*>.*?<h3>Problems.*?Solved</h3>.*?<div[^>]*>.*?<b>(\d+)</b>',
+                    r'problems-solved[^>]*>.*?(\d+)',
+                ]
+                
+                for pattern in patterns:
+                    match = re.search(pattern, html, re.IGNORECASE | re.DOTALL)
+                    if match:
+                        count = int(match.group(1))
+                        # Sanity check - CodeChef count should be reasonable
+                        if 0 < count < 10000:
+                            print(f"  Found using pattern: {pattern[:50]}...")
+                            return count
+                
+                # If no pattern matched, save HTML for debugging (in verbose mode)
+                print("  Warning: Could not find problem count in CodeChef HTML")
+                
         except Exception as e:
             print(f"Error getting CodeChef stats: {e}")
         return None
@@ -286,16 +345,36 @@ class PlatformStats:
                 if count is not None:
                     results[platform] = count
                     working_count += 1
+                    self._update_last_known(platform, count)
                     if verbose:
                         print(f"✓ {count} problems")
                 else:
-                    if verbose:
-                        print("✗ Failed")
-                    results[platform] = None
+                    # Fetch failed, try to use last known count
+                    last_known = self._get_last_known(platform)
+                    if last_known is not None:
+                        results[platform] = last_known
+                        if verbose:
+                            last_date = self.last_known_counts.get('dates', {}).get(platform, 'unknown date')
+                            print(f"⚠ Using last known count: {last_known} (from {last_date})")
+                    else:
+                        if verbose:
+                            print("✗ Failed (no last known count)")
+                        results[platform] = None
             except Exception as e:
                 if verbose:
                     print(f"✗ Error: {e}")
-                results[platform] = None
+                # Try to use last known count
+                last_known = self._get_last_known(platform)
+                if last_known is not None:
+                    results[platform] = last_known
+                    if verbose:
+                        last_date = self.last_known_counts.get('dates', {}).get(platform, 'unknown date')
+                        print(f"  Using last known count: {last_known} (from {last_date})")
+                else:
+                    results[platform] = None
+        
+        # Save the updated last known counts
+        self._save_last_known_counts()
         
         if verbose:
             print(f"\nSuccessfully fetched from {working_count}/{len(platforms)} platforms")
