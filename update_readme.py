@@ -169,9 +169,6 @@ def update_readme(stats, last_known_info=None, update_source=None):
         'HackerEarth': ('HackerEarth', 'blue'),
     }
     
-    # Note format for platforms using last known counts
-    NOT_UPDATED_NOTE = '<br/><small>(Updated on {date})</small>'
-    
     # Platform patterns for updating counts in README table
     # Match everything between <strong> and </strong> tags with 3 capture groups
     PLATFORM_PATTERNS = {
@@ -271,8 +268,7 @@ def update_readme(stats, last_known_info=None, update_source=None):
         else:
             date_str = current_date if isinstance(count_effective, int) else 'unknown'
 
-        note = NOT_UPDATED_NOTE.format(date=date_str)
-        replacement = rf'\g<1>{count_effective} {note}\g<3>'
+        replacement = rf'\g<1>{count_effective}\g<3>'
         readme_content = re.sub(pattern, replacement, readme_content, flags=re.DOTALL, count=1)
 
         # Update progress percentage
