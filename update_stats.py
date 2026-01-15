@@ -565,19 +565,6 @@ class PlatformStats:
             print(f"  Error getting HackerEarth stats: {e}")
         return None
     
-    def fetch_platform_stats(self, platform, fetch_function):
-        """Fetch stats for a platform, falling back to last known values if needed."""
-        count = fetch_function()
-        if count is None:
-            print(f"  Failed to fetch stats for {platform}. Using last known values.")
-            count = self._get_last_known(platform)
-            mode = self._get_last_known_mode(platform)
-            print(f"  Last known mode for {platform}: {mode}")
-        else:
-            mode = 'automatic'
-        self._update_last_known(platform, count, mode)
-        return count
-
     def fetch_all_stats(self, verbose=True):
         """Fetch statistics from all platforms."""
         platforms = {
@@ -609,7 +596,8 @@ class PlatformStats:
                 if count is not None:
                     results[platform] = count
                     working_count += 1
-                    self._update_last_known(platform, count)
+                    # Data successfully fetched - update count, date, and mode to 'automatic'
+                    self._update_last_known(platform, count, mode='automatic')
                     if verbose:
                         print(f"✓ {count} problems")
                 else:
@@ -617,9 +605,11 @@ class PlatformStats:
                     last_known = self._get_last_known(platform)
                     if last_known is not None:
                         results[platform] = last_known
+                        # Do NOT update mode when using cached data - keep the last stored mode
                         if verbose:
                             last_date = self.last_known_counts.get('dates', {}).get(platform, 'unknown date')
-                            print(f"⚠ Using last known count: {last_known} (from {last_date})")
+                            last_mode = self._get_last_known_mode(platform)
+                            print(f"⚠ Using last known count: {last_known} (from {last_date}, mode: {last_mode})")
                     else:
                         if verbose:
                             print("✗ Failed (no last known count)")
@@ -631,9 +621,11 @@ class PlatformStats:
                 last_known = self._get_last_known(platform)
                 if last_known is not None:
                     results[platform] = last_known
+                    # Do NOT update mode when using cached data - keep the last stored mode
                     if verbose:
                         last_date = self.last_known_counts.get('dates', {}).get(platform, 'unknown date')
-                        print(f"  Using last known count: {last_known} (from {last_date})")
+                        last_mode = self._get_last_known_mode(platform)
+                        print(f"  Using last known count: {last_known} (from {last_date}, mode: {last_mode})")
                 else:
                     results[platform] = None
         
