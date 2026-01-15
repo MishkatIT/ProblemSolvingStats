@@ -1,10 +1,10 @@
 name: Update Problem Solving Statistics
 
 on:
-   schedule:
+  schedule:
     # Run every day at 12:34 AM BDT (18:34 UTC), then add random delay
-     - cron: '34 18 * * *'
-     workflow_dispatch:  # Allow manual trigger
+    - cron: '39 18 * * *'
+  workflow_dispatch:  # Allow manual trigger
 
 jobs:
   update-stats:
@@ -41,7 +41,7 @@ jobs:
         run: |
           git config --global user.name 'GitHub Action'
           git config --global user.email 'action@github.com'
-          git add README.md last_known_counts.json
+          git add README.md last_known_counts.json stats.json
           if git diff --staged --quiet; then
             echo "No changes to commit"
           else
