@@ -2,29 +2,29 @@ name: Update Problem Solving Statistics
 
 on:
   schedule:
-    # Run every day at 11:50 BDT (05:50 UTC), then add random delay
-    - cron: '50 5 * * *'
+    # Run every day at 11:57 PM BDT (17:57 UTC), then add random delay
+    - cron: '57 17 * * *'
   workflow_dispatch:  # Allow manual trigger
 
 jobs:
   update-stats:
     runs-on: ubuntu-latest
-    permissions:
+    permissions: 
       contents: write  # Required to push changes to repository
     
     steps:
-      - name: Random delay (0-9 minutes)
+      - name:  Random delay (0-9 minutes)
         run: |
           RANDOM_SECONDS=$((RANDOM % 540))
           echo "Waiting for $RANDOM_SECONDS seconds to randomize execution time..."
           sleep $RANDOM_SECONDS
       
       - name: Checkout repository
-        uses: actions/checkout@v4
+        uses:  actions/checkout@v4
       
       - name: Set up Python
         uses: actions/setup-python@v5
-        with:
+        with: 
           python-version: '3.12'
 
       - name: Install dependencies
