@@ -609,7 +609,7 @@ class PlatformStats:
                 if count is not None:
                     results[platform] = count
                     working_count += 1
-                    # Only update mode to 'automatic' when data is successfully fetched
+                    # Data successfully fetched - update count, date, and mode to 'automatic'
                     self._update_last_known(platform, count, mode='automatic')
                     if verbose:
                         print(f"✓ {count} problems")
