@@ -7,7 +7,7 @@ import json
 import re
 import os
 import sys
-from datetime import datetime
+from datetime import datetime, timezone, timedelta
 
 
 def load_stats():
@@ -156,8 +156,9 @@ def update_readme(stats, last_known_info=None, update_source=None):
     if last_known_info is None:
         last_known_info = load_last_known_info()
     
-    # Get current date
-    now = datetime.now()
+    # Get current date in BDT (UTC+6)
+    bdt_tz = timezone(timedelta(hours=6))
+    now = datetime.now(bdt_tz)
     current_date = now.strftime("%d %B %Y")
     today_iso = now.strftime('%Y-%m-%d')
     
