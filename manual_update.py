@@ -83,10 +83,13 @@ def save_last_known_counts(stats):
     for platform, count in stats.items():
         if count is not None:
             # Check if count increased (problem was solved)
+            # Only update if count is strictly greater than previous count
+            # This handles the case where counts may fluctuate due to platform changes
             old_count = last_known['counts'].get(platform)
             if old_count is None or count > old_count:
-                # Count increased, update last solved date
+                # Count increased or first time seeing this platform, update last solved date
                 last_known['last_solved_dates'][platform] = current_date
+            # If count decreased or stayed the same, keep the existing last_solved_date
             
             last_known['counts'][platform] = count
             last_known['dates'][platform] = current_date

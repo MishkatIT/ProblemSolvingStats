@@ -140,6 +140,26 @@ def calculate_percentage(solved, total):
     return round((solved / total) * 100, 1)
 
 
+def format_platform_list(platforms):
+    """Format a list of platforms into a human-readable string.
+    
+    Args:
+        platforms: List of platform names (should be sorted)
+        
+    Returns:
+        Formatted string (e.g., "Platform1", "Platform1 and Platform2", 
+        "Platform1, Platform2, and Platform3")
+    """
+    if len(platforms) == 1:
+        return f"**{platforms[0]}**"
+    elif len(platforms) == 2:
+        return f"**{platforms[0]}** and **{platforms[1]}**"
+    else:
+        # Multiple platforms: "Platform1, Platform2, and Platform3"
+        formatted_list = ", ".join([f"**{p}**" for p in platforms[:-1]])
+        return f"{formatted_list}, and **{platforms[-1]}**"
+
+
 def generate_last_solved_section(last_known_info):
     """Generate the Last Solved section showing when problems were last solved.
     
@@ -173,12 +193,7 @@ def generate_last_solved_section(last_known_info):
     formatted_date = _format_human_date(most_recent_date)
     
     # Generate platform list
-    if len(platforms_solved) == 1:
-        platform_text = f"**{platforms_solved[0]}**"
-    elif len(platforms_solved) == 2:
-        platform_text = f"**{platforms_solved[0]}** and **{platforms_solved[1]}**"
-    else:
-        platform_text = ", ".join([f"**{p}**" for p in platforms_solved[:-1]]) + f", and **{platforms_solved[-1]}**"
+    platform_text = format_platform_list(platforms_solved)
     
     section = f"""
 ## 🎯 Last Activity

@@ -103,10 +103,13 @@ class PlatformStats:
             current_date = datetime.now(bdt_tz).strftime('%Y-%m-%d')
             
             # Check if count increased (problem was solved)
+            # Only update if count is strictly greater than previous count
+            # This handles the case where counts may fluctuate due to platform changes
             old_count = self.last_known_counts['counts'].get(platform)
             if old_count is None or count > old_count:
-                # Count increased, update last solved date
+                # Count increased or first time seeing this platform, update last solved date
                 self.last_known_counts['last_solved_dates'][platform] = current_date
+            # If count decreased or stayed the same, keep the existing last_solved_date
 
             self.last_known_counts['counts'][platform] = count
             self.last_known_counts['dates'][platform] = current_date
