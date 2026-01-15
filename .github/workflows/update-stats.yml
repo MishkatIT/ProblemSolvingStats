@@ -41,10 +41,15 @@ jobs:
         run: |
           git config --global user.name 'GitHub Action'
           git config --global user.email 'action@github.com'
+          echo "Checking for changes..."
+          git status
           git add README.md last_known_counts.json
+          echo "Files staged. Checking diff..."
+          git diff --staged --stat
           if git diff --staged --quiet; then
             echo "No changes to commit"
           else
+            echo "Changes detected, committing..."
             git commit -m "Auto-update: Problem solving statistics ($(date +'%Y-%m-%d'))"
             git push
           fi
