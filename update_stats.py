@@ -565,19 +565,6 @@ class PlatformStats:
             print(f"  Error getting HackerEarth stats: {e}")
         return None
     
-    def fetch_platform_stats(self, platform, fetch_function):
-        """Fetch stats for a platform, falling back to last known values if needed."""
-        count = fetch_function()
-        if count is None:
-            print(f"  Failed to fetch stats for {platform}. Using last known values.")
-            count = self._get_last_known(platform)
-            mode = self._get_last_known_mode(platform)
-            print(f"  Last known mode for {platform}: {mode}")
-        else:
-            mode = 'automatic'
-        self._update_last_known(platform, count, mode)
-        return count
-
     def fetch_all_stats(self, verbose=True):
         """Fetch statistics from all platforms."""
         platforms = {
