@@ -6,7 +6,7 @@ Use this when automatic fetching is not possible.
 
 import json
 import os
-from datetime import datetime
+from datetime import datetime, timezone, timedelta
 
 
 def get_manual_stats():
@@ -59,7 +59,9 @@ def get_manual_stats():
 
 def save_last_known_counts(stats):
     """Save the manually entered statistics as last known counts."""
-    current_date = datetime.now().strftime('%Y-%m-%d')
+    # Use BDT timezone (UTC+6) for consistency
+    bdt_tz = timezone(timedelta(hours=6))
+    current_date = datetime.now(bdt_tz).strftime('%Y-%m-%d')
     
     # Load existing data
     last_known = {'counts': {}, 'dates': {}, 'modes': {}}
@@ -129,7 +131,8 @@ def main():
         success = update_readme.update_readme(stats, last_known_info=last_known_info, update_source='manual')
         if success:
             print("\n✓ README.md has been updated successfully!")
-            print(f"  Last updated: {datetime.now().strftime('%d %B %Y')}")
+            bdt_tz = timezone(timedelta(hours=6))
+            print(f"  Last updated: {datetime.now(bdt_tz).strftime('%d %B %Y')}")
         else:
             print("\n✗ Failed to update README.md")
     else:
