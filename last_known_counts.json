@@ -1,6 +1,6 @@
 {
   "counts": {
-    "Codeforces": 2596,
+    "Codeforces": 1,
     "LeetCode": 412,
     "Vjudge": 347,
     "AtCoder": 157,
@@ -10,7 +10,7 @@
     "UVa": 6,
     "CSES": 66,
     "HackerEarth": 2,
-    "SPOJ": 18
+    "SPOJ": 180
   },
   "dates": {
     "Codeforces": "2026-01-16",
@@ -23,10 +23,10 @@
     "UVa": "2026-01-16",
     "CSES": "2026-01-15",
     "HackerEarth": "2026-01-15",
-    "SPOJ": "2026-01-15"
+    "SPOJ": "2026-01-16"
   },
   "modes": {
-    "Codeforces": "automatic",
+    "Codeforces": "manual",
     "LeetCode": "automatic",
     "Vjudge": "automatic",
     "AtCoder": "automatic",
