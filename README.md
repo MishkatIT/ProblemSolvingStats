@@ -3,11 +3,11 @@
 # 🏆 Problem Solving Statistics
 
 [![Last Updated](https://img.shields.io/badge/Last%20Updated-16%20January%202026-blue?style=for-the-badge)](https://github.com/MishkatIT/ProblemSolvingStats)
-[![Total Problems](https://img.shields.io/badge/Total%20Solved-3803-success?style=for-the-badge&logo=leetcode)](https://github.com/MishkatIT/ProblemSolvingStats)
+[![Total Problems](https://img.shields.io/badge/Total%20Solved-3804-success?style=for-the-badge&logo=leetcode)](https://github.com/MishkatIT/ProblemSolvingStats)
 [![Platforms](https://img.shields.io/badge/Platforms-12-orange?style=for-the-badge)](https://github.com/MishkatIT/ProblemSolvingStats)
 
 <!-- UPDATE_METADATA_START -->
-<p align="center"><strong>Updated:</strong> 16 January 2026 at 04:18:28 AM • Automatic</p>
+<p align="center"><strong>Updated:</strong> 16 January 2026 at 04:36:16 AM • Automatic</p>
 <!-- UPDATE_METADATA_END -->
 
 ### 💻 Competitive Programming Journey
@@ -37,7 +37,7 @@
     <tr>
       <td><img src="https://cdn.iconscout.com/icon/free/png-16/codeforces-3628695-3029920.png" width="16" height="16" onerror="this.style.display='none'"/> <strong>Codeforces</strong></td>
       <td><a href="https://codeforces.com/profile/MishkatIT">MishkatIT</a></td>
-      <td align="center"><strong>2596</strong></td>
+      <td align="center"><strong>2597</strong></td>
       <td><img src="https://img.shields.io/badge/Progress-68.3%25-red?style=flat-square" alt="Codeforces Progress"/></td>
       <td align="left">16 January 2026</td>
       <td align="center"><img src="https://img.shields.io/badge/Automatic-green?style=flat" alt="Automatic"/></td>
@@ -134,7 +134,7 @@
   <tfoot>
     <tr>
       <td colspan="2" align="center"><strong>🎖️ TOTAL</strong></td>
-      <td align="center"><strong style="font-size: 1.2em;">3803</strong></td>
+      <td align="center"><strong style="font-size: 1.2em;">3804</strong></td>
       <td align="center"><strong>100%</strong></td>
       <td align="center">16 January 2026</td>
       <td></td>
@@ -150,7 +150,7 @@
 
 | 📅 Last Solved | 🏆 Platform(s) |
 |:-------------:|:-------------:|
-| **16 January 2026** | **CodeChef** |
+| **16 January 2026** | **CodeChef** and **Codeforces** |
 
 </div>
 
@@ -162,7 +162,7 @@
 
 | 🏆 Platform | 📅 Last Solved |
 |:----------:|:--------------:|
-| **Codeforces** | 12 January 2026 |
+| **Codeforces** | 16 January 2026 |
 | **LeetCode** | 10 January 2026 |
 | **Vjudge** | 02 October 2025 |
 | **AtCoder** | 29 November 2025 |
@@ -186,7 +186,7 @@
 | 🥇 Top Platform | 🎯 Main Focus | 📚 Platforms Active |
 |:---------------:|:-------------:|:------------------:|
 | **Codeforces** | **Competitive Programming** | **12** |
-| 2596 Problems | Algorithm Mastery | Multi-Platform |
+| 2597 Problems | Algorithm Mastery | Multi-Platform |
 
 </div>
 
