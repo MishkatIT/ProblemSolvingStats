@@ -1,5 +1,4 @@
 stats.json
-last_known_counts.json
 __pycache__/
 *.pyc
 *.pyo
