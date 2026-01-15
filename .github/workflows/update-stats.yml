@@ -1,12 +1,50 @@
-# Update stats workflow
+name: Update Problem Solving Statistics
 
-# Run every day at 11:59 PM BDT (17:59 UTC), then add random delay
-schedule:
-  - cron: '59 17 * * *'
+on:
+  schedule:
+    # Run every day at 11:59 PM BDT (17:59 UTC), then add random delay
+    - cron: '59 17 * * *'
+  workflow_dispatch:  # Allow manual trigger
 
 jobs:
-  update:
+  update-stats:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write  # Required to push changes to repository
+    
     steps:
-      - name: Update Stats
-        run: echo 'Updating stats...'
+      - name: Random delay (0-9 minutes)
+        run: |
+          RANDOM_SECONDS=$((RANDOM % 540))
+          echo "Waiting for $RANDOM_SECONDS seconds to randomize execution time..."
+          sleep $RANDOM_SECONDS
+      
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install dependencies
+        run: |
+          python3 -m pip install --upgrade pip
+          pip install -r requirements.txt
+      
+      - name: Fetch latest statistics and update README
+        id: fetch_stats
+        run: |
+          python3 update_stats.py 2>&1 | tee stats_output.txt
+      
+      - name: Commit and push if changed
+        run: |
+          git config --global user.name 'GitHub Action'
+          git config --global user.email 'action@github.com'
+          git add README.md last_known_counts.json
+          if git diff --staged --quiet; then
+            echo "No changes to commit"
+          else
+            git commit -m "Auto-update: Problem solving statistics ($(date +'%Y-%m-%d'))"
+            git push
+          fi
