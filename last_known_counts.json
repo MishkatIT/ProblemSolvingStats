@@ -1,6 +1,6 @@
 {
   "counts": {
-    "Codeforces": 1,
+    "Codeforces": 2596,
     "LeetCode": 412,
     "Vjudge": 347,
     "AtCoder": 157,
@@ -26,7 +26,7 @@
     "SPOJ": "2026-01-16"
   },
   "modes": {
-    "Codeforces": "manual",
+    "Codeforces": "automatic",
     "LeetCode": "automatic",
     "Vjudge": "automatic",
     "AtCoder": "automatic",
