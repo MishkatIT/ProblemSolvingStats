@@ -192,6 +192,7 @@ def generate_last_solved_section(last_known_info):
 </div>
 
 ---
+
 """
     return section
 
@@ -402,11 +403,13 @@ def update_readme(stats, last_known_info=None, update_source=None):
     if last_solved_section:
         # Check if section already exists
         if '## 🎯 Last Activity' in readme_content:
-            # Replace existing section
-            pattern = r'## 🎯 Last Activity.*?---\n'
-            readme_content = re.sub(pattern, last_solved_section, readme_content, flags=re.DOTALL)
+            # Replace existing section (including any preceding blank lines)
+            pattern = r'\n*## 🎯 Last Activity.*?---\n+'
+            readme_content = re.sub(pattern, '\n' + last_solved_section, readme_content, flags=re.DOTALL)
         else:
             # Insert new section before "Key Highlights"
+            # First, remove excessive blank lines before Key Highlights
+            readme_content = re.sub(r'\n{3,}(## 🌟 Key Highlights)', r'\n\n\1', readme_content)
             key_highlights_pos = readme_content.find('## 🌟 Key Highlights')
             if key_highlights_pos != -1:
                 readme_content = readme_content[:key_highlights_pos] + last_solved_section + readme_content[key_highlights_pos:]

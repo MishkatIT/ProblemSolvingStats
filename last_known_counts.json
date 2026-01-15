@@ -10,7 +10,8 @@
     "UVa": 6,
     "CSES": 66,
     "HackerEarth": 2,
-    "SPOJ": 18
+    "SPOJ": 18,
+    "HackerRank": 7
   },
   "dates": {
     "Codeforces": "2026-01-16",
@@ -23,7 +24,8 @@
     "UVa": "2026-01-16",
     "CSES": "2026-01-15",
     "HackerEarth": "2026-01-15",
-    "SPOJ": "2026-01-16"
+    "SPOJ": "2026-01-16",
+    "HackerRank": "2026-01-16"
   },
   "modes": {
     "Codeforces": "automatic",
@@ -36,7 +38,8 @@
     "UVa": "automatic",
     "CSES": "manual",
     "HackerEarth": "manual",
-    "SPOJ": "manual"
+    "SPOJ": "manual",
+    "HackerRank": "automatic"
   },
   "last_solved_dates": {
     "Codeforces": "2026-01-16",
@@ -49,6 +52,7 @@
     "UVa": "2026-01-16",
     "CSES": "2026-01-15",
     "HackerEarth": "2026-01-15",
-    "SPOJ": "2026-01-16"
+    "SPOJ": "2026-01-16",
+    "HackerRank": "2026-01-16"
   }
 }

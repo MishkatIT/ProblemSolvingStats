@@ -144,18 +144,18 @@
 
 ---
 
-
 ## 🎯 Last Activity
 
 <div align="center">
 
 | 📅 Last Solved | 🏆 Platform(s) |
 |:-------------:|:-------------:|
-| **16 January 2026** | **AtCoder**, **CodeChef**, **Codeforces**, **LeetCode**, **LightOJ**, **SPOJ**, **Toph**, **UVa**, and **Vjudge** |
+| **16 January 2026** | **AtCoder**, **CodeChef**, **Codeforces**, **HackerRank**, **LeetCode**, **LightOJ**, **SPOJ**, **Toph**, **UVa**, and **Vjudge** |
 
 </div>
 
 ---
+
 ## 🌟 Key Highlights
 
 <div align="center">
