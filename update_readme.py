@@ -179,19 +179,20 @@ def update_readme(stats, last_known_info=None, update_source=None):
     
     # Platform patterns for updating counts in README table
     # Match everything between <strong> and </strong> tags with 3 capture groups
+    # Updated to match favicon structure instead of emojis
     PLATFORM_PATTERNS = {
-        'Codeforces': r'(🔴\s+Codeforces.*?<td align="center"><strong>)(.*?)(</strong>)',
-        'LeetCode': r'(🟢\s+LeetCode.*?<td align="center"><strong>)(.*?)(</strong>)',
-        'Vjudge': r'(🟣\s+Vjudge.*?<td align="center"><strong>)(.*?)(</strong>)',
-        'AtCoder': r'(🟠\s+AtCoder.*?<td align="center"><strong>)(.*?)(</strong>)',
-        'CodeChef': r'(🟤\s+CodeChef.*?<td align="center"><strong>)(.*?)(</strong>)',
-        'CSES': r'(⚪\s+CSES.*?<td align="center"><strong>)(.*?)(</strong>)',
-        'Toph': r'(🔵\s+Toph.*?<td align="center"><strong>)(.*?)(</strong>)',
-        'LightOJ': r'(🟡\s+LightOJ.*?<td align="center"><strong>)(.*?)(</strong>)',
-        'SPOJ': r'(🟩\s+SPOJ.*?<td align="center"><strong>)(.*?)(</strong>)',
-        'HackerRank': r'(💚\s+HackerRank.*?<td align="center"><strong>)(.*?)(</strong>)',
-        'UVa': r'(🔷\s+UVa.*?<td align="center"><strong>)(.*?)(</strong>)',
-        'HackerEarth': r'(🌐\s+HackerEarth.*?<td align="center"><strong>)(.*?)(</strong>)',
+        'Codeforces': r'(<strong>Codeforces</strong>.*?<td align="center"><strong>)(.*?)(</strong>)',
+        'LeetCode': r'(<strong>LeetCode</strong>.*?<td align="center"><strong>)(.*?)(</strong>)',
+        'Vjudge': r'(<strong>Vjudge</strong>.*?<td align="center"><strong>)(.*?)(</strong>)',
+        'AtCoder': r'(<strong>AtCoder</strong>.*?<td align="center"><strong>)(.*?)(</strong>)',
+        'CodeChef': r'(<strong>CodeChef</strong>.*?<td align="center"><strong>)(.*?)(</strong>)',
+        'CSES': r'(<strong>CSES</strong>.*?<td align="center"><strong>)(.*?)(</strong>)',
+        'Toph': r'(<strong>Toph</strong>.*?<td align="center"><strong>)(.*?)(</strong>)',
+        'LightOJ': r'(<strong>LightOJ</strong>.*?<td align="center"><strong>)(.*?)(</strong>)',
+        'SPOJ': r'(<strong>SPOJ</strong>.*?<td align="center"><strong>)(.*?)(</strong>)',
+        'HackerRank': r'(<strong>HackerRank</strong>.*?<td align="center"><strong>)(.*?)(</strong>)',
+        'UVa': r'(<strong>UVa</strong>.*?<td align="center"><strong>)(.*?)(</strong>)',
+        'HackerEarth': r'(<strong>HackerEarth</strong>.*?<td align="center"><strong>)(.*?)(</strong>)',
     }
     
     # Determine which platforms were freshly updated vs using last known
@@ -292,11 +293,11 @@ def update_readme(stats, last_known_info=None, update_source=None):
         progress_replacement = rf'\g<1>{percentage}%25'
         readme_content = re.sub(progress_pattern, progress_replacement, readme_content, flags=re.DOTALL)
 
-        # Update the "Updated On" column for each platform
-        # Ensure the shield badge is replaced instead of adding a new one
-        updated_on_pattern = rf'({platform_name}.*?Progress-{percentage}%25.*?<td align="left">).*?<img src="https://img.shields.io/badge/.*?".*?</td>'
-        updated_on_replacement = rf'\g<1>{date_str} <img src="https://img.shields.io/badge/{mode_display}-{mode_color}?style=flat" alt="{mode_display}"/></td>'
-        readme_content = re.sub(updated_on_pattern, updated_on_replacement, readme_content, flags=re.DOTALL)
+        # Update the "Updated On" column and "Mode" column for each platform
+        # Pattern matches: Progress badge -> Updated On date -> Mode badge
+        date_and_mode_pattern = rf'({platform_name}.*?Progress-{percentage}%25.*?<td align="left">)[^<]*</td>\s*<td align="center">.*?</td>'
+        date_and_mode_replacement = rf'\g<1>{date_str}</td>\n      <td align="center"><img src="https://img.shields.io/badge/{mode_display}-{mode_color}?style=flat" alt="{mode_display}"/></td>'
+        readme_content = re.sub(date_and_mode_pattern, date_and_mode_replacement, readme_content, flags=re.DOTALL)
     
     # Update total in footer
     readme_content = re.sub(
