@@ -41,7 +41,7 @@ jobs:
         run: |
           git config --global user.name 'GitHub Action'
           git config --global user.email 'action@github.com'
-          git add README.md last_known_counts.json stats.json
+          git add README.md last_known_counts.json
           if git diff --staged --quiet; then
             echo "No changes to commit"
           else
