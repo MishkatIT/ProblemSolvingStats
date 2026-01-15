@@ -35,7 +35,7 @@
   </thead>
   <tbody>
     <tr>
-      <td><img src="https://cdn.iconscout.com/icon/free/png-16/codeforces-3628695-3029920.png" width="16" height="16" alt="Codeforces"/> <strong>Codeforces</strong></td>
+      <td><img src="https://cdn.iconscout.com/icon/free/png-16/codeforces-3628695-3029920.png" width="16" height="16" alt="Codeforces" onerror="this.style.display='none'"/> <strong>Codeforces</strong></td>
       <td><a href="https://codeforces.com/profile/MishkatIT">MishkatIT</a></td>
       <td align="center"><strong>2596</strong></td>
       <td><img src="https://img.shields.io/badge/Progress-68.3%25-red?style=flat-square" alt="Codeforces Progress"/></td>
@@ -43,7 +43,7 @@
       <td align="center"><img src="https://img.shields.io/badge/Automatic-green?style=flat" alt="Automatic"/></td>
     </tr>
     <tr>
-      <td><img src="https://leetcode.com/favicon-16x16.png" width="16" height="16" alt="LeetCode"/> <strong>LeetCode</strong></td>
+      <td><img src="https://leetcode.com/favicon-16x16.png" width="16" height="16" alt="LeetCode" onerror="this.style.display='none'"/> <strong>LeetCode</strong></td>
       <td><a href="https://leetcode.com/MishkatIT/">MishkatIT</a></td>
       <td align="center"><strong>412</strong></td>
       <td><img src="https://img.shields.io/badge/Progress-10.8%25-yellow?style=flat-square" alt="LeetCode Progress"/></td>
@@ -51,7 +51,7 @@
       <td align="center"><img src="https://img.shields.io/badge/Automatic-green?style=flat" alt="Automatic"/></td>
     </tr>
     <tr>
-      <td><img src="https://vjudge.net/favicon.ico" width="16" height="16" alt="Vjudge"/> <strong>Vjudge</strong></td>
+      <td><img src="https://vjudge.net/favicon.ico" width="16" height="16" alt="Vjudge" onerror="this.style.display='none'"/> <strong>Vjudge</strong></td>
       <td><a href="https://vjudge.net/user/MishkatIT">MishkatIT</a></td>
       <td align="center"><strong>347</strong></td>
       <td><img src="https://img.shields.io/badge/Progress-9.1%25-blueviolet?style=flat-square" alt="Vjudge Progress"/></td>
@@ -59,7 +59,7 @@
       <td align="center"><img src="https://img.shields.io/badge/Automatic-green?style=flat" alt="Automatic"/></td>
     </tr>
     <tr>
-      <td><img src="https://atcoder.jp/favicon.ico" width="16" height="16" alt="AtCoder"/> <strong>AtCoder</strong></td>
+      <td><img src="https://atcoder.jp/favicon.ico" width="16" height="16" alt="AtCoder" onerror="this.style.display='none'"/> <strong>AtCoder</strong></td>
       <td><a href="https://atcoder.jp/users/MishkatIT">MishkatIT</a></td>
       <td align="center"><strong>157</strong></td>
       <td><img src="https://img.shields.io/badge/Progress-4.1%25-orange?style=flat-square" alt="AtCoder Progress"/></td>
@@ -67,7 +67,7 @@
       <td align="center"><img src="https://img.shields.io/badge/Automatic-green?style=flat" alt="Automatic"/></td>
     </tr>
     <tr>
-      <td><img src="https://cdn.codechef.com/sites/all/themes/abessive/cc-logo.png" width="16" height="16" alt="CodeChef"/> <strong>CodeChef</strong></td>
+      <td><img src="https://cdn.codechef.com/sites/all/themes/abessive/cc-logo.png" width="16" height="16" alt="CodeChef" onerror="this.style.display='none'"/> <strong>CodeChef</strong></td>
       <td><a href="https://www.codechef.com/users/MishkatIT">MishkatIT</a></td>
       <td align="center"><strong>124</strong></td>
       <td><img src="https://img.shields.io/badge/Progress-3.3%25-brown?style=flat-square" alt="CodeChef Progress"/></td>
@@ -75,7 +75,7 @@
       <td align="center"><img src="https://img.shields.io/badge/Automatic-green?style=flat" alt="Automatic"/></td>
     </tr>
     <tr>
-      <td><img src="https://www.google.com/s2/favicons?domain=cses.fi&sz=16" width="16" height="16" alt="CSES"/> <strong>CSES</strong></td>
+      <td><img src="https://www.google.com/s2/favicons?domain=cses.fi&sz=16" width="16" height="16" alt="CSES" onerror="this.style.display='none'"/> <strong>CSES</strong></td>
       <td><a href="https://cses.fi/user/165802/">MishkatIT</a></td>
       <td align="center"><strong>66</strong></td>
       <td><img src="https://img.shields.io/badge/Progress-1.7%25-lightgray?style=flat-square" alt="CSES Progress"/></td>
@@ -83,7 +83,7 @@
       <td align="center"><img src="https://img.shields.io/badge/Manual-orange?style=flat" alt="Manual"/></td>
     </tr>
     <tr>
-      <td><img src="https://toph.co/favicon.ico" width="16" height="16" alt="Toph"/> <strong>Toph</strong></td>
+      <td><img src="https://toph.co/favicon.ico" width="16" height="16" alt="Toph" onerror="this.style.display='none'"/> <strong>Toph</strong></td>
       <td><a href="https://toph.co/u/MishkatIT">MishkatIT</a></td>
       <td align="center"><strong>36</strong></td>
       <td><img src="https://img.shields.io/badge/Progress-0.9%25-blue?style=flat-square" alt="Toph Progress"/></td>
@@ -91,7 +91,7 @@
       <td align="center"><img src="https://img.shields.io/badge/Automatic-green?style=flat" alt="Automatic"/></td>
     </tr>
     <tr>
-      <td><img src="https://lightoj.com/favicon.ico" width="16" height="16" alt="LightOJ"/> <strong>LightOJ</strong></td>
+      <td><img src="https://lightoj.com/favicon.ico" width="16" height="16" alt="LightOJ" onerror="this.style.display='none'"/> <strong>LightOJ</strong></td>
       <td><a href="https://lightoj.com/user/mishkatit">MishkatIT</a></td>
       <td align="center"><strong>31</strong></td>
       <td><img src="https://img.shields.io/badge/Progress-0.8%25-yellow?style=flat-square" alt="LightOJ Progress"/></td>
@@ -99,7 +99,7 @@
       <td align="center"><img src="https://img.shields.io/badge/Automatic-green?style=flat" alt="Automatic"/></td>
     </tr>
     <tr>
-      <td><img src="https://www.spoj.com/favicon.ico" width="16" height="16" alt="SPOJ"/> <strong>SPOJ</strong></td>
+      <td><img src="https://www.spoj.com/favicon.ico" width="16" height="16" alt="SPOJ" onerror="this.style.display='none'"/> <strong>SPOJ</strong></td>
       <td><a href="https://www.spoj.com/users/mishkatit/">MishkatIT</a></td>
       <td align="center"><strong>18</strong></td>
       <td><img src="https://img.shields.io/badge/Progress-0.5%25-green?style=flat-square" alt="SPOJ Progress"/></td>
@@ -107,7 +107,7 @@
       <td align="center"><img src="https://img.shields.io/badge/Manual-orange?style=flat" alt="Manual"/></td>
     </tr>
     <tr>
-      <td><img src="https://hrcdn.net/fcore/assets/favicon-ddc852f75a.png" width="16" height="16" alt="HackerRank"/> <strong>HackerRank</strong></td>
+      <td><img src="https://hrcdn.net/fcore/assets/favicon-ddc852f75a.png" width="16" height="16" alt="HackerRank" onerror="this.style.display='none'"/> <strong>HackerRank</strong></td>
       <td><a href="https://www.hackerrank.com/MishkatIT">MishkatIT</a></td>
       <td align="center"><strong>7</strong></td>
       <td><img src="https://img.shields.io/badge/Progress-0.2%25-brightgreen?style=flat-square" alt="HackerRank Progress"/></td>
@@ -115,7 +115,7 @@
       <td align="center"><img src="https://img.shields.io/badge/Automatic-green?style=flat" alt="Automatic"/></td>
     </tr>
     <tr>
-      <td><img src="https://www.google.com/s2/favicons?domain=onlinejudge.org&sz=16" width="16" height="16" alt="UVa"/> <strong>UVa</strong></td>
+      <td><img src="https://www.google.com/s2/favicons?domain=onlinejudge.org&sz=16" width="16" height="16" alt="UVa" onerror="this.style.display='none'"/> <strong>UVa</strong></td>
       <td><a href="https://uhunt.onlinejudge.org/id/1615470">MishkatIT</a></td>
       <td align="center"><strong>6</strong></td>
       <td><img src="https://img.shields.io/badge/Progress-0.2%25-blue?style=flat-square" alt="UVa Progress"/></td>
@@ -123,7 +123,7 @@
       <td align="center"><img src="https://img.shields.io/badge/Automatic-green?style=flat" alt="Automatic"/></td>
     </tr>
     <tr>
-      <td><img src="https://www.google.com/s2/favicons?domain=hackerearth.com&sz=16" width="16" height="16" alt="HackerEarth"/> <strong>HackerEarth</strong></td>
+      <td><img src="https://www.google.com/s2/favicons?domain=hackerearth.com&sz=16" width="16" height="16" alt="HackerEarth" onerror="this.style.display='none'"/> <strong>HackerEarth</strong></td>
       <td><a href="https://www.hackerearth.com/@MishkatIT">MishkatIT</a></td>
       <td align="center"><strong>2</strong></td>
       <td><img src="https://img.shields.io/badge/Progress-0.1%25-blue?style=flat-square" alt="HackerEarth Progress"/></td>
