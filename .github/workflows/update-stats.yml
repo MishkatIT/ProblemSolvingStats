@@ -2,8 +2,8 @@ name: Update Problem Solving Statistics
 
 on:
   schedule:
-    # TEST: Run at 12:55 AM BDT (18:55 UTC)
-    - cron: '55 18 * * *'
+    # TEST: Run at 1:02 AM BDT (19:02 UTC)
+    - cron: '02 19 * * *'
   workflow_dispatch:  # Allow manual trigger
 
 jobs:
