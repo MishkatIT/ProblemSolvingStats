@@ -13,11 +13,11 @@ jobs:
       contents: write  # Required to push changes to repository
     
     steps:
-      - name: Random delay (0-9 minutes)
-        run: |
-          RANDOM_SECONDS=$((RANDOM % 540))
-          echo "Waiting for $RANDOM_SECONDS seconds to randomize execution time..."
-          sleep $RANDOM_SECONDS
+      # - name: Random delay (0-9 minutes)
+      #   run: |
+      #     RANDOM_SECONDS=$((RANDOM % 540))
+      #     echo "Waiting for $RANDOM_SECONDS seconds to randomize execution time..."
+      #     sleep $RANDOM_SECONDS
       
       - name: Checkout repository
         uses: actions/checkout@v4
