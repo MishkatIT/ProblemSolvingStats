@@ -83,7 +83,7 @@ class PlatformStats:
             return self.last_known_counts['modes'].get(platform, 'unknown')
         return 'unknown'
 
-    def _update_last_known(self, platform, count, mode='automatic'):
+    def _update_last_known(self, platform, count, mode=None):
         """Update the last known count and mode for a platform."""
         if count is not None:
             if 'counts' not in self.last_known_counts:
@@ -95,7 +95,10 @@ class PlatformStats:
 
             self.last_known_counts['counts'][platform] = count
             self.last_known_counts['dates'][platform] = datetime.now().strftime('%Y-%m-%d')
-            self.last_known_counts['modes'][platform] = mode
+
+            # Update the mode only if it is different from the existing one
+            if mode is not None and self.last_known_counts['modes'].get(platform) != mode:
+                self.last_known_counts['modes'][platform] = mode
 
     def fetch_url(self, url, use_api=False):
         """Fetch URL with proper headers."""

@@ -1,1 +1,41 @@
-{"counts": {}, "dates": {}, "modes": {}}
+{
+  "counts": {
+    "Codeforces": 2596,
+    "LeetCode": 412,
+    "Vjudge": 347,
+    "AtCoder": 157,
+    "CodeChef": 124,
+    "Toph": 36,
+    "LightOJ": 31,
+    "UVa": 6,
+    "CSES": 66,
+    "HackerEarth": 2,
+    "SPOJ": 18
+  },
+  "dates": {
+    "Codeforces": "2026-01-15",
+    "LeetCode": "2026-01-15",
+    "Vjudge": "2026-01-15",
+    "AtCoder": "2026-01-15",
+    "CodeChef": "2026-01-15",
+    "Toph": "2026-01-15",
+    "LightOJ": "2026-01-15",
+    "UVa": "2026-01-15",
+    "CSES": "2026-01-15",
+    "HackerEarth": "2026-01-15",
+    "SPOJ": "2026-01-15"
+  },
+  "modes": {
+    "Codeforces": "automatic",
+    "LeetCode": "automatic",
+    "Vjudge": "automatic",
+    "AtCoder": "automatic",
+    "CodeChef": "automatic",
+    "Toph": "automatic",
+    "LightOJ": "automatic",
+    "UVa": "automatic",
+    "CSES": "manual",
+    "HackerEarth": "manual",
+    "SPOJ": "manual"
+  }
+}
