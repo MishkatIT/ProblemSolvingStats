@@ -150,7 +150,9 @@ def format_platform_list(platforms):
         Formatted string (e.g., "Platform1", "Platform1 and Platform2", 
         "Platform1, Platform2, and Platform3")
     """
-    if len(platforms) == 1:
+    if not platforms:
+        return "**No platforms**"
+    elif len(platforms) == 1:
         return f"**{platforms[0]}**"
     elif len(platforms) == 2:
         return f"**{platforms[0]}** and **{platforms[1]}**"
