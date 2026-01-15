@@ -34,7 +34,7 @@ import sys
 import os
 from urllib.request import urlopen, Request
 from urllib.error import URLError, HTTPError
-from datetime import datetime
+from datetime import datetime, timezone, timedelta
 from bs4 import BeautifulSoup
 
 
@@ -94,7 +94,9 @@ class PlatformStats:
                 self.last_known_counts['modes'] = {}
 
             self.last_known_counts['counts'][platform] = count
-            self.last_known_counts['dates'][platform] = datetime.now().strftime('%Y-%m-%d')
+            # Use BDT timezone (UTC+6) for consistency with update_readme.py
+            bdt_tz = timezone(timedelta(hours=6))
+            self.last_known_counts['dates'][platform] = datetime.now(bdt_tz).strftime('%Y-%m-%d')
 
             # Update the mode only if it is different from the existing one
             if mode is not None and self.last_known_counts['modes'].get(platform) != mode:
