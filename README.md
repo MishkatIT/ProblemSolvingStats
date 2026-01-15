@@ -7,7 +7,7 @@
 [![Platforms](https://img.shields.io/badge/Platforms-12-orange?style=for-the-badge)](https://github.com/MishkatIT/ProblemSolvingStats)
 
 <!-- UPDATE_METADATA_START -->
-<p align="center"><strong>Updated:</strong> 16 January 2026 • Unknown</p>
+<p align="center"><strong>Updated:</strong> 16 January 2026 at 03:59:33 AM • Automatic</p>
 <!-- UPDATE_METADATA_END -->
 
 ### 💻 Competitive Programming Journey
@@ -144,13 +144,36 @@
 
 ---
 
-## 🎯 Last Activity
+## 🎯 Latest Solve
 
 <div align="center">
 
 | 📅 Last Solved | 🏆 Platform(s) |
 |:-------------:|:-------------:|
-| **16 January 2026** | **AtCoder**, **CodeChef**, **Codeforces**, **HackerRank**, **LeetCode**, **LightOJ**, **SPOJ**, **Toph**, **UVa**, and **Vjudge** |
+| **16 January 2026** | **Codeforces** |
+
+</div>
+
+---
+
+## 📅 Last Solved by Platform
+
+<div align="center">
+
+| 🏆 Platform | 📅 Last Solved |
+|:----------:|:--------------:|
+| **Codeforces** | 16 January 2026 |
+| **LeetCode** | 10 January 2026 |
+| **Vjudge** | 02 October 2025 |
+| **AtCoder** | 29 November 2025 |
+| **CodeChef** | 15 January 2026 |
+| **CSES** | 18 August 2025 |
+| **Toph** | 28 December 2025 |
+| **LightOJ** | 12 August 2023 |
+| **SPOJ** | 06 May 2025 |
+| **HackerRank** | 01 January 1970 |
+| **UVa** | 07 May 2025 |
+| **HackerEarth** | 01 January 1970 |
 
 </div>
 

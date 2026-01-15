@@ -162,14 +162,14 @@ def format_platform_list(platforms):
         return f"{formatted_list}, and **{platforms[-1]}**"
 
 
-def generate_last_solved_section(last_known_info):
-    """Generate the Last Solved section showing when problems were last solved.
+def generate_latest_solve_section(last_known_info):
+    """Generate the Latest Solve section showing the most recent activity.
     
     Args:
         last_known_info: Dictionary containing 'last_solved_dates' with platform dates
         
     Returns:
-        String containing the markdown section for last solved information
+        String containing the markdown section for latest solve information
     """
     last_solved_dates = last_known_info.get('last_solved_dates', {})
     
@@ -198,13 +198,64 @@ def generate_last_solved_section(last_known_info):
     platform_text = format_platform_list(platforms_solved)
     
     section = f"""
-## 🎯 Last Activity
+## 🎯 Latest Solve
 
 <div align="center">
 
 | 📅 Last Solved | 🏆 Platform(s) |
 |:-------------:|:-------------:|
 | **{formatted_date}** | {platform_text} |
+
+</div>
+
+---
+
+"""
+    return section
+
+
+def generate_platform_last_solved_table(last_known_info):
+    """Generate a table showing last solved date for each platform.
+    
+    Args:
+        last_known_info: Dictionary containing 'last_solved_dates' with platform dates
+        
+    Returns:
+        String containing the markdown table for all platform last solved dates
+    """
+    last_solved_dates = last_known_info.get('last_solved_dates', {})
+    
+    if not last_solved_dates:
+        return ""
+    
+    # Platform order (matching the stats table order)
+    platform_order = [
+        'Codeforces', 'LeetCode', 'Vjudge', 'AtCoder', 'CodeChef', 
+        'CSES', 'Toph', 'LightOJ', 'SPOJ', 'HackerRank', 'UVa', 'HackerEarth'
+    ]
+    
+    # Build table rows
+    rows = []
+    for platform in platform_order:
+        if platform in last_solved_dates:
+            date = last_solved_dates[platform]
+            if date:
+                formatted_date = _format_human_date(date)
+            else:
+                formatted_date = "_Not recorded_"
+            rows.append(f"| **{platform}** | {formatted_date} |")
+    
+    if not rows:
+        return ""
+    
+    section = f"""
+## 📅 Last Solved by Platform
+
+<div align="center">
+
+| 🏆 Platform | 📅 Last Solved |
+|:----------:|:--------------:|
+{chr(10).join(rows)}
 
 </div>
 
@@ -238,6 +289,7 @@ def update_readme(stats, last_known_info=None, update_source=None):
     bdt_tz = timezone(timedelta(hours=6))
     now = datetime.now(bdt_tz)
     current_date = now.strftime("%d %B %Y")
+    current_date_with_time = now.strftime("%d %B %Y at %I:%M:%S %p")
     today_iso = now.strftime('%Y-%m-%d')
     
     # Platform mappings
@@ -327,7 +379,7 @@ def update_readme(stats, last_known_info=None, update_source=None):
     # Add/update the explicit update metadata block (date + manual/automatic)
     readme_content = _upsert_update_metadata_block(
         readme_content,
-        current_date_human=current_date,
+        current_date_human=current_date_with_time,
         update_source=update_source,
     )
 
@@ -415,21 +467,52 @@ def update_readme(stats, last_known_info=None, update_source=None):
             readme_content
         )
     
-    # Insert or update the Last Activity section
-    last_solved_section = generate_last_solved_section(last_known_info)
-    if last_solved_section:
+    # Insert or update the Latest Solve section
+    latest_solve_section = generate_latest_solve_section(last_known_info)
+    if latest_solve_section:
         # Check if section already exists
-        if '## 🎯 Last Activity' in readme_content:
+        if '## 🎯 Latest Solve' in readme_content:
             # Replace existing section (including any preceding blank lines)
+            pattern = r'\n*## 🎯 Latest Solve.*?---\n+'
+            readme_content = re.sub(pattern, '\n' + latest_solve_section, readme_content, flags=re.DOTALL)
+        elif '## 🎯 Last Activity' in readme_content:
+            # Replace old section name
             pattern = r'\n*## 🎯 Last Activity.*?---\n+'
-            readme_content = re.sub(pattern, '\n' + last_solved_section, readme_content, flags=re.DOTALL)
+            readme_content = re.sub(pattern, '\n' + latest_solve_section, readme_content, flags=re.DOTALL)
         else:
             # Insert new section before "Key Highlights"
-            # First, remove excessive blank lines before Key Highlights
             readme_content = re.sub(r'\n{3,}(## 🌟 Key Highlights)', r'\n\n\1', readme_content)
             key_highlights_pos = readme_content.find('## 🌟 Key Highlights')
             if key_highlights_pos != -1:
-                readme_content = readme_content[:key_highlights_pos] + last_solved_section + readme_content[key_highlights_pos:]
+                readme_content = readme_content[:key_highlights_pos] + latest_solve_section + readme_content[key_highlights_pos:]
+    else:
+        # Remove the section if it exists but there are no valid dates
+        if '## 🎯 Latest Solve' in readme_content:
+            pattern = r'\n*## 🎯 Latest Solve.*?---\n+'
+            readme_content = re.sub(pattern, '\n', readme_content, flags=re.DOTALL)
+        elif '## 🎯 Last Activity' in readme_content:
+            pattern = r'\n*## 🎯 Last Activity.*?---\n+'
+            readme_content = re.sub(pattern, '\n', readme_content, flags=re.DOTALL)
+    
+    # Insert or update the Platform Last Solved Table
+    platform_table_section = generate_platform_last_solved_table(last_known_info)
+    if platform_table_section:
+        # Check if section already exists
+        if '## 📅 Last Solved by Platform' in readme_content:
+            # Replace existing section
+            pattern = r'\n*## 📅 Last Solved by Platform.*?---\n+'
+            readme_content = re.sub(pattern, '\n' + platform_table_section, readme_content, flags=re.DOTALL)
+        else:
+            # Insert before "Key Highlights" section
+            readme_content = re.sub(r'\n{3,}(## 🌟 Key Highlights)', r'\n\n\1', readme_content)
+            key_highlights_pos = readme_content.find('## 🌟 Key Highlights')
+            if key_highlights_pos != -1:
+                readme_content = readme_content[:key_highlights_pos] + platform_table_section + readme_content[key_highlights_pos:]
+    else:
+        # Remove the section if it exists but there are no valid dates
+        if '## 📅 Last Solved by Platform' in readme_content:
+            pattern = r'\n*## 📅 Last Solved by Platform.*?---\n+'
+            readme_content = re.sub(pattern, '\n', readme_content, flags=re.DOTALL)
     
     # Write updated README
     try:
