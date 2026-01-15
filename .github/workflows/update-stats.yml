@@ -2,8 +2,8 @@ name: Update Problem Solving Statistics
 
 on:
   schedule:
-    # Run every day at 11:50 PM BDT (17:50 UTC), then add random delay
-    - cron: '50 17 * * *'
+    # Run every day at 11:40 PM BDT (17:40 UTC), then add random delay (0-7 minutes)
+    - cron: '40 17 * * *'
   workflow_dispatch:  # Allow manual trigger
 
 jobs:
@@ -13,9 +13,9 @@ jobs:
       contents: write  # Required to push changes to repository
     
     steps:
-      - name: Random delay (0-9 minutes)
+      - name: Random delay (0-7 minutes)
         run: |
-          RANDOM_SECONDS=$((RANDOM % 540))
+          RANDOM_SECONDS=$((RANDOM % 420))
           echo "Waiting for $RANDOM_SECONDS seconds to randomize execution time..."
           sleep $RANDOM_SECONDS
       

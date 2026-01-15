@@ -162,7 +162,7 @@
 This repository tracks problem-solving statistics using a hybrid approach:
 
 ### Automatic Updates (GitHub Actions)
-- Runs daily between 11:50-11:59 AM BDT (randomized)
+- Runs daily between 11:40-11:47 PM BDT (randomized)
 - Automatically fetches statistics from platforms with working APIs
 - Failed platforms fall back to last known values with date stamps
 - Updates are pushed automatically to the repository
