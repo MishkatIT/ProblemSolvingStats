@@ -75,7 +75,7 @@
       <td align="center"><img src="https://img.shields.io/badge/Automatic-green?style=flat" alt="Automatic"/></td>
     </tr>
     <tr>
-      <td><img src="https://www.google.com/s2/favicons?domain=cses.fi&sz=16" width="16" height="16" alt="CSES" onerror="this.style.display='none'"/> <strong>CSES</strong></td>
+      <td><img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0Ij48cGF0aCBmaWxsPSIjODA4MDgwIiBkPSJNMTIgMkM2LjQ4IDIgMiA2LjQ4IDIgMTJzNC40OCAxMCAxMCAxMCAxMC00LjQ4IDEwLTEwUzE3LjUyIDIgMTIgMnptLTEgMTcuOTNjLTMuOTUtLjQ5LTctMy44NS03LTcuOTMgMC0uNjIuMDgtMS4yMS4yMS0xLjc5TDkgMTV2MWMwIDEuMS45IDIgMiAydjEuOTN6bTYuOS0yLjU0Yy0uMjYtLjgxLTEtMS4zOS0xLjktMS4zOWgtMXYtM2MwLS41NS0uNDUtMS0xLTFIOHYtMmgyYy41NSAwIDEtLjQ1IDEtMVY3aDJjMS4xIDAgMi0uOSAyLTJ2LS40MWMyLjkzIDEuMTkgNSA0LjA2IDUgNy40MSAwIDIuMDgtLjggMy45Ny0yLjEgNS4zOXoiLz48L3N2Zz4=" width="16" height="16" alt="CSES"/> <strong>CSES</strong></td>
       <td><a href="https://cses.fi/user/165802/">MishkatIT</a></td>
       <td align="center"><strong>66</strong></td>
       <td><img src="https://img.shields.io/badge/Progress-1.7%25-lightgray?style=flat-square" alt="CSES Progress"/></td>
@@ -91,7 +91,7 @@
       <td align="center"><img src="https://img.shields.io/badge/Automatic-green?style=flat" alt="Automatic"/></td>
     </tr>
     <tr>
-      <td><img src="https://lightoj.com/favicon.ico" width="16" height="16" alt="LightOJ" onerror="this.style.display='none'"/> <strong>LightOJ</strong></td>
+      <td><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSq0TU63ijLZ_PaQre3dgnYmJ811t41O-RcHg&s" width="16" height="16" alt="LightOJ"/> <strong>LightOJ</strong></td>
       <td><a href="https://lightoj.com/user/mishkatit">MishkatIT</a></td>
       <td align="center"><strong>31</strong></td>
       <td><img src="https://img.shields.io/badge/Progress-0.8%25-yellow?style=flat-square" alt="LightOJ Progress"/></td>
