@@ -7,7 +7,7 @@
 [![Platforms](https://img.shields.io/badge/Platforms-12-orange?style=for-the-badge)](https://github.com/MishkatIT/ProblemSolvingStats)
 
 <!-- UPDATE_METADATA_START -->
-<p align="center"><strong>Updated:</strong> 16 January 2026 at 04:15:11 AM • Automatic</p>
+<p align="center"><strong>Updated:</strong> 16 January 2026 at 04:18:28 AM • Automatic</p>
 <!-- UPDATE_METADATA_END -->
 
 ### 💻 Competitive Programming Journey
@@ -150,7 +150,7 @@
 
 | 📅 Last Solved | 🏆 Platform(s) |
 |:-------------:|:-------------:|
-| **16 January 2026** | **CodeChef** and **Codeforces** |
+| **16 January 2026** | **CodeChef** |
 
 </div>
 
@@ -162,7 +162,7 @@
 
 | 🏆 Platform | 📅 Last Solved |
 |:----------:|:--------------:|
-| **Codeforces** | 16 January 2026 |
+| **Codeforces** | 12 January 2026 |
 | **LeetCode** | 10 January 2026 |
 | **Vjudge** | 02 October 2025 |
 | **AtCoder** | 29 November 2025 |
