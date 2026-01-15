@@ -55,13 +55,16 @@ class PlatformStats:
         try:
             with open(self.LAST_KNOWN_FILE, 'r') as f:
                 data = json.load(f)
+                # Ensure last_solved_dates exists
+                if 'last_solved_dates' not in data:
+                    data['last_solved_dates'] = {}
                 return data
         except FileNotFoundError:
             # File doesn't exist yet, will be created on first save
             pass
         except (json.JSONDecodeError, IOError) as e:
             print(f"Warning: Could not load last known counts: {e}")
-        return {'counts': {}, 'dates': {}}
+        return {'counts': {}, 'dates': {}, 'last_solved_dates': {}}
     
     def _save_last_known_counts(self):
         """Save the current known good counts to file."""
@@ -92,11 +95,24 @@ class PlatformStats:
                 self.last_known_counts['dates'] = {}
             if 'modes' not in self.last_known_counts:
                 self.last_known_counts['modes'] = {}
+            if 'last_solved_dates' not in self.last_known_counts:
+                self.last_known_counts['last_solved_dates'] = {}
 
-            self.last_known_counts['counts'][platform] = count
             # Use BDT timezone (UTC+6) for consistency with update_readme.py
             bdt_tz = timezone(timedelta(hours=6))
-            self.last_known_counts['dates'][platform] = datetime.now(bdt_tz).strftime('%Y-%m-%d')
+            current_date = datetime.now(bdt_tz).strftime('%Y-%m-%d')
+            
+            # Check if count increased (problem was solved)
+            # Only update if count is strictly greater than previous count
+            # This handles the case where counts may fluctuate due to platform changes
+            old_count = self.last_known_counts['counts'].get(platform)
+            if old_count is None or count > old_count:
+                # Count increased or first time seeing this platform, update last solved date
+                self.last_known_counts['last_solved_dates'][platform] = current_date
+            # If count decreased or stayed the same, keep the existing last_solved_date
+
+            self.last_known_counts['counts'][platform] = count
+            self.last_known_counts['dates'][platform] = current_date
 
             # Update the mode only if it is different from the existing one
             if mode is not None and self.last_known_counts['modes'].get(platform) != mode:
