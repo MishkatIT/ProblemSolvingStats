@@ -35,7 +35,13 @@ jobs:
       - name: Fetch latest statistics and update README
         id: fetch_stats
         run: |
+          echo "Before update - README last modified:"
+          stat -c '%y' README.md || ls -l README.md
           python3 update_stats.py 2>&1 | tee stats_output.txt
+          echo "After update - README last modified:"
+          stat -c '%y' README.md || ls -l README.md
+          echo "Checking if README was modified:"
+          git diff README.md | head -20
       
       - name: Commit and push if changed
         run: |
