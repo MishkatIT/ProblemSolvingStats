@@ -285,7 +285,7 @@ def update_readme(stats, last_known_info=None, update_source=None):
         readme_content = re.sub(progress_pattern, progress_replacement, readme_content, flags=re.DOTALL)
 
         # Update the "Updated On" column for each platform
-        # Show date and mode badge (without the word "Mode")
+        # Show date and per-platform mode badge with color coding (green=automatic, orange=manual)
         updated_on_pattern = rf'({platform_name}.*?Progress-{percentage}%25.*?<td align="center">).*?</td>'
         updated_on_replacement = rf'\g<1>{date_str} <img src="https://img.shields.io/badge/{mode_display}-{mode_color}?style=flat" alt="{mode_display}"/></td>'
         readme_content = re.sub(updated_on_pattern, updated_on_replacement, readme_content, flags=re.DOTALL)
