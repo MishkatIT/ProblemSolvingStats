@@ -2,12 +2,12 @@
 
 # 🏆 Problem Solving Statistics
 
-[![Last Updated](https://img.shields.io/badge/Last%20Updated-15%20January%202026-blue?style=for-the-badge)](https://github.com/MishkatIT/ProblemSolvingStats)
+[![Last Updated](https://img.shields.io/badge/Last%20Updated-16%20January%202026-blue?style=for-the-badge)](https://github.com/MishkatIT/ProblemSolvingStats)
 [![Total Problems](https://img.shields.io/badge/Total%20Solved-3802-success?style=for-the-badge&logo=leetcode)](https://github.com/MishkatIT/ProblemSolvingStats)
 [![Platforms](https://img.shields.io/badge/Platforms-12-orange?style=for-the-badge)](https://github.com/MishkatIT/ProblemSolvingStats)
 
 <!-- UPDATE_METADATA_START -->
-<p align="center"><strong>Updated:</strong> 15 January 2026 • Automatic</p>
+<p align="center"><strong>Updated:</strong> 16 January 2026 • Automatic</p>
 <!-- UPDATE_METADATA_END -->
 
 ### 💻 Competitive Programming Journey
@@ -111,7 +111,7 @@
       <td><a href="https://www.hackerrank.com/MishkatIT">MishkatIT</a></td>
       <td align="center"><strong>7</strong></td>
       <td><img src="https://img.shields.io/badge/Progress-0.2%25-brightgreen?style=flat-square" alt="HackerRank Progress"/></td>
-      <td align="left">15 January 2026</td>
+      <td align="left">16 January 2026</td>
       <td align="center"><img src="https://img.shields.io/badge/Automatic-green?style=flat" alt="Automatic"/></td>
     </tr>
     <tr>
@@ -136,7 +136,7 @@
       <td colspan="2" align="center"><strong>🎖️ TOTAL</strong></td>
       <td align="center"><strong style="font-size: 1.2em;">3802</strong></td>
       <td align="center"><strong>100%</strong></td>
-      <td align="center">15 January 2026</td>
+      <td align="center">16 January 2026</td>
       <td></td>
     </tr>
   </tfoot>
