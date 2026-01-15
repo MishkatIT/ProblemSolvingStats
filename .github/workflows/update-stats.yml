@@ -2,9 +2,9 @@ name: Update Problem Solving Statistics
 
 on:
    schedule:
-    # Run every day at 12:36 AM BDT (18:36 UTC), then add random delay
-    - cron: '36 18 * * *'
-    workflow_dispatch:  # Allow manual trigger
+    # Run every day at 12:34 AM BDT (18:34 UTC), then add random delay
+     - cron: '34 18 * * *'
+     workflow_dispatch:  # Allow manual trigger
 
 jobs:
   update-stats:
