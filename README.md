@@ -39,7 +39,7 @@
       <td><a href="https://codeforces.com/profile/MishkatIT">MishkatIT</a></td>
       <td align="center"><strong>2596</strong></td>
       <td><img src="https://img.shields.io/badge/Progress-68.3%25-red?style=flat-square" alt="Codeforces Progress"/></td>
-      <td align="left">15 January 2026</td>
+      <td align="left">16 January 2026</td>
       <td align="center"><img src="https://img.shields.io/badge/Automatic-green?style=flat" alt="Automatic"/></td>
     </tr>
     <tr>
@@ -47,7 +47,7 @@
       <td><a href="https://leetcode.com/MishkatIT/">MishkatIT</a></td>
       <td align="center"><strong>412</strong></td>
       <td><img src="https://img.shields.io/badge/Progress-10.8%25-yellow?style=flat-square" alt="LeetCode Progress"/></td>
-      <td align="left">15 January 2026</td>
+      <td align="left">16 January 2026</td>
       <td align="center"><img src="https://img.shields.io/badge/Automatic-green?style=flat" alt="Automatic"/></td>
     </tr>
     <tr>
@@ -55,7 +55,7 @@
       <td><a href="https://vjudge.net/user/MishkatIT">MishkatIT</a></td>
       <td align="center"><strong>347</strong></td>
       <td><img src="https://img.shields.io/badge/Progress-9.1%25-blueviolet?style=flat-square" alt="Vjudge Progress"/></td>
-      <td align="left">15 January 2026</td>
+      <td align="left">16 January 2026</td>
       <td align="center"><img src="https://img.shields.io/badge/Automatic-green?style=flat" alt="Automatic"/></td>
     </tr>
     <tr>
@@ -63,7 +63,7 @@
       <td><a href="https://atcoder.jp/users/MishkatIT">MishkatIT</a></td>
       <td align="center"><strong>157</strong></td>
       <td><img src="https://img.shields.io/badge/Progress-4.1%25-orange?style=flat-square" alt="AtCoder Progress"/></td>
-      <td align="left">15 January 2026</td>
+      <td align="left">16 January 2026</td>
       <td align="center"><img src="https://img.shields.io/badge/Automatic-green?style=flat" alt="Automatic"/></td>
     </tr>
     <tr>
@@ -71,7 +71,7 @@
       <td><a href="https://www.codechef.com/users/MishkatIT">MishkatIT</a></td>
       <td align="center"><strong>124</strong></td>
       <td><img src="https://img.shields.io/badge/Progress-3.3%25-brown?style=flat-square" alt="CodeChef Progress"/></td>
-      <td align="left">15 January 2026</td>
+      <td align="left">16 January 2026</td>
       <td align="center"><img src="https://img.shields.io/badge/Automatic-green?style=flat" alt="Automatic"/></td>
     </tr>
     <tr>
@@ -79,7 +79,7 @@
       <td><a href="https://cses.fi/user/165802/">MishkatIT</a></td>
       <td align="center"><strong>66</strong></td>
       <td><img src="https://img.shields.io/badge/Progress-1.7%25-lightgray?style=flat-square" alt="CSES Progress"/></td>
-      <td align="left">15 January 2026</td>
+      <td align="left">16 January 2026</td>
       <td align="center"><img src="https://img.shields.io/badge/Manual-orange?style=flat" alt="Manual"/></td>
     </tr>
     <tr>
@@ -87,7 +87,7 @@
       <td><a href="https://toph.co/u/MishkatIT">MishkatIT</a></td>
       <td align="center"><strong>36</strong></td>
       <td><img src="https://img.shields.io/badge/Progress-0.9%25-blue?style=flat-square" alt="Toph Progress"/></td>
-      <td align="left">15 January 2026</td>
+      <td align="left">16 January 2026</td>
       <td align="center"><img src="https://img.shields.io/badge/Automatic-green?style=flat" alt="Automatic"/></td>
     </tr>
     <tr>
@@ -95,7 +95,7 @@
       <td><a href="https://lightoj.com/user/mishkatit">MishkatIT</a></td>
       <td align="center"><strong>31</strong></td>
       <td><img src="https://img.shields.io/badge/Progress-0.8%25-yellow?style=flat-square" alt="LightOJ Progress"/></td>
-      <td align="left">15 January 2026</td>
+      <td align="left">16 January 2026</td>
       <td align="center"><img src="https://img.shields.io/badge/Automatic-green?style=flat" alt="Automatic"/></td>
     </tr>
     <tr>
@@ -103,7 +103,7 @@
       <td><a href="https://www.spoj.com/users/mishkatit/">MishkatIT</a></td>
       <td align="center"><strong>18</strong></td>
       <td><img src="https://img.shields.io/badge/Progress-0.5%25-green?style=flat-square" alt="SPOJ Progress"/></td>
-      <td align="left">15 January 2026</td>
+      <td align="left">16 January 2026</td>
       <td align="center"><img src="https://img.shields.io/badge/Manual-orange?style=flat" alt="Manual"/></td>
     </tr>
     <tr>
@@ -119,7 +119,7 @@
       <td><a href="https://uhunt.onlinejudge.org/id/1615470">MishkatIT</a></td>
       <td align="center"><strong>6</strong></td>
       <td><img src="https://img.shields.io/badge/Progress-0.2%25-blue?style=flat-square" alt="UVa Progress"/></td>
-      <td align="left">15 January 2026</td>
+      <td align="left">16 January 2026</td>
       <td align="center"><img src="https://img.shields.io/badge/Automatic-green?style=flat" alt="Automatic"/></td>
     </tr>
     <tr>
@@ -127,7 +127,7 @@
       <td><a href="https://www.hackerearth.com/@MishkatIT">MishkatIT</a></td>
       <td align="center"><strong>2</strong></td>
       <td><img src="https://img.shields.io/badge/Progress-0.1%25-blue?style=flat-square" alt="HackerEarth Progress"/></td>
-      <td align="left">15 January 2026</td>
+      <td align="left">16 January 2026</td>
       <td align="center"><img src="https://img.shields.io/badge/Manual-orange?style=flat" alt="Manual"/></td>
     </tr>
   </tbody>
