@@ -79,7 +79,7 @@
       <td><a href="https://cses.fi/user/165802/">MishkatIT</a></td>
       <td align="center"><strong>66</strong></td>
       <td><img src="https://img.shields.io/badge/Progress-1.7%25-lightgray?style=flat-square" alt="CSES Progress"/></td>
-      <td align="left">16 January 2026</td>
+      <td align="left">15 January 2026</td>
       <td align="center"><img src="https://img.shields.io/badge/Manual-orange?style=flat" alt="Manual"/></td>
     </tr>
     <tr>
@@ -103,7 +103,7 @@
       <td><a href="https://www.spoj.com/users/mishkatit/">MishkatIT</a></td>
       <td align="center"><strong>18</strong></td>
       <td><img src="https://img.shields.io/badge/Progress-0.5%25-green?style=flat-square" alt="SPOJ Progress"/></td>
-      <td align="left">16 January 2026</td>
+      <td align="left">15 January 2026</td>
       <td align="center"><img src="https://img.shields.io/badge/Manual-orange?style=flat" alt="Manual"/></td>
     </tr>
     <tr>
@@ -127,7 +127,7 @@
       <td><a href="https://www.hackerearth.com/@MishkatIT">MishkatIT</a></td>
       <td align="center"><strong>2</strong></td>
       <td><img src="https://img.shields.io/badge/Progress-0.1%25-blue?style=flat-square" alt="HackerEarth Progress"/></td>
-      <td align="left">16 January 2026</td>
+      <td align="left">15 January 2026</td>
       <td align="center"><img src="https://img.shields.io/badge/Manual-orange?style=flat" alt="Manual"/></td>
     </tr>
   </tbody>
