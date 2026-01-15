@@ -71,23 +71,32 @@ class PlatformStats:
         except (IOError, OSError) as e:
             print(f"Warning: Could not save last known counts: {e}")
     
-    def _update_last_known(self, platform, count):
-        """Update the last known count for a platform."""
-        if count is not None:
-            if 'counts' not in self.last_known_counts:
-                self.last_known_counts['counts'] = {}
-            if 'dates' not in self.last_known_counts:
-                self.last_known_counts['dates'] = {}
-            
-            self.last_known_counts['counts'][platform] = count
-            self.last_known_counts['dates'][platform] = datetime.now().strftime('%Y-%m-%d')
-    
     def _get_last_known(self, platform):
         """Get the last known count for a platform."""
         if 'counts' in self.last_known_counts:
             return self.last_known_counts['counts'].get(platform)
         return None
     
+    def _get_last_known_mode(self, platform):
+        """Get the last known update mode for a platform."""
+        if 'modes' in self.last_known_counts:
+            return self.last_known_counts['modes'].get(platform, 'unknown')
+        return 'unknown'
+
+    def _update_last_known(self, platform, count, mode='automatic'):
+        """Update the last known count and mode for a platform."""
+        if count is not None:
+            if 'counts' not in self.last_known_counts:
+                self.last_known_counts['counts'] = {}
+            if 'dates' not in self.last_known_counts:
+                self.last_known_counts['dates'] = {}
+            if 'modes' not in self.last_known_counts:
+                self.last_known_counts['modes'] = {}
+
+            self.last_known_counts['counts'][platform] = count
+            self.last_known_counts['dates'][platform] = datetime.now().strftime('%Y-%m-%d')
+            self.last_known_counts['modes'][platform] = mode
+
     def fetch_url(self, url, use_api=False):
         """Fetch URL with proper headers."""
         try:
@@ -556,6 +565,19 @@ class PlatformStats:
             print(f"  Error getting HackerEarth stats: {e}")
         return None
     
+    def fetch_platform_stats(self, platform, fetch_function):
+        """Fetch stats for a platform, falling back to last known values if needed."""
+        count = fetch_function()
+        if count is None:
+            print(f"  Failed to fetch stats for {platform}. Using last known values.")
+            count = self._get_last_known(platform)
+            mode = self._get_last_known_mode(platform)
+            print(f"  Last known mode for {platform}: {mode}")
+        else:
+            mode = 'automatic'
+        self._update_last_known(platform, count, mode)
+        return count
+
     def fetch_all_stats(self, verbose=True):
         """Fetch statistics from all platforms."""
         platforms = {
