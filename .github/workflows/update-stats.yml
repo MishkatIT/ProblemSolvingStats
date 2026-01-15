@@ -2,8 +2,8 @@ name: Update Problem Solving Statistics
 
 on:
   schedule:
-    # TEST: Run at 1:02 AM BDT (19:02 UTC)
-    - cron: '02 19 * * *'
+    # Run every day at 11:50 PM BDT (17:50 UTC), then add random delay
+    - cron: '50 17 * * *'
   workflow_dispatch:  # Allow manual trigger
 
 jobs:
@@ -13,11 +13,11 @@ jobs:
       contents: write  # Required to push changes to repository
     
     steps:
-      # - name: Random delay (0-9 minutes)
-      #   run: |
-      #     RANDOM_SECONDS=$((RANDOM % 540))
-      #     echo "Waiting for $RANDOM_SECONDS seconds to randomize execution time..."
-      #     sleep $RANDOM_SECONDS
+      - name: Random delay (0-9 minutes)
+        run: |
+          RANDOM_SECONDS=$((RANDOM % 540))
+          echo "Waiting for $RANDOM_SECONDS seconds to randomize execution time..."
+          sleep $RANDOM_SECONDS
       
       - name: Checkout repository
         uses: actions/checkout@v4
