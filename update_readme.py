@@ -273,22 +273,21 @@ def update_readme(stats, last_known_info=None, update_source=None):
         percentage = calculate_percentage(count_effective, total)
 
         # Pick date to display:
-        # - If freshly fetched (in stats dict and not None): use current date
-        # - Else use last-known date if available
-        # - Otherwise use current date if we have a count, else 'unknown'
-        if platform in stats and stats[platform] is not None:
-            # Freshly fetched - use today's date
+        # - If freshly fetched with 'automatic' mode: use current date
+        # - Otherwise: use last-known date (for manual updates or cached data)
+        platform_mode = last_known_modes.get(platform, 'automatic')
+        
+        if platform in stats and stats[platform] is not None and platform_mode == 'automatic':
+            # Freshly fetched automatically today - use current date
             date_str = current_date
         else:
-            # Using cached/last-known value - show the cached date
+            # Using cached/manual value - show the cached date
             raw_date = last_known_dates.get(platform)
             if raw_date:
                 date_str = _format_human_date(raw_date)
             else:
                 date_str = current_date if isinstance(count_effective, int) else 'unknown'
 
-        # Get the mode for this specific platform
-        platform_mode = last_known_modes.get(platform, 'automatic')
         # Capitalize first letter for display
         mode_display = platform_mode.capitalize() if platform_mode else 'Auto'
         # Choose badge color based on mode
