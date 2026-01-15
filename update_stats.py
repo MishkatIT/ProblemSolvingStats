@@ -106,8 +106,10 @@ class PlatformStats:
             # Only update if count is strictly greater than previous count
             # This handles the case where counts may fluctuate due to platform changes
             old_count = self.last_known_counts['counts'].get(platform)
-            if old_count is None or count > old_count:
-                # Count increased or first time seeing this platform, update last solved date
+            if old_count is None:
+                funnyDate = "1970-01-01"
+                self.last_known_counts['last_solved_dates'][platform] = funnyDate
+            elif count > old_count:
                 self.last_known_counts['last_solved_dates'][platform] = current_date
             # If count decreased or stayed the same, keep the existing last_solved_date
 
