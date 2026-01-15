@@ -62,21 +62,25 @@ def save_last_known_counts(stats):
     current_date = datetime.now().strftime('%Y-%m-%d')
     
     # Load existing data
-    last_known = {'counts': {}, 'dates': {}}
+    last_known = {'counts': {}, 'dates': {}, 'modes': {}}
     if os.path.exists('last_known_counts.json'):
         try:
             with open('last_known_counts.json', 'r') as f:
                 last_known = json.load(f)
+                # Ensure all required keys exist
+                if 'modes' not in last_known:
+                    last_known['modes'] = {}
         except (json.JSONDecodeError, IOError) as e:
             # Log the error but continue with default structure
             print(f"Warning: Could not load existing last_known_counts.json: {e}")
             print("Starting with fresh data structure.")
     
-    # Update with new stats
+    # Update with new stats and mark as 'manual' mode
     for platform, count in stats.items():
         if count is not None:
             last_known['counts'][platform] = count
             last_known['dates'][platform] = current_date
+            last_known['modes'][platform] = 'manual'
     
     # Save
     with open('last_known_counts.json', 'w') as f:

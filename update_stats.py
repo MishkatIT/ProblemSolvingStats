@@ -609,7 +609,8 @@ class PlatformStats:
                 if count is not None:
                     results[platform] = count
                     working_count += 1
-                    self._update_last_known(platform, count)
+                    # Only update mode to 'automatic' when data is successfully fetched
+                    self._update_last_known(platform, count, mode='automatic')
                     if verbose:
                         print(f"✓ {count} problems")
                 else:
@@ -617,9 +618,11 @@ class PlatformStats:
                     last_known = self._get_last_known(platform)
                     if last_known is not None:
                         results[platform] = last_known
+                        # Do NOT update mode when using cached data - keep the last stored mode
                         if verbose:
                             last_date = self.last_known_counts.get('dates', {}).get(platform, 'unknown date')
-                            print(f"⚠ Using last known count: {last_known} (from {last_date})")
+                            last_mode = self._get_last_known_mode(platform)
+                            print(f"⚠ Using last known count: {last_known} (from {last_date}, mode: {last_mode})")
                     else:
                         if verbose:
                             print("✗ Failed (no last known count)")
@@ -631,9 +634,11 @@ class PlatformStats:
                 last_known = self._get_last_known(platform)
                 if last_known is not None:
                     results[platform] = last_known
+                    # Do NOT update mode when using cached data - keep the last stored mode
                     if verbose:
                         last_date = self.last_known_counts.get('dates', {}).get(platform, 'unknown date')
-                        print(f"  Using last known count: {last_known} (from {last_date})")
+                        last_mode = self._get_last_known_mode(platform)
+                        print(f"  Using last known count: {last_known} (from {last_date}, mode: {last_mode})")
                 else:
                     results[platform] = None
         

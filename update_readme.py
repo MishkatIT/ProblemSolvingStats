@@ -90,7 +90,7 @@ def _upsert_update_metadata_block(readme_content, *, current_date_human, update_
     block = (
         '<!-- UPDATE_METADATA_START -->\n'
         f'<p align="center"><strong>Updated:</strong> {current_date_human} '
-        f'• <strong>Mode:</strong> {update_source_title}</p>\n'
+        f'• {update_source_title}</p>\n'
         '<!-- UPDATE_METADATA_END -->'
     )
 
@@ -189,6 +189,7 @@ def update_readme(stats, last_known_info=None, update_source=None):
     # Determine which platforms were freshly updated vs using last known
     last_known_counts = last_known_info.get('counts', {})
     last_known_dates = last_known_info.get('dates', {})
+    last_known_modes = last_known_info.get('modes', {})
 
     # Build effective counts for totals/progress (prefer stats, then last-known, then README)
     effective_counts = {}
@@ -268,6 +269,13 @@ def update_readme(stats, last_known_info=None, update_source=None):
         else:
             date_str = current_date if isinstance(count_effective, int) else 'unknown'
 
+        # Get the mode for this specific platform
+        platform_mode = last_known_modes.get(platform, 'automatic')
+        # Capitalize first letter for display
+        mode_display = platform_mode.capitalize() if platform_mode else 'Auto'
+        # Choose badge color based on mode
+        mode_color = 'orange' if platform_mode == 'manual' else 'green'
+
         replacement = rf'\g<1>{count_effective}\g<3>'
         readme_content = re.sub(pattern, replacement, readme_content, flags=re.DOTALL, count=1)
 
@@ -277,9 +285,9 @@ def update_readme(stats, last_known_info=None, update_source=None):
         readme_content = re.sub(progress_pattern, progress_replacement, readme_content, flags=re.DOTALL)
 
         # Update the "Updated On" column for each platform
-        # Include the update source (manual/automatic) in the badge
+        # Show date and mode badge (without the word "Mode")
         updated_on_pattern = rf'({platform_name}.*?Progress-{percentage}%25.*?<td align="center">).*?</td>'
-        updated_on_replacement = rf'\g<1>{date_str} <img src="https://img.shields.io/badge/Mode-{update_source.capitalize()}-blue?style=flat-square" alt="{update_source.capitalize()} Update"/></td>'
+        updated_on_replacement = rf'\g<1>{date_str} <img src="https://img.shields.io/badge/{mode_display}-{mode_color}?style=flat" alt="{mode_display}"/></td>'
         readme_content = re.sub(updated_on_pattern, updated_on_replacement, readme_content, flags=re.DOTALL)
     
     # Update total in footer
