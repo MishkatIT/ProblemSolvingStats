@@ -7,7 +7,7 @@
 [![Platforms](https://img.shields.io/badge/Platforms-12-orange?style=for-the-badge)](https://github.com/MishkatIT/ProblemSolvingStats)
 
 <!-- UPDATE_METADATA_START -->
-<p align="center"><strong>Updated:</strong> 16 January 2026 • Manual</p>
+<p align="center"><strong>Updated:</strong> 16 January 2026 • Unknown</p>
 <!-- UPDATE_METADATA_END -->
 
 ### 💻 Competitive Programming Journey
@@ -144,6 +144,18 @@
 
 ---
 
+
+## 🎯 Last Activity
+
+<div align="center">
+
+| 📅 Last Solved | 🏆 Platform(s) |
+|:-------------:|:-------------:|
+| **16 January 2026** | **AtCoder**, **CodeChef**, **Codeforces**, **LeetCode**, **LightOJ**, **SPOJ**, **Toph**, **UVa**, and **Vjudge** |
+
+</div>
+
+---
 ## 🌟 Key Highlights
 
 <div align="center">

@@ -28,10 +28,14 @@ def load_last_known_info():
     try:
         if os.path.exists('last_known_counts.json'):
             with open('last_known_counts.json', 'r', encoding='utf-8') as f:
-                return json.load(f)
+                data = json.load(f)
+                # Ensure last_solved_dates exists
+                if 'last_solved_dates' not in data:
+                    data['last_solved_dates'] = {}
+                return data
     except Exception as e:
         print(f"Warning: Could not load last known counts: {e}")
-    return {'counts': {}, 'dates': {}}
+    return {'counts': {}, 'dates': {}, 'last_solved_dates': {}}
 
 
 def _read_text_file(path):
@@ -134,6 +138,62 @@ def calculate_percentage(solved, total):
     if total == 0:
         return 0.0
     return round((solved / total) * 100, 1)
+
+
+def generate_last_solved_section(last_known_info):
+    """Generate the Last Solved section showing when problems were last solved.
+    
+    Args:
+        last_known_info: Dictionary containing 'last_solved_dates' with platform dates
+        
+    Returns:
+        String containing the markdown section for last solved information
+    """
+    last_solved_dates = last_known_info.get('last_solved_dates', {})
+    
+    if not last_solved_dates:
+        return ""
+    
+    # Find the most recent solve date and all platforms that solved on that date
+    date_to_platforms = {}
+    for platform, date in last_solved_dates.items():
+        if date:
+            if date not in date_to_platforms:
+                date_to_platforms[date] = []
+            date_to_platforms[date].append(platform)
+    
+    if not date_to_platforms:
+        return ""
+    
+    # Get the most recent date
+    most_recent_date = max(date_to_platforms.keys())
+    platforms_solved = sorted(date_to_platforms[most_recent_date])
+    
+    # Format the date
+    formatted_date = _format_human_date(most_recent_date)
+    
+    # Generate platform list
+    if len(platforms_solved) == 1:
+        platform_text = f"**{platforms_solved[0]}**"
+    elif len(platforms_solved) == 2:
+        platform_text = f"**{platforms_solved[0]}** and **{platforms_solved[1]}**"
+    else:
+        platform_text = ", ".join([f"**{p}**" for p in platforms_solved[:-1]]) + f", and **{platforms_solved[-1]}**"
+    
+    section = f"""
+## 🎯 Last Activity
+
+<div align="center">
+
+| 📅 Last Solved | 🏆 Platform(s) |
+|:-------------:|:-------------:|
+| **{formatted_date}** | {platform_text} |
+
+</div>
+
+---
+"""
+    return section
 
 
 def update_readme(stats, last_known_info=None, update_source=None):
@@ -336,6 +396,20 @@ def update_readme(stats, last_known_info=None, update_source=None):
             rf'\g<1>{cf_count}\g<2>',
             readme_content
         )
+    
+    # Insert or update the Last Activity section
+    last_solved_section = generate_last_solved_section(last_known_info)
+    if last_solved_section:
+        # Check if section already exists
+        if '## 🎯 Last Activity' in readme_content:
+            # Replace existing section
+            pattern = r'## 🎯 Last Activity.*?---\n'
+            readme_content = re.sub(pattern, last_solved_section, readme_content, flags=re.DOTALL)
+        else:
+            # Insert new section before "Key Highlights"
+            key_highlights_pos = readme_content.find('## 🌟 Key Highlights')
+            if key_highlights_pos != -1:
+                readme_content = readme_content[:key_highlights_pos] + last_solved_section + readme_content[key_highlights_pos:]
     
     # Write updated README
     try:

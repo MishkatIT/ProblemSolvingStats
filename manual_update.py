@@ -64,7 +64,7 @@ def save_last_known_counts(stats):
     current_date = datetime.now(bdt_tz).strftime('%Y-%m-%d')
     
     # Load existing data
-    last_known = {'counts': {}, 'dates': {}, 'modes': {}}
+    last_known = {'counts': {}, 'dates': {}, 'modes': {}, 'last_solved_dates': {}}
     if os.path.exists('last_known_counts.json'):
         try:
             with open('last_known_counts.json', 'r') as f:
@@ -72,6 +72,8 @@ def save_last_known_counts(stats):
                 # Ensure all required keys exist
                 if 'modes' not in last_known:
                     last_known['modes'] = {}
+                if 'last_solved_dates' not in last_known:
+                    last_known['last_solved_dates'] = {}
         except (json.JSONDecodeError, IOError) as e:
             # Log the error but continue with default structure
             print(f"Warning: Could not load existing last_known_counts.json: {e}")
@@ -80,6 +82,12 @@ def save_last_known_counts(stats):
     # Update with new stats and mark as 'manual' mode
     for platform, count in stats.items():
         if count is not None:
+            # Check if count increased (problem was solved)
+            old_count = last_known['counts'].get(platform)
+            if old_count is None or count > old_count:
+                # Count increased, update last solved date
+                last_known['last_solved_dates'][platform] = current_date
+            
             last_known['counts'][platform] = count
             last_known['dates'][platform] = current_date
             last_known['modes'][platform] = 'manual'

@@ -37,5 +37,18 @@
     "CSES": "manual",
     "HackerEarth": "manual",
     "SPOJ": "manual"
+  },
+  "last_solved_dates": {
+    "Codeforces": "2026-01-16",
+    "LeetCode": "2026-01-16",
+    "Vjudge": "2026-01-16",
+    "AtCoder": "2026-01-16",
+    "CodeChef": "2026-01-16",
+    "Toph": "2026-01-16",
+    "LightOJ": "2026-01-16",
+    "UVa": "2026-01-16",
+    "CSES": "2026-01-15",
+    "HackerEarth": "2026-01-15",
+    "SPOJ": "2026-01-16"
   }
 }
