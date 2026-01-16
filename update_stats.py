@@ -180,8 +180,8 @@ class PlatformStats:
                         if 0 < cnt < self.MAX_REASONABLE_COUNT:
                             return cnt
 
-                print("  web scraping failed, Trying api...")
             else:
+                print("  web scraping failed, Trying api...")
                 url = f"https://codeforces.com/api/user.status?handle={USER_CONFIG['Codeforces']}&from=1&count=10000"
                 data = self.fetch_url(url, use_api=True)
                 

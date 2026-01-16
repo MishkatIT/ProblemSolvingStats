@@ -7,7 +7,7 @@
 [![Platforms](https://img.shields.io/badge/Platforms-12-orange?style=for-the-badge)](https://github.com/MishkatIT/ProblemSolvingStats)
 
 <!-- UPDATE_METADATA_START -->
-<p align="center"><strong>Updated:</strong> 16 January 2026 at 08:31:34 PM • Unknown</p>
+<p align="center"><strong>Updated:</strong> 16 January 2026 at 08:37:47 PM • Automatic</p>
 <!-- UPDATE_METADATA_END -->
 
 ### 💻 Competitive Programming Journey
@@ -144,7 +144,8 @@
 </table>
 <!-- AUTO_GENERATED_SECTION_END: STATS_TABLE -->
 
----<!-- AUTO_GENERATED_SECTION_START: LATEST_SOLVE -->
+---
+<!-- AUTO_GENERATED_SECTION_START: LATEST_SOLVE -->
 ## 🎯 Latest Solve
 
 <div align="center">
