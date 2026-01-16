@@ -233,7 +233,7 @@ class PlatformStats:
                 import requests
 
                 url = "https://kenkoooo.com/atcoder/atcoder-api/v3/user/submissions"
-                user = USER_CONFIG['LightOJ']
+                user = USER_CONFIG['AtCoder']
 
                 solved = set()
                 from_second = 0
