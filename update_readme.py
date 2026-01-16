@@ -3,161 +3,22 @@
 Script to update README.md with the latest statistics from stats.json
 """
 
-import json
 import re
 import os
 import sys
 from datetime import datetime, timezone, timedelta
 
-
-# User configuration - Single source of truth for all usernames/IDs
-USER_CONFIG = {
-    'Codeforces': 'MishkatIT',
-    'LeetCode': 'MishkatIT',
-    'Vjudge': 'MishkatIT',
-    'AtCoder': 'MishkatIT',
-    'CodeChef': 'MishkatIT',
-    'CSES': '165802',  # User ID
-    'Toph': 'MishkatIT',
-    'LightOJ': 'mishkatit',  # lowercase
-    'SPOJ': 'mishkatit',  # lowercase
-    'HackerRank': 'MishkatIT',
-    'UVa': '1615470',  # User ID
-    'HackerEarth': 'MishkatIT'
-}
-
-# Platform URL templates
-PLATFORM_URL_TEMPLATES = {
-    'Codeforces': 'https://codeforces.com/profile/{username}',
-    'LeetCode': 'https://leetcode.com/{username}/',
-    'Vjudge': 'https://vjudge.net/user/{username}',
-    'AtCoder': 'https://atcoder.jp/users/{username}',
-    'CodeChef': 'https://www.codechef.com/users/{username}',
-    'CSES': 'https://cses.fi/user/{username}/',
-    'Toph': 'https://toph.co/u/{username}',
-    'LightOJ': 'https://lightoj.com/user/{username}',
-    'SPOJ': 'https://www.spoj.com/users/{username}/',
-    'HackerRank': 'https://www.hackerrank.com/{username}',
-    'UVa': 'https://uhunt.onlinejudge.org/id/{username}',
-    'HackerEarth': 'https://www.hackerearth.com/@{username}'
-}
-
-
-def get_profile_url(platform):
-    """Generate profile URL for a platform using username from config."""
-    template = PLATFORM_URL_TEMPLATES.get(platform)
-    username = USER_CONFIG.get(platform)
-    if template and username:
-        return template.format(username=username)
-    return '#'
-
-
-# Platform configuration constants
-PLATFORM_LOGOS = {
-    'Codeforces': ('https://cdn.iconscout.com/icon/free/png-16/codeforces-3628695-3029920.png', True),
-    'LeetCode': ('https://leetcode.com/favicon-16x16.png', True),
-    'Vjudge': ('https://vjudge.net/favicon.ico', True),
-    'AtCoder': ('https://atcoder.jp/favicon.ico', True),
-    'CodeChef': ('https://cdn.codechef.com/sites/all/themes/abessive/cc-logo.png', True),
-    'CSES': ('https://cses.fi/logo.png?1', True),
-    'Toph': ('https://toph.co/favicon.ico', True),
-    'LightOJ': ('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSq0TU63ijLZ_PaQre3dgnYmJ811t41O-RcHg&s', False),
-    'SPOJ': ('https://www.spoj.com/favicon.ico', True),
-    'HackerRank': ('https://hrcdn.net/fcore/assets/favicon-ddc852f75a.png', True),
-    'UVa': ('https://www.google.com/s2/favicons?domain=onlinejudge.org&sz=16', True),
-    'HackerEarth': ('https://www.google.com/s2/favicons?domain=hackerearth.com&sz=16', True)
-}
-
-PLATFORM_COLORS = {
-    'Codeforces': 'red',
-    'LeetCode': 'yellow',
-    'Vjudge': 'blueviolet',
-    'AtCoder': 'orange',
-    'CodeChef': 'brown',
-    'CSES': 'lightgray',
-    'Toph': 'blue',
-    'LightOJ': 'yellow',
-    'SPOJ': 'green',
-    'HackerRank': 'brightgreen',
-    'UVa': 'blue',
-    'HackerEarth': 'blue'
-}
-
-ALL_PLATFORMS = [
-    'Codeforces', 'LeetCode', 'Vjudge', 'AtCoder', 'CodeChef',
-    'CSES', 'Toph', 'LightOJ', 'SPOJ', 'HackerRank', 'UVa', 'HackerEarth'
-]
-
-
-def load_stats():
-    """Load statistics from stats.json file."""
-    try:
-        with open('stats.json', 'r', encoding='utf-8') as f:
-            return json.load(f)
-    except FileNotFoundError:
-        print("stats.json not found. Please run update_stats.py first.")
-        return None
-    except json.JSONDecodeError:
-        print("Error parsing stats.json")
-        return None
-
-
-def load_last_known_info():
-    """Load last known counts and dates."""
-    try:
-        if os.path.exists('last_known_counts.json'):
-            with open('last_known_counts.json', 'r', encoding='utf-8') as f:
-                data = json.load(f)
-                # Ensure last_solved_dates exists
-                if 'last_solved_dates' not in data:
-                    data['last_solved_dates'] = {}
-                return data
-    except Exception as e:
-        print(f"Warning: Could not load last known counts: {e}")
-    return {'counts': {}, 'dates': {}, 'last_solved_dates': {}}
-
-
-def _read_text_file(path):
-    """Read a text file using UTF-8 (with BOM support).
-
-    On Windows, the default encoding can be cp1252 which may fail for UTF-8 files.
-    """
-    for encoding in ('utf-8', 'utf-8-sig'):
-        try:
-            with open(path, 'r', encoding=encoding) as f:
-                return f.read()
-        except UnicodeDecodeError:
-            continue
-    # Last resort: replace undecodable bytes so the update can proceed.
-    with open(path, 'r', encoding='utf-8', errors='replace') as f:
-        return f.read()
-
-
-def calculate_total(stats):
-    """Calculate total solved problems."""
-    total = 0
-    for count in stats.values():
-        if count is not None and isinstance(count, int):
-            total += count
-    return total
-
-
-def _format_human_date(date_str):
-    """Convert an ISO date (YYYY-MM-DD) to a human-readable date.
-
-    Falls back to the original string if parsing fails.
-    """
-    if not date_str or date_str == 'unknown':
-        return 'unknown'
-    try:
-        return datetime.strptime(date_str, '%Y-%m-%d').strftime('%d %B %Y')
-    except Exception:
-        return date_str
-
-
-def _extract_first_int(text):
-    match = re.search(r'\d+', text or '')
-    return int(match.group(0)) if match else None
+# Import shared modules
+from src.config import (
+    USER_CONFIG, PLATFORM_URL_TEMPLATES, PLATFORM_LOGOS, 
+    PLATFORM_COLORS, ALL_PLATFORMS, BDT_TIMEZONE
+)
+from src.utils import (
+    get_profile_url, format_human_date, calculate_percentage,
+    calculate_total, format_platform_list, read_text_file,
+    extract_first_int
+)
+from src.data_manager import DataManager
 
 
 def _replace_marked_section(content, marker_name, new_content):
@@ -237,35 +98,6 @@ def _upsert_update_metadata_block(readme_content, *, current_date_human, update_
         return block + "\n\n" + readme_content
 
 
-def calculate_percentage(solved, total):
-    """Calculate percentage for progress bar."""
-    if total == 0:
-        return 0.0
-    return round((solved / total) * 100, 1)
-
-
-def format_platform_list(platforms):
-    """Format a list of platforms into a human-readable string.
-    
-    Args:
-        platforms: List of platform names (should be sorted)
-        
-    Returns:
-        Formatted string (e.g., "Platform1", "Platform1 and Platform2", 
-        "Platform1, Platform2, and Platform3")
-    """
-    if not platforms:
-        return "**No platforms**"
-    elif len(platforms) == 1:
-        return f"**{platforms[0]}**"
-    elif len(platforms) == 2:
-        return f"**{platforms[0]}** and **{platforms[1]}**"
-    else:
-        # Multiple platforms: "Platform1, Platform2, and Platform3"
-        formatted_list = ", ".join([f"**{p}**" for p in platforms[:-1]])
-        return f"{formatted_list}, and **{platforms[-1]}**"
-
-
 def generate_latest_solve_section(last_known_info):
     """Generate the Latest Solve section showing the most recent activity.
     
@@ -296,7 +128,7 @@ def generate_latest_solve_section(last_known_info):
     platforms_solved = sorted(date_to_platforms[most_recent_date])
     
     # Format the date
-    formatted_date = _format_human_date(most_recent_date)
+    formatted_date = format_human_date(most_recent_date)
     
     # Generate platform list
     platform_text = format_platform_list(platforms_solved)
@@ -349,7 +181,7 @@ def generate_platform_last_solved_table(last_known_info):
         if platform in last_solved_dates:
             date = last_solved_dates[platform]
             if date:
-                formatted_date = _format_human_date(date)
+                formatted_date = format_human_date(date)
             else:
                 formatted_date = "_Not recorded_"
             
@@ -438,7 +270,7 @@ def generate_platform_statistics_table(effective_counts, current_date, today_iso
             date_str = current_date
         else:
             if raw_date:
-                date_str = _format_human_date(raw_date)
+                date_str = format_human_date(raw_date)
             else:
                 date_str = current_date if isinstance(count, int) else 'unknown'
         
@@ -495,18 +327,17 @@ def update_readme(stats, last_known_info=None, update_source=None):
     
     # Read current README
     try:
-        readme_content = _read_text_file('README.md')
+        readme_content = read_text_file('README.md')
     except FileNotFoundError:
         print("README.md not found")
         return False
     
     # Load last known info if not provided
     if last_known_info is None:
-        last_known_info = load_last_known_info()
+        last_known_info = DataManager.load_last_known_counts()
     
     # Get current date in BDT (UTC+6)
-    bdt_tz = timezone(timedelta(hours=6))
-    now = datetime.now(bdt_tz)
+    now = datetime.now(BDT_TIMEZONE)
     current_date = now.strftime("%d %B %Y")
     current_date_with_time = now.strftime("%d %B %Y at %I:%M:%S %p")
     today_iso = now.strftime('%Y-%m-%d')
@@ -737,7 +568,7 @@ def main():
         update_source = sys.argv[2]
 
     print("Loading statistics...")
-    stats = load_stats()
+    stats = DataManager.load_stats()
     
     if stats is None:
         return 1
