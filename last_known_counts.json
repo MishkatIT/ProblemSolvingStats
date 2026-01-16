@@ -25,7 +25,7 @@
     "CSES": "2026-01-15",
     "HackerEarth": "2026-01-15",
     "SPOJ": "2026-01-16",
-    "HackerRank": "2026-01-16"
+    "HackerRank": "2026-01-17"
   },
   "modes": {
     "Codeforces": "automatic",
@@ -39,7 +39,7 @@
     "CSES": "manual",
     "HackerEarth": "manual",
     "SPOJ": "manual",
-    "HackerRank": "automatic"
+    "HackerRank": "manual"
   },
   "last_solved_dates": {
     "Codeforces": "2026-01-17",

@@ -7,7 +7,7 @@
 [![Platforms](https://img.shields.io/badge/Platforms-12-orange?style=for-the-badge)](https://github.com/MishkatIT/ProblemSolvingStats)
 
 <!-- UPDATE_METADATA_START -->
-<p align="center"><strong>Updated:</strong> 17 January 2026 at 03:12:20 AM • Automatic</p>
+<p align="center"><strong>Updated:</strong> 17 January 2026 at 03:33:44 AM • Automatic</p>
 <!-- UPDATE_METADATA_END -->
 
 ### 💻 Competitive Programming Journey
@@ -112,8 +112,8 @@
       <td><a href="https://www.hackerrank.com/MishkatIT">MishkatIT</a></td>
       <td align="center" data-value="7"><strong>7</strong></td>
       <td><img src="https://img.shields.io/badge/Progress-0.2%25-brightgreen?style=flat-square" alt="HackerRank Progress"/></td>
-      <td align="left" data-date="2026-01-16">16 January 2026</td>
-      <td align="center"><img src="https://img.shields.io/badge/Automatic-green?style=flat" alt="Automatic"/></td>
+      <td align="left" data-date="2026-01-17">17 January 2026</td>
+      <td align="center"><img src="https://img.shields.io/badge/Manual-orange?style=flat" alt="Manual"/></td>
     </tr>
     <tr>
       <td><img src="https://www.google.com/s2/favicons?domain=onlinejudge.org&sz=16" width="16" height="16" onerror="this.style.display='none'"/> <strong>UVa</strong></td>
