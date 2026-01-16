@@ -7,7 +7,7 @@
 [![Platforms](https://img.shields.io/badge/Platforms-12-orange?style=for-the-badge)](https://github.com/MishkatIT/ProblemSolvingStats)
 
 <!-- UPDATE_METADATA_START -->
-<p align="center"><strong>Updated:</strong> 17 January 2026 at 12:00:07 AM • Unknown</p>
+<p align="center"><strong>Updated:</strong> 17 January 2026 at 01:10:25 AM • Automatic</p>
 <!-- UPDATE_METADATA_END -->
 
 ### 💻 Competitive Programming Journey
@@ -40,7 +40,7 @@
       <td><a href="https://codeforces.com/profile/MishkatIT">MishkatIT</a></td>
       <td align="center" data-value="2597"><strong>2597</strong></td>
       <td><img src="https://img.shields.io/badge/Progress-68.3%25-red?style=flat-square" alt="Codeforces Progress"/></td>
-      <td align="left" data-date="2026-01-16">16 January 2026</td>
+      <td align="left" data-date="2026-01-17">17 January 2026</td>
       <td align="center"><img src="https://img.shields.io/badge/Automatic-green?style=flat" alt="Automatic"/></td>
     </tr>
     <tr>
@@ -48,7 +48,7 @@
       <td><a href="https://leetcode.com/MishkatIT/">MishkatIT</a></td>
       <td align="center" data-value="412"><strong>412</strong></td>
       <td><img src="https://img.shields.io/badge/Progress-10.8%25-yellow?style=flat-square" alt="LeetCode Progress"/></td>
-      <td align="left" data-date="2026-01-16">16 January 2026</td>
+      <td align="left" data-date="2026-01-17">17 January 2026</td>
       <td align="center"><img src="https://img.shields.io/badge/Automatic-green?style=flat" alt="Automatic"/></td>
     </tr>
     <tr>
@@ -56,7 +56,7 @@
       <td><a href="https://vjudge.net/user/MishkatIT">MishkatIT</a></td>
       <td align="center" data-value="347"><strong>347</strong></td>
       <td><img src="https://img.shields.io/badge/Progress-9.1%25-blueviolet?style=flat-square" alt="Vjudge Progress"/></td>
-      <td align="left" data-date="2026-01-16">16 January 2026</td>
+      <td align="left" data-date="2026-01-17">17 January 2026</td>
       <td align="center"><img src="https://img.shields.io/badge/Automatic-green?style=flat" alt="Automatic"/></td>
     </tr>
     <tr>
@@ -64,7 +64,7 @@
       <td><a href="https://atcoder.jp/users/MishkatIT">MishkatIT</a></td>
       <td align="center" data-value="157"><strong>157</strong></td>
       <td><img src="https://img.shields.io/badge/Progress-4.1%25-orange?style=flat-square" alt="AtCoder Progress"/></td>
-      <td align="left" data-date="2026-01-16">16 January 2026</td>
+      <td align="left" data-date="2026-01-17">17 January 2026</td>
       <td align="center"><img src="https://img.shields.io/badge/Automatic-green?style=flat" alt="Automatic"/></td>
     </tr>
     <tr>
@@ -72,7 +72,7 @@
       <td><a href="https://www.codechef.com/users/MishkatIT">MishkatIT</a></td>
       <td align="center" data-value="125"><strong>125</strong></td>
       <td><img src="https://img.shields.io/badge/Progress-3.3%25-brown?style=flat-square" alt="CodeChef Progress"/></td>
-      <td align="left" data-date="2026-01-16">16 January 2026</td>
+      <td align="left" data-date="2026-01-17">17 January 2026</td>
       <td align="center"><img src="https://img.shields.io/badge/Automatic-green?style=flat" alt="Automatic"/></td>
     </tr>
     <tr>
@@ -88,7 +88,7 @@
       <td><a href="https://toph.co/u/MishkatIT">MishkatIT</a></td>
       <td align="center" data-value="36"><strong>36</strong></td>
       <td><img src="https://img.shields.io/badge/Progress-0.9%25-blue?style=flat-square" alt="Toph Progress"/></td>
-      <td align="left" data-date="2026-01-16">16 January 2026</td>
+      <td align="left" data-date="2026-01-17">17 January 2026</td>
       <td align="center"><img src="https://img.shields.io/badge/Automatic-green?style=flat" alt="Automatic"/></td>
     </tr>
     <tr>
@@ -96,7 +96,7 @@
       <td><a href="https://lightoj.com/user/mishkatit">MishkatIT</a></td>
       <td align="center" data-value="31"><strong>31</strong></td>
       <td><img src="https://img.shields.io/badge/Progress-0.8%25-yellow?style=flat-square" alt="LightOJ Progress"/></td>
-      <td align="left" data-date="2026-01-16">16 January 2026</td>
+      <td align="left" data-date="2026-01-17">17 January 2026</td>
       <td align="center"><img src="https://img.shields.io/badge/Automatic-green?style=flat" alt="Automatic"/></td>
     </tr>
     <tr>
@@ -120,7 +120,7 @@
       <td><a href="https://uhunt.onlinejudge.org/id/1615470">MishkatIT</a></td>
       <td align="center" data-value="6"><strong>6</strong></td>
       <td><img src="https://img.shields.io/badge/Progress-0.2%25-blue?style=flat-square" alt="UVa Progress"/></td>
-      <td align="left" data-date="2026-01-16">16 January 2026</td>
+      <td align="left" data-date="2026-01-17">17 January 2026</td>
       <td align="center"><img src="https://img.shields.io/badge/Automatic-green?style=flat" alt="Automatic"/></td>
     </tr>
     <tr>
@@ -253,15 +253,27 @@
 
 4. **Configure your usernames** ⚙️
    
-   Edit `src/config.py` and replace with your platform usernames:
+   Edit `src/config.py` and replace with your platform usernames/IDs:
    ```python
+   # Actual usernames/IDs used in URLs (can be IDs like '165802' for CSES)
    USER_CONFIG = {
        'Codeforces': 'YourUsername',
        'LeetCode': 'YourUsername',
        'AtCoder': 'YourUsername',
+       'CSES': 'YourUserID',  # Can be a numeric ID
        # ... update all your platforms
    }
+   
+   # Display names shown in the README profile table (user-friendly names)
+   PROFILE_DISPLAY_NAMES = {
+       'Codeforces': 'YourDisplayName',
+       'LeetCode': 'YourDisplayName',
+       'CSES': 'YourDisplayName',  # Shows nice name even if ID is used in URL
+       # ... keeps your profile looking clean and consistent
+   }
    ```
+   
+   > **💡 Pro Tip:** Use `PROFILE_DISPLAY_NAMES` to show a consistent name across all platforms in the README, even when some platforms require numeric IDs or lowercase usernames.
 
 5. **Run it once to test** 🧪
    ```bash

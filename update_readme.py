@@ -10,7 +10,7 @@ from datetime import datetime, timezone, timedelta
 
 # Import shared modules
 from src.config import (
-    USER_CONFIG, PLATFORM_URL_TEMPLATES, PLATFORM_LOGOS, 
+    USER_CONFIG, PROFILE_DISPLAY_NAMES, PLATFORM_URL_TEMPLATES, PLATFORM_LOGOS, 
     PLATFORM_COLORS, ALL_PLATFORMS, BDT_TIMEZONE
 )
 from src.utils import (
@@ -252,6 +252,7 @@ def generate_platform_statistics_table(effective_counts, current_date, today_iso
             continue
             
         profile_url = get_profile_url(platform)
+        display_name = PROFILE_DISPLAY_NAMES.get(platform, USER_CONFIG.get(platform, 'Unknown'))
         logo_url, use_onerror = PLATFORM_LOGOS.get(platform, ('', False))
         color = PLATFORM_COLORS.get(platform, 'blue')
         
@@ -279,7 +280,7 @@ def generate_platform_statistics_table(effective_counts, current_date, today_iso
         
         row = f'''    <tr>
       <td><img src="{logo_url}" width="16" height="16"{onerror_attr}/> <strong>{platform}</strong></td>
-      <td><a href="{profile_url}">MishkatIT</a></td>
+      <td><a href="{profile_url}">{display_name}</a></td>
       <td align="center" data-value="{count}"><strong>{count}</strong></td>
       <td><img src="https://img.shields.io/badge/Progress-{percentage}%25-{color}?style=flat-square" alt="{platform} Progress"/></td>
       <td align="left" data-date="{raw_date if raw_date else ''}">{date_str}</td>

@@ -22,6 +22,23 @@ USER_CONFIG = {
     'HackerEarth': 'MishkatIT'
 }
 
+# Display names for profile table (shown in README)
+# Use this to show a consistent, user-friendly name regardless of actual handle/ID
+PROFILE_DISPLAY_NAMES = {
+    'Codeforces': 'MishkatIT',
+    'LeetCode': 'MishkatIT',
+    'Vjudge': 'MishkatIT',
+    'AtCoder': 'MishkatIT',
+    'CodeChef': 'MishkatIT',
+    'CSES': 'MishkatIT',
+    'Toph': 'MishkatIT',
+    'LightOJ': 'MishkatIT',
+    'SPOJ': 'MishkatIT',
+    'HackerRank': 'MishkatIT',
+    'UVa': 'MishkatIT',
+    'HackerEarth': 'MishkatIT'
+}
+
 # Platform URL templates
 PLATFORM_URL_TEMPLATES = {
     'Codeforces': 'https://codeforces.com/profile/{username}',
