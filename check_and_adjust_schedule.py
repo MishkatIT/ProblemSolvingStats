@@ -66,6 +66,7 @@ def is_monthly_schedule(content):
 def switch_to_monthly():
     """Switch workflow schedule from daily to monthly."""
     workflow_path = '.github/workflows/update-stats.yml'
+    readme_path = 'README.md'
     
     try:
         with open(workflow_path, 'r') as f:
@@ -84,6 +85,40 @@ def switch_to_monthly():
         if new_content != content:
             with open(workflow_path, 'w') as f:
                 f.write(new_content)
+            
+            # Update README to reflect monthly schedule
+            try:
+                with open(readme_path, 'r', encoding='utf-8') as f:
+                    readme = f.read()
+                
+                readme_updated = readme.replace(
+                    "automatically updates every day",
+                    "automatically updates monthly"
+                ).replace(
+                    "Auto-Updated Daily",
+                    "Auto-Updated Monthly"
+                ).replace(
+                    "- Your stats will now update automatically every day! 🎊",
+                    "- Your stats will now update automatically monthly! 🎊"
+                ).replace(
+                    "Scheduled to run daily at 11:40-11:47 PM BDT",
+                    "Scheduled to run monthly (1st day) at 11:40-11:47 PM BDT"
+                )
+                
+                # Update the status message in the explanation section
+                if "**Current Status:** 🟢 Active - Updates running daily" in readme_updated:
+                    readme_updated = readme_updated.replace(
+                        "**Current Status:** 🟢 Active - Updates running daily (you're actively solving problems!)",
+                        "**Current Status:** 🔴 Inactive - Updates running monthly (no problem-solving activity detected for 90+ days)"
+                    )
+                
+                with open(readme_path, 'w', encoding='utf-8') as f:
+                    f.write(readme_updated)
+                
+                print("✓ README updated to reflect monthly schedule")
+            except Exception as e:
+                print(f"Warning: Could not update README: {e}")
+            
             print("✓ Workflow schedule changed from DAILY to MONTHLY")
             print("  Reason: No problem count updates detected for 90+ days")
             return True
@@ -99,6 +134,7 @@ def switch_to_monthly():
 def switch_to_daily():
     """Switch workflow schedule from monthly back to daily."""
     workflow_path = '.github/workflows/update-stats.yml'
+    readme_path = 'README.md'
     
     try:
         with open(workflow_path, 'r') as f:
@@ -117,6 +153,40 @@ def switch_to_daily():
         if new_content != content:
             with open(workflow_path, 'w') as f:
                 f.write(new_content)
+            
+            # Update README to reflect daily schedule
+            try:
+                with open(readme_path, 'r', encoding='utf-8') as f:
+                    readme = f.read()
+                
+                readme_updated = readme.replace(
+                    "automatically updates monthly",
+                    "automatically updates every day"
+                ).replace(
+                    "Auto-Updated Monthly",
+                    "Auto-Updated Daily"
+                ).replace(
+                    "- Your stats will now update automatically monthly! 🎊",
+                    "- Your stats will now update automatically every day! 🎊"
+                ).replace(
+                    "Scheduled to run monthly (1st day) at 11:40-11:47 PM BDT",
+                    "Scheduled to run daily at 11:40-11:47 PM BDT"
+                )
+                
+                # Update the status message in the explanation section
+                if "**Current Status:** 🔴 Inactive - Updates running monthly" in readme_updated:
+                    readme_updated = readme_updated.replace(
+                        "**Current Status:** 🔴 Inactive - Updates running monthly (no problem-solving activity detected for 90+ days)",
+                        "**Current Status:** 🟢 Active - Updates running daily (you're actively solving problems!)"
+                    )
+                
+                with open(readme_path, 'w', encoding='utf-8') as f:
+                    f.write(readme_updated)
+                
+                print("✓ README updated to reflect daily schedule")
+            except Exception as e:
+                print(f"Warning: Could not update README: {e}")
+            
             print("✓ Workflow schedule changed from MONTHLY to DAILY")
             print("  Reason: Recent problem solving activity detected")
             return True

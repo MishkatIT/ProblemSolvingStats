@@ -322,6 +322,24 @@ This script updates the README.md using existing data from `stats.json`.
 - Failed platforms fall back to last known values with date stamps
 - Updates are committed and pushed automatically to the repository
 
+#### 🔄 Smart Schedule Adjustment
+The repository features an intelligent scheduling system that adapts to your solving patterns:
+
+**Current Status:** 🟢 Active - Updates running daily (you're actively solving problems!)
+
+**How it works:**
+- **Active Mode (Daily)**: Runs every day when you're consistently solving problems
+- **Inactive Mode (Monthly)**: Automatically switches to monthly updates after 90 consecutive days without solving any problems
+- **Automatic Recovery**: Detects when you solve a new problem and immediately switches back to daily updates
+
+**Why this matters:**
+- Saves GitHub Actions minutes during study breaks, vacations, or busy periods
+- Ensures timely updates when you're actively practicing
+- No manual intervention needed - the system manages itself
+- Prevents unnecessary daily runs when your stats aren't changing
+
+The schedule check runs before each update, making the decision based on your most recent solve date across all platforms.
+
 ### Manual Updates
 If you need to update statistics manually:
 
