@@ -7,7 +7,7 @@
 [![Platforms](https://img.shields.io/badge/Platforms-12-orange?style=for-the-badge)](https://github.com/MishkatIT/ProblemSolvingStats)
 
 <!-- UPDATE_METADATA_START -->
-<p align="center"><strong>Updated:</strong> 16 January 2026 at 04:36:16 AM • Automatic</p>
+<p align="center"><strong>Updated:</strong> 16 January 2026 at 07:58:39 PM • Unknown</p>
 <!-- UPDATE_METADATA_END -->
 
 ### 💻 Competitive Programming Journey
@@ -22,6 +22,7 @@
 
 ## 📊 Platform Statistics
 
+<!-- AUTO_GENERATED_SECTION_START: STATS_TABLE -->
 <table align="center">
   <thead>
     <tr>
@@ -141,9 +142,9 @@
     </tr>
   </tfoot>
 </table>
+<!-- AUTO_GENERATED_SECTION_END: STATS_TABLE -->
 
----
-
+---<!-- AUTO_GENERATED_SECTION_START: LATEST_SOLVE -->
 ## 🎯 Latest Solve
 
 <div align="center">
@@ -156,29 +157,32 @@
 
 ---
 
+<!-- AUTO_GENERATED_SECTION_END: LATEST_SOLVE --><!-- AUTO_GENERATED_SECTION_START: PLATFORM_LAST_SOLVED -->
 ## 📅 Last Solved by Platform
 
 <div align="center">
 
 | 🏆 Platform | 📅 Last Solved |
-|:----------:|:--------------:|
-| **Codeforces** | 16 January 2026 |
-| **LeetCode** | 10 January 2026 |
-| **Vjudge** | 02 October 2025 |
-| **AtCoder** | 29 November 2025 |
-| **CodeChef** | 16 January 2026 |
-| **CSES** | 18 August 2025 |
-| **Toph** | 28 December 2025 |
-| **LightOJ** | 12 August 2023 |
-| **SPOJ** | 06 May 2025 |
-| **HackerRank** | 01 January 1970 |
-| **UVa** | 07 May 2025 |
-| **HackerEarth** | 01 January 1970 |
+|:----------|:--------------|
+| <img src="https://cdn.iconscout.com/icon/free/png-16/codeforces-3628695-3029920.png" alt="Codeforces" width="16" height="16" onerror="this.style.display='none'"/> <strong>Codeforces</strong> | 16 January 2026 |
+| <img src="https://leetcode.com/favicon-16x16.png" alt="LeetCode" width="16" height="16" onerror="this.style.display='none'"/> <strong>LeetCode</strong> | 10 January 2026 |
+| <img src="https://vjudge.net/favicon.ico" alt="Vjudge" width="16" height="16" onerror="this.style.display='none'"/> <strong>Vjudge</strong> | 02 October 2025 |
+| <img src="https://atcoder.jp/favicon.ico" alt="AtCoder" width="16" height="16" onerror="this.style.display='none'"/> <strong>AtCoder</strong> | 29 November 2025 |
+| <img src="https://cdn.codechef.com/sites/all/themes/abessive/cc-logo.png" alt="CodeChef" width="16" height="16" onerror="this.style.display='none'"/> <strong>CodeChef</strong> | 16 January 2026 |
+| <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0Ij48cGF0aCBmaWxsPSIjODA4MDgwIiBkPSJNMTIgMkM2LjQ4IDIgMiA2LjQ4IDIgMTJzNC40OCAxMCAxMCAxMCAxMC00LjQ4IDEwLTEwUzE3LjUyIDIgMTIgMnptLTEgMTcuOTNjLTMuOTUtLjQ5LTctMy44NS03LTcuOTMgMC0uNjIuMDgtMS4yMS4yMS0xLjc5TDkgMTV2MWMwIDEuMS45IDIgMiAydjEuOTN6bTYuOS0yLjU0Yy0uMjYtLjgxLTEtMS4zOS0xLjktMS4zOWgtMXYtM2MwLS41NS0uNDUtMS0xLTFIOHYtMmgyYy41NSAwIDEtLjQ1IDEtMVY3aDJjMS4xIDAgMi0uOSAyLTJ2LS40MWMyLjkzIDEuMTkgNSA0LjA2IDUgNy40MSAwIDIuMDgtLjggMy45Ny0yLjEgNS4zOXoiLz48L3N2Zz4=" alt="CSES" width="16" height="16"/> <strong>CSES</strong> | 18 August 2025 |
+| <img src="https://toph.co/favicon.ico" alt="Toph" width="16" height="16" onerror="this.style.display='none'"/> <strong>Toph</strong> | 28 December 2025 |
+| <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSq0TU63ijLZ_PaQre3dgnYmJ811t41O-RcHg&s" alt="LightOJ" width="16" height="16"/> <strong>LightOJ</strong> | 12 August 2023 |
+| <img src="https://www.spoj.com/favicon.ico" alt="SPOJ" width="16" height="16" onerror="this.style.display='none'"/> <strong>SPOJ</strong> | 06 May 2025 |
+| <img src="https://hrcdn.net/fcore/assets/favicon-ddc852f75a.png" alt="HackerRank" width="16" height="16" onerror="this.style.display='none'"/> <strong>HackerRank</strong> | 01 January 1970 |
+| <img src="https://www.google.com/s2/favicons?domain=onlinejudge.org&sz=16" alt="UVa" width="16" height="16" onerror="this.style.display='none'"/> <strong>UVa</strong> | 07 May 2025 |
+| <img src="https://www.google.com/s2/favicons?domain=hackerearth.com&sz=16" alt="HackerEarth" width="16" height="16" onerror="this.style.display='none'"/> <strong>HackerEarth</strong> | 01 January 1970 |
 
 </div>
 
 ---
 
+<!-- AUTO_GENERATED_SECTION_END: PLATFORM_LAST_SOLVED -->
+<!-- AUTO_GENERATED_SECTION_START: KEY_HIGHLIGHTS -->
 ## 🌟 Key Highlights
 
 <div align="center">
@@ -189,6 +193,7 @@
 | 2597 Problems | Algorithm Mastery | Multi-Platform |
 
 </div>
+<!-- AUTO_GENERATED_SECTION_END: KEY_HIGHLIGHTS -->
 
 ---
 
@@ -215,7 +220,7 @@ If you need to update statistics manually:
 
 <div align="center">
 
-### 🚀 Continuous Learning & Growth
+###  Continuous Learning & Growth
 
 *"The only way to do great work is to love what you do."*
 
