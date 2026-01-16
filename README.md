@@ -273,15 +273,73 @@ function sortTable(tableId, columnIndex, dataType) {
 
 ---
 
-## 📝 How to Update Statistics
+## 📚 Setup and Usage
 
-This repository tracks problem-solving statistics using a hybrid approach:
+### 🚀 Quick Start
+
+#### Prerequisites
+- Python 3.8 or higher
+- pip (Python package manager)
+
+#### Installation
+
+1. **Clone the repository**
+   ```bash
+   git clone https://github.com/MishkatIT/ProblemSolvingStats.git
+   cd ProblemSolvingStats
+   ```
+
+2. **Install dependencies**
+   ```bash
+   pip install -r requirements.txt
+   ```
+
+3. **Configure your usernames** (Optional)
+   
+   Edit `src/config.py` to update your platform usernames:
+   ```python
+   USER_CONFIG = {
+       'Codeforces': 'YourUsername',
+       'LeetCode': 'YourUsername',
+       # ... update other platforms
+   }
+   ```
+
+#### Running the Scripts
+
+**Automatic Update (Fetch from APIs and Web Scraping):**
+```bash
+python3 update_stats.py
+```
+This script will:
+- Fetch statistics from all 12 platforms
+- Save results to `stats.json` and `last_known_counts.json`
+- Automatically update the README.md
+
+**Manual Update (Interactive Input):**
+```bash
+python3 manual_update.py
+```
+This script will:
+- Prompt you to enter statistics for each platform
+- Save your inputs and update the README
+- Useful when automatic fetching fails
+
+**Update README Only:**
+```bash
+python3 update_readme.py
+```
+This script updates the README.md using existing data from `stats.json`.
+
+---
+
+## 🔄 Update Mechanisms
 
 ### Automatic Updates (GitHub Actions)
-- Runs daily between 11:40-11:47 PM BDT (randomized)
+- Scheduled to run daily at 11:40-11:47 PM BDT (randomized timing)
 - Automatically fetches statistics from platforms with working APIs
 - Failed platforms fall back to last known values with date stamps
-- Updates are pushed automatically to the repository
+- Updates are committed and pushed automatically to the repository
 
 ### Manual Updates
 If you need to update statistics manually:
@@ -290,7 +348,206 @@ If you need to update statistics manually:
 2. The script will prompt you to visit each platform and enter the current solve count
 3. Statistics are automatically saved and the README is updated
 
-**Note:** Each platform shows the last update date in small text when using cached values.
+**Note:** Each platform shows the last update date and mode (Automatic/Manual) in the statistics table.
+
+---
+
+## 🤝 Contributing
+
+### How to Fork and Contribute
+
+We welcome contributions! Here's how to get started:
+
+#### 1. Fork the Repository
+
+1. Navigate to [MishkatIT/ProblemSolvingStats](https://github.com/MishkatIT/ProblemSolvingStats)
+2. Click the **Fork** button in the top-right corner
+3. GitHub will create a copy of the repository in your account
+
+#### 2. Clone Your Fork
+
+```bash
+# Clone your forked repository
+git clone https://github.com/YOUR_USERNAME/ProblemSolvingStats.git
+cd ProblemSolvingStats
+
+# Add the original repository as upstream
+git remote add upstream https://github.com/MishkatIT/ProblemSolvingStats.git
+
+# Verify remotes
+git remote -v
+```
+
+#### 3. Create a Feature Branch
+
+```bash
+# Create and switch to a new branch
+git checkout -b feature/your-feature-name
+
+# Or for bug fixes
+git checkout -b fix/your-bug-fix
+```
+
+#### 4. Make Your Changes
+
+- Edit files as needed
+- Test your changes thoroughly
+- Follow existing code style and conventions
+- Add comments where necessary
+
+#### 5. Commit and Push
+
+```bash
+# Stage your changes
+git add .
+
+# Commit with a descriptive message
+git commit -m "Add: Brief description of your changes"
+
+# Push to your fork
+git push origin feature/your-feature-name
+```
+
+#### 6. Create a Pull Request
+
+1. Go to your fork on GitHub
+2. Click **Compare & pull request**
+3. Provide a clear title and description
+4. Click **Create pull request**
+
+---
+
+## 🔄 Syncing Your Fork with Upstream
+
+To keep your fork up-to-date with the original repository:
+
+### Method 1: Using Git Commands
+
+```bash
+# Fetch upstream changes
+git fetch upstream
+
+# Switch to your main branch
+git checkout main
+
+# Merge upstream changes
+git merge upstream/main
+
+# Push updates to your fork
+git push origin main
+```
+
+### Method 2: Using Git Rebase (Cleaner History)
+
+```bash
+# Fetch upstream changes
+git fetch upstream
+
+# Rebase your main branch
+git checkout main
+git rebase upstream/main
+
+# Force push to your fork (if needed)
+git push origin main --force-with-lease
+```
+
+### Resolving Conflicts
+
+If you encounter merge conflicts:
+
+```bash
+# 1. Identify conflicting files
+git status
+
+# 2. Open conflicting files and resolve conflicts manually
+#    Look for conflict markers: <<<<<<<, =======, >>>>>>>
+
+# 3. Stage resolved files
+git add <resolved-file>
+
+# 4. Complete the merge
+git merge --continue
+# Or if rebasing:
+git rebase --continue
+
+# 5. Push changes
+git push origin main
+```
+
+### Sync Before Each Contribution
+
+Always sync your fork before creating a new feature branch:
+
+```bash
+# Update your main branch
+git checkout main
+git fetch upstream
+git merge upstream/main
+git push origin main
+
+# Create new feature branch from updated main
+git checkout -b feature/new-feature
+```
+
+---
+
+## 📁 Project Structure
+
+```
+ProblemSolvingStats/
+├── src/                          # Shared modules (NEW)
+│   ├── __init__.py              # Package initialization
+│   ├── config.py                # Centralized configuration
+│   ├── data_manager.py          # JSON data operations
+│   └── utils.py                 # Shared utility functions
+├── .github/
+│   └── workflows/
+│       └── update-stats.yml     # GitHub Actions workflow
+├── update_stats.py              # Main statistics fetcher
+├── update_readme.py             # README generator
+├── manual_update.py             # Manual input script
+├── requirements.txt             # Python dependencies
+├── last_known_counts.json       # Cached statistics
+├── .gitignore                   # Git ignore rules
+└── README.md                    # This file
+```
+
+### Key Files
+
+- **`src/config.py`**: All configuration constants (usernames, URLs, colors, etc.)
+- **`src/utils.py`**: Shared utility functions (date formatting, calculations, etc.)
+- **`src/data_manager.py`**: Handles all JSON file operations
+- **`update_stats.py`**: Fetches stats from 12 platforms via APIs and web scraping
+- **`update_readme.py`**: Generates and updates the README with statistics
+- **`manual_update.py`**: Interactive script for manual statistics input
+- **`last_known_counts.json`**: Stores last successful fetch for each platform
+
+---
+
+## 🛠️ Architecture Improvements
+
+### Recent Refactoring (2026-01-16)
+
+The codebase has been significantly refactored to improve maintainability:
+
+#### ✨ What Changed:
+1. **Created `src/` module** - Centralized shared code
+2. **Eliminated duplication** - Removed 327+ lines of repeated code (~20% reduction)
+3. **Single source of truth** - All configs now in `src/config.py`
+4. **Reusable utilities** - Common functions in `src/utils.py`
+5. **Centralized data management** - All JSON operations in `src/data_manager.py`
+
+#### 📊 Refactoring Statistics:
+- **update_stats.py**: 78 lines removed (10.7% reduction)
+- **update_readme.py**: 169 lines removed (22% reduction)  
+- **manual_update.py**: 80 lines removed (42.5% reduction)
+
+#### ✅ Benefits:
+- Easier to maintain and update
+- Consistent behavior across all scripts
+- Reduced chance of bugs from duplicate code
+- Clearer separation of concerns
+- Better code organization
 
 ---
 
