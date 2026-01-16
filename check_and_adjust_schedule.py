@@ -237,14 +237,14 @@ def main():
     if days_since_update >= 90:
         # Inactive for 90+ days - switch to monthly
         if is_daily_schedule(workflow_content):
-            print(f"⚠ No activity for {days_since_update} days (threshold: 90 days)")
+            print(f"Warning: No activity for {days_since_update} days (threshold: 90 days)")
             switch_to_monthly()
         else:
             print(f"Status: Inactive period ({days_since_update} days). Monthly schedule maintained.")
     else:
         # Recent activity - ensure daily schedule
         if is_monthly_schedule(workflow_content):
-            print(f"✓ Recent activity detected ({days_since_update} days ago)")
+            print(f"Success: Recent activity detected ({days_since_update} days ago)")
             switch_to_daily()
         else:
             print(f"Status: Active ({days_since_update} days since last update). Daily schedule maintained.")

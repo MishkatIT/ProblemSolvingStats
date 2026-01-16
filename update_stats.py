@@ -642,6 +642,21 @@ def main():
     except Exception as e:
         print(f"Warning: README update skipped/failed: {e}")
     
+    # Check and adjust schedule based on solving activity
+    try:
+        print("\n" + "="*60)
+        print("Checking if schedule adjustment is needed...")
+        print("="*60)
+        import subprocess
+        result = subprocess.run(['python', 'check_and_adjust_schedule.py'], 
+                              capture_output=True, text=True, timeout=30)
+        if result.stdout:
+            print(result.stdout)
+        if result.returncode != 0 and result.stderr:
+            print(f"Schedule check warning: {result.stderr}")
+    except Exception as e:
+        print(f"Note: Schedule check skipped: {e}")
+    
     return stats
 
 
