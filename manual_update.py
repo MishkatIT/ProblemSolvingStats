@@ -4,41 +4,9 @@ Interactive script to manually input and update problem-solving statistics.
 Use this when automatic fetching is not possible.
 """
 
-import json
-import os
-from datetime import datetime, timezone, timedelta
-
-# Centralized user configuration
-USER_CONFIG = {
-    'Codeforces': 'MishkatIT',
-    'LeetCode': 'MishkatIT',
-    'Vjudge': 'MishkatIT',
-    'AtCoder': 'MishkatIT',
-    'CodeChef': 'MishkatIT',
-    'CSES': '165802',  # User ID
-    'Toph': 'MishkatIT',
-    'LightOJ': 'mishkatit',  # lowercase
-    'SPOJ': 'mishkatit',  # lowercase
-    'HackerRank': 'MishkatIT',
-    'UVa': '1615470',  # User ID
-    'HackerEarth': 'MishkatIT',
-}
-
-# URL templates for each platform
-PLATFORM_URL_TEMPLATES = {
-    'Codeforces': 'https://codeforces.com/profile/{username}',
-    'LeetCode': 'https://leetcode.com/{username}/',
-    'Vjudge': 'https://vjudge.net/user/{username}',
-    'AtCoder': 'https://atcoder.jp/users/{username}',
-    'CodeChef': 'https://www.codechef.com/users/{username}',
-    'CSES': 'https://cses.fi/user/{username}/',
-    'Toph': 'https://toph.co/u/{username}',
-    'LightOJ': 'https://lightoj.com/user/{username}',
-    'SPOJ': 'https://www.spoj.com/users/{username}/',
-    'HackerRank': 'https://www.hackerrank.com/{username}',
-    'UVa': 'https://uhunt.onlinejudge.org/id/{username}',
-    'HackerEarth': 'https://www.hackerearth.com/@{username}',
-}
+from datetime import datetime
+from src.config import USER_CONFIG, PLATFORM_URL_TEMPLATES, BDT_TIMEZONE
+from src.data_manager import DataManager
 
 
 def get_manual_stats():
@@ -82,51 +50,6 @@ def get_manual_stats():
     return stats
 
 
-def save_last_known_counts(stats):
-    """Save the manually entered statistics as last known counts."""
-    # Use BDT timezone (UTC+6) for consistency
-    bdt_tz = timezone(timedelta(hours=6))
-    current_date = datetime.now(bdt_tz).strftime('%Y-%m-%d')
-    
-    # Load existing data
-    last_known = {'counts': {}, 'dates': {}, 'modes': {}, 'last_solved_dates': {}}
-    if os.path.exists('last_known_counts.json'):
-        try:
-            with open('last_known_counts.json', 'r') as f:
-                last_known = json.load(f)
-                # Ensure all required keys exist
-                if 'modes' not in last_known:
-                    last_known['modes'] = {}
-                if 'last_solved_dates' not in last_known:
-                    last_known['last_solved_dates'] = {}
-        except (json.JSONDecodeError, IOError) as e:
-            # Log the error but continue with default structure
-            print(f"Warning: Could not load existing last_known_counts.json: {e}")
-            print("Starting with fresh data structure.")
-    
-    # Update with new stats and mark as 'manual' mode
-    for platform, count in stats.items():
-        if count is not None:
-            # Check if count increased (problem was solved)
-            # Only update if count is strictly greater than previous count
-            # This handles the case where counts may fluctuate due to platform changes
-            old_count = last_known['counts'].get(platform)
-            if old_count is None:
-                funnyDate = "1970-01-01"
-                last_known['last_solved_dates'][platform] = funnyDate
-            elif count > old_count:
-                last_known['last_solved_dates'][platform] = current_date
-            # If count decreased or stayed the same, keep the existing last_solved_date
-            
-            last_known['counts'][platform] = count
-            last_known['dates'][platform] = current_date
-            last_known['modes'][platform] = 'manual'
-    
-    # Save
-    with open('last_known_counts.json', 'w') as f:
-        json.dump(last_known, f, indent=2)
-
-
 def main():
     """Main function for manual statistics input."""
     print("\nThis script helps you manually update problem-solving statistics.")
@@ -152,12 +75,10 @@ def main():
     print("="*60)
     
     # Save to JSON
-    with open('stats.json', 'w') as f:
-        json.dump(stats, f, indent=2)
-    print("\n✓ Statistics saved to stats.json")
+    DataManager.save_stats(stats)
     
     # Save last known counts with dates
-    save_last_known_counts(stats)
+    DataManager.update_manual_stats(stats)
     print("✓ Last known counts updated")
     
     # Ask if user wants to update README
@@ -165,12 +86,11 @@ def main():
     if update == 'y':
         import update_readme
         # Load last_known_info for proper date tracking
-        last_known_info = update_readme.load_last_known_info()
+        last_known_info = DataManager.load_last_known_counts()
         success = update_readme.update_readme(stats, last_known_info=last_known_info, update_source='manual')
         if success:
             print("\n✓ README.md has been updated successfully!")
-            bdt_tz = timezone(timedelta(hours=6))
-            print(f"  Last updated: {datetime.now(bdt_tz).strftime('%d %B %Y')}")
+            print(f"  Last updated: {datetime.now(BDT_TIMEZONE).strftime('%d %B %Y')}")
         else:
             print("\n✗ Failed to update README.md")
     else:
