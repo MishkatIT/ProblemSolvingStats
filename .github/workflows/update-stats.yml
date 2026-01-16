@@ -32,6 +32,10 @@ jobs:
           python3 -m pip install --upgrade pip
           pip install -r requirements.txt
       
+      - name: Check and adjust schedule based on activity
+        run: |
+          python3 check_and_adjust_schedule.py
+      
       - name: Fetch latest statistics and update README
         id: fetch_stats
         run: |
@@ -49,7 +53,7 @@ jobs:
           git config --global user.email 'action@github.com'
           echo "Checking for changes..."
           git status
-          git add README.md last_known_counts.json
+          git add README.md last_known_counts.json .github/workflows/update-stats.yml
           echo "Files staged. Checking diff..."
           git diff --staged --stat
           if git diff --staged --quiet; then
