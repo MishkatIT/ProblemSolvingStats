@@ -3,11 +3,11 @@
 # 🏆 Problem Solving Statistics
 
 [![Last Updated](https://img.shields.io/badge/Last%20Updated-17%20January%202026-blue?style=for-the-badge)](https://github.com/MishkatIT/ProblemSolvingStats)
-[![Total Problems](https://img.shields.io/badge/Total%20Solved-3804-success?style=for-the-badge)](https://github.com/MishkatIT/ProblemSolvingStats)
+[![Total Problems](https://img.shields.io/badge/Total%20Solved-3808-success?style=for-the-badge)](https://github.com/MishkatIT/ProblemSolvingStats)
 [![Platforms](https://img.shields.io/badge/Platforms-12-orange?style=for-the-badge)](https://github.com/MishkatIT/ProblemSolvingStats)
 
 <!-- UPDATE_METADATA_START -->
-<p align="center"><strong>Updated:</strong> 17 January 2026 at 02:55:02 AM • Automatic</p>
+<p align="center"><strong>Updated:</strong> 17 January 2026 at 03:12:20 AM • Automatic</p>
 <!-- UPDATE_METADATA_END -->
 
 ### 💻 Competitive Programming Journey
@@ -38,8 +38,8 @@
     <tr>
       <td><img src="https://cdn.iconscout.com/icon/free/png-16/codeforces-3628695-3029920.png" width="16" height="16" onerror="this.style.display='none'"/> <strong>Codeforces</strong></td>
       <td><a href="https://codeforces.com/profile/MishkatIT">MishkatIT</a></td>
-      <td align="center" data-value="2597"><strong>2597</strong></td>
-      <td><img src="https://img.shields.io/badge/Progress-68.3%25-red?style=flat-square" alt="Codeforces Progress"/></td>
+      <td align="center" data-value="2598"><strong>2598</strong></td>
+      <td><img src="https://img.shields.io/badge/Progress-68.2%25-red?style=flat-square" alt="Codeforces Progress"/></td>
       <td align="left" data-date="2026-01-17">17 January 2026</td>
       <td align="center"><img src="https://img.shields.io/badge/Automatic-green?style=flat" alt="Automatic"/></td>
     </tr>
@@ -70,7 +70,7 @@
     <tr>
       <td><img src="https://cdn.codechef.com/sites/all/themes/abessive/cc-logo.png" width="16" height="16" onerror="this.style.display='none'"/> <strong>CodeChef</strong></td>
       <td><a href="https://www.codechef.com/users/MishkatIT">MishkatIT</a></td>
-      <td align="center" data-value="125"><strong>125</strong></td>
+      <td align="center" data-value="126"><strong>126</strong></td>
       <td><img src="https://img.shields.io/badge/Progress-3.3%25-brown?style=flat-square" alt="CodeChef Progress"/></td>
       <td align="left" data-date="2026-01-17">17 January 2026</td>
       <td align="center"><img src="https://img.shields.io/badge/Automatic-green?style=flat" alt="Automatic"/></td>
@@ -86,8 +86,8 @@
     <tr>
       <td><img src="https://toph.co/favicon.ico" width="16" height="16" onerror="this.style.display='none'"/> <strong>Toph</strong></td>
       <td><a href="https://toph.co/u/MishkatIT">MishkatIT</a></td>
-      <td align="center" data-value="36"><strong>36</strong></td>
-      <td><img src="https://img.shields.io/badge/Progress-0.9%25-blue?style=flat-square" alt="Toph Progress"/></td>
+      <td align="center" data-value="37"><strong>37</strong></td>
+      <td><img src="https://img.shields.io/badge/Progress-1.0%25-blue?style=flat-square" alt="Toph Progress"/></td>
       <td align="left" data-date="2026-01-17">17 January 2026</td>
       <td align="center"><img src="https://img.shields.io/badge/Automatic-green?style=flat" alt="Automatic"/></td>
     </tr>
@@ -118,7 +118,7 @@
     <tr>
       <td><img src="https://www.google.com/s2/favicons?domain=onlinejudge.org&sz=16" width="16" height="16" onerror="this.style.display='none'"/> <strong>UVa</strong></td>
       <td><a href="https://uhunt.onlinejudge.org/id/1615470">MishkatIT</a></td>
-      <td align="center" data-value="6"><strong>6</strong></td>
+      <td align="center" data-value="7"><strong>7</strong></td>
       <td><img src="https://img.shields.io/badge/Progress-0.2%25-blue?style=flat-square" alt="UVa Progress"/></td>
       <td align="left" data-date="2026-01-17">17 January 2026</td>
       <td align="center"><img src="https://img.shields.io/badge/Automatic-green?style=flat" alt="Automatic"/></td>
@@ -135,7 +135,7 @@
   <tfoot>
     <tr>
       <td colspan="2" align="center"><strong>🎖️ TOTAL</strong></td>
-      <td align="center"><strong style="font-size: 1.2em;">3804</strong></td>
+      <td align="center"><strong style="font-size: 1.2em;">3808</strong></td>
       <td align="center"><strong>100%</strong></td>
       <td align="center">17 January 2026</td>
       <td></td>
@@ -152,7 +152,7 @@
 
 | 📅 Last Solved | 🏆 Platform(s) |
 |:-------------:|:-------------:|
-| **16 January 2026** | **CodeChef** and **Codeforces** |
+| **17 January 2026** | **CodeChef**, **Codeforces**, **Toph**, and **UVa** |
 
 </div>
 
@@ -171,14 +171,14 @@
     </tr>
   </thead>
   <tbody>
-    <tr><td><img src="https://cdn.iconscout.com/icon/free/png-16/codeforces-3628695-3029920.png" alt="Codeforces" width="16" height="16" onerror="this.style.display='none'"/> <strong>Codeforces</strong></td><td align="right" data-date="2026-01-16">16 January 2026</td></tr>
-    <tr><td><img src="https://cdn.codechef.com/sites/all/themes/abessive/cc-logo.png" alt="CodeChef" width="16" height="16" onerror="this.style.display='none'"/> <strong>CodeChef</strong></td><td align="right" data-date="2026-01-16">16 January 2026</td></tr>
+    <tr><td><img src="https://cdn.iconscout.com/icon/free/png-16/codeforces-3628695-3029920.png" alt="Codeforces" width="16" height="16" onerror="this.style.display='none'"/> <strong>Codeforces</strong></td><td align="right" data-date="2026-01-17">17 January 2026</td></tr>
+    <tr><td><img src="https://cdn.codechef.com/sites/all/themes/abessive/cc-logo.png" alt="CodeChef" width="16" height="16" onerror="this.style.display='none'"/> <strong>CodeChef</strong></td><td align="right" data-date="2026-01-17">17 January 2026</td></tr>
+    <tr><td><img src="https://toph.co/favicon.ico" alt="Toph" width="16" height="16" onerror="this.style.display='none'"/> <strong>Toph</strong></td><td align="right" data-date="2026-01-17">17 January 2026</td></tr>
+    <tr><td><img src="https://www.google.com/s2/favicons?domain=onlinejudge.org&sz=16" alt="UVa" width="16" height="16" onerror="this.style.display='none'"/> <strong>UVa</strong></td><td align="right" data-date="2026-01-17">17 January 2026</td></tr>
     <tr><td><img src="https://leetcode.com/favicon-16x16.png" alt="LeetCode" width="16" height="16" onerror="this.style.display='none'"/> <strong>LeetCode</strong></td><td align="right" data-date="2026-01-10">10 January 2026</td></tr>
-    <tr><td><img src="https://toph.co/favicon.ico" alt="Toph" width="16" height="16" onerror="this.style.display='none'"/> <strong>Toph</strong></td><td align="right" data-date="2025-12-28">28 December 2025</td></tr>
     <tr><td><img src="https://atcoder.jp/favicon.ico" alt="AtCoder" width="16" height="16" onerror="this.style.display='none'"/> <strong>AtCoder</strong></td><td align="right" data-date="2025-11-29">29 November 2025</td></tr>
     <tr><td><img src="https://vjudge.net/favicon.ico" alt="Vjudge" width="16" height="16" onerror="this.style.display='none'"/> <strong>Vjudge</strong></td><td align="right" data-date="2025-10-02">02 October 2025</td></tr>
     <tr><td><img src="https://cses.fi/logo.png?1" alt="CSES" width="16" height="16" onerror="this.style.display='none'"/> <strong>CSES</strong></td><td align="right" data-date="2025-08-18">18 August 2025</td></tr>
-    <tr><td><img src="https://www.google.com/s2/favicons?domain=onlinejudge.org&sz=16" alt="UVa" width="16" height="16" onerror="this.style.display='none'"/> <strong>UVa</strong></td><td align="right" data-date="2025-05-07">07 May 2025</td></tr>
     <tr><td><img src="https://www.spoj.com/favicon.ico" alt="SPOJ" width="16" height="16" onerror="this.style.display='none'"/> <strong>SPOJ</strong></td><td align="right" data-date="2025-05-06">06 May 2025</td></tr>
     <tr><td><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSq0TU63ijLZ_PaQre3dgnYmJ811t41O-RcHg&s" alt="LightOJ" width="16" height="16"/> <strong>LightOJ</strong></td><td align="right" data-date="2023-08-12">12 August 2023</td></tr>
     <tr><td><img src="https://hrcdn.net/fcore/assets/favicon-ddc852f75a.png" alt="HackerRank" width="16" height="16" onerror="this.style.display='none'"/> <strong>HackerRank</strong></td><td align="right" data-date="1970-01-01">01 January 1970</td></tr>
@@ -199,7 +199,7 @@
 | 🥇 Top Platform | 🎯 Main Focus | 📚 Platforms Active |
 |:---------------:|:-------------:|:------------------:|
 | **Codeforces** | **Competitive Programming** | **12** |
-| 2597 Problems | Algorithm Mastery | Multi-Platform |
+| 2598 Problems | Algorithm Mastery | Multi-Platform |
 
 </div>
 <!-- AUTO_GENERATED_SECTION_END: KEY_HIGHLIGHTS -->
