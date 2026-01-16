@@ -7,7 +7,7 @@ import json
 import os
 from datetime import datetime
 from src.config import (
-    LAST_KNOWN_FILE, STATS_FILE, BDT_TIMEZONE, DEFAULT_FUNNY_DATE
+    LAST_KNOWN_FILE, STATS_FILE, BDT_TIMEZONE, DEFAULT_FUNNY_DATE, USER_CONFIG
 )
 
 
@@ -33,12 +33,35 @@ class DataManager:
                     data['counts'] = {}
                 if 'dates' not in data:
                     data['dates'] = {}
+                if 'usernames' not in data:
+                    data['usernames'] = {}
+                
+                # Check if any username has changed - if so, reset cache for that platform
+                usernames_changed = False
+                for platform, current_username in USER_CONFIG.items():
+                    stored_username = data['usernames'].get(platform)
+                    if stored_username and stored_username != current_username:
+                        print(f"Username changed for {platform}: {stored_username} -> {current_username}")
+                        print(f"Resetting cached data for {platform}")
+                        # Clear cached data for this platform
+                        data['counts'].pop(platform, None)
+                        data['dates'].pop(platform, None)
+                        data['modes'].pop(platform, None)
+                        data['last_solved_dates'].pop(platform, None)
+                        usernames_changed = True
+                    # Update stored username
+                    data['usernames'][platform] = current_username
+                
+                # Save immediately if usernames changed
+                if usernames_changed:
+                    DataManager.save_last_known_counts(data)
+                
                 return data
         except FileNotFoundError:
             pass
         except (json.JSONDecodeError, IOError) as e:
             print(f"Warning: Could not load last known counts: {e}")
-        return {'counts': {}, 'dates': {}, 'modes': {}, 'last_solved_dates': {}}
+        return {'counts': {}, 'dates': {}, 'modes': {}, 'last_solved_dates': {}, 'usernames': {}}
     
     @staticmethod
     def save_last_known_counts(last_known_counts):
@@ -75,6 +98,8 @@ class DataManager:
             last_known_counts['modes'] = {}
         if 'last_solved_dates' not in last_known_counts:
             last_known_counts['last_solved_dates'] = {}
+        if 'usernames' not in last_known_counts:
+            last_known_counts['usernames'] = {}
 
         current_date = datetime.now(BDT_TIMEZONE).strftime('%Y-%m-%d')
         
@@ -87,6 +112,7 @@ class DataManager:
 
         last_known_counts['counts'][platform] = count
         last_known_counts['dates'][platform] = current_date
+        last_known_counts['usernames'][platform] = USER_CONFIG.get(platform)
 
         # Update the mode only if it is different
         if mode is not None and last_known_counts['modes'].get(platform) != mode:

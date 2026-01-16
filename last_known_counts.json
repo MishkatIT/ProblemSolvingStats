@@ -54,5 +54,19 @@
     "HackerEarth": "1970-01-01",
     "SPOJ": "2025-05-06",
     "HackerRank": "1970-01-01"
+  },
+  "usernames": {
+    "Codeforces": "MishkatIT",
+    "LeetCode": "MishkatIT",
+    "Vjudge": "MishkatIT",
+    "AtCoder": "MishkatIT",
+    "CodeChef": "MishkatIT",
+    "CSES": "165802",
+    "Toph": "MishkatIT",
+    "LightOJ": "mishkatit",
+    "SPOJ": "mishkatit",
+    "HackerRank": "MishkatIT",
+    "UVa": "1615470",
+    "HackerEarth": "MishkatIT"
   }
 }

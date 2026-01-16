@@ -488,6 +488,9 @@ def update_readme(stats, last_known_info=None, update_source=None):
         print(f"✓ README.md updated successfully!")
         print(f"  Total problems: {total}")
         print(f"  Updated on {current_date}")
+        print("\n⚠️ Note: Some platforms might be missing. Consider manual update.")
+        print("Run the following command to manually update:")
+        print("  python manual_update.py")
         return True
     except Exception as e:
         print(f"Error writing README.md: {e}")
