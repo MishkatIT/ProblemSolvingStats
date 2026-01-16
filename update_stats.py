@@ -34,108 +34,36 @@ import sys
 import os
 from urllib.request import urlopen, Request
 from urllib.error import URLError, HTTPError
-from datetime import datetime, timezone, timedelta
 from bs4 import BeautifulSoup
 
-
-# User configuration - Single source of truth for all usernames/IDs
-USER_CONFIG = {
-    'Codeforces': 'MishkatIT',
-    'LeetCode': 'MishkatIT',
-    'Vjudge': 'MishkatIT',
-    'AtCoder': 'MishkatIT',
-    'CodeChef': 'MishkatIT',
-    'CSES': '165802',  # User ID
-    'Toph': 'MishkatIT',
-    'LightOJ': 'mishkatit',  # lowercase
-    'SPOJ': 'mishkatit',  # lowercase
-    'HackerRank': 'MishkatIT',
-    'UVa': '1615470',  # User ID
-    'HackerEarth': 'MishkatIT'
-}
+from src.config import USER_CONFIG, MAX_REASONABLE_COUNT, USER_AGENT
+from src.data_manager import DataManager
 
 
 class PlatformStats:
     """Class to handle fetching statistics from different platforms."""
     
-    LAST_KNOWN_FILE = 'last_known_counts.json'
-    MAX_REASONABLE_COUNT = 10000  # Maximum expected problem count for validation
-    
     def __init__(self):
         self.stats = {}
-        self.user_agent = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36'
-        self.last_known_counts = self._load_last_known_counts()
-    
-    def _load_last_known_counts(self):
-        """Load the last known good counts from file."""
-        try:
-            with open(self.LAST_KNOWN_FILE, 'r') as f:
-                data = json.load(f)
-                # Ensure last_solved_dates exists
-                if 'last_solved_dates' not in data:
-                    data['last_solved_dates'] = {}
-                return data
-        except FileNotFoundError:
-            # File doesn't exist yet, will be created on first save
-            pass
-        except (json.JSONDecodeError, IOError) as e:
-            print(f"Warning: Could not load last known counts: {e}")
-        return {'counts': {}, 'dates': {}, 'last_solved_dates': {}}
-    
+        self.user_agent = USER_AGENT
+        self.last_known_counts = DataManager.load_last_known_counts()
+
     def _save_last_known_counts(self):
         """Save the current known good counts to file."""
-        try:
-            with open(self.LAST_KNOWN_FILE, 'w') as f:
-                json.dump(self.last_known_counts, f, indent=2)
-        except (IOError, OSError) as e:
-            print(f"Warning: Could not save last known counts: {e}")
+        DataManager.save_last_known_counts(self.last_known_counts)
     
     def _get_last_known(self, platform):
         """Get the last known count for a platform."""
-        if 'counts' in self.last_known_counts:
-            return self.last_known_counts['counts'].get(platform)
-        return None
+        return DataManager.get_last_known(self.last_known_counts, platform)
     
     def _get_last_known_mode(self, platform):
         """Get the last known update mode for a platform."""
-        if 'modes' in self.last_known_counts:
-            return self.last_known_counts['modes'].get(platform, 'unknown')
-        return 'unknown'
+        return DataManager.get_last_known_mode(self.last_known_counts, platform)
 
     def _update_last_known(self, platform, count, mode=None):
         """Update the last known count and mode for a platform."""
-        if count is not None:
-            if 'counts' not in self.last_known_counts:
-                self.last_known_counts['counts'] = {}
-            if 'dates' not in self.last_known_counts:
-                self.last_known_counts['dates'] = {}
-            if 'modes' not in self.last_known_counts:
-                self.last_known_counts['modes'] = {}
-            if 'last_solved_dates' not in self.last_known_counts:
-                self.last_known_counts['last_solved_dates'] = {}
-
-            # Use BDT timezone (UTC+6) for consistency with update_readme.py
-            bdt_tz = timezone(timedelta(hours=6))
-            current_date = datetime.now(bdt_tz).strftime('%Y-%m-%d')
-            
-            # Check if count increased (problem was solved)
-            # Only update if count is strictly greater than previous count
-            # This handles the case where counts may fluctuate due to platform changes
-            old_count = self.last_known_counts['counts'].get(platform)
-            if old_count is None:
-                funnyDate = "1970-01-01"
-                self.last_known_counts['last_solved_dates'][platform] = funnyDate
-            elif count > old_count:
-                self.last_known_counts['last_solved_dates'][platform] = current_date
-            # If count decreased or stayed the same, keep the existing last_solved_date
-
-            self.last_known_counts['counts'][platform] = count
-            self.last_known_counts['dates'][platform] = current_date
-
-            # Update the mode only if it is different from the existing one
-            if mode is not None and self.last_known_counts['modes'].get(platform) != mode:
-                self.last_known_counts['modes'][platform] = mode
-
+        DataManager.update_last_known(self.last_known_counts, platform, count, mode)
+    
     def fetch_url(self, url, use_api=False):
         """Fetch URL with proper headers."""
         try:
@@ -177,7 +105,7 @@ class PlatformStats:
                     m = re.search(pat, html, re.IGNORECASE)
                     if m:
                         cnt = int(m.group(1))
-                        if 0 < cnt < self.MAX_REASONABLE_COUNT:
+                        if 0 < cnt < MAX_REASONABLE_COUNT:
                             return cnt
 
             else:
@@ -259,7 +187,7 @@ class PlatformStats:
                     match = re.search(pattern, html, re.IGNORECASE)
                     if match:
                         count = int(match.group(1))
-                        if 0 < count < self.MAX_REASONABLE_COUNT:
+                        if 0 < count < MAX_REASONABLE_COUNT:
                             return count
         except Exception as e:
             print(f"  Web scraping failed: {e}")
@@ -289,7 +217,7 @@ class PlatformStats:
                     match = re.search(pattern, html, re.IGNORECASE)
                     if match:
                         cnt = int(match.group(1))
-                        if 0 < cnt < self.MAX_REASONABLE_COUNT:
+                        if 0 < cnt < MAX_REASONABLE_COUNT:
                             return cnt
 
         except Exception as e:
@@ -336,7 +264,7 @@ class PlatformStats:
                         from_second = max_epoch + 1
 
                 count = len(solved)
-                if 0 <= count < self.MAX_REASONABLE_COUNT:
+                if 0 <= count < MAX_REASONABLE_COUNT:
                     return count
             except Exception as e:
                 print(f"  AtCoder requests API failed: {e}")
@@ -359,7 +287,7 @@ class PlatformStats:
                     match = re.search(pattern, html, re.IGNORECASE)
                     if match:
                         count = int(match.group(1))
-                        if 0 <= count < self.MAX_REASONABLE_COUNT:
+                        if 0 <= count < MAX_REASONABLE_COUNT:
                             return count
         except Exception as e:
             print(f"  Error getting AtCoder stats: {e}")
@@ -383,7 +311,7 @@ class PlatformStats:
                     match = re.search(pattern, html, re.IGNORECASE | re.DOTALL)
                     if match:
                         count = int(match.group(1))
-                        if 0 <= count < self.MAX_REASONABLE_COUNT:
+                        if 0 <= count < MAX_REASONABLE_COUNT:
                             return count
 
                 # Then search a tag-stripped version to handle HTML elements between words
@@ -393,7 +321,7 @@ class PlatformStats:
                     match = re.search(pattern, text_only, re.IGNORECASE)
                     if match:
                         count = int(match.group(1))
-                        if 0 <= count < self.MAX_REASONABLE_COUNT:
+                        if 0 <= count < MAX_REASONABLE_COUNT:
                             return count
 
                 # Try multiple patterns to extract the problem count
@@ -417,7 +345,7 @@ class PlatformStats:
                     if match:
                         count = int(match.group(1))
                         # Sanity check - CodeChef count should be reasonable
-                        if 0 <= count < self.MAX_REASONABLE_COUNT:
+                        if 0 <= count < MAX_REASONABLE_COUNT:
                             return count
                 
                 # If no pattern matched, log for debugging
@@ -445,7 +373,7 @@ class PlatformStats:
                     match = re.search(pattern, html, re.IGNORECASE)
                     if match:
                         count = int(match.group(1))
-                        if 0 < count < self.MAX_REASONABLE_COUNT:
+                        if 0 < count < MAX_REASONABLE_COUNT:
                             return count
         except Exception as e:
             print(f"  Error getting CSES stats: {e}")
@@ -486,7 +414,7 @@ class PlatformStats:
                     match = re.search(pattern, html, re.IGNORECASE)
                     if match:
                         count = int(match.group(1))
-                        if 0 < count < self.MAX_REASONABLE_COUNT:
+                        if 0 < count < MAX_REASONABLE_COUNT:
                             return count
         except Exception as e:
             print(f"  Error getting LightOJ stats: {e}")
@@ -511,7 +439,7 @@ class PlatformStats:
                     match = re.search(pattern, html, re.IGNORECASE)
                     if match:
                         count = int(match.group(1))
-                        if 0 < count < self.MAX_REASONABLE_COUNT:
+                        if 0 < count < MAX_REASONABLE_COUNT:
                             return count
         except Exception as e:
             print(f"  Error getting SPOJ stats: {e}")
@@ -535,7 +463,7 @@ class PlatformStats:
                     match = re.search(pattern, html, re.IGNORECASE)
                     if match:
                         count = int(match.group(1))
-                        if 0 < count < self.MAX_REASONABLE_COUNT:
+                        if 0 < count < MAX_REASONABLE_COUNT:
                             return count
         except Exception as e:
             print(f"  Error getting HackerRank stats: {e}")
@@ -573,7 +501,7 @@ class PlatformStats:
                     match = re.search(pattern, html, re.IGNORECASE)
                     if match:
                         count = int(match.group(1))
-                        if 0 < count < self.MAX_REASONABLE_COUNT:
+                        if 0 < count < MAX_REASONABLE_COUNT:
                             return count
         except Exception as e:
             print(f"  Web scraping failed: {e}")
@@ -598,7 +526,7 @@ class PlatformStats:
                     match = re.search(pattern, html, re.IGNORECASE)
                     if match:
                         count = int(match.group(1))
-                        if 0 < count < self.MAX_REASONABLE_COUNT:
+                        if 0 < count < MAX_REASONABLE_COUNT:
                             return count
         except Exception as e:
             print(f"  Error getting HackerEarth stats: {e}")
@@ -704,12 +632,7 @@ def main():
     print(json.dumps(stats, indent=2))
 
     # Persist stats for README updater and repo tracking
-    try:
-        with open('stats.json', 'w', encoding='utf-8') as f:
-            json.dump(stats, f, indent=2)
-        print("\n✓ Saved statistics to stats.json")
-    except Exception as e:
-        print(f"\nWarning: Could not write stats.json: {e}")
+    DataManager.save_stats(stats)
 
     # Update README after fetching (useful for scheduled automation)
     try:
