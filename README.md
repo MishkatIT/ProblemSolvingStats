@@ -207,57 +207,93 @@
 
 ---
 
+## 🎯 Want Your Own Automated Stats Tracker?
+
+<div align="center">
+
+### ✨ Imagine Your Problem-Solving Journey Auto-Updated Daily! ✨
+
+**Tired of manually updating your competitive programming stats?**  
+**Want a beautiful, automatically updated showcase of your achievements?**  
+**Ready to track your progress across 12+ platforms effortlessly?**
+
+🎉 **You can have the same automated tracking system!** 🎉
+
+</div>
+
+---
+
 ## 📚 Setup and Usage
 
-### 🚀 Quick Start
+### 🚀 Get Started in 5 Minutes
+
+> **What you'll get:** Your own GitHub README that automatically updates every day with your latest problem-solving statistics from Codeforces, LeetCode, AtCoder, and 9 other platforms!
 
 #### Prerequisites
 - Python 3.8 or higher
+- A GitHub account
 - pip (Python package manager)
 
 #### Installation
 
-1. **Clone the repository**
+1. **Fork this repository** 🍴
+   - Visit [MishkatIT/ProblemSolvingStats](https://github.com/MishkatIT/ProblemSolvingStats)
+   - Click the **Fork** button in the top-right corner
+   - Now you have your own copy!
+
+2. **Clone your fork** 📦
    ```bash
-   git clone https://github.com/MishkatIT/ProblemSolvingStats.git
+   git clone https://github.com/YOUR_USERNAME/ProblemSolvingStats.git
    cd ProblemSolvingStats
    ```
 
-2. **Install dependencies**
+3. **Install dependencies** 📥
    ```bash
    pip install -r requirements.txt
    ```
 
-3. **Configure your usernames** (Optional)
+4. **Configure your usernames** ⚙️
    
-   Edit `src/config.py` to update your platform usernames:
+   Edit `src/config.py` and replace with your platform usernames:
    ```python
    USER_CONFIG = {
        'Codeforces': 'YourUsername',
        'LeetCode': 'YourUsername',
-       # ... update other platforms
+       'AtCoder': 'YourUsername',
+       # ... update all your platforms
    }
    ```
 
+5. **Run it once to test** 🧪
+   ```bash
+   python3 update_stats.py
+   ```
+   
+6. **Enable GitHub Actions** 🤖
+   - Go to your repository's **Actions** tab
+   - Click **"I understand my workflows, go ahead and enable them"**
+   - Your stats will now update automatically every day! 🎊
+
 #### Running the Scripts
 
-**Automatic Update (Fetch from APIs and Web Scraping):**
+**Automatic Update (Recommended):**
 ```bash
 python3 update_stats.py
 ```
-This script will:
-- Fetch statistics from all 12 platforms
-- Save results to `stats.json` and `last_known_counts.json`
-- Automatically update the README.md
+✨ This script will:
+- 🔄 Fetch your latest statistics from all 12 platforms
+- 💾 Save results to `stats.json` and `last_known_counts.json`
+- 📝 Automatically generate and update your README.md
+- 📊 Create beautiful progress badges and tables
 
-**Manual Update (Interactive Input):**
+**Manual Update (When needed):**
 ```bash
 python3 manual_update.py
 ```
-This script will:
-- Prompt you to enter statistics for each platform
-- Save your inputs and update the README
-- Useful when automatic fetching fails
+🛠️ This script will:
+- 📝 Let you manually enter statistics for any platform
+- 💡 Perfect when automatic fetching fails
+- 🎯 Useful for platforms without APIs
 
 **Update README Only:**
 ```bash
@@ -288,140 +324,9 @@ If you need to update statistics manually:
 
 ## 🤝 Contributing
 
-### How to Fork and Contribute
+We welcome contributions! Whether you want to report bugs, suggest features, improve documentation, or add new platform support, your help is appreciated.
 
-We welcome contributions! Here's how to get started:
-
-#### 1. Fork the Repository
-
-1. Navigate to [MishkatIT/ProblemSolvingStats](https://github.com/MishkatIT/ProblemSolvingStats)
-2. Click the **Fork** button in the top-right corner
-3. GitHub will create a copy of the repository in your account
-
-#### 2. Clone Your Fork
-
-```bash
-# Clone your forked repository
-git clone https://github.com/YOUR_USERNAME/ProblemSolvingStats.git
-cd ProblemSolvingStats
-
-# Add the original repository as upstream
-git remote add upstream https://github.com/MishkatIT/ProblemSolvingStats.git
-
-# Verify remotes
-git remote -v
-```
-
-#### 3. Create a Feature Branch
-
-```bash
-# Create and switch to a new branch
-git checkout -b feature/your-feature-name
-
-# Or for bug fixes
-git checkout -b fix/your-bug-fix
-```
-
-#### 4. Make Your Changes
-
-- Edit files as needed
-- Test your changes thoroughly
-- Follow existing code style and conventions
-- Add comments where necessary
-
-#### 5. Commit and Push
-
-```bash
-# Stage your changes
-git add .
-
-# Commit with a descriptive message
-git commit -m "Add: Brief description of your changes"
-
-# Push to your fork
-git push origin feature/your-feature-name
-```
-
-#### 6. Create a Pull Request
-
-1. Go to your fork on GitHub
-2. Click **Compare & pull request**
-3. Provide a clear title and description
-4. Click **Create pull request**
-
----
-
-## 🔄 Syncing Your Fork with Upstream
-
-To keep your fork up-to-date with the original repository:
-
-### Method 1: Using Git Commands
-
-```bash
-# Fetch upstream changes
-git fetch upstream
-
-# Switch to your main branch
-git checkout main
-
-# Merge upstream changes
-git merge upstream/main
-
-# Push updates to your fork
-git push origin main
-```
-
-### Method 2: Using Git Rebase (Cleaner History)
-
-```bash
-# Fetch upstream changes
-git fetch upstream
-
-# Rebase your main branch
-git checkout main
-git rebase upstream/main
-
-# Force push to your fork (if needed)
-git push origin main --force-with-lease
-```
-
-### Resolving Conflicts
-
-If you encounter merge conflicts:
-
-```bash
-# 1. Identify conflicting files
-git status
-
-# 2. Open conflicting files and resolve conflicts manually
-#    Look for conflict markers: <<<<<<<, =======, >>>>>>>
-
-# 3. Stage resolved files
-git add <resolved-file>
-
-# 4. Complete the merge
-git merge --continue
-# Or if rebasing:
-git rebase --continue
-
-# 5. Push changes
-git push origin main
-```
-
-### Sync Before Each Contribution
-
-Always sync your fork before creating a new feature branch:
-
-```bash
-# Update your main branch
-git checkout main
-git fetch upstream
-git merge upstream/main
-git push origin main
-
-# Create new feature branch from updated main
-git checkout -b feature/new-feature
-```
+Please see [CONTRIBUTING.md](CONTRIBUTING.md) for detailed guidelines on how to contribute to this project.
 
 ---
 
