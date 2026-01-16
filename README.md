@@ -2,12 +2,12 @@
 
 # 🏆 Problem Solving Statistics
 
-[![Last Updated](https://img.shields.io/badge/Last%20Updated-16%20January%202026-blue?style=for-the-badge)](https://github.com/MishkatIT/ProblemSolvingStats)
+[![Last Updated](https://img.shields.io/badge/Last%20Updated-17%20January%202026-blue?style=for-the-badge)](https://github.com/MishkatIT/ProblemSolvingStats)
 [![Total Problems](https://img.shields.io/badge/Total%20Solved-3804-success?style=for-the-badge)](https://github.com/MishkatIT/ProblemSolvingStats)
 [![Platforms](https://img.shields.io/badge/Platforms-12-orange?style=for-the-badge)](https://github.com/MishkatIT/ProblemSolvingStats)
 
 <!-- UPDATE_METADATA_START -->
-<p align="center"><strong>Updated:</strong> 16 January 2026 at 11:55:53 PM • Automatic</p>
+<p align="center"><strong>Updated:</strong> 17 January 2026 at 12:00:07 AM • Unknown</p>
 <!-- UPDATE_METADATA_END -->
 
 ### 💻 Competitive Programming Journey
@@ -23,14 +23,14 @@
 ## 📊 Platform Statistics
 
 <!-- AUTO_GENERATED_SECTION_START: STATS_TABLE -->
-<table id="statsTable" class="sortable" align="center">
+<table align="center">
   <thead>
     <tr>
-      <th onclick="sortTable('statsTable', 0, 'text')" style="cursor: pointer;">🎯 Platform <span class="sort-arrow"></span></th>
+      <th>🎯 Platform</th>
       <th>👤 Profile</th>
-      <th onclick="sortTable('statsTable', 2, 'number')" style="cursor: pointer;">✅ Solved <span class="sort-arrow"></span></th>
+      <th>✅ Solved</th>
       <th>📈 Progress</th>
-      <th onclick="sortTable('statsTable', 4, 'date')" style="cursor: pointer;">📅 Updated On <span class="sort-arrow"></span></th>
+      <th>📅 Updated On</th>
       <th>🔄 Mode</th>
     </tr>
   </thead>
@@ -137,7 +137,7 @@
       <td colspan="2" align="center"><strong>🎖️ TOTAL</strong></td>
       <td align="center"><strong style="font-size: 1.2em;">3804</strong></td>
       <td align="center"><strong>100%</strong></td>
-      <td align="center">16 January 2026</td>
+      <td align="center">17 January 2026</td>
       <td></td>
     </tr>
   </tfoot>
@@ -163,11 +163,11 @@
 
 <div align="center">
 
-<table id="lastSolvedTable" class="sortable">
+<table>
   <thead>
     <tr>
-      <th onclick="sortTable('lastSolvedTable', 0, 'text')" style="cursor: pointer;">🏆 Platform <span class="sort-arrow"></span></th>
-      <th onclick="sortTable('lastSolvedTable', 1, 'date')" style="cursor: pointer;" align="right">📅 Last Solved <span class="sort-arrow"></span></th>
+      <th>🏆 Platform</th>
+      <th align="right">📅 Last Solved</th>
     </tr>
   </thead>
   <tbody>
@@ -202,73 +202,6 @@
 | 2597 Problems | Algorithm Mastery | Multi-Platform |
 
 </div>
-
-<script>
-// JavaScript for sortable tables
-let sortStates = {};
-
-function sortTable(tableId, columnIndex, dataType) {
-  const table = document.getElementById(tableId);
-  if (!table) return;
-  
-  const tbody = table.querySelector('tbody');
-  if (!tbody) return;
-  
-  const rows = Array.from(tbody.querySelectorAll('tr'));
-  
-  // Initialize sort state for this table+column
-  const key = tableId + '_' + columnIndex;
-  if (!sortStates[key]) {
-    sortStates[key] = 'desc';
-  }
-  
-  // Toggle sort direction
-  const ascending = sortStates[key] === 'desc';
-  sortStates[key] = ascending ? 'asc' : 'desc';
-  
-  // Sort rows
-  rows.sort((a, b) => {
-    const cellA = a.cells[columnIndex];
-    const cellB = b.cells[columnIndex];
-    
-    let valueA, valueB;
-    
-    if (dataType === 'number') {
-      // Extract number from data-value attribute or text content
-      valueA = parseInt(cellA.getAttribute('data-value') || cellA.textContent.replace(/[^0-9]/g, '') || '0');
-      valueB = parseInt(cellB.getAttribute('data-value') || cellB.textContent.replace(/[^0-9]/g, '') || '0');
-    } else if (dataType === 'date') {
-      // Extract date from data-date attribute or parse text
-      valueA = cellA.getAttribute('data-date') || '0000-00-00';
-      valueB = cellB.getAttribute('data-date') || '0000-00-00';
-    } else {
-      // Text sorting - extract just the text without HTML
-      valueA = cellA.textContent.trim().toLowerCase();
-      valueB = cellB.textContent.trim().toLowerCase();
-    }
-    
-    if (valueA < valueB) return ascending ? -1 : 1;
-    if (valueA > valueB) return ascending ? 1 : -1;
-    return 0;
-  });
-  
-  // Re-append rows in sorted order
-  rows.forEach(row => tbody.appendChild(row));
-  
-  // Update sort arrow indicators
-  const headers = table.querySelectorAll('th');
-  headers.forEach((header, index) => {
-    const arrow = header.querySelector('.sort-arrow');
-    if (arrow) {
-      if (index === columnIndex) {
-        arrow.textContent = ascending ? ' ▲' : ' ▼';
-      } else {
-        arrow.textContent = '';
-      }
-    }
-  });
-}
-</script>
 <!-- AUTO_GENERATED_SECTION_END: KEY_HIGHLIGHTS -->
 
 ---
