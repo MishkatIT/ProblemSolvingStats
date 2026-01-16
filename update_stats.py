@@ -38,6 +38,22 @@ from datetime import datetime, timezone, timedelta
 from bs4 import BeautifulSoup
 
 
+# User configuration - Single source of truth for all usernames/IDs
+USER_CONFIG = {
+    'Codeforces': 'MishkatIT',
+    'LeetCode': 'MishkatIT',
+    'Vjudge': 'MishkatIT',
+    'AtCoder': 'MishkatIT',
+    'CodeChef': 'MishkatIT',
+    'CSES': '165802',  # User ID
+    'Toph': 'MishkatIT',
+    'LightOJ': 'mishkatit',  # lowercase
+    'SPOJ': 'mishkatit',  # lowercase
+    'HackerRank': 'MishkatIT',
+    'UVa': '1615470',  # User ID
+    'HackerEarth': 'MishkatIT'
+}
+
 
 class PlatformStats:
     """Class to handle fetching statistics from different platforms."""
@@ -140,7 +156,7 @@ class PlatformStats:
     def get_codeforces(self):
         """Fetch Codeforces statistics."""
         try:
-            url = "https://codeforces.com/profile/MishkatIT"
+            url = f"https://codeforces.com/profile/{USER_CONFIG['Codeforces']}"
             html = self.fetch_url(url)
             if html:
                 patterns = [
@@ -166,7 +182,7 @@ class PlatformStats:
 
                 print("  web scraping failed, Trying api...")
             else:
-                url = "https://codeforces.com/api/user.status?handle=MishkatIT&from=1&count=10000"
+                url = f"https://codeforces.com/api/user.status?handle={USER_CONFIG['Codeforces']}&from=1&count=10000"
                 data = self.fetch_url(url, use_api=True)
                 
                 if data and data.get('status') == 'OK':
@@ -201,7 +217,7 @@ class PlatformStats:
                         }
                     }
                 """,
-                "variables": {"username": "MishkatIT"}
+                "variables": {"username": USER_CONFIG['LeetCode']}
             }
             
             headers = {
@@ -228,7 +244,7 @@ class PlatformStats:
         # Fallback to web scraping
         try:
             print("  Trying web scraping...")
-            url = "https://leetcode.com/MishkatIT/"
+            url = f"https://leetcode.com/{USER_CONFIG['LeetCode']}/"
             html = self.fetch_url(url)
             if html:
                 # Try multiple patterns for LeetCode profile
@@ -253,7 +269,7 @@ class PlatformStats:
     def get_vjudge(self):
         """Fetch Vjudge statistics."""
         try:
-            url = "https://vjudge.net/user/MishkatIT"
+            url = f"https://vjudge.net/user/{USER_CONFIG['Vjudge']}"
             html = self.fetch_url(url)
             if html:
                 patterns = [
@@ -289,7 +305,7 @@ class PlatformStats:
                 import requests
 
                 url = "https://kenkoooo.com/atcoder/atcoder-api/v3/user/submissions"
-                user = "mishkatit"
+                user = USER_CONFIG['LightOJ']
 
                 solved = set()
                 from_second = 0
@@ -328,7 +344,7 @@ class PlatformStats:
             # Fallback to web scraping profile page
             print("  API failed, trying web scraping...")
             # Note: Profile page uses mixed case username
-            url = "https://atcoder.jp/users/MishkatIT"
+            url = f"https://atcoder.jp/users/{USER_CONFIG['AtCoder']}"
             html = self.fetch_url(url)
             if html:
                 # Try multiple patterns for AC count
@@ -352,7 +368,7 @@ class PlatformStats:
     def get_codechef(self):
         """Fetch CodeChef statistics using web scraping."""
         try:
-            url = "https://www.codechef.com/users/MishkatIT"
+            url = f"https://www.codechef.com/users/{USER_CONFIG['CodeChef']}"
             html = self.fetch_url(url)
             if html:
                 # Prefer the explicit summary line many profiles include:
@@ -414,7 +430,7 @@ class PlatformStats:
     def get_cses(self):
         """Fetch CSES statistics."""
         try:
-            url = "https://cses.fi/user/165802/"
+            url = f"https://cses.fi/user/{USER_CONFIG['CSES']}/"
             html = self.fetch_url(url)
             if html:
                 # Try multiple patterns for tasks solved
@@ -438,7 +454,7 @@ class PlatformStats:
     def get_toph(self):
         """Fetch Toph statistics."""
         try:
-            url = "https://toph.co/u/MishkatIT"
+            url = f"https://toph.co/u/{USER_CONFIG['Toph']}"
             html = self.fetch_url(url)
             if html:
                 soup = BeautifulSoup(html, "html.parser")
@@ -455,7 +471,7 @@ class PlatformStats:
     def get_lightoj(self):
         """Fetch LightOJ statistics."""
         try:
-            url = "https://lightoj.com/user/mishkatit"
+            url = f"https://lightoj.com/user/{USER_CONFIG['LightOJ']}"
             html = self.fetch_url(url)
             if html:
                 # Try multiple patterns for solved problems
@@ -479,7 +495,7 @@ class PlatformStats:
     def get_spoj(self):
         """Fetch SPOJ statistics."""
         try:
-            url = "https://www.spoj.com/users/mishkatit/"
+            url = f"https://www.spoj.com/users/{USER_CONFIG['SPOJ']}/"
             html = self.fetch_url(url)
             if html:
                 # Try multiple patterns for problems solved
@@ -504,7 +520,7 @@ class PlatformStats:
     def get_hackerrank(self):
         """Fetch HackerRank statistics."""
         try:
-            url = "https://www.hackerrank.com/MishkatIT"
+            url = f"https://www.hackerrank.com/{USER_CONFIG['HackerRank']}"
             html = self.fetch_url(url)
             if html:
                 # Try multiple patterns for challenges solved
@@ -529,7 +545,7 @@ class PlatformStats:
         """Fetch UVa statistics."""
         try:
             # Try uhunt API first
-            url = "https://uhunt.onlinejudge.org/api/subs-user/1615470"
+            url = f"https://uhunt.onlinejudge.org/api/subs-user/{USER_CONFIG['UVa']}"
             data = self.fetch_url(url, use_api=True)
             if data:
                 solved = set()
@@ -543,7 +559,7 @@ class PlatformStats:
         # Fallback to web scraping uhunt profile
         try:
             print("  Trying web scraping...")
-            url = "https://uhunt.onlinejudge.org/id/1615470"
+            url = f"https://uhunt.onlinejudge.org/id/{USER_CONFIG['UVa']}"
             html = self.fetch_url(url)
             if html:
                 # Try multiple patterns for solved count
@@ -567,7 +583,7 @@ class PlatformStats:
     def get_hackerearth(self):
         """Fetch HackerEarth statistics."""
         try:
-            url = "https://www.hackerearth.com/@MishkatIT"
+            url = f"https://www.hackerearth.com/@{USER_CONFIG['HackerEarth']}"
             html = self.fetch_url(url)
             if html:
                 # Try multiple patterns for problems solved
@@ -613,7 +629,8 @@ class PlatformStats:
         
         for platform, fetch_func in platforms.items():
             if verbose:
-                print(f"Fetching {platform}...", end=' ')
+                print(f"Fetching {platform}...")
+                print(end=' ')
             try:
                 count = fetch_func()
                 if count is not None:

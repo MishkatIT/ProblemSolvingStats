@@ -8,6 +8,38 @@ import json
 import os
 from datetime import datetime, timezone, timedelta
 
+# Centralized user configuration
+USER_CONFIG = {
+    'Codeforces': 'MishkatIT',
+    'LeetCode': 'MishkatIT',
+    'Vjudge': 'MishkatIT',
+    'AtCoder': 'MishkatIT',
+    'CodeChef': 'MishkatIT',
+    'CSES': '165802',  # User ID
+    'Toph': 'MishkatIT',
+    'LightOJ': 'mishkatit',  # lowercase
+    'SPOJ': 'mishkatit',  # lowercase
+    'HackerRank': 'MishkatIT',
+    'UVa': '1615470',  # User ID
+    'HackerEarth': 'MishkatIT',
+}
+
+# URL templates for each platform
+PLATFORM_URL_TEMPLATES = {
+    'Codeforces': 'https://codeforces.com/profile/{username}',
+    'LeetCode': 'https://leetcode.com/{username}/',
+    'Vjudge': 'https://vjudge.net/user/{username}',
+    'AtCoder': 'https://atcoder.jp/users/{username}',
+    'CodeChef': 'https://www.codechef.com/users/{username}',
+    'CSES': 'https://cses.fi/user/{username}/',
+    'Toph': 'https://toph.co/u/{username}',
+    'LightOJ': 'https://lightoj.com/user/{username}',
+    'SPOJ': 'https://www.spoj.com/users/{username}/',
+    'HackerRank': 'https://www.hackerrank.com/{username}',
+    'UVa': 'https://uhunt.onlinejudge.org/id/{username}',
+    'HackerEarth': 'https://www.hackerearth.com/@{username}',
+}
+
 
 def get_manual_stats():
     """Manually input statistics for each platform."""
@@ -17,20 +49,13 @@ def get_manual_stats():
     print("\nPlease visit each platform and enter the current solve count.")
     print("Press Enter to skip a platform or enter 0 if not applicable.\n")
     
-    platforms = {
-        'Codeforces': 'https://codeforces.com/profile/MishkatIT',
-        'LeetCode': 'https://leetcode.com/MishkatIT/',
-        'Vjudge': 'https://vjudge.net/user/MishkatIT',
-        'AtCoder': 'https://atcoder.jp/users/MishkatIT',
-        'CodeChef': 'https://www.codechef.com/users/MishkatIT',
-        'CSES': 'https://cses.fi/user/165802/',
-        'Toph': 'https://toph.co/u/MishkatIT',
-        'LightOJ': 'https://lightoj.com/user/mishkatit',
-        'SPOJ': 'https://www.spoj.com/users/mishkatit/',
-        'HackerRank': 'https://www.hackerrank.com/MishkatIT',
-        'UVa': 'https://uhunt.onlinejudge.org/id/1615470',
-        'HackerEarth': 'https://www.hackerearth.com/@MishkatIT',
-    }
+    # Generate platform URLs dynamically from USER_CONFIG and PLATFORM_URL_TEMPLATES
+    platforms = {}
+    for platform in USER_CONFIG.keys():
+        template = PLATFORM_URL_TEMPLATES.get(platform)
+        username = USER_CONFIG.get(platform)
+        if template and username:
+            platforms[platform] = template.format(username=username)
     
     stats = {}
     

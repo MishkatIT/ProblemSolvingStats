@@ -10,6 +10,85 @@ import sys
 from datetime import datetime, timezone, timedelta
 
 
+# User configuration - Single source of truth for all usernames/IDs
+USER_CONFIG = {
+    'Codeforces': 'MishkatIT',
+    'LeetCode': 'MishkatIT',
+    'Vjudge': 'MishkatIT',
+    'AtCoder': 'MishkatIT',
+    'CodeChef': 'MishkatIT',
+    'CSES': '165802',  # User ID
+    'Toph': 'MishkatIT',
+    'LightOJ': 'mishkatit',  # lowercase
+    'SPOJ': 'mishkatit',  # lowercase
+    'HackerRank': 'MishkatIT',
+    'UVa': '1615470',  # User ID
+    'HackerEarth': 'MishkatIT'
+}
+
+# Platform URL templates
+PLATFORM_URL_TEMPLATES = {
+    'Codeforces': 'https://codeforces.com/profile/{username}',
+    'LeetCode': 'https://leetcode.com/{username}/',
+    'Vjudge': 'https://vjudge.net/user/{username}',
+    'AtCoder': 'https://atcoder.jp/users/{username}',
+    'CodeChef': 'https://www.codechef.com/users/{username}',
+    'CSES': 'https://cses.fi/user/{username}/',
+    'Toph': 'https://toph.co/u/{username}',
+    'LightOJ': 'https://lightoj.com/user/{username}',
+    'SPOJ': 'https://www.spoj.com/users/{username}/',
+    'HackerRank': 'https://www.hackerrank.com/{username}',
+    'UVa': 'https://uhunt.onlinejudge.org/id/{username}',
+    'HackerEarth': 'https://www.hackerearth.com/@{username}'
+}
+
+
+def get_profile_url(platform):
+    """Generate profile URL for a platform using username from config."""
+    template = PLATFORM_URL_TEMPLATES.get(platform)
+    username = USER_CONFIG.get(platform)
+    if template and username:
+        return template.format(username=username)
+    return '#'
+
+
+# Platform configuration constants
+PLATFORM_LOGOS = {
+    'Codeforces': ('https://cdn.iconscout.com/icon/free/png-16/codeforces-3628695-3029920.png', True),
+    'LeetCode': ('https://leetcode.com/favicon-16x16.png', True),
+    'Vjudge': ('https://vjudge.net/favicon.ico', True),
+    'AtCoder': ('https://atcoder.jp/favicon.ico', True),
+    'CodeChef': ('https://cdn.codechef.com/sites/all/themes/abessive/cc-logo.png', True),
+    'CSES': ('https://cses.fi/logo.png?1', True),
+    'Toph': ('https://toph.co/favicon.ico', True),
+    'LightOJ': ('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSq0TU63ijLZ_PaQre3dgnYmJ811t41O-RcHg&s', False),
+    'SPOJ': ('https://www.spoj.com/favicon.ico', True),
+    'HackerRank': ('https://hrcdn.net/fcore/assets/favicon-ddc852f75a.png', True),
+    'UVa': ('https://www.google.com/s2/favicons?domain=onlinejudge.org&sz=16', True),
+    'HackerEarth': ('https://www.google.com/s2/favicons?domain=hackerearth.com&sz=16', True)
+}
+
+PLATFORM_COLORS = {
+    'Codeforces': 'red',
+    'LeetCode': 'yellow',
+    'Vjudge': 'blueviolet',
+    'AtCoder': 'orange',
+    'CodeChef': 'brown',
+    'CSES': 'lightgray',
+    'Toph': 'blue',
+    'LightOJ': 'yellow',
+    'SPOJ': 'green',
+    'HackerRank': 'brightgreen',
+    'UVa': 'blue',
+    'HackerEarth': 'blue'
+}
+
+ALL_PLATFORMS = [
+    'Codeforces', 'LeetCode', 'Vjudge', 'AtCoder', 'CodeChef',
+    'CSES', 'Toph', 'LightOJ', 'SPOJ', 'HackerRank', 'UVa', 'HackerEarth'
+]
+
+
 def load_stats():
     """Load statistics from stats.json file."""
     try:
@@ -251,37 +330,18 @@ def generate_platform_last_solved_table(last_known_info):
     if not last_solved_dates:
         return ""
     
-    # Get counts for sorting
-    counts = last_known_info.get('counts', {})
+    # Filter platforms that have last_solved_dates and sort by date (most recent first)
+    # Parse dates and sort, with None/empty dates going to the end
+    def parse_date_for_sorting(date_str):
+        if not date_str or date_str == "1970-01-01":
+            return "0000-00-00"  # Put old/missing dates at the end
+        return date_str
     
-    # All platforms
-    all_platforms = [
-        'Codeforces', 'LeetCode', 'Vjudge', 'AtCoder', 'CodeChef', 
-        'CSES', 'Toph', 'LightOJ', 'SPOJ', 'HackerRank', 'UVa', 'HackerEarth'
-    ]
-    
-    # Filter platforms that have last_solved_dates and sort by count (descending)
     platform_order = sorted(
-        [p for p in all_platforms if p in last_solved_dates],
-        key=lambda p: counts.get(p, 0),
+        [p for p in ALL_PLATFORMS if p in last_solved_dates],
+        key=lambda p: parse_date_for_sorting(last_solved_dates.get(p, "")),
         reverse=True
     )
-    
-    # Platform favicon/logo URLs (matching the main stats table exactly)
-    platform_logos = {
-        'Codeforces': ('https://cdn.iconscout.com/icon/free/png-16/codeforces-3628695-3029920.png', True),
-        'LeetCode': ('https://leetcode.com/favicon-16x16.png', True),
-        'Vjudge': ('https://vjudge.net/favicon.ico', True),
-        'AtCoder': ('https://atcoder.jp/favicon.ico', True),
-        'CodeChef': ('https://cdn.codechef.com/sites/all/themes/abessive/cc-logo.png', True),
-        'CSES': ('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0Ij48cGF0aCBmaWxsPSIjODA4MDgwIiBkPSJNMTIgMkM2LjQ4IDIgMiA2LjQ4IDIgMTJzNC40OCAxMCAxMCAxMCAxMC00LjQ4IDEwLTEwUzE3LjUyIDIgMTIgMnptLTEgMTcuOTNjLTMuOTUtLjQ5LTctMy44NS03LTcuOTMgMC0uNjIuMDgtMS4yMS4yMS0xLjc5TDkgMTV2MWMwIDEuMS45IDIgMiAydjEuOTN6bTYuOS0yLjU0Yy0uMjYtLjgxLTEtMS4zOS0xLjktMS4zOWgtMXYtM2MwLS41NS0uNDUtMS0xLTFIOHYtMmgyYy41NSAwIDEtLjQ1IDEtMVY3aDJjMS4xIDAgMi0uOSAyLTJ2LS40MWMyLjkzIDEuMTkgNSA0LjA2IDUgNy40MSAwIDIuMDgtLjggMy45Ny0yLjEgNS4zOXoiLz48L3N2Zz4=', False),
-        'Toph': ('https://toph.co/favicon.ico', True),
-        'LightOJ': ('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSq0TU63ijLZ_PaQre3dgnYmJ811t41O-RcHg&s', False),
-        'SPOJ': ('https://www.spoj.com/favicon.ico', True),
-        'HackerRank': ('https://hrcdn.net/fcore/assets/favicon-ddc852f75a.png', True),
-        'UVa': ('https://www.google.com/s2/favicons?domain=onlinejudge.org&sz=16', True),
-        'HackerEarth': ('https://www.google.com/s2/favicons?domain=hackerearth.com&sz=16', True)
-    }
     
     # Build table rows
     rows = []
@@ -294,10 +354,10 @@ def generate_platform_last_solved_table(last_known_info):
                 formatted_date = "_Not recorded_"
             
             # Add platform with logo (matching main stats table format)
-            logo_url, use_onerror = platform_logos.get(platform, ('', False))
+            logo_url, use_onerror = PLATFORM_LOGOS.get(platform, ('', False))
             onerror_attr = ' onerror="this.style.display=\'none\'"' if use_onerror else ''
             platform_cell = f'<img src="{logo_url}" alt="{platform}" width="16" height="16"{onerror_attr}/> <strong>{platform}</strong>'
-            rows.append(f"| {platform_cell} | {formatted_date} |")
+            rows.append(f'    <tr><td>{platform_cell}</td><td align="right" data-date="{date}">{formatted_date}</td></tr>')
     
     if not rows:
         return ""
@@ -306,9 +366,17 @@ def generate_platform_last_solved_table(last_known_info):
 
 <div align="center">
 
-| 🏆 Platform | 📅 Last Solved |
-|:----------|:--------------|
+<table id="lastSolvedTable" class="sortable">
+  <thead>
+    <tr>
+      <th onclick="sortTable('lastSolvedTable', 0, 'text')" style="cursor: pointer;">🏆 Platform <span class="sort-arrow"></span></th>
+      <th onclick="sortTable('lastSolvedTable', 1, 'date')" style="cursor: pointer;" align="right">📅 Last Solved <span class="sort-arrow"></span></th>
+    </tr>
+  </thead>
+  <tbody>
 {chr(10).join(rows)}
+  </tbody>
+</table>
 
 </div>
 
@@ -330,37 +398,6 @@ def generate_platform_statistics_table(effective_counts, current_date, today_iso
     Returns:
         String containing the HTML table for platform statistics
     """
-    # Platform metadata
-    platform_profiles = {
-        'Codeforces': 'https://codeforces.com/profile/MishkatIT',
-        'LeetCode': 'https://leetcode.com/MishkatIT/',
-        'Vjudge': 'https://vjudge.net/user/MishkatIT',
-        'AtCoder': 'https://atcoder.jp/users/MishkatIT',
-        'CodeChef': 'https://www.codechef.com/users/MishkatIT',
-        'CSES': 'https://cses.fi/user/165802/',
-        'Toph': 'https://toph.co/u/MishkatIT',
-        'LightOJ': 'https://lightoj.com/user/mishkatit',
-        'SPOJ': 'https://www.spoj.com/users/mishkatit/',
-        'HackerRank': 'https://www.hackerrank.com/MishkatIT',
-        'UVa': 'https://uhunt.onlinejudge.org/id/1615470',
-        'HackerEarth': 'https://www.hackerearth.com/@MishkatIT'
-    }
-    
-    platform_logos = {
-        'Codeforces': ('https://cdn.iconscout.com/icon/free/png-16/codeforces-3628695-3029920.png', True, 'red'),
-        'LeetCode': ('https://leetcode.com/favicon-16x16.png', True, 'yellow'),
-        'Vjudge': ('https://vjudge.net/favicon.ico', True, 'blueviolet'),
-        'AtCoder': ('https://atcoder.jp/favicon.ico', True, 'orange'),
-        'CodeChef': ('https://cdn.codechef.com/sites/all/themes/abessive/cc-logo.png', True, 'brown'),
-        'CSES': ('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0Ij48cGF0aCBmaWxsPSIjODA4MDgwIiBkPSJNMTIgMkM2LjQ4IDIgMiA2LjQ4IDIgMTJzNC40OCAxMCAxMCAxMCAxMC00LjQ4IDEwLTEwUzE3LjUyIDIgMTIgMnptLTEgMTcuOTNjLTMuOTUtLjQ5LTctMy44NS03LTcuOTMgMC0uNjIuMDgtMS4yMS4yMS0xLjc5TDkgMTV2MWMwIDEuMS45IDIgMiAydjEuOTN6bTYuOS0yLjU0Yy0uMjYtLjgxLTEtMS4zOS0xLjktMS4zOWgtMXYtM2MwLS41NS0uNDUtMS0xLTFIOHYtMmgyYy41NSAwIDEtLjQ1IDEtMVY3aDJjMS4xIDAgMi0uOSAyLTJ2LS40MWMyLjkzIDEuMTkgNSA0LjA2IDUgNy40MSAwIDIuMDgtLjggMy45Ny0yLjEgNS4zOXoiLz48L3N2Zz4=', False, 'lightgray'),
-        'Toph': ('https://toph.co/favicon.ico', True, 'blue'),
-        'LightOJ': ('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSq0TU63ijLZ_PaQre3dgnYmJ811t41O-RcHg&s', False, 'yellow'),
-        'SPOJ': ('https://www.spoj.com/favicon.ico', True, 'green'),
-        'HackerRank': ('https://hrcdn.net/fcore/assets/favicon-ddc852f75a.png', True, 'brightgreen'),
-        'UVa': ('https://www.google.com/s2/favicons?domain=onlinejudge.org&sz=16', True, 'blue'),
-        'HackerEarth': ('https://www.google.com/s2/favicons?domain=hackerearth.com&sz=16', True, 'blue')
-    }
-    
     # Sort platforms by effective count (descending)
     sorted_platforms = sorted(
         effective_counts.keys(),
@@ -382,8 +419,9 @@ def generate_platform_statistics_table(effective_counts, current_date, today_iso
         if not isinstance(count, int):
             continue
             
-        profile_url = platform_profiles.get(platform, '#')
-        logo_url, use_onerror, color = platform_logos.get(platform, ('', False, 'blue'))
+        profile_url = get_profile_url(platform)
+        logo_url, use_onerror = PLATFORM_LOGOS.get(platform, ('', False))
+        color = PLATFORM_COLORS.get(platform, 'blue')
         
         onerror_attr = ' onerror="this.style.display=\'none\'"' if use_onerror else ''
         percentage = calculate_percentage(count, total)
@@ -410,22 +448,22 @@ def generate_platform_statistics_table(effective_counts, current_date, today_iso
         row = f'''    <tr>
       <td><img src="{logo_url}" width="16" height="16"{onerror_attr}/> <strong>{platform}</strong></td>
       <td><a href="{profile_url}">MishkatIT</a></td>
-      <td align="center"><strong>{count}</strong></td>
+      <td align="center" data-value="{count}"><strong>{count}</strong></td>
       <td><img src="https://img.shields.io/badge/Progress-{percentage}%25-{color}?style=flat-square" alt="{platform} Progress"/></td>
-      <td align="left">{date_str}</td>
+      <td align="left" data-date="{raw_date if raw_date else ''}">{date_str}</td>
       <td align="center"><img src="https://img.shields.io/badge/{mode_display}-{mode_color}?style=flat" alt="{mode_display}"/></td>
     </tr>'''
         rows.append(row)
     
     # Build complete table
-    table = f'''<table align="center">
+    table = f'''<table id="statsTable" class="sortable" align="center">
   <thead>
     <tr>
-      <th>🎯 Platform</th>
+      <th onclick="sortTable('statsTable', 0, 'text')" style="cursor: pointer;">🎯 Platform <span class="sort-arrow"></span></th>
       <th>👤 Profile</th>
-      <th>✅ Solved</th>
+      <th onclick="sortTable('statsTable', 2, 'number')" style="cursor: pointer;">✅ Solved <span class="sort-arrow"></span></th>
       <th>📈 Progress</th>
-      <th>📅 Updated On</th>
+      <th onclick="sortTable('statsTable', 4, 'date')" style="cursor: pointer;">📅 Updated On <span class="sort-arrow"></span></th>
       <th>🔄 Mode</th>
     </tr>
   </thead>
@@ -472,12 +510,6 @@ def update_readme(stats, last_known_info=None, update_source=None):
     current_date = now.strftime("%d %B %Y")
     current_date_with_time = now.strftime("%d %B %Y at %I:%M:%S %p")
     today_iso = now.strftime('%Y-%m-%d')
-    
-    # All platforms we track
-    ALL_PLATFORMS = [
-        'Codeforces', 'LeetCode', 'Vjudge', 'AtCoder', 'CodeChef',
-        'CSES', 'Toph', 'LightOJ', 'SPOJ', 'HackerRank', 'UVa', 'HackerEarth'
-    ]
     
     # Determine which platforms were freshly updated vs using last known
     last_known_counts = last_known_info.get('counts', {})
@@ -562,7 +594,74 @@ def update_readme(stats, last_known_info=None, update_source=None):
 | **{top_platform}** | **Competitive Programming** | **{active_platforms}** |
 | {top_count} Problems | Algorithm Mastery | Multi-Platform |
 
-</div>"""
+</div>
+
+<script>
+// JavaScript for sortable tables
+let sortStates = {{}};
+
+function sortTable(tableId, columnIndex, dataType) {{
+  const table = document.getElementById(tableId);
+  if (!table) return;
+  
+  const tbody = table.querySelector('tbody');
+  if (!tbody) return;
+  
+  const rows = Array.from(tbody.querySelectorAll('tr'));
+  
+  // Initialize sort state for this table+column
+  const key = tableId + '_' + columnIndex;
+  if (!sortStates[key]) {{
+    sortStates[key] = 'desc';
+  }}
+  
+  // Toggle sort direction
+  const ascending = sortStates[key] === 'desc';
+  sortStates[key] = ascending ? 'asc' : 'desc';
+  
+  // Sort rows
+  rows.sort((a, b) => {{
+    const cellA = a.cells[columnIndex];
+    const cellB = b.cells[columnIndex];
+    
+    let valueA, valueB;
+    
+    if (dataType === 'number') {{
+      // Extract number from data-value attribute or text content
+      valueA = parseInt(cellA.getAttribute('data-value') || cellA.textContent.replace(/[^0-9]/g, '') || '0');
+      valueB = parseInt(cellB.getAttribute('data-value') || cellB.textContent.replace(/[^0-9]/g, '') || '0');
+    }} else if (dataType === 'date') {{
+      // Extract date from data-date attribute or parse text
+      valueA = cellA.getAttribute('data-date') || '0000-00-00';
+      valueB = cellB.getAttribute('data-date') || '0000-00-00';
+    }} else {{
+      // Text sorting - extract just the text without HTML
+      valueA = cellA.textContent.trim().toLowerCase();
+      valueB = cellB.textContent.trim().toLowerCase();
+    }}
+    
+    if (valueA < valueB) return ascending ? -1 : 1;
+    if (valueA > valueB) return ascending ? 1 : -1;
+    return 0;
+  }});
+  
+  // Re-append rows in sorted order
+  rows.forEach(row => tbody.appendChild(row));
+  
+  // Update sort arrow indicators
+  const headers = table.querySelectorAll('th');
+  headers.forEach((header, index) => {{
+    const arrow = header.querySelector('.sort-arrow');
+    if (arrow) {{
+      if (index === columnIndex) {{
+        arrow.textContent = ascending ? ' ▲' : ' ▼';
+      }} else {{
+        arrow.textContent = '';
+      }}
+    }}
+  }});
+}}
+</script>"""
         
         # Replace Key Highlights section
         if '<!-- AUTO_GENERATED_SECTION_START: KEY_HIGHLIGHTS -->' in readme_content:
