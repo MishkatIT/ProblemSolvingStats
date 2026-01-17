@@ -3,11 +3,11 @@
 # 🏆 Problem Solving Statistics
 
 [![Last Updated](https://img.shields.io/badge/Last%20Updated-17%20January%202026-blue?style=for-the-badge)](https://github.com/MishkatIT/ProblemSolvingStats)
-[![Total Problems](https://img.shields.io/badge/Total%20Solved-3808-success?style=for-the-badge)](https://github.com/MishkatIT/ProblemSolvingStats)
+[![Total Problems](https://img.shields.io/badge/Total%20Solved-3812-success?style=for-the-badge)](https://github.com/MishkatIT/ProblemSolvingStats)
 [![Platforms](https://img.shields.io/badge/Platforms-12-orange?style=for-the-badge)](https://github.com/MishkatIT/ProblemSolvingStats)
 
 <!-- UPDATE_METADATA_START -->
-<p align="center"><strong>Updated:</strong> 17 January 2026 at 04:29:59 AM • Automatic</p>
+<p align="center"><strong>Updated:</strong> 17 January 2026 at 11:47:06 PM • Automatic</p>
 <!-- UPDATE_METADATA_END -->
 
 ### 💻 Competitive Programming Journey
@@ -38,8 +38,8 @@
     <tr>
       <td><img src="https://cdn.iconscout.com/icon/free/png-16/codeforces-3628695-3029920.png" width="16" height="16" onerror="this.style.display='none'"/> <strong>Codeforces</strong></td>
       <td><a href="https://codeforces.com/profile/MishkatIT">MishkatIT</a></td>
-      <td align="center" data-value="2598"><strong>2598</strong></td>
-      <td><img src="https://img.shields.io/badge/Progress-68.2%25-red?style=flat-square" alt="Codeforces Progress"/></td>
+      <td align="center" data-value="2602"><strong>2602</strong></td>
+      <td><img src="https://img.shields.io/badge/Progress-68.3%25-red?style=flat-square" alt="Codeforces Progress"/></td>
       <td align="left" data-date="2026-01-17">17 January 2026</td>
       <td align="center"><img src="https://img.shields.io/badge/Automatic-green?style=flat" alt="Automatic"/></td>
     </tr>
@@ -135,7 +135,7 @@
   <tfoot>
     <tr>
       <td colspan="2" align="center"><strong>🎖️ TOTAL</strong></td>
-      <td align="center"><strong style="font-size: 1.2em;">3808</strong></td>
+      <td align="center"><strong style="font-size: 1.2em;">3812</strong></td>
       <td align="center"><strong>100%</strong></td>
       <td align="center">17 January 2026</td>
       <td></td>
@@ -199,7 +199,7 @@
 | 🥇 Top Platform | 🎯 Main Focus | 📚 Platforms Active |
 |:---------------:|:-------------:|:------------------:|
 | **Codeforces** | **Competitive Programming** | **12** |
-| 2598 Problems | Algorithm Mastery | Multi-Platform |
+| 2602 Problems | Algorithm Mastery | Multi-Platform |
 
 </div>
 <!-- AUTO_GENERATED_SECTION_END: KEY_HIGHLIGHTS -->
