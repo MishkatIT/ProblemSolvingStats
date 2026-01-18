@@ -2,12 +2,12 @@
 
 # 🏆 Problem Solving Statistics
 
-[![Last Updated](https://img.shields.io/badge/Last%20Updated-17%20January%202026-blue?style=for-the-badge)](https://github.com/MishkatIT/ProblemSolvingStats)
-[![Total Problems](https://img.shields.io/badge/Total%20Solved-3812-success?style=for-the-badge)](https://github.com/MishkatIT/ProblemSolvingStats)
+[![Last Updated](https://img.shields.io/badge/Last%20Updated-18%20January%202026-blue?style=for-the-badge)](https://github.com/MishkatIT/ProblemSolvingStats)
+[![Total Problems](https://img.shields.io/badge/Total%20Solved-3817-success?style=for-the-badge)](https://github.com/MishkatIT/ProblemSolvingStats)
 [![Platforms](https://img.shields.io/badge/Platforms-12-orange?style=for-the-badge)](https://github.com/MishkatIT/ProblemSolvingStats)
 
 <!-- UPDATE_METADATA_START -->
-<p align="center"><strong>Updated:</strong> 17 January 2026 at 11:47:06 PM • Automatic</p>
+<p align="center"><strong>Updated:</strong> 18 January 2026 at 11:48:56 PM • Automatic</p>
 <!-- UPDATE_METADATA_END -->
 
 ### 💻 Competitive Programming Journey
@@ -38,9 +38,9 @@
     <tr>
       <td><img src="https://cdn.iconscout.com/icon/free/png-16/codeforces-3628695-3029920.png" width="16" height="16" onerror="this.style.display='none'"/> <strong>Codeforces</strong></td>
       <td><a href="https://codeforces.com/profile/MishkatIT">MishkatIT</a></td>
-      <td align="center" data-value="2602"><strong>2602</strong></td>
+      <td align="center" data-value="2607"><strong>2607</strong></td>
       <td><img src="https://img.shields.io/badge/Progress-68.3%25-red?style=flat-square" alt="Codeforces Progress"/></td>
-      <td align="left" data-date="2026-01-17">17 January 2026</td>
+      <td align="left" data-date="2026-01-18">18 January 2026</td>
       <td align="center"><img src="https://img.shields.io/badge/Automatic-green?style=flat" alt="Automatic"/></td>
     </tr>
     <tr>
@@ -48,7 +48,7 @@
       <td><a href="https://leetcode.com/MishkatIT/">MishkatIT</a></td>
       <td align="center" data-value="412"><strong>412</strong></td>
       <td><img src="https://img.shields.io/badge/Progress-10.8%25-yellow?style=flat-square" alt="LeetCode Progress"/></td>
-      <td align="left" data-date="2026-01-17">17 January 2026</td>
+      <td align="left" data-date="2026-01-18">18 January 2026</td>
       <td align="center"><img src="https://img.shields.io/badge/Automatic-green?style=flat" alt="Automatic"/></td>
     </tr>
     <tr>
@@ -56,7 +56,7 @@
       <td><a href="https://vjudge.net/user/MishkatIT">MishkatIT</a></td>
       <td align="center" data-value="347"><strong>347</strong></td>
       <td><img src="https://img.shields.io/badge/Progress-9.1%25-blueviolet?style=flat-square" alt="Vjudge Progress"/></td>
-      <td align="left" data-date="2026-01-17">17 January 2026</td>
+      <td align="left" data-date="2026-01-18">18 January 2026</td>
       <td align="center"><img src="https://img.shields.io/badge/Automatic-green?style=flat" alt="Automatic"/></td>
     </tr>
     <tr>
@@ -64,7 +64,7 @@
       <td><a href="https://atcoder.jp/users/MishkatIT">MishkatIT</a></td>
       <td align="center" data-value="157"><strong>157</strong></td>
       <td><img src="https://img.shields.io/badge/Progress-4.1%25-orange?style=flat-square" alt="AtCoder Progress"/></td>
-      <td align="left" data-date="2026-01-17">17 January 2026</td>
+      <td align="left" data-date="2026-01-18">18 January 2026</td>
       <td align="center"><img src="https://img.shields.io/badge/Automatic-green?style=flat" alt="Automatic"/></td>
     </tr>
     <tr>
@@ -72,7 +72,7 @@
       <td><a href="https://www.codechef.com/users/MishkatIT">MishkatIT</a></td>
       <td align="center" data-value="126"><strong>126</strong></td>
       <td><img src="https://img.shields.io/badge/Progress-3.3%25-brown?style=flat-square" alt="CodeChef Progress"/></td>
-      <td align="left" data-date="2026-01-17">17 January 2026</td>
+      <td align="left" data-date="2026-01-18">18 January 2026</td>
       <td align="center"><img src="https://img.shields.io/badge/Automatic-green?style=flat" alt="Automatic"/></td>
     </tr>
     <tr>
@@ -96,7 +96,7 @@
       <td><a href="https://lightoj.com/user/mishkatit">MishkatIT</a></td>
       <td align="center" data-value="31"><strong>31</strong></td>
       <td><img src="https://img.shields.io/badge/Progress-0.8%25-yellow?style=flat-square" alt="LightOJ Progress"/></td>
-      <td align="left" data-date="2026-01-17">17 January 2026</td>
+      <td align="left" data-date="2026-01-18">18 January 2026</td>
       <td align="center"><img src="https://img.shields.io/badge/Automatic-green?style=flat" alt="Automatic"/></td>
     </tr>
     <tr>
@@ -120,7 +120,7 @@
       <td><a href="https://uhunt.onlinejudge.org/id/1615470">MishkatIT</a></td>
       <td align="center" data-value="7"><strong>7</strong></td>
       <td><img src="https://img.shields.io/badge/Progress-0.2%25-blue?style=flat-square" alt="UVa Progress"/></td>
-      <td align="left" data-date="2026-01-17">17 January 2026</td>
+      <td align="left" data-date="2026-01-18">18 January 2026</td>
       <td align="center"><img src="https://img.shields.io/badge/Automatic-green?style=flat" alt="Automatic"/></td>
     </tr>
     <tr>
@@ -135,9 +135,9 @@
   <tfoot>
     <tr>
       <td colspan="2" align="center"><strong>🎖️ TOTAL</strong></td>
-      <td align="center"><strong style="font-size: 1.2em;">3812</strong></td>
+      <td align="center"><strong style="font-size: 1.2em;">3817</strong></td>
       <td align="center"><strong>100%</strong></td>
-      <td align="center">17 January 2026</td>
+      <td align="center">18 January 2026</td>
       <td></td>
     </tr>
   </tfoot>
@@ -152,7 +152,7 @@
 
 | 📅 Last Solved | 🏆 Platform(s) |
 |:-------------:|:-------------:|
-| **17 January 2026** | **CodeChef**, **Codeforces**, **Toph**, and **UVa** |
+| **18 January 2026** | **Codeforces** |
 
 </div>
 
@@ -171,7 +171,7 @@
     </tr>
   </thead>
   <tbody>
-    <tr><td><img src="https://cdn.iconscout.com/icon/free/png-16/codeforces-3628695-3029920.png" alt="Codeforces" width="16" height="16" onerror="this.style.display='none'"/> <strong>Codeforces</strong></td><td align="right" data-date="2026-01-17">17 January 2026</td></tr>
+    <tr><td><img src="https://cdn.iconscout.com/icon/free/png-16/codeforces-3628695-3029920.png" alt="Codeforces" width="16" height="16" onerror="this.style.display='none'"/> <strong>Codeforces</strong></td><td align="right" data-date="2026-01-18">18 January 2026</td></tr>
     <tr><td><img src="https://cdn.codechef.com/sites/all/themes/abessive/cc-logo.png" alt="CodeChef" width="16" height="16" onerror="this.style.display='none'"/> <strong>CodeChef</strong></td><td align="right" data-date="2026-01-17">17 January 2026</td></tr>
     <tr><td><img src="https://toph.co/favicon.ico" alt="Toph" width="16" height="16" onerror="this.style.display='none'"/> <strong>Toph</strong></td><td align="right" data-date="2026-01-17">17 January 2026</td></tr>
     <tr><td><img src="https://www.google.com/s2/favicons?domain=onlinejudge.org&sz=16" alt="UVa" width="16" height="16" onerror="this.style.display='none'"/> <strong>UVa</strong></td><td align="right" data-date="2026-01-17">17 January 2026</td></tr>
@@ -199,7 +199,7 @@
 | 🥇 Top Platform | 🎯 Main Focus | 📚 Platforms Active |
 |:---------------:|:-------------:|:------------------:|
 | **Codeforces** | **Competitive Programming** | **12** |
-| 2602 Problems | Algorithm Mastery | Multi-Platform |
+| 2607 Problems | Algorithm Mastery | Multi-Platform |
 
 </div>
 <!-- AUTO_GENERATED_SECTION_END: KEY_HIGHLIGHTS -->
