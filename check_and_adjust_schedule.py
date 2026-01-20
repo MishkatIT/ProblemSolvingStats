@@ -55,12 +55,12 @@ def read_workflow_file():
 
 def is_daily_schedule(content):
     """Check if workflow is on daily schedule."""
-    return "cron: '40 17 * * *'" in content or 'cron: "40 17 * * *"' in content
+    return "cron: '35 17 * * *'" in content or 'cron: "35 17 * * *"' in content
 
 
 def is_monthly_schedule(content):
     """Check if workflow is on monthly schedule."""
-    return "cron: '40 17 1 * *'" in content or 'cron: "40 17 1 * *"' in content
+    return "cron: '35 17 1 * *'" in content or 'cron: "35 17 1 * *"' in content
 
 
 def switch_to_monthly():
@@ -78,8 +78,8 @@ def switch_to_monthly():
         
         # Replace daily cron with monthly (1st day of month)
         new_content = content.replace(
-            "# Run every day at 11:40 PM BDT (17:40 UTC), then add random delay (0-7 minutes)\n    - cron: '40 17 * * *'",
-            "# Run on 1st day of each month at 11:40 PM BDT (17:40 UTC), then add random delay (0-7 minutes)\n    - cron: '40 17 1 * *'"
+            "# Run every day at 11:35 PM BDT (17:35 UTC)\n    - cron: '35 17 * * *'",
+            "# Run on 1st day of each month at 11:35 PM BDT (17:35 UTC)\n    - cron: '35 17 1 * *'"
         )
         
         if new_content != content:
@@ -101,8 +101,8 @@ def switch_to_monthly():
                     "- Your stats will now update automatically every day! 🎊",
                     "- Your stats will now update automatically monthly! 🎊"
                 ).replace(
-                    "Scheduled to run daily at 11:40-11:47 PM BDT",
-                    "Scheduled to run monthly (1st day) at 11:40-11:47 PM BDT"
+                    "Scheduled to run daily at 11:35 PM BDT",
+                    "Scheduled to run monthly (1st day) at 11:35 PM BDT"
                 )
                 
                 # Update the status message in the explanation section
@@ -146,8 +146,8 @@ def switch_to_daily():
         
         # Replace monthly cron with daily
         new_content = content.replace(
-            "# Run on 1st day of each month at 11:40 PM BDT (17:40 UTC), then add random delay (0-7 minutes)\n    - cron: '40 17 1 * *'",
-            "# Run every day at 11:40 PM BDT (17:40 UTC), then add random delay (0-7 minutes)\n    - cron: '40 17 * * *'"
+            "# Run on 1st day of each month at 11:35 PM BDT (17:35 UTC)\n    - cron: '35 17 1 * *'",
+            "# Run every day at 11:35 PM BDT (17:35 UTC)\n    - cron: '35 17 * * *'"
         )
         
         if new_content != content:
@@ -169,8 +169,8 @@ def switch_to_daily():
                     "- Your stats will now update automatically monthly! 🎊",
                     "- Your stats will now update automatically every day! 🎊"
                 ).replace(
-                    "Scheduled to run monthly (1st day) at 11:40-11:47 PM BDT",
-                    "Scheduled to run daily at 11:40-11:47 PM BDT"
+                    "Scheduled to run monthly (1st day) at 11:35 PM BDT",
+                    "Scheduled to run daily at 11:35 PM BDT"
                 )
                 
                 # Update the status message in the explanation section

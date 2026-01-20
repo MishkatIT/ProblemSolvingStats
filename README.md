@@ -7,7 +7,7 @@
 [![Platforms](https://img.shields.io/badge/Platforms-12-orange?style=for-the-badge)](https://github.com/MishkatIT/ProblemSolvingStats)
 
 <!-- UPDATE_METADATA_START -->
-<p align="center"><strong>Updated:</strong> 21 January 2026 at 12:09:16 AM • Unknown</p>
+<p align="center"><strong>Updated:</strong> 21 January 2026 at 12:58:01 AM • Unknown</p>
 <!-- UPDATE_METADATA_END -->
 
 <br>
@@ -147,6 +147,7 @@
     </tr>
   </tfoot>
 </table>
+
 ---
 
 <!-- AUTO_GENERATED_SECTION_END: STATS_TABLE -->
@@ -213,6 +214,15 @@
 ---
 
 <!-- AUTO_GENERATED_SECTION_END: PLATFORM_LAST_SOLVED -->
+
+<br>
+<br>
+
+<div align="center">
+
+## 🌟 Key Highlights
+
+</div>
 
 <!-- AUTO_GENERATED_SECTION_START: KEY_HIGHLIGHTS -->
 <div align="center">
@@ -342,7 +352,7 @@ This script updates the README.md using existing data from `stats.json`.
 <summary><strong><span style="font-size: 1.2em;">🔄 Update Mechanisms</span></strong></summary>
 
 ### Automatic Updates (GitHub Actions)
-- Scheduled to run daily at 11:40-11:47 PM BDT (randomized timing)
+- Scheduled to run daily at 11:35 PM BDT
 - Automatically fetches statistics from platforms with working APIs
 - Failed platforms fall back to last known values with date stamps
 - Updates are committed and pushed automatically to the repository

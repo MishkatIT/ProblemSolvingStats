@@ -310,7 +310,7 @@ def generate_platform_statistics_table(effective_counts, current_date, today_iso
   </tfoot>
 </table>'''
     
-    return table + '\n---\n'
+    return table + '\n\n---\n'
 
 
 def update_readme(stats, last_known_info=None, update_source=None):
@@ -394,11 +394,6 @@ def update_readme(stats, last_known_info=None, update_source=None):
     # Replace the table using markers (or fallback to pattern matching)
     if '<!-- AUTO_GENERATED_SECTION_START: STATS_TABLE -->' in readme_content:
         readme_content = _replace_marked_section(readme_content, 'STATS_TABLE', new_table)
-    else:
-        # Fallback: wrap existing table with markers for future updates
-        table_pattern = r'(<table align="center">.*?</table>)'
-        wrapped_table = f'<!-- AUTO_GENERATED_SECTION_START: STATS_TABLE -->\n{new_table}\n<!-- AUTO_GENERATED_SECTION_END: STATS_TABLE -->'
-        readme_content = re.sub(table_pattern, wrapped_table, readme_content, flags=re.DOTALL, count=1)
     
     # Update Key Highlights section dynamically
     # Find the top platform (highest solve count)
@@ -425,28 +420,12 @@ def update_readme(stats, last_known_info=None, update_source=None):
         # Replace Key Highlights section
         if '<!-- AUTO_GENERATED_SECTION_START: KEY_HIGHLIGHTS -->' in readme_content:
             readme_content = _replace_marked_section(readme_content, 'KEY_HIGHLIGHTS', key_highlights)
-        elif '## 🌟 Key Highlights' in readme_content:
-            # Wrap existing section with markers
-            pattern = r'(## 🌟 Key Highlights.*?</div>)'
-            wrapped_section = f'<!-- AUTO_GENERATED_SECTION_START: KEY_HIGHLIGHTS -->\n{key_highlights}\n<!-- AUTO_GENERATED_SECTION_END: KEY_HIGHLIGHTS -->'
-            readme_content = re.sub(pattern, wrapped_section, readme_content, flags=re.DOTALL, count=1)
     
     # Insert or update the Latest Solve section
     latest_solve_section = generate_latest_solve_section(last_known_info)
     if latest_solve_section:
         if '<!-- AUTO_GENERATED_SECTION_START: LATEST_SOLVE -->' in readme_content:
             readme_content = _replace_marked_section(readme_content, 'LATEST_SOLVE', latest_solve_section)
-        elif '## 🎯 Latest Solve' in readme_content or '## 🎯 Last Activity' in readme_content:
-            # Wrap existing section with markers
-            pattern = r'(\n*## 🎯 (?:Latest Solve|Last Activity).*?---\n+)'
-            wrapped_section = f'<!-- AUTO_GENERATED_SECTION_START: LATEST_SOLVE -->\n{latest_solve_section}\n<!-- AUTO_GENERATED_SECTION_END: LATEST_SOLVE -->\n'
-            readme_content = re.sub(pattern, wrapped_section, readme_content, flags=re.DOTALL, count=1)
-        else:
-            # Insert new section before "Key Highlights"
-            key_highlights_pos = readme_content.find('## 🌟 Key Highlights')
-            if key_highlights_pos != -1:
-                wrapped_section = f'\n<!-- AUTO_GENERATED_SECTION_START: LATEST_SOLVE -->\n{latest_solve_section}\n<!-- AUTO_GENERATED_SECTION_END: LATEST_SOLVE -->\n'
-                readme_content = readme_content[:key_highlights_pos] + wrapped_section + readme_content[key_highlights_pos:]
     else:
         # Remove the section if it exists
         if '<!-- AUTO_GENERATED_SECTION_START: LATEST_SOLVE -->' in readme_content:
@@ -458,17 +437,6 @@ def update_readme(stats, last_known_info=None, update_source=None):
     if platform_table_section:
         if '<!-- AUTO_GENERATED_SECTION_START: PLATFORM_LAST_SOLVED -->' in readme_content:
             readme_content = _replace_marked_section(readme_content, 'PLATFORM_LAST_SOLVED', platform_table_section)
-        elif '## 📅 Last Solved by Platform' in readme_content:
-            # Wrap existing section with markers
-            pattern = r'(\n*## 📅 Last Solved by Platform.*?---\n+)'
-            wrapped_section = f'<!-- AUTO_GENERATED_SECTION_START: PLATFORM_LAST_SOLVED -->\n{platform_table_section}\n<!-- AUTO_GENERATED_SECTION_END: PLATFORM_LAST_SOLVED -->\n'
-            readme_content = re.sub(pattern, wrapped_section, readme_content, flags=re.DOTALL, count=1)
-        else:
-            # Insert before "Key Highlights" section
-            key_highlights_pos = readme_content.find('## 🌟 Key Highlights')
-            if key_highlights_pos != -1:
-                wrapped_section = f'\n<!-- AUTO_GENERATED_SECTION_START: PLATFORM_LAST_SOLVED -->\n{platform_table_section}\n<!-- AUTO_GENERATED_SECTION_END: PLATFORM_LAST_SOLVED -->\n'
-                readme_content = readme_content[:key_highlights_pos] + wrapped_section + readme_content[key_highlights_pos:]
     else:
         # Remove the section if it exists
         if '<!-- AUTO_GENERATED_SECTION_START: PLATFORM_LAST_SOLVED -->' in readme_content:
