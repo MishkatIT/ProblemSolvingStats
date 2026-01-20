@@ -133,9 +133,7 @@ def generate_latest_solve_section(last_known_info):
     # Generate platform list
     platform_text = format_platform_list(platforms_solved)
     
-    section = f"""## 🎯 Latest Solve
-
-<div align="center">
+    section = f"""<div align="center">
 
 | 📅 Last Solved | 🏆 Platform(s) |
 |:-------------:|:-------------:|
@@ -194,9 +192,7 @@ def generate_platform_last_solved_table(last_known_info):
     if not rows:
         return ""
     
-    section = f"""## 📅 Last Solved by Platform
-
-<div align="center">
+    section = f"""<div align="center">
 
 <table>
   <thead>
@@ -314,7 +310,7 @@ def generate_platform_statistics_table(effective_counts, current_date, today_iso
   </tfoot>
 </table>'''
     
-    return table
+    return table + '\n---\n'
 
 
 def update_readme(stats, last_known_info=None, update_source=None):
@@ -417,9 +413,7 @@ def update_readme(stats, last_known_info=None, update_source=None):
         active_platforms = len([c for c in effective_counts.values() if isinstance(c, int) and c > 0])
         
         # Generate Key Highlights section
-        key_highlights = f"""## 🌟 Key Highlights
-
-<div align="center">
+        key_highlights = f"""<div align="center">
 
 | 🥇 Top Platform | 🎯 Main Focus | 📚 Platforms Active |
 |:---------------:|:-------------:|:------------------:|
