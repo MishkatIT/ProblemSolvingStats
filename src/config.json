@@ -1,0 +1,129 @@
+{
+    "USER_CONFIG": {
+        "Codeforces": "mishkatit",
+        "LeetCode": "mishkatit",
+        "Vjudge": "mishkatit",
+        "AtCoder": "mishkatit",
+        "CodeChef": "mishkatit",
+        "CSES": "mishkatit",
+        "Toph": "mishkatit",
+        "LightOJ": "mishkatit",
+        "SPOJ": "mishkatit",
+        "HackerRank": "mishkatit",
+        "UVa": "mishkatit",
+        "HackerEarth": "mishkatit"
+    },
+    "PROFILE_DISPLAY_NAMES": {
+        "Codeforces": "mishkatit",
+        "LeetCode": "mishkatit",
+        "Vjudge": "mishkatit",
+        "AtCoder": "mishkatit",
+        "CodeChef": "mishkatit",
+        "CSES": "mishkatit",
+        "Toph": "mishkatit",
+        "LightOJ": "mishkatit",
+        "SPOJ": "mishkatit",
+        "HackerRank": "mishkatit",
+        "UVa": "mishkatit",
+        "HackerEarth": "mishkatit"
+    },
+    "PLATFORM_URL_TEMPLATES": {
+        "Codeforces": "https://codeforces.com/profile/{username}",
+        "LeetCode": "https://leetcode.com/{username}/",
+        "Vjudge": "https://vjudge.net/user/{username}",
+        "AtCoder": "https://atcoder.jp/users/{username}",
+        "CodeChef": "https://www.codechef.com/users/{username}",
+        "CSES": "https://cses.fi/user/{username}/",
+        "Toph": "https://toph.co/u/{username}",
+        "LightOJ": "https://lightoj.com/user/{username}",
+        "SPOJ": "https://www.spoj.com/users/{username}/",
+        "HackerRank": "https://www.hackerrank.com/{username}",
+        "UVa": "https://uhunt.onlinejudge.org/id/{username}",
+        "HackerEarth": "https://www.hackerearth.com/@{username}"
+    },
+    "PLATFORM_LOGOS": {
+        "Codeforces": [
+            "https://www.google.com/s2/favicons?domain=codeforces.com&sz=16",
+            true
+        ],
+        "LeetCode": [
+            "https://www.google.com/s2/favicons?domain=leetcode.com&sz=16",
+            true
+        ],
+        "Vjudge": [
+            "https://www.google.com/s2/favicons?domain=vjudge.net&sz=16",
+            true
+        ],
+        "AtCoder": [
+            "https://www.google.com/s2/favicons?domain=atcoder.jp&sz=16",
+            true
+        ],
+        "CodeChef": [
+            "https://www.google.com/s2/favicons?domain=www.codechef.com&sz=16",
+            true
+        ],
+        "CSES": [
+            "https://cses.fi/favicon.ico",
+            true
+        ],
+        "Toph": [
+            "https://www.google.com/s2/favicons?domain=toph.co&sz=16",
+            true
+        ],
+        "LightOJ": [
+            "https://www.google.com/s2/favicons?domain=lightoj.com&sz=16",
+            true
+        ],
+        "SPOJ": [
+            "https://www.google.com/s2/favicons?domain=www.spoj.com&sz=16",
+            true
+        ],
+        "HackerRank": [
+            "https://www.google.com/s2/favicons?domain=www.hackerrank.com&sz=16",
+            true
+        ],
+        "UVa": [
+            "https://www.google.com/s2/favicons?domain=uhunt.onlinejudge.org&sz=16",
+            true
+        ],
+        "HackerEarth": [
+            "https://www.google.com/s2/favicons?domain=www.hackerearth.com&sz=16",
+            true
+        ]
+    },
+    "PLATFORM_COLORS": {
+        "Codeforces": "A00000",
+        "LeetCode": "C00000",
+        "Vjudge": "FF0000",
+        "AtCoder": "FF8C00",
+        "CodeChef": "CCCC00",
+        "Toph": "AA00AA",
+        "LightOJ": "0000FF",
+        "UVa": "03A89E",
+        "CSES": "808080",
+        "SPOJ": "808080",
+        "HackerRank": "808080",
+        "HackerEarth": "808080"
+    },
+    "ALL_PLATFORMS": [
+        "AtCoder",
+        "CSES",
+        "CodeChef",
+        "Codeforces",
+        "HackerEarth",
+        "HackerRank",
+        "LeetCode",
+        "LightOJ",
+        "SPOJ",
+        "Toph",
+        "UVa",
+        "Vjudge"
+    ],
+    "LAST_KNOWN_FILE": "last_known_counts.json",
+    "STATS_FILE": "stats.json",
+    "README_FILE": "README.md",
+    "MAX_REASONABLE_COUNT": 10000,
+    "BDT_TIMEZONE_hours": 6,
+    "USER_AGENT": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36",
+    "DEFAULT_FUNNY_DATE": "1970-01-01"
+}

@@ -35,15 +35,207 @@ import os
 from urllib.request import urlopen, Request
 from urllib.error import URLError, HTTPError
 from bs4 import BeautifulSoup
+import requests
+from urllib.parse import urlparse
 
-from src.config import USER_CONFIG, MAX_REASONABLE_COUNT, USER_AGENT
+from src import USER_CONFIG, MAX_REASONABLE_COUNT, USER_AGENT
 from src.data_manager import DataManager
+
+
+def parse_url(url):
+    """Parse URL to extract platform and username."""
+    known_templates = {
+        'Codeforces': 'https://codeforces.com/profile/{username}',
+        'LeetCode': 'https://leetcode.com/{username}/',
+        'Vjudge': 'https://vjudge.net/user/{username}',
+        'AtCoder': 'https://atcoder.jp/users/{username}',
+        'CodeChef': 'https://www.codechef.com/users/{username}',
+        'CSES': 'https://cses.fi/user/{username}/',
+        'Toph': 'https://toph.co/u/{username}',
+        'LightOJ': 'https://lightoj.com/user/{username}',
+        'SPOJ': 'https://www.spoj.com/users/{username}/',
+        'HackerRank': 'https://www.hackerrank.com/{username}',
+        'UVa': 'https://uhunt.onlinejudge.org/id/{username}',
+        'HackerEarth': 'https://www.hackerearth.com/@{username}'
+    }
+    known_domains = {
+        'codeforces.com': 'Codeforces',
+        'leetcode.com': 'LeetCode',
+        'vjudge.net': 'Vjudge',
+        'atcoder.jp': 'AtCoder',
+        'codechef.com': 'CodeChef',
+        'cses.fi': 'CSES',
+        'toph.co': 'Toph',
+        'lightoj.com': 'LightOJ',
+        'spoj.com': 'SPOJ',
+        'hackerrank.com': 'HackerRank',
+        'onlinejudge.org': 'UVa',
+        'hackerearth.com': 'HackerEarth'
+    }
+    for platform, template in known_templates.items():
+        # Create regex pattern by escaping and replacing {username} with (.+)
+        pattern = re.escape(template).replace(r'\{username\}', r'(.+)')
+        match = re.match(pattern + r'/?$', url.strip())  # Allow trailing slash
+        if match:
+            username = match.group(1)
+            return platform, username
+
+    # Try to parse unknown URL
+    parsed = urlparse(url)
+    domain = parsed.netloc
+    path = parsed.path.strip('/')
+    if domain and path:
+        platform = known_domains.get(domain, domain)
+        username = path
+        return platform, username
+
+    return None, None
+
+
+def get_favicon_url(url):
+    """Return Google favicon service URL for a given profile URL. Fallback to /favicon.ico if Google fails."""
+    parsed = urlparse(url)
+    google_favicon = f"https://www.google.com/s2/favicons?domain={parsed.netloc}&sz=16"
+    try:
+        resp = requests.get(google_favicon, timeout=3)
+        if resp.status_code == 200 and resp.content:
+            return google_favicon
+    except Exception:
+        pass
+    # Fallback to direct favicon.ico
+    return f"https://{parsed.netloc}/favicon.ico"
+
+
+def update_config_file(new_user_config, new_platform_logos, new_templates):
+    """Update the config.json file with new configuration."""
+    config_path = 'src/config.json'
+
+    # Colors for platforms
+    colors = ['red', 'blue', 'green', 'yellow', 'orange', 'purple', 'pink', 'brown', 'cyan', 'magenta']
+
+    # Create config dict
+    config = {
+        'USER_CONFIG': new_user_config,
+        'PROFILE_DISPLAY_NAMES': {platform: new_user_config[platform] for platform in new_user_config},
+        'PLATFORM_URL_TEMPLATES': {platform: new_templates[platform] for platform in new_user_config if new_templates.get(platform)},
+        'PLATFORM_LOGOS': {platform: new_platform_logos.get(platform, ('', False)) for platform in new_user_config},
+        'PLATFORM_COLORS': {platform: colors[hash(platform) % len(colors)] for platform in new_user_config},
+        'ALL_PLATFORMS': sorted(new_user_config.keys()),
+        'LAST_KNOWN_FILE': 'last_known_counts.json',
+        'STATS_FILE': 'stats.json',
+        'README_FILE': 'README.md',
+        'MAX_REASONABLE_COUNT': 10000,
+        'BDT_TIMEZONE_hours': 6,
+        'USER_AGENT': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36',
+        'DEFAULT_FUNNY_DATE': "1970-01-01"
+    }
+
+    with open(config_path, 'w') as f:
+        json.dump(config, f, indent=4)
+
+
+def auto_configure_handles():
+    """Automatically configure handles from handles.json if it has changed."""
+    if not os.path.exists('handles.json'):
+        return False  # No handles.json, skip
+
+    try:
+        with open('handles.json', 'r', encoding='utf-8') as f:
+            urls = json.load(f)
+    except Exception as e:
+        print(f"Warning: Could not load handles.json: {e}")
+        return False
+
+    if not urls:
+        return False  # Empty, skip
+
+    # Parse URLs to get new config
+    new_user_config = {}
+    url_dict = {}
+    for url in urls:
+        if isinstance(url, str) and url.strip():
+            platform, username = parse_url(url.strip())
+            if platform:
+                new_user_config[platform] = username
+                url_dict[platform] = url.strip()
+
+    if not new_user_config:
+        return False  # No valid handles
+
+    # Load current config
+    config_path = 'src/config.json'
+    if os.path.exists(config_path):
+        with open(config_path, 'r') as f:
+            config = json.load(f)
+        current_user_config = config.get('USER_CONFIG', {})
+        current_platform_logos = config.get('PLATFORM_LOGOS', {})
+    else:
+        current_user_config = {}
+        current_platform_logos = {}
+
+    # Check if changed
+    if new_user_config == current_user_config:
+        return False  # No changes
+
+    print("Configuration changed, updating...")
+
+    # Build new_templates
+    new_templates = {}
+    for platform in new_user_config:
+        url = url_dict[platform]
+        username = new_user_config[platform]
+        template = url.replace(username, '{username}')
+        new_templates[platform] = template
+
+    # Determine added, removed, changed
+    current_platforms = set(current_user_config.keys())
+    new_platforms = set(new_user_config.keys())
+
+    added = new_platforms - current_platforms
+    removed = current_platforms - new_platforms
+    changed = {p for p in current_platforms & new_platforms if current_user_config[p] != new_user_config[p]}
+
+    print(f"Added platforms: {added}")
+    print(f"Removed platforms: {removed}")
+    print(f"Changed platforms: {changed}")
+
+    # Update PLATFORM_LOGOS for new platforms
+    new_platform_logos = current_platform_logos.copy()
+    for platform in added:
+        if platform not in new_platform_logos:
+            template = new_templates[platform]
+            if template:
+                url = template.format(username=new_user_config[platform])
+                logo_url = get_favicon_url(url)
+                new_platform_logos[platform] = (logo_url, True)
+                print(f"Added logo for {platform}: {logo_url}")
+            else:
+                new_platform_logos[platform] = ('', False)
+
+    # Update config
+    update_config_file(new_user_config, new_platform_logos, new_templates)
+
+    # Clean up last_known_counts for removed platforms
+    if removed:
+        last_known = DataManager.load_last_known_counts()
+        for platform in removed:
+            last_known['counts'].pop(platform, None)
+            last_known['dates'].pop(platform, None)
+            last_known['modes'].pop(platform, None)
+            last_known['last_solved_dates'].pop(platform, None)
+            last_known['usernames'].pop(platform, None)
+        DataManager.save_last_known_counts(last_known)
+        print(f"Cleaned data for removed platforms: {removed}")
+
+    print("Configuration updated successfully!")
+    return True
 
 
 class PlatformStats:
     """Class to handle fetching statistics from different platforms."""
     
-    def __init__(self):
+    def __init__(self, user_config=None):
+        self.user_config = user_config or USER_CONFIG
         self.stats = {}
         self.user_agent = USER_AGENT
         self.last_known_counts = DataManager.load_last_known_counts()
@@ -84,7 +276,7 @@ class PlatformStats:
     def get_codeforces(self):
         """Fetch Codeforces statistics."""
         try:
-            url = f"https://codeforces.com/profile/{USER_CONFIG['Codeforces']}"
+            url = f"https://codeforces.com/profile/{self.user_config['Codeforces']}"
             html = self.fetch_url(url)
             if html:
                 patterns = [
@@ -110,7 +302,7 @@ class PlatformStats:
 
             else:
                 print("  web scraping failed, Trying api...")
-                url = f"https://codeforces.com/api/user.status?handle={USER_CONFIG['Codeforces']}&from=1&count=10000"
+                url = f"https://codeforces.com/api/user.status?handle={self.user_config['Codeforces']}&from=1&count=10000"
                 data = self.fetch_url(url, use_api=True)
                 
                 if data and data.get('status') == 'OK':
@@ -145,7 +337,7 @@ class PlatformStats:
                         }
                     }
                 """,
-                "variables": {"username": USER_CONFIG['LeetCode']}
+                "variables": {"username": self.user_config['LeetCode']}
             }
             
             headers = {
@@ -172,7 +364,7 @@ class PlatformStats:
         # Fallback to web scraping
         try:
             print("  Trying web scraping...")
-            url = f"https://leetcode.com/{USER_CONFIG['LeetCode']}/"
+            url = f"https://leetcode.com/{self.user_config['LeetCode']}/"
             html = self.fetch_url(url)
             if html:
                 # Try multiple patterns for LeetCode profile
@@ -197,7 +389,7 @@ class PlatformStats:
     def get_vjudge(self):
         """Fetch Vjudge statistics."""
         try:
-            url = f"https://vjudge.net/user/{USER_CONFIG['Vjudge']}"
+            url = f"https://vjudge.net/user/{self.user_config['Vjudge']}"
             html = self.fetch_url(url)
             if html:
                 patterns = [
@@ -233,7 +425,7 @@ class PlatformStats:
                 import requests
 
                 url = "https://kenkoooo.com/atcoder/atcoder-api/v3/user/submissions"
-                user = USER_CONFIG['AtCoder']
+                user = self.user_config['AtCoder']
 
                 solved = set()
                 from_second = 0
@@ -272,7 +464,7 @@ class PlatformStats:
             # Fallback to web scraping profile page
             print("  API failed, trying web scraping...")
             # Note: Profile page uses mixed case username
-            url = f"https://atcoder.jp/users/{USER_CONFIG['AtCoder']}"
+            url = f"https://atcoder.jp/users/{self.user_config['AtCoder']}"
             html = self.fetch_url(url)
             if html:
                 # Try multiple patterns for AC count
@@ -296,7 +488,7 @@ class PlatformStats:
     def get_codechef(self):
         """Fetch CodeChef statistics using web scraping."""
         try:
-            url = f"https://www.codechef.com/users/{USER_CONFIG['CodeChef']}"
+            url = f"https://www.codechef.com/users/{self.user_config['CodeChef']}"
             html = self.fetch_url(url)
             if html:
                 # Prefer the explicit summary line many profiles include:
@@ -358,7 +550,7 @@ class PlatformStats:
     def get_cses(self):
         """Fetch CSES statistics."""
         try:
-            url = f"https://cses.fi/user/{USER_CONFIG['CSES']}/"
+            url = f"https://cses.fi/user/{self.user_config['CSES']}/"
             html = self.fetch_url(url)
             if html:
                 # Try multiple patterns for tasks solved
@@ -382,7 +574,7 @@ class PlatformStats:
     def get_toph(self):
         """Fetch Toph statistics."""
         try:
-            url = f"https://toph.co/u/{USER_CONFIG['Toph']}"
+            url = f"https://toph.co/u/{self.user_config['Toph']}"
             html = self.fetch_url(url)
             if html:
                 soup = BeautifulSoup(html, "html.parser")
@@ -399,7 +591,7 @@ class PlatformStats:
     def get_lightoj(self):
         """Fetch LightOJ statistics."""
         try:
-            url = f"https://lightoj.com/user/{USER_CONFIG['LightOJ']}"
+            url = f"https://lightoj.com/user/{self.user_config['LightOJ']}"
             html = self.fetch_url(url)
             if html:
                 # Try multiple patterns for solved problems
@@ -423,7 +615,7 @@ class PlatformStats:
     def get_spoj(self):
         """Fetch SPOJ statistics."""
         try:
-            url = f"https://www.spoj.com/users/{USER_CONFIG['SPOJ']}/"
+            url = f"https://www.spoj.com/users/{self.user_config['SPOJ']}/"
             html = self.fetch_url(url)
             if html:
                 # Try multiple patterns for problems solved
@@ -448,7 +640,7 @@ class PlatformStats:
     def get_hackerrank(self):
         """Fetch HackerRank statistics."""
         try:
-            url = f"https://www.hackerrank.com/{USER_CONFIG['HackerRank']}"
+            url = f"https://www.hackerrank.com/{self.user_config['HackerRank']}"
             html = self.fetch_url(url)
             if html:
                 # Try multiple patterns for challenges solved
@@ -473,7 +665,7 @@ class PlatformStats:
         """Fetch UVa statistics."""
         try:
             # Try uhunt API first
-            url = f"https://uhunt.onlinejudge.org/api/subs-user/{USER_CONFIG['UVa']}"
+            url = f"https://uhunt.onlinejudge.org/api/subs-user/{self.user_config['UVa']}"
             data = self.fetch_url(url, use_api=True)
             if data:
                 solved = set()
@@ -487,7 +679,7 @@ class PlatformStats:
         # Fallback to web scraping uhunt profile
         try:
             print("  Trying web scraping...")
-            url = f"https://uhunt.onlinejudge.org/id/{USER_CONFIG['UVa']}"
+            url = f"https://uhunt.onlinejudge.org/id/{self.user_config['UVa']}"
             html = self.fetch_url(url)
             if html:
                 # Try multiple patterns for solved count
@@ -534,20 +726,11 @@ class PlatformStats:
     
     def fetch_all_stats(self, verbose=True):
         """Fetch statistics from all platforms."""
-        platforms = {
-            'Codeforces': self.get_codeforces,
-            'LeetCode': self.get_leetcode,
-            'Vjudge': self.get_vjudge,
-            'AtCoder': self.get_atcoder,
-            'CodeChef': self.get_codechef,
-            'CSES': self.get_cses,
-            'Toph': self.get_toph,
-            'LightOJ': self.get_lightoj,
-            'SPOJ': self.get_spoj,
-            'HackerRank': self.get_hackerrank,
-            'UVa': self.get_uva,
-            'HackerEarth': self.get_hackerearth,
-        }
+        platforms = {}
+        for platform in self.user_config:
+            method_name = f'get_{platform.lower()}'
+            if hasattr(self, method_name):
+                platforms[platform] = getattr(self, method_name)
         
         if verbose:
             print("Fetching statistics from all platforms...\n")
@@ -608,7 +791,19 @@ class PlatformStats:
 
 def main():
     """Main function to fetch and display statistics."""
-    fetcher = PlatformStats()
+    # Auto-configure handles if changed
+    config_updated = auto_configure_handles()
+    if config_updated:
+        # Reload config after update
+        import importlib
+        import src
+        importlib.reload(src)
+        # Get updated config
+        from src import USER_CONFIG as updated_user_config
+    else:
+        updated_user_config = USER_CONFIG
+    
+    fetcher = PlatformStats(user_config=updated_user_config)
     stats = fetcher.fetch_all_stats()
     
     print("\n" + "="*60)

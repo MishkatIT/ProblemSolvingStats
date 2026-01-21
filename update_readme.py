@@ -9,7 +9,7 @@ import sys
 from datetime import datetime, timezone, timedelta
 
 # Import shared modules
-from src.config import (
+from src import (
     USER_CONFIG, PROFILE_DISPLAY_NAMES, PLATFORM_URL_TEMPLATES, PLATFORM_LOGOS, 
     PLATFORM_COLORS, ALL_PLATFORMS, BDT_TIMEZONE
 )
@@ -250,7 +250,6 @@ def generate_platform_statistics_table(effective_counts, current_date, today_iso
         profile_url = get_profile_url(platform)
         display_name = PROFILE_DISPLAY_NAMES.get(platform, USER_CONFIG.get(platform, 'Unknown'))
         logo_url, use_onerror = PLATFORM_LOGOS.get(platform, ('', False))
-        color = PLATFORM_COLORS.get(platform, 'blue')
         
         onerror_attr = ' onerror="this.style.display=\'none\'"' if use_onerror else ''
         percentage = calculate_percentage(count, total)
@@ -258,6 +257,26 @@ def generate_platform_statistics_table(effective_counts, current_date, today_iso
         # Determine date and mode
         platform_mode = last_known_modes.get(platform, 'automatic')
         raw_date = last_known_dates.get(platform)
+        
+        # Set color based on update mode
+        base_color = PLATFORM_COLORS.get(platform, 'blue')
+        if platform_mode == 'manual':
+            # For manual updates, use modern darker variants
+            color_variants = {
+                'red': '8B0000',      # Dark red
+                'blue': '00008B',     # Dark blue  
+                'green': '006400',    # Dark green
+                'yellow': 'B8860B',   # Dark goldenrod
+                'orange': 'FF4500',   # Orange red
+                'purple': '4B0082',   # Indigo
+                'pink': 'C71585',     # Medium violet red
+                'brown': '8B4513',    # Saddle brown
+                'cyan': '008B8B',     # Dark cyan
+                'magenta': '8B008B'   # Dark magenta
+            }
+            color = color_variants.get(base_color, '2F4F4F')  # Dark slate gray fallback
+        else:
+            color = base_color
         
         is_fresh_today = (platform in stats and 
                          stats[platform] is not None and 
@@ -272,7 +291,7 @@ def generate_platform_statistics_table(effective_counts, current_date, today_iso
                 date_str = current_date if isinstance(count, int) else 'unknown'
         
         mode_display = platform_mode.capitalize() if platform_mode else 'Auto'
-        mode_color = 'orange' if platform_mode == 'manual' else 'green'
+        mode_color = 'F44336' if platform_mode == 'manual' else '2196F3'
         
         row = f'''    <tr>
       <td><img src="{logo_url}" width="16" height="16"{onerror_attr}/> <strong>{platform}</strong></td>

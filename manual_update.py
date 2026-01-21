@@ -5,7 +5,7 @@ Use this when automatic fetching is not possible.
 """
 
 from datetime import datetime
-from src.config import USER_CONFIG, PLATFORM_URL_TEMPLATES, BDT_TIMEZONE
+from src import USER_CONFIG, PLATFORM_URL_TEMPLATES, BDT_TIMEZONE
 from src.data_manager import DataManager
 
 

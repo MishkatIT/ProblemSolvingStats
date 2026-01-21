@@ -5,7 +5,7 @@ Shared utility functions used across the application.
 
 import re
 from datetime import datetime
-from src.config import (
+from src import (
     USER_CONFIG, PLATFORM_URL_TEMPLATES, BDT_TIMEZONE,
     PLATFORM_LOGOS, PLATFORM_COLORS
 )

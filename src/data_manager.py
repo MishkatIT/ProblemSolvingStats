@@ -6,7 +6,7 @@ Data manager for handling JSON file operations and data persistence.
 import json
 import os
 from datetime import datetime
-from src.config import (
+from src import (
     LAST_KNOWN_FILE, STATS_FILE, BDT_TIMEZONE, DEFAULT_FUNNY_DATE, USER_CONFIG
 )
 
