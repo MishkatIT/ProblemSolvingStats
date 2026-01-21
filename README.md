@@ -2,12 +2,12 @@
 
 # 🏆 Problem Solving Statistics
 
-[![Last Updated](https://img.shields.io/badge/Last%20Updated-21%20January%202026-blue?style=for-the-badge)](https://github.com/MishkatIT/ProblemSolvingStats)
+[![Last Updated](https://img.shields.io/badge/Last%20Updated-22%20January%202026-blue?style=for-the-badge)](https://github.com/MishkatIT/ProblemSolvingStats)
 [![Total Problems](https://img.shields.io/badge/Total%20Solved-3817-success?style=for-the-badge)](https://github.com/MishkatIT/ProblemSolvingStats)
 [![Platforms](https://img.shields.io/badge/Platforms-12-orange?style=for-the-badge)](https://github.com/MishkatIT/ProblemSolvingStats)
 
 <!-- UPDATE_METADATA_START -->
-<p align="center"><strong>Updated:</strong> 21 January 2026 at 01:09:33 AM • Automatic</p>
+<p align="center"><strong>Updated:</strong> 22 January 2026 at 12:22:19 AM • Automatic</p>
 <!-- UPDATE_METADATA_END -->
 
 <br>
@@ -45,7 +45,7 @@
       <td><a href="https://codeforces.com/profile/MishkatIT">MishkatIT</a></td>
       <td align="center" data-value="2607"><strong>2607</strong></td>
       <td><img src="https://img.shields.io/badge/Progress-68.3%25-red?style=flat-square" alt="Codeforces Progress"/></td>
-      <td align="left" data-date="2026-01-21">21 January 2026</td>
+      <td align="left" data-date="2026-01-22">22 January 2026</td>
       <td align="center"><img src="https://img.shields.io/badge/Automatic-green?style=flat" alt="Automatic"/></td>
     </tr>
     <tr>
@@ -53,7 +53,7 @@
       <td><a href="https://leetcode.com/MishkatIT/">MishkatIT</a></td>
       <td align="center" data-value="412"><strong>412</strong></td>
       <td><img src="https://img.shields.io/badge/Progress-10.8%25-yellow?style=flat-square" alt="LeetCode Progress"/></td>
-      <td align="left" data-date="2026-01-21">21 January 2026</td>
+      <td align="left" data-date="2026-01-22">22 January 2026</td>
       <td align="center"><img src="https://img.shields.io/badge/Automatic-green?style=flat" alt="Automatic"/></td>
     </tr>
     <tr>
@@ -61,7 +61,7 @@
       <td><a href="https://vjudge.net/user/MishkatIT">MishkatIT</a></td>
       <td align="center" data-value="347"><strong>347</strong></td>
       <td><img src="https://img.shields.io/badge/Progress-9.1%25-blueviolet?style=flat-square" alt="Vjudge Progress"/></td>
-      <td align="left" data-date="2026-01-21">21 January 2026</td>
+      <td align="left" data-date="2026-01-22">22 January 2026</td>
       <td align="center"><img src="https://img.shields.io/badge/Automatic-green?style=flat" alt="Automatic"/></td>
     </tr>
     <tr>
@@ -69,7 +69,7 @@
       <td><a href="https://atcoder.jp/users/MishkatIT">MishkatIT</a></td>
       <td align="center" data-value="157"><strong>157</strong></td>
       <td><img src="https://img.shields.io/badge/Progress-4.1%25-orange?style=flat-square" alt="AtCoder Progress"/></td>
-      <td align="left" data-date="2026-01-21">21 January 2026</td>
+      <td align="left" data-date="2026-01-22">22 January 2026</td>
       <td align="center"><img src="https://img.shields.io/badge/Automatic-green?style=flat" alt="Automatic"/></td>
     </tr>
     <tr>
@@ -77,7 +77,7 @@
       <td><a href="https://www.codechef.com/users/MishkatIT">MishkatIT</a></td>
       <td align="center" data-value="126"><strong>126</strong></td>
       <td><img src="https://img.shields.io/badge/Progress-3.3%25-brown?style=flat-square" alt="CodeChef Progress"/></td>
-      <td align="left" data-date="2026-01-21">21 January 2026</td>
+      <td align="left" data-date="2026-01-22">22 January 2026</td>
       <td align="center"><img src="https://img.shields.io/badge/Automatic-green?style=flat" alt="Automatic"/></td>
     </tr>
     <tr>
@@ -101,7 +101,7 @@
       <td><a href="https://lightoj.com/user/mishkatit">MishkatIT</a></td>
       <td align="center" data-value="31"><strong>31</strong></td>
       <td><img src="https://img.shields.io/badge/Progress-0.8%25-yellow?style=flat-square" alt="LightOJ Progress"/></td>
-      <td align="left" data-date="2026-01-21">21 January 2026</td>
+      <td align="left" data-date="2026-01-22">22 January 2026</td>
       <td align="center"><img src="https://img.shields.io/badge/Automatic-green?style=flat" alt="Automatic"/></td>
     </tr>
     <tr>
@@ -125,7 +125,7 @@
       <td><a href="https://uhunt.onlinejudge.org/id/1615470">MishkatIT</a></td>
       <td align="center" data-value="7"><strong>7</strong></td>
       <td><img src="https://img.shields.io/badge/Progress-0.2%25-blue?style=flat-square" alt="UVa Progress"/></td>
-      <td align="left" data-date="2026-01-21">21 January 2026</td>
+      <td align="left" data-date="2026-01-22">22 January 2026</td>
       <td align="center"><img src="https://img.shields.io/badge/Automatic-green?style=flat" alt="Automatic"/></td>
     </tr>
     <tr>
@@ -142,7 +142,7 @@
       <td colspan="2" align="center"><strong>🎖️ TOTAL</strong></td>
       <td align="center"><strong style="font-size: 1.2em;">3817</strong></td>
       <td align="center"><strong>100%</strong></td>
-      <td align="center">21 January 2026</td>
+      <td align="center">22 January 2026</td>
       <td></td>
     </tr>
   </tfoot>
