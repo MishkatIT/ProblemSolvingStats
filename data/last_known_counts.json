@@ -1,0 +1,86 @@
+{
+  "counts": {
+    "Codeforces": 2609,
+    "LeetCode": 412,
+    "AtCoder": 157,
+    "CodeChef": 126,
+    "Toph": 37,
+    "LightOJ": 31,
+    "CSES": 66,
+    "HackerEarth": 2,
+    "SPOJ": 18,
+    "HackerRank": 7,
+    "VJudge": 347,
+    "Uva": 7
+  },
+  "dates": {
+    "Codeforces": "2026-01-24",
+    "LeetCode": "2026-01-24",
+    "AtCoder": "2026-01-24",
+    "CodeChef": "2026-01-24",
+    "Toph": "2026-01-24",
+    "LightOJ": "2026-01-24",
+    "CSES": "2026-01-15",
+    "HackerEarth": "2026-01-15",
+    "SPOJ": "2026-01-16",
+    "HackerRank": "2026-01-17",
+    "VJudge": "2026-01-24",
+    "Uva": "2026-01-24"
+  },
+  "modes": {
+    "Codeforces": "automatic",
+    "LeetCode": "automatic",
+    "AtCoder": "automatic",
+    "CodeChef": "automatic",
+    "Toph": "automatic",
+    "LightOJ": "automatic",
+    "CSES": "manual",
+    "HackerEarth": "manual",
+    "SPOJ": "manual",
+    "HackerRank": "manual",
+    "VJudge": "automatic",
+    "Uva": "automatic"
+  },
+  "last_solved_dates": {
+    "Codeforces": "2026-01-23",
+    "LeetCode": "2026-01-10",
+    "AtCoder": "2025-11-29",
+    "CodeChef": "2026-01-17",
+    "Toph": "2026-01-17",
+    "LightOJ": "2023-08-12",
+    "CSES": "2025-08-18",
+    "HackerEarth": "1970-01-01",
+    "SPOJ": "2025-05-06",
+    "HackerRank": "1970-01-01",
+    "VJudge": "1970-01-01",
+    "Uva": "1970-01-01"
+  },
+  "usernames": {
+    "Codeforces": "MishkatIT",
+    "LeetCode": "MishkatIT",
+    "AtCoder": "MishkatIT",
+    "CodeChef": "MishkatIT",
+    "CSES": "165802",
+    "Toph": "MishkatIT",
+    "LightOJ": "mishkatit",
+    "SPOJ": "mishkatit",
+    "HackerRank": "MishkatIT",
+    "HackerEarth": "MishkatIT",
+    "Uva": "1615470",
+    "VJudge": "MishkatIT",
+    "Kattis": "MishkatIT",
+    "CSAcademy": "MishkatIT",
+    "Toki": "MishkatIT",
+    "DMOJ": "MishkatIT",
+    "OmegaUp": "MishkatIT",
+    "Beecrowd": "MishkatIT"
+  },
+  "ratings": {
+    "Codeforces": {
+      "current": 1330,
+      "max": 1443,
+      "rank": "pupil",
+      "max_rank": "specialist"
+    }
+  }
+}

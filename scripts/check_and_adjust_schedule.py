@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/env python
 """
 Script to check if total problem count has been stagnant for 90+ days.
 If so, automatically switches the workflow schedule from daily to monthly.
@@ -6,13 +6,34 @@ If so, automatically switches the workflow schedule from daily to monthly.
 
 import json
 import os
-from datetime import datetime, timedelta
+import sys
+from datetime import datetime
+
+# Add src to path
+sys.path.insert(0, os.path.dirname(os.path.dirname(__file__)))
+
+from src import LAST_KNOWN_FILE, README_FILE
+
+# Color and rich output
+from colorama import init as colorama_init
+from rich.console import Console
+from rich.panel import Panel
+colorama_init(autoreset=True, convert=True, strip=False)
+# Force Windows ANSI support
+import os
+if os.name == 'nt':
+    os.system('')
+    # Additional Windows ANSI enable
+    import ctypes
+    kernel32 = ctypes.windll.kernel32
+    kernel32.SetConsoleMode(kernel32.GetStdHandle(-11), 7)
+console = Console(force_terminal=True)
 
 
 def load_last_known_counts():
     """Load last known counts and metadata."""
     try:
-        with open('last_known_counts.json', 'r') as f:
+        with open(LAST_KNOWN_FILE, 'r') as f:
             return json.load(f)
     except (FileNotFoundError, json.JSONDecodeError):
         return {}
@@ -55,18 +76,18 @@ def read_workflow_file():
 
 def is_daily_schedule(content):
     """Check if workflow is on daily schedule."""
-    return "cron: '35 17 * * *'" in content or 'cron: "35 17 * * *"' in content
+    return "cron: '0 17 * * *'" in content or 'cron: "0 17 * * *"' in content
 
 
 def is_monthly_schedule(content):
     """Check if workflow is on monthly schedule."""
-    return "cron: '35 17 1 * *'" in content or 'cron: "35 17 1 * *"' in content
+    return "cron: '0 17 1 * *'" in content or 'cron: "0 17 1 * *"' in content
 
 
 def switch_to_monthly():
     """Switch workflow schedule from daily to monthly."""
     workflow_path = '.github/workflows/update-stats.yml'
-    readme_path = 'README.md'
+    readme_path = README_FILE
     
     try:
         with open(workflow_path, 'r') as f:
@@ -78,8 +99,8 @@ def switch_to_monthly():
         
         # Replace daily cron with monthly (1st day of month)
         new_content = content.replace(
-            "# Run every day at 11:35 PM BDT (17:35 UTC)\n    - cron: '35 17 * * *'",
-            "# Run on 1st day of each month at 11:35 PM BDT (17:35 UTC)\n    - cron: '35 17 1 * *'"
+            "# Run every day at 11:00 PM BDT (17:00 UTC)\n    - cron: '0 17 * * *'",
+            "# Run on 1st day of each month at 11:00 PM BDT (17:00 UTC)\n    - cron: '0 17 1 * *'"
         )
         
         if new_content != content:
@@ -98,28 +119,28 @@ def switch_to_monthly():
                     "Auto-Updated Daily",
                     "Auto-Updated Monthly"
                 ).replace(
-                    "- Your stats will now update automatically every day! 🎊",
-                    "- Your stats will now update automatically monthly! 🎊"
+                    "- Your stats will now update automatically every day! [CELEBRATION]",
+                    "- Your stats will now update automatically monthly! [CELEBRATION]"
                 ).replace(
                     "Scheduled to run daily at 11:35 PM BDT",
                     "Scheduled to run monthly (1st day) at 11:35 PM BDT"
                 )
                 
                 # Update the status message in the explanation section
-                if "**Current Status:** 🟢 Active - Updates running daily" in readme_updated:
+                if "**Current Status:** [ACTIVE] Active - Updates running daily" in readme_updated:
                     readme_updated = readme_updated.replace(
-                        "**Current Status:** 🟢 Active - Updates running daily (you're actively solving problems!)",
-                        "**Current Status:** 🔴 Inactive - Updates running monthly (no problem-solving activity detected for 90+ days)"
+                        "**Current Status:** [ACTIVE] Active - Updates running daily (you're actively solving problems!)",
+                        "**Current Status:** [INACTIVE] Inactive - Updates running monthly (no problem-solving activity detected for 90+ days)"
                     )
                 
                 with open(readme_path, 'w', encoding='utf-8') as f:
                     f.write(readme_updated)
                 
-                print("✓ README updated to reflect monthly schedule")
+                print("[OK] README updated to reflect monthly schedule")
             except Exception as e:
                 print(f"Warning: Could not update README: {e}")
             
-            print("✓ Workflow schedule changed from DAILY to MONTHLY")
+            print("[OK] Workflow schedule changed from DAILY to MONTHLY")
             print("  Reason: No problem count updates detected for 90+ days")
             return True
         else:
@@ -134,7 +155,7 @@ def switch_to_monthly():
 def switch_to_daily():
     """Switch workflow schedule from monthly back to daily."""
     workflow_path = '.github/workflows/update-stats.yml'
-    readme_path = 'README.md'
+    readme_path = README_FILE
     
     try:
         with open(workflow_path, 'r') as f:
@@ -146,8 +167,8 @@ def switch_to_daily():
         
         # Replace monthly cron with daily
         new_content = content.replace(
-            "# Run on 1st day of each month at 11:35 PM BDT (17:35 UTC)\n    - cron: '35 17 1 * *'",
-            "# Run every day at 11:35 PM BDT (17:35 UTC)\n    - cron: '35 17 * * *'"
+            "# Run on 1st day of each month at 11:00 PM BDT (17:00 UTC)\n    - cron: '0 17 1 * *'",
+            "# Run every day at 11:00 PM BDT (17:00 UTC)\n    - cron: '0 17 * * *'"
         )
         
         if new_content != content:
@@ -166,28 +187,28 @@ def switch_to_daily():
                     "Auto-Updated Monthly",
                     "Auto-Updated Daily"
                 ).replace(
-                    "- Your stats will now update automatically monthly! 🎊",
-                    "- Your stats will now update automatically every day! 🎊"
+                    "- Your stats will now update automatically monthly! [CELEBRATION]",
+                    "- Your stats will now update automatically every day! [CELEBRATION]"
                 ).replace(
                     "Scheduled to run monthly (1st day) at 11:35 PM BDT",
                     "Scheduled to run daily at 11:35 PM BDT"
                 )
                 
                 # Update the status message in the explanation section
-                if "**Current Status:** 🔴 Inactive - Updates running monthly" in readme_updated:
+                if "**Current Status:** [INACTIVE] Inactive - Updates running monthly" in readme_updated:
                     readme_updated = readme_updated.replace(
-                        "**Current Status:** 🔴 Inactive - Updates running monthly (no problem-solving activity detected for 90+ days)",
-                        "**Current Status:** 🟢 Active - Updates running daily (you're actively solving problems!)"
+                        "**Current Status:** [INACTIVE] Inactive - Updates running monthly (no problem-solving activity detected for 90+ days)",
+                        "**Current Status:** [ACTIVE] Active - Updates running daily (you're actively solving problems!)"
                     )
                 
                 with open(readme_path, 'w', encoding='utf-8') as f:
                     f.write(readme_updated)
                 
-                print("✓ README updated to reflect daily schedule")
+                print("[OK] README updated to reflect daily schedule")
             except Exception as e:
                 print(f"Warning: Could not update README: {e}")
             
-            print("✓ Workflow schedule changed from MONTHLY to DAILY")
+            print("[OK] Workflow schedule changed from MONTHLY to DAILY")
             print("  Reason: Recent problem solving activity detected")
             return True
         else:
@@ -201,53 +222,63 @@ def switch_to_daily():
 
 def main():
     """Main function to check and adjust workflow schedule."""
-    print("Checking problem solving activity...\n")
+    console.print(Panel(
+        "[bold yellow]CHECKING PROBLEM SOLVING ACTIVITY[/bold yellow]\n"
+        "[dim yellow]Analyzing recent activity to optimize update schedule[/dim yellow]",
+        style="yellow",
+        border_style="bold yellow",
+        padding=(1, 3)
+    ))
     
     # Load data
     data = load_last_known_counts()
     if not data:
-        print("No data found. Keeping current schedule.")
+        console.print("[bold red][ERROR] No data found. Keeping current schedule.[/bold red]")
         return
     
     # Get last update date
     last_update = get_last_total_update_date(data)
     
     if not last_update:
-        print("No valid update dates found. Keeping current schedule.")
+        console.print("[bold red][ERROR] No valid update dates found. Keeping current schedule.[/bold red]")
         return
     
     # Calculate days since last update
     today = datetime.now()
     days_since_update = (today - last_update).days
     
-    print(f"Last problem count update: {last_update.strftime('%Y-%m-%d')}")
-    print(f"Days since last update: {days_since_update}")
-    print()
+    console.print(f"[bold white]Last problem count update:[/bold white] [cyan]{last_update.strftime('%Y-%m-%d')}[/cyan]")
+    console.print(f"[bold white]Days since last update:[/bold white] [bold magenta]{days_since_update}[/bold magenta] days")
+    console.print()
     
     # Read current workflow
     workflow_content = read_workflow_file()
     if not workflow_content:
+        console.print("[bold red]Error reading workflow file.[/bold red]")
         return
     
     current_schedule = "DAILY" if is_daily_schedule(workflow_content) else "MONTHLY"
-    print(f"Current schedule: {current_schedule}")
-    print()
+    schedule_color = "green" if current_schedule == "DAILY" else "blue"
+    console.print(f"[bold white]Current schedule:[/bold white] [bold {schedule_color}]{current_schedule}[/bold {schedule_color}]")
+    console.print()
     
     # Decision logic
     if days_since_update >= 90:
         # Inactive for 90+ days - switch to monthly
         if is_daily_schedule(workflow_content):
-            print(f"Warning: No activity for {days_since_update} days (threshold: 90 days)")
+            console.print(f"[bold yellow]WARNING:[/bold yellow] No activity for [bold red]{days_since_update}[/bold red] days (threshold: [bold]90[/bold] days)")
+            console.print("[bold blue]Switching to monthly schedule...[/bold blue]")
             switch_to_monthly()
         else:
-            print(f"Status: Inactive period ({days_since_update} days). Monthly schedule maintained.")
+            console.print(f"[bold blue]STATUS:[/bold blue] Inactive period ([bold red]{days_since_update}[/bold red] days). Monthly schedule maintained.")
     else:
         # Recent activity - ensure daily schedule
         if is_monthly_schedule(workflow_content):
-            print(f"Success: Recent activity detected ({days_since_update} days ago)")
+            console.print(f"[bold green]SUCCESS:[/bold green] Recent activity detected ([bold cyan]{days_since_update}[/bold cyan] days ago)")
+            console.print("[bold blue]Switching to daily schedule...[/bold blue]")
             switch_to_daily()
         else:
-            print(f"Status: Active ({days_since_update} days since last update). Daily schedule maintained.")
+            console.print(f"[bold green]STATUS:[/bold green] Active ([bold cyan]{days_since_update}[/bold cyan] days since last update). Daily schedule maintained.")
 
 
 if __name__ == "__main__":

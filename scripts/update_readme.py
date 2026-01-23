@@ -1,22 +1,33 @@
-#!/usr/bin/env python3
+#!/usr/bin/env python
 """
 Script to update README.md with the latest statistics from stats.json
 """
 
+
 import re
 import os
 import sys
-from datetime import datetime, timezone, timedelta
+from datetime import datetime
 
+# Add project root to path for imports
+sys.path.insert(0, os.path.dirname(os.path.dirname(__file__)))
+
+
+# Color and rich output
+from colorama import init as colorama_init
+from rich.console import Console
+from rich.panel import Panel
+
+colorama_init(autoreset=True)
+console = Console()
 # Import shared modules
 from src import (
-    USER_CONFIG, PROFILE_DISPLAY_NAMES, PLATFORM_URL_TEMPLATES, PLATFORM_LOGOS, 
-    PLATFORM_COLORS, ALL_PLATFORMS, BDT_TIMEZONE
+    USER_CONFIG, PROFILE_DISPLAY_NAMES, PLATFORM_LOGOS, 
+    PLATFORM_COLORS, ALL_PLATFORMS, BDT_TIMEZONE, README_FILE
 )
 from src.utils import (
     get_profile_url, format_human_date, calculate_percentage,
-    calculate_total, format_platform_list, read_text_file,
-    extract_first_int
+    format_platform_list, read_text_file
 )
 from src.data_manager import DataManager
 
@@ -102,26 +113,48 @@ def generate_latest_solve_section(last_known_info):
     """Generate the Latest Solve section showing the most recent activity.
     
     Args:
-        last_known_info: Dictionary containing 'last_solved_dates' with platform dates
+        last_known_info: Dictionary containing 'last_solved_dates' with actual solve dates
         
     Returns:
         String containing the markdown section for latest solve information
     """
+    # Use 'last_solved_dates' field which contains actual problem solve dates
     last_solved_dates = last_known_info.get('last_solved_dates', {})
     
     if not last_solved_dates:
-        return ""
+        # Return placeholder when no data is available
+        return """<div align="center">
+
+| 📅 Latest Solve | 🏆 Platform |
+|:---------------:|:-------------:|
+| _No recent activity recorded yet_ | _Update stats to see latest solves_ |
+
+</div>
+
+---
+"""
     
     # Find the most recent solve date and all platforms that solved on that date
+    # Use actual dates from the last_solved_dates field
     date_to_platforms = {}
     for platform, date in last_solved_dates.items():
-        if date:
+        if date and date.strip():
             if date not in date_to_platforms:
                 date_to_platforms[date] = []
             date_to_platforms[date].append(platform)
     
     if not date_to_platforms:
-        return ""
+        # Return placeholder when no dates exist
+        return """<div align="center">
+
+| 📅 Latest Solve | 🏆 Platform |
+|:---------------:|:-------------:|
+| _No recent activity recorded yet_ | _Update stats to see latest solves_ |
+
+</div>
+
+---
+"""
     
     # Get the most recent date
     most_recent_date = max(date_to_platforms.keys())
@@ -133,9 +166,12 @@ def generate_latest_solve_section(last_known_info):
     # Generate platform list
     platform_text = format_platform_list(platforms_solved)
     
+    # Determine the correct heading based on number of platforms
+    platform_heading = "Platforms" if len(platforms_solved) > 1 else "Platform"
+    
     section = f"""<div align="center">
 
-| 📅 Last Solved | 🏆 Platform(s) |
+| 📅 Last Solved | 🏆 {platform_heading} |
 |:-------------:|:-------------:|
 | **{formatted_date}** | {platform_text} |
 
@@ -150,25 +186,78 @@ def generate_platform_last_solved_table(last_known_info):
     """Generate a table showing last solved date for each platform.
     
     Args:
-        last_known_info: Dictionary containing 'last_solved_dates' with platform dates
+        last_known_info: Dictionary containing 'last_solved_dates' with actual solve dates
         
     Returns:
         String containing the markdown table for all platform last solved dates
     """
+    # Use 'last_solved_dates' field which contains actual problem solve dates
     last_solved_dates = last_known_info.get('last_solved_dates', {})
     
     if not last_solved_dates:
-        return ""
+        # Return placeholder table when no data is available
+        return """<div align="center">
+
+<table>
+  <thead>
+    <tr>
+      <th>🏆 Platform</th>
+      <th align="right">📅 Last Solved</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td colspan="2" align="center" style="font-style: italic;">No solve activity recorded yet</td>
+    </tr>
+    <tr>
+      <td colspan="2" align="center" style="font-size: 0.9em; color: #666;">Run manual updates to track solve history</td>
+    </tr>
+  </tbody>
+</table>
+
+</div>
+
+---
+"""
     
-    # Filter platforms that have last_solved_dates and sort by date (most recent first)
+    # Check if we have any valid (non-empty) dates
+    has_valid_dates = any(date and date.strip() for date in last_solved_dates.values())
+    
+    if not has_valid_dates:
+        # Return placeholder table when no data is available
+        return """<div align="center">
+
+<table>
+  <thead>
+    <tr>
+      <th>🏆 Platform</th>
+      <th align="right">📅 Last Solved</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td colspan="2" align="center" style="font-style: italic;">No solve activity recorded yet</td>
+    </tr>
+    <tr>
+      <td colspan="2" align="center" style="font-size: 0.9em; color: #666;">Run manual updates to track solve history</td>
+    </tr>
+  </tbody>
+</table>
+
+</div>
+
+---
+"""
+    
+    # Filter platforms that have valid dates and sort by date (most recent first)
     # Parse dates and sort, with None/empty dates going to the end
     def parse_date_for_sorting(date_str):
-        if not date_str or date_str == "1970-01-01":
-            return "0000-00-00"  # Put old/missing dates at the end
+        if not date_str or not date_str.strip():
+            return "0000-00-00"  # Put missing dates at the end
         return date_str
     
     platform_order = sorted(
-        [p for p in ALL_PLATFORMS if p in last_solved_dates],
+        [p for p in ALL_PLATFORMS if p in last_solved_dates and last_solved_dates.get(p) and last_solved_dates.get(p).strip()],
         key=lambda p: parse_date_for_sorting(last_solved_dates.get(p, "")),
         reverse=True
     )
@@ -178,7 +267,7 @@ def generate_platform_last_solved_table(last_known_info):
     for platform in platform_order:
         if platform in last_solved_dates:
             date = last_solved_dates[platform]
-            if date:
+            if date and date.strip():
                 formatted_date = format_human_date(date)
             else:
                 formatted_date = "_Not recorded_"
@@ -190,7 +279,30 @@ def generate_platform_last_solved_table(last_known_info):
             rows.append(f'    <tr><td>{platform_cell}</td><td align="right" data-date="{date}">{formatted_date}</td></tr>')
     
     if not rows:
-        return ""
+        # Fallback placeholder if no rows were built (shouldn't happen with the above logic)
+        return """<div align="center">
+
+<table>
+  <thead>
+    <tr>
+      <th>🏆 Platform</th>
+      <th align="right">📅 Last Solved</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td colspan="2" align="center" style="font-style: italic;">No solve activity recorded yet</td>
+    </tr>
+    <tr>
+      <td colspan="2" align="center" style="font-size: 0.9em; color: #666;">Run manual updates to track solve history</td>
+    </tr>
+  </tbody>
+</table>
+
+</div>
+
+---
+"""
     
     section = f"""<div align="center">
 
@@ -242,7 +354,7 @@ def generate_platform_statistics_table(effective_counts, current_date, today_iso
     
     # Build table rows
     rows = []
-    for platform in sorted_platforms:
+    for sorted_index, platform in enumerate(sorted_platforms):
         count = effective_counts.get(platform)
         if not isinstance(count, int):
             continue
@@ -258,25 +370,17 @@ def generate_platform_statistics_table(effective_counts, current_date, today_iso
         platform_mode = last_known_modes.get(platform, 'automatic')
         raw_date = last_known_dates.get(platform)
         
-        # Set color based on update mode
-        base_color = PLATFORM_COLORS.get(platform, 'blue')
-        if platform_mode == 'manual':
-            # For manual updates, use modern darker variants
-            color_variants = {
-                'red': '8B0000',      # Dark red
-                'blue': '00008B',     # Dark blue  
-                'green': '006400',    # Dark green
-                'yellow': 'B8860B',   # Dark goldenrod
-                'orange': 'FF4500',   # Orange red
-                'purple': '4B0082',   # Indigo
-                'pink': 'C71585',     # Medium violet red
-                'brown': '8B4513',    # Saddle brown
-                'cyan': '008B8B',     # Dark cyan
-                'magenta': '8B008B'   # Dark magenta
-            }
-            color = color_variants.get(base_color, '2F4F4F')  # Dark slate gray fallback
+        # Set color based on sorted position - platforms are sorted by solve count (descending)
+        # Top platform (highest solve count) gets first color, second gets second color, etc.
+        if sorted_index < len(PLATFORM_COLORS):
+            base_color = PLATFORM_COLORS[sorted_index]
         else:
-            color = base_color
+            # Fallback if we have more platforms than colors
+            print(f"Warning: No color defined for sorted position {sorted_index} (platform: {platform})")
+            base_color = '808080'  # Default gray as fallback
+        
+        # Use the same color for both auto and manual modes (based on sorted position)
+        color = base_color
         
         is_fresh_today = (platform in stats and 
                          stats[platform] is not None and 
@@ -290,7 +394,7 @@ def generate_platform_statistics_table(effective_counts, current_date, today_iso
             else:
                 date_str = current_date if isinstance(count, int) else 'unknown'
         
-        mode_display = platform_mode.capitalize() if platform_mode else 'Auto'
+        mode_display = platform_mode.capitalize() if platform_mode else 'Unknown'
         mode_color = 'F44336' if platform_mode == 'manual' else '2196F3'
         
         row = f'''    <tr>
@@ -341,11 +445,16 @@ def update_readme(stats, last_known_info=None, update_source=None):
         update_source: 'manual' or 'automatic' (used for README metadata)
     """
     
+    # Validate that ALL_PLATFORMS and PLATFORM_COLORS are properly synchronized
+    if len(ALL_PLATFORMS) != len(PLATFORM_COLORS):
+        print(f"Warning: ALL_PLATFORMS ({len(ALL_PLATFORMS)}) and PLATFORM_COLORS ({len(PLATFORM_COLORS)}) lengths don't match!")
+        print("This may cause color assignment issues. Run configure_handles.py to fix.")
+    
     # Read current README
     try:
-        readme_content = read_text_file('README.md')
+        readme_content = read_text_file(README_FILE)
     except FileNotFoundError:
-        print("README.md not found")
+        print(f"{README_FILE} not found")
         return False
     
     # Load last known info if not provided
@@ -382,9 +491,9 @@ def update_readme(stats, last_known_info=None, update_source=None):
     # Calculate total from effective counts
     total = sum(v for v in effective_counts.values() if isinstance(v, int))
 
-    if total == 0:
-        print("No valid statistics found. Skipping README update.")
-        return False
+    # Always update README, even with no valid statistics
+    # (URLs, configuration, or other metadata might have changed)
+    console.print(Panel(f"[bold blue]Updating README with [yellow]{total}[/yellow] total problems...[/bold blue]", border_style="blue", expand=False))
 
     # Update last updated badge
     readme_content = re.sub(
@@ -399,6 +508,19 @@ def update_readme(stats, last_known_info=None, update_source=None):
         f'Total%20Solved-{total}-success',
         readme_content
     )
+    
+    # Add dynamic Codeforces rating styling
+    from src.utils import get_codeforces_rating_color
+    cf_rating_info = last_known_info.get('ratings', {}).get('Codeforces', {})
+    max_rating = cf_rating_info.get('max') if cf_rating_info else None
+    rating_color = get_codeforces_rating_color(max_rating)
+    
+    # Add rating-based border styling to the main header and stats table
+    if max_rating:
+        # Update the existing border div with the new rating color
+        rating_border_pattern = r'border: 2px solid #[0-9A-Fa-f]{6}'
+        new_border_style = f'border: 2px solid #{rating_color}'
+        readme_content = re.sub(rating_border_pattern, new_border_style, readme_content)
     
     # Add/update the explicit update metadata block (date + manual/automatic)
     readme_content = _upsert_update_metadata_block(
@@ -435,46 +557,42 @@ def update_readme(stats, last_known_info=None, update_source=None):
 | {top_count} Problems | Algorithm Mastery | Multi-Platform |
 
 </div>"""
+    else:
+        # Fallback when no valid statistics exist
+        key_highlights = f"""<div align="center">
+
+| 🥇 Top Platform | 🎯 Main Focus | 📚 Platforms Active |
+|:---------------:|:-------------:|:------------------:|
+| **None** | **Competitive Programming** | **0** |
+| 0 Problems | Algorithm Mastery | Multi-Platform |
+
+</div>"""
+    # Insert or update the Latest Solve section (always show, even with placeholder)
+    latest_solve_section = generate_latest_solve_section(last_known_info)
+    if '<!-- AUTO_GENERATED_SECTION_START: LATEST_SOLVE -->' in readme_content:
+        readme_content = _replace_marked_section(readme_content, 'LATEST_SOLVE', latest_solve_section)
+    
+    # Insert or update the Platform Last Solved Table (always show, even with placeholder)
+    platform_table_section = generate_platform_last_solved_table(last_known_info)
+    if '<!-- AUTO_GENERATED_SECTION_START: PLATFORM_LAST_SOLVED -->' in readme_content:
+        readme_content = _replace_marked_section(readme_content, 'PLATFORM_LAST_SOLVED', platform_table_section)
         
         # Replace Key Highlights section
         if '<!-- AUTO_GENERATED_SECTION_START: KEY_HIGHLIGHTS -->' in readme_content:
             readme_content = _replace_marked_section(readme_content, 'KEY_HIGHLIGHTS', key_highlights)
     
-    # Insert or update the Latest Solve section
-    latest_solve_section = generate_latest_solve_section(last_known_info)
-    if latest_solve_section:
-        if '<!-- AUTO_GENERATED_SECTION_START: LATEST_SOLVE -->' in readme_content:
-            readme_content = _replace_marked_section(readme_content, 'LATEST_SOLVE', latest_solve_section)
-    else:
-        # Remove the section if it exists
-        if '<!-- AUTO_GENERATED_SECTION_START: LATEST_SOLVE -->' in readme_content:
-            pattern = r'<!-- AUTO_GENERATED_SECTION_START: LATEST_SOLVE -->.*?<!-- AUTO_GENERATED_SECTION_END: LATEST_SOLVE -->\n*'
-            readme_content = re.sub(pattern, '', readme_content, flags=re.DOTALL)
-    
-    # Insert or update the Platform Last Solved Table
-    platform_table_section = generate_platform_last_solved_table(last_known_info)
-    if platform_table_section:
-        if '<!-- AUTO_GENERATED_SECTION_START: PLATFORM_LAST_SOLVED -->' in readme_content:
-            readme_content = _replace_marked_section(readme_content, 'PLATFORM_LAST_SOLVED', platform_table_section)
-    else:
-        # Remove the section if it exists
-        if '<!-- AUTO_GENERATED_SECTION_START: PLATFORM_LAST_SOLVED -->' in readme_content:
-            pattern = r'<!-- AUTO_GENERATED_SECTION_START: PLATFORM_LAST_SOLVED -->.*?<!-- AUTO_GENERATED_SECTION_END: PLATFORM_LAST_SOLVED -->\n*'
-            readme_content = re.sub(pattern, '', readme_content, flags=re.DOTALL)
-    
     # Write updated README
     try:
-        with open('README.md', 'w', encoding='utf-8', newline='\n') as f:
+        with open(README_FILE, 'w', encoding='utf-8', newline='\n') as f:
             f.write(readme_content)
-        print(f"✓ README.md updated successfully!")
-        print(f"  Total problems: {total}")
-        print(f"  Updated on {current_date}")
-        print("\n⚠️ Note: Some platforms might be missing. Consider manual update.")
-        print("Run the following command to manually update:")
-        print("  python manual_update.py")
+        console.print(Panel(f"[green][OK] README.md updated successfully![/green]", border_style="green", expand=False))
+        console.print(f"[bold yellow]  Total problems:[/bold yellow] [bold]{total}[/bold]")
+        console.print(f"[bold cyan]  Updated on {current_date}[/bold cyan]")
+        console.print(Panel("[yellow][NOTE] Some platforms might be missing. Consider manual update.[/yellow]", border_style="yellow", expand=False))
+        console.print(Panel("[white]Run the following command to manually update:\n  [bold]python scripts/manual_update.py[/bold][/white]", border_style="white", expand=False))
         return True
     except Exception as e:
-        print(f"Error writing README.md: {e}")
+        console.print(Panel(f"[red]Error writing README.md: {e}[/red]", border_style="red", expand=False))
         return False
 
 
@@ -485,20 +603,22 @@ def main():
     if len(sys.argv) >= 3 and sys.argv[1] in ('--source', '-s'):
         update_source = sys.argv[2]
 
-    print("Loading statistics...")
+    console.print(Panel(
+        "[bold cyan]LOADING STATISTICS[/bold cyan]\n"
+        "[dim cyan]Fetching latest problem-solving data from all platforms...[/dim cyan]",
+        style="cyan",
+        border_style="bold cyan",
+        padding=(1, 3)
+    ))
     stats = DataManager.load_stats()
-    
     if stats is None:
         return 1
-    
-    print("\nStatistics loaded:")
+    console.print("\n[bold green]Statistics loaded:[/bold green]")
     for platform, count in stats.items():
         if count is not None:
-            print(f"  {platform}: {count}")
-    
-    print("\nUpdating README.md...")
+            console.print(f"[cyan]  • {platform}:[/cyan] [bold white]{count:,}[/bold white] problems")
+    console.print(Panel("[bold blue]Updating README.md...[/bold blue]", border_style="blue", expand=False))
     success = update_readme(stats, update_source=update_source)
-    
     return 0 if success else 1
 
 

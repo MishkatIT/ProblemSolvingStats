@@ -1,18 +1,85 @@
-#!/usr/bin/env python3
+#!/usr/bin/env python
 """
 Data manager for handling JSON file operations and data persistence.
 """
 
 import json
-import os
 from datetime import datetime
-from src import (
+from . import (
     LAST_KNOWN_FILE, STATS_FILE, BDT_TIMEZONE, DEFAULT_FUNNY_DATE, USER_CONFIG
 )
 
 
 class DataManager:
     """Handles loading and saving of JSON data files."""
+    
+    @staticmethod
+    def cleanup_cached_data(last_known_counts=None, force_save=True, user_config=None):
+        """Clean up cached data for platforms no longer in config and handle username changes.
+        
+        Args:
+            last_known_counts: Dictionary to clean up (loads from file if None)
+            force_save: Whether to save changes immediately
+            user_config: Current user config (uses global if None)
+            
+        Returns:
+            Updated last_known_counts dictionary
+        """
+        if user_config is None:
+            user_config = USER_CONFIG
+        if last_known_counts is None:
+            try:
+                with open(LAST_KNOWN_FILE, 'r') as f:
+                    last_known_counts = json.load(f)
+            except (FileNotFoundError, json.JSONDecodeError):
+                last_known_counts = {
+                    'counts': {}, 'dates': {}, 'modes': {}, 
+                    'last_solved_dates': {}, 'usernames': {}
+                }
+        
+        # Ensure all required keys exist
+        last_known_counts.setdefault('counts', {})
+        last_known_counts.setdefault('dates', {})
+        last_known_counts.setdefault('modes', {})
+        last_known_counts.setdefault('last_solved_dates', {})
+        last_known_counts.setdefault('usernames', {})
+        last_known_counts.setdefault('ratings', {})
+        
+        # Clean up usernames for platforms no longer in config
+        current_platforms = set(user_config.keys())
+        stored_platforms = set(last_known_counts['usernames'].keys())
+        removed_platforms = stored_platforms - current_platforms
+        
+        if removed_platforms:
+            print(f"Removing cached data for platforms no longer in config: {removed_platforms}")
+            for platform in removed_platforms:
+                last_known_counts['counts'].pop(platform, None)
+                last_known_counts['dates'].pop(platform, None)
+                last_known_counts['modes'].pop(platform, None)
+                last_known_counts['last_solved_dates'].pop(platform, None)
+                last_known_counts['usernames'].pop(platform, None)
+        
+        # Check if any username has changed - if so, reset cache for that platform
+        usernames_changed = False
+        for platform, current_username in user_config.items():
+            stored_username = last_known_counts['usernames'].get(platform)
+            if stored_username and stored_username != current_username:
+                print(f"Username changed for {platform}: {stored_username} -> {current_username}")
+                print(f"Resetting cached data for {platform}")
+                # Clear cached data for this platform
+                last_known_counts['counts'].pop(platform, None)
+                last_known_counts['dates'].pop(platform, None)
+                last_known_counts['modes'].pop(platform, None)
+                last_known_counts['last_solved_dates'].pop(platform, None)
+                usernames_changed = True
+            # Update stored username
+            last_known_counts['usernames'][platform] = current_username
+        
+        # Save immediately if requested and changes were made
+        if force_save and (usernames_changed or removed_platforms or last_known_counts):
+            DataManager.save_last_known_counts(last_known_counts)
+        
+        return last_known_counts
     
     @staticmethod
     def load_last_known_counts():
@@ -24,44 +91,13 @@ class DataManager:
         try:
             with open(LAST_KNOWN_FILE, 'r') as f:
                 data = json.load(f)
-                # Ensure all required keys exist
-                if 'last_solved_dates' not in data:
-                    data['last_solved_dates'] = {}
-                if 'modes' not in data:
-                    data['modes'] = {}
-                if 'counts' not in data:
-                    data['counts'] = {}
-                if 'dates' not in data:
-                    data['dates'] = {}
-                if 'usernames' not in data:
-                    data['usernames'] = {}
-                
-                # Check if any username has changed - if so, reset cache for that platform
-                usernames_changed = False
-                for platform, current_username in USER_CONFIG.items():
-                    stored_username = data['usernames'].get(platform)
-                    if stored_username and stored_username != current_username:
-                        print(f"Username changed for {platform}: {stored_username} -> {current_username}")
-                        print(f"Resetting cached data for {platform}")
-                        # Clear cached data for this platform
-                        data['counts'].pop(platform, None)
-                        data['dates'].pop(platform, None)
-                        data['modes'].pop(platform, None)
-                        data['last_solved_dates'].pop(platform, None)
-                        usernames_changed = True
-                    # Update stored username
-                    data['usernames'][platform] = current_username
-                
-                # Save immediately if usernames changed
-                if usernames_changed:
-                    DataManager.save_last_known_counts(data)
-                
-                return data
+                # Use the centralized cleanup method
+                return DataManager.cleanup_cached_data(data, force_save=True)
         except FileNotFoundError:
             pass
         except (json.JSONDecodeError, IOError) as e:
             print(f"Warning: Could not load last known counts: {e}")
-        return {'counts': {}, 'dates': {}, 'modes': {}, 'last_solved_dates': {}, 'usernames': {}}
+        return {'counts': {}, 'dates': {}, 'modes': {}, 'last_solved_dates': {}, 'usernames': {}, 'ratings': {}}
     
     @staticmethod
     def save_last_known_counts(last_known_counts):
@@ -71,7 +107,7 @@ class DataManager:
             last_known_counts: Dictionary containing counts and metadata
         """
         try:
-            with open(LAST_KNOWN_FILE, 'w') as f:
+            with open(LAST_KNOWN_FILE, 'w', encoding='utf-8') as f:
                 json.dump(last_known_counts, f, indent=2)
         except (IOError, OSError) as e:
             print(f"Warning: Could not save last known counts: {e}")
@@ -159,7 +195,7 @@ class DataManager:
             with open(STATS_FILE, 'r', encoding='utf-8') as f:
                 return json.load(f)
         except FileNotFoundError:
-            print(f"{STATS_FILE} not found. Please run update_stats.py first.")
+            print(f"{STATS_FILE} not found. Please run auto_update.py first.")
             return None
         except json.JSONDecodeError:
             print(f"Error parsing {STATS_FILE}")
@@ -175,7 +211,7 @@ class DataManager:
         try:
             with open(STATS_FILE, 'w', encoding='utf-8') as f:
                 json.dump(stats, f, indent=2)
-            print(f"\n✓ Saved statistics to {STATS_FILE}")
+            print(f"\n[OK] Saved statistics to {STATS_FILE}")
         except Exception as e:
             print(f"\nWarning: Could not write {STATS_FILE}: {e}")
     

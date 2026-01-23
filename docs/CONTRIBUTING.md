@@ -35,7 +35,7 @@ git remote add upstream https://github.com/MishkatIT/ProblemSolvingStats.git
 pip install -r requirements.txt
 
 # Verify everything works
-python3 update_stats.py
+python scripts/auto_update.py
 ```
 
 ### 3. Create a Branch
@@ -83,18 +83,44 @@ def calculate_percentage(solved, total):
 
 ### Module Organization
 
-The project uses a modular structure:
+The project uses a well-organized folder structure:
 
 ```
-src/
-├── config.py          # All configuration constants
-├── data_manager.py    # JSON file operations
-├── utils.py           # Shared utility functions
-└── __init__.py        # Package exports
+ProblemSolvingStats/
+├── scripts/                    # Executable scripts
+│   ├── auto_update.py         # Main statistics fetcher
+│   ├── manual_update.py       # Manual input script
+│   ├── update_readme.py       # README generator
+│   ├── configure_handles.py   # Configuration setup
+│   └── check_and_adjust_schedule.py # Schedule management
+├── config/                     # Configuration files
+│   └── handles.json           # User profile URLs
+├── data/                       # Data files
+│   ├── stats.json             # Current statistics
+│   └── last_known_counts.json # Historical data
+├── docs/                       # Documentation
+│   ├── README.md              # Main documentation
+│   ├── USERGUIDE.md           # Detailed user guide
+│   ├── CHANGELOG.md           # Version history
+│   └── CONTRIBUTING.md        # Contribution guidelines
+├── src/                        # Shared modules
+│   ├── __init__.py            # Package initialization
+│   ├── config.json            # Configuration constants
+│   ├── data_manager.py        # JSON file operations
+│   └── utils.py               # Shared utility functions
+├── .github/                    # GitHub configuration
+│   └── workflows/
+│       └── update-stats.yml   # GitHub Actions workflow
+├── requirements.txt            # Python dependencies
+├── .gitignore                  # Git ignore rules
+└── .venv/                      # Virtual environment (optional)
 ```
 
 When adding new code:
-- **Configurations** → Add to `src/config.py`
+- **Scripts** → Add to `scripts/` folder
+- **Configurations** → Add to `src/config.json` or `config/` folder
+- **Data files** → Add to `data/` folder
+- **Documentation** → Add to `docs/` folder
 - **Utilities** → Add to `src/utils.py`
 - **Data operations** → Add to `src/data_manager.py`
 
@@ -157,23 +183,23 @@ Before submitting your pull request:
 
 1. **Test all scripts work**:
    ```bash
-   python3 update_stats.py
-   python3 update_readme.py
-   python3 manual_update.py
+   python scripts/auto_update.py
+   python scripts/update_readme.py
+   python scripts/manual_update.py
    ```
 
 2. **Check imports**:
    ```bash
-   python3 -c "import update_stats; print('OK')"
-   python3 -c "import update_readme; print('OK')"
-   python3 -c "import manual_update; print('OK')"
+   python -c "import sys; sys.path.insert(0, 'src'); import scripts.auto_update; print('OK')"
+   python -c "import sys; sys.path.insert(0, 'src'); import scripts.update_readme; print('OK')"
+   python -c "import sys; sys.path.insert(0, 'src'); import scripts.manual_update; print('OK')"
    ```
 
 3. **Verify no syntax errors**:
    ```bash
-   python3 -m py_compile update_stats.py
-   python3 -m py_compile update_readme.py
-   python3 -m py_compile manual_update.py
+   python -m py_compile scripts/auto_update.py
+   python -m py_compile scripts/update_readme.py
+   python -m py_compile scripts/manual_update.py
    ```
 
 ## 📤 Submitting Your Changes
@@ -274,14 +300,21 @@ Want to add a new competitive programming platform? Great! Here's how:
 
 ### 1. Update Configuration
 
-Edit `src/config.py`:
+Edit `src/config.json`:
 
-```python
-# Add to USER_CONFIG
-USER_CONFIG = {
-    # ... existing platforms
-    'NewPlatform': 'YourUsername',
+```json
+{
+  "USER_CONFIG": {
+    "NewPlatform": "YourUsername"
+  },
+  "PLATFORM_URL_TEMPLATES": {
+    "NewPlatform": "https://newplatform.com/user/{username}"
+  },
+  "ALL_PLATFORMS": [
+    "NewPlatform"
+  ]
 }
+```
 
 # Add to PLATFORM_URL_TEMPLATES
 PLATFORM_URL_TEMPLATES = {
@@ -308,9 +341,11 @@ ALL_PLATFORMS = [
 ]
 ```
 
+**Note:** The configuration is now in JSON format in `src/config.json`. The above Python syntax is for reference - use JSON format when editing the actual file.
+
 ### 2. Implement Fetcher
 
-Add to `update_stats.py` in the `PlatformStats` class:
+Add to `auto_update.py` in the `PlatformStats` class:
 
 ```python
 def get_newplatform(self):
@@ -355,7 +390,7 @@ platforms = {
 ### 4. Test Your Implementation
 
 ```bash
-python3 update_stats.py
+python scripts/auto_update.py
 ```
 
 ## 📖 Documentation

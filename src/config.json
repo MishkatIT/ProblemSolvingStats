@@ -1,45 +1,63 @@
 {
     "USER_CONFIG": {
-        "Codeforces": "mishkatit",
-        "LeetCode": "mishkatit",
-        "Vjudge": "mishkatit",
-        "AtCoder": "mishkatit",
-        "CodeChef": "mishkatit",
-        "CSES": "mishkatit",
-        "Toph": "mishkatit",
+        "Codeforces": "MishkatIT",
+        "LeetCode": "MishkatIT",
+        "CodeChef": "MishkatIT",
+        "AtCoder": "MishkatIT",
+        "CSES": "165802",
+        "HackerEarth": "MishkatIT",
+        "HackerRank": "MishkatIT",
         "LightOJ": "mishkatit",
+        "Toph": "MishkatIT",
+        "Uva": "1615470",
+        "VJudge": "MishkatIT",
         "SPOJ": "mishkatit",
-        "HackerRank": "mishkatit",
-        "UVa": "mishkatit",
-        "HackerEarth": "mishkatit"
+        "Kattis": "MishkatIT",
+        "CSAcademy": "MishkatIT",
+        "Toki": "MishkatIT",
+        "DMOJ": "MishkatIT",
+        "OmegaUp": "MishkatIT",
+        "Beecrowd": "MishkatIT"
     },
     "PROFILE_DISPLAY_NAMES": {
-        "Codeforces": "mishkatit",
-        "LeetCode": "mishkatit",
-        "Vjudge": "mishkatit",
-        "AtCoder": "mishkatit",
-        "CodeChef": "mishkatit",
-        "CSES": "mishkatit",
-        "Toph": "mishkatit",
+        "Codeforces": "MishkatIT",
+        "LeetCode": "MishkatIT",
+        "CodeChef": "MishkatIT",
+        "AtCoder": "MishkatIT",
+        "CSES": "165802",
+        "HackerEarth": "MishkatIT",
+        "HackerRank": "MishkatIT",
         "LightOJ": "mishkatit",
+        "Toph": "MishkatIT",
+        "Uva": "1615470",
+        "VJudge": "MishkatIT",
         "SPOJ": "mishkatit",
-        "HackerRank": "mishkatit",
-        "UVa": "mishkatit",
-        "HackerEarth": "mishkatit"
+        "Kattis": "MishkatIT",
+        "CSAcademy": "MishkatIT",
+        "Toki": "MishkatIT",
+        "DMOJ": "MishkatIT",
+        "OmegaUp": "MishkatIT",
+        "Beecrowd": "MishkatIT"
     },
     "PLATFORM_URL_TEMPLATES": {
         "Codeforces": "https://codeforces.com/profile/{username}",
-        "LeetCode": "https://leetcode.com/{username}/",
-        "Vjudge": "https://vjudge.net/user/{username}",
-        "AtCoder": "https://atcoder.jp/users/{username}",
+        "LeetCode": "https://leetcode.com/u/{username}/",
         "CodeChef": "https://www.codechef.com/users/{username}",
+        "AtCoder": "https://atcoder.jp/users/{username}",
         "CSES": "https://cses.fi/user/{username}/",
-        "Toph": "https://toph.co/u/{username}",
+        "HackerEarth": "https://www.hackerearth.com/@{username}/",
+        "HackerRank": "https://www.hackerrank.com/profile/{username}",
         "LightOJ": "https://lightoj.com/user/{username}",
+        "Toph": "https://toph.co/u/{username}",
+        "Uva": "https://uhunt.onlinejudge.org/id/{username}",
+        "VJudge": "https://vjudge.net/user/{username}",
         "SPOJ": "https://www.spoj.com/users/{username}/",
-        "HackerRank": "https://www.hackerrank.com/{username}",
-        "UVa": "https://uhunt.onlinejudge.org/id/{username}",
-        "HackerEarth": "https://www.hackerearth.com/@{username}"
+        "Kattis": "https://open.kattis.com/users/{username}",
+        "CSAcademy": "https://csacademy.com/user/{username}",
+        "Toki": "https://tlx.toki.id/profiles/{username}",
+        "DMOJ": "https://dmoj.ca/user/{username}",
+        "OmegaUp": "https://omegaup.com/profile/{username}/",
+        "Beecrowd": "https://www.beecrowd.com.br/judge/en/profile/{username}"
     },
     "PLATFORM_LOGOS": {
         "Codeforces": [
@@ -50,80 +68,120 @@
             "https://www.google.com/s2/favicons?domain=leetcode.com&sz=16",
             true
         ],
-        "Vjudge": [
-            "https://www.google.com/s2/favicons?domain=vjudge.net&sz=16",
+        "CodeChef": [
+            "https://www.google.com/s2/favicons?domain=www.codechef.com&sz=16",
             true
         ],
         "AtCoder": [
             "https://www.google.com/s2/favicons?domain=atcoder.jp&sz=16",
             true
         ],
-        "CodeChef": [
-            "https://www.google.com/s2/favicons?domain=www.codechef.com&sz=16",
-            true
-        ],
         "CSES": [
-            "https://cses.fi/favicon.ico",
+            "https://www.google.com/s2/favicons?domain=cses.fi&sz=16",
             true
         ],
-        "Toph": [
-            "https://www.google.com/s2/favicons?domain=toph.co&sz=16",
-            true
-        ],
-        "LightOJ": [
-            "https://www.google.com/s2/favicons?domain=lightoj.com&sz=16",
-            true
-        ],
-        "SPOJ": [
-            "https://www.google.com/s2/favicons?domain=www.spoj.com&sz=16",
+        "HackerEarth": [
+            "https://www.google.com/s2/favicons?domain=www.hackerearth.com&sz=16",
             true
         ],
         "HackerRank": [
             "https://www.google.com/s2/favicons?domain=www.hackerrank.com&sz=16",
             true
         ],
-        "UVa": [
+        "LightOJ": [
+            "https://www.google.com/s2/favicons?domain=lightoj.com&sz=16",
+            true
+        ],
+        "Toph": [
+            "https://www.google.com/s2/favicons?domain=toph.co&sz=16",
+            true
+        ],
+        "Uva": [
             "https://www.google.com/s2/favicons?domain=uhunt.onlinejudge.org&sz=16",
             true
         ],
-        "HackerEarth": [
-            "https://www.google.com/s2/favicons?domain=www.hackerearth.com&sz=16",
+        "VJudge": [
+            "https://www.google.com/s2/favicons?domain=vjudge.net&sz=16",
+            true
+        ],
+        "SPOJ": [
+            "https://www.google.com/s2/favicons?domain=www.spoj.com&sz=16",
+            true
+        ],
+        "Kattis": [
+            "https://www.google.com/s2/favicons?domain=open.kattis.com&sz=16",
+            true
+        ],
+        "CSAcademy": [
+            "https://www.google.com/s2/favicons?domain=csacademy.com&sz=16",
+            true
+        ],
+        "Toki": [
+            "https://www.google.com/s2/favicons?domain=tlx.toki.id&sz=16",
+            true
+        ],
+        "DMOJ": [
+            "https://www.google.com/s2/favicons?domain=dmoj.ca&sz=16",
+            true
+        ],
+        "OmegaUp": [
+            "https://www.google.com/s2/favicons?domain=omegaup.com&sz=16",
+            true
+        ],
+        "Beecrowd": [
+            "https://www.google.com/s2/favicons?domain=www.beecrowd.com.br&sz=16",
             true
         ]
     },
-    "PLATFORM_COLORS": {
-        "Codeforces": "A00000",
-        "LeetCode": "C00000",
-        "Vjudge": "FF0000",
-        "AtCoder": "FF8C00",
-        "CodeChef": "CCCC00",
-        "Toph": "AA00AA",
-        "LightOJ": "0000FF",
-        "UVa": "03A89E",
-        "CSES": "808080",
-        "SPOJ": "808080",
-        "HackerRank": "808080",
-        "HackerEarth": "808080"
-    },
+    "PLATFORM_COLORS": [
+        "A00000",
+        "B00000",
+        "C00000",
+        "DF0000",
+        "FF0000",
+        "FF4600",
+        "FF8C00",
+        "FF8C00",
+        "D44655",
+        "FF8C00",
+        "AA00AA",
+        "5500D4",
+        "0000FF",
+        "0154CE",
+        "03A89E",
+        "01944F",
+        "008000",
+        "808080"
+    ],
     "ALL_PLATFORMS": [
         "AtCoder",
+        "Beecrowd",
+        "CSAcademy",
         "CSES",
         "CodeChef",
         "Codeforces",
+        "DMOJ",
         "HackerEarth",
         "HackerRank",
+        "Kattis",
         "LeetCode",
         "LightOJ",
+        "OmegaUp",
         "SPOJ",
+        "Toki",
         "Toph",
-        "UVa",
-        "Vjudge"
+        "Uva",
+        "VJudge"
     ],
-    "LAST_KNOWN_FILE": "last_known_counts.json",
-    "STATS_FILE": "stats.json",
-    "README_FILE": "README.md",
-    "MAX_REASONABLE_COUNT": 10000,
+    "LAST_KNOWN_FILE": "data/last_known_counts.json",
+    "STATS_FILE": "data/stats.json",
+    "README_FILE": "docs/README.md",
+    "MAX_REASONABLE_COUNT": 20000,
     "BDT_TIMEZONE_hours": 6,
     "USER_AGENT": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36",
-    "DEFAULT_FUNNY_DATE": "1970-01-01"
+    "DEFAULT_FUNNY_DATE": "1970-01-01",
+    "USER_INFO": {
+        "name": "Md Mishkatul Islam",
+        "email": "mishkatcse1@gmail.com"
+    }
 }

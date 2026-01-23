@@ -2,8 +2,8 @@ name: Update Problem Solving Statistics
 
 on:
   schedule:
-    # Run every day at 11:35 PM BDT (17:35 UTC)
-    - cron: '35 17 * * *'
+    # Run every day at 11:00 PM BDT (17:00 UTC)
+    - cron: '0 17 * * *'
   workflow_dispatch:  # Allow manual trigger
 
 jobs:
@@ -28,26 +28,39 @@ jobs:
       
       - name: Check and adjust schedule based on activity
         run: |
-          python3 check_and_adjust_schedule.py
+          python3 scripts/check_and_adjust_schedule.py
       
       - name: Fetch latest statistics and update README
         id: fetch_stats
         run: |
           echo "Before update - README last modified:"
-          stat -c '%y' README.md || ls -l README.md
-          python3 update_stats.py 2>&1 | tee stats_output.txt
+          stat -c '%y' docs/README.md || ls -l docs/README.md
+          python3 scripts/auto_update.py 2>&1 | tee stats_output.txt
           echo "After update - README last modified:"
-          stat -c '%y' README.md || ls -l README.md
+          stat -c '%y' docs/README.md || ls -l docs/README.md
           echo "Checking if README was modified:"
-          git diff README.md | head -20
+          git diff docs/README.md | head -20
+      
+      - name: Extract user info from config
+        id: user_info
+        run: |
+          if [ -f "src/config.json" ]; then
+            USER_NAME=$(python3 -c "import json, sys; data=json.load(open('src/config.json')); print(data.get('USER_INFO', {}).get('name', '${{ github.actor }}'))" 2>/dev/null || echo "${{ github.actor }}")
+            USER_EMAIL=$(python3 -c "import json, sys; data=json.load(open('src/config.json')); print(data.get('USER_INFO', {}).get('email', '${{ github.actor }}@users.noreply.github.com'))" 2>/dev/null || echo "${{ github.actor }}@users.noreply.github.com")
+          else
+            USER_NAME="${{ github.actor }}"
+            USER_EMAIL="${{ github.actor }}@users.noreply.github.com"
+          fi
+          echo "user_name=$USER_NAME" >> $GITHUB_OUTPUT
+          echo "user_email=$USER_EMAIL" >> $GITHUB_OUTPUT
       
       - name: Commit and push if changed
         run: |
-          git config --global user.name 'GitHub Action'
-          git config --global user.email 'action@github.com'
+          git config --global user.name '${{ steps.user_info.outputs.user_name }}'
+          git config --global user.email '${{ steps.user_info.outputs.user_email }}'
           echo "Checking for changes..."
           git status
-          git add README.md last_known_counts.json .github/workflows/update-stats.yml
+          git add docs/README.md data/last_known_counts.json .github/workflows/update-stats.yml
           echo "Files staged. Checking diff..."
           git diff --staged --stat
           if git diff --staged --quiet; then
