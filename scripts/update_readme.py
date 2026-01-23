@@ -436,6 +436,35 @@ def generate_platform_statistics_table(effective_counts, current_date, today_iso
     return table + '\n\n---\n'
 
 
+def generate_philosophical_status(last_known_info):
+    """Generate philosophical status line based on activity."""
+    from datetime import datetime, timedelta
+    
+    last_solved_dates = last_known_info.get('last_solved_dates', {})
+    if not last_solved_dates:
+        return "<p align='center'><span style='color: red;'>Inactive: In the quiet moments, the mind prepares for new challenges.</span></p>"
+    
+    # Get the most recent solve date
+    dates = []
+    for date_str in last_solved_dates.values():
+        if date_str and date_str != '1970-01-01':
+            try:
+                dates.append(datetime.strptime(date_str, '%Y-%m-%d'))
+            except ValueError:
+                pass
+    
+    if not dates:
+        return "<p align='center'><span style='color: red;'>Inactive: In the quiet moments, the mind prepares for new challenges.</span></p>"
+    
+    max_date = max(dates)
+    one_year_ago = datetime.now() - timedelta(days=365)
+    
+    if max_date > one_year_ago:
+        return "<p align='center'><span style='color: green;'>User Active: The journey of problem-solving is a path to endless growth.</span></p>"
+    else:
+        return "<p align='center'><span style='color: red;'>User Inactive: In the quiet moments, the mind prepares for new challenges.</span></p>"
+
+
 def update_readme(stats, last_known_info=None, update_source=None):
     """Update README.md with new statistics.
     
@@ -535,6 +564,11 @@ def update_readme(stats, last_known_info=None, update_source=None):
     # Replace the table using markers (or fallback to pattern matching)
     if '<!-- AUTO_GENERATED_SECTION_START: STATS_TABLE -->' in readme_content:
         readme_content = _replace_marked_section(readme_content, 'STATS_TABLE', new_table)
+    
+    # Generate philosophical status
+    philosophical_status = generate_philosophical_status(last_known_info)
+    if '<!-- AUTO_GENERATED_SECTION_START: PHILOSOPHICAL_STATUS -->' in readme_content:
+        readme_content = _replace_marked_section(readme_content, 'PHILOSOPHICAL_STATUS', philosophical_status)
     
     # Update Key Highlights section dynamically
     # Find the top platform (highest solve count)

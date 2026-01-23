@@ -9,7 +9,6 @@
     "CSES": 66,
     "HackerEarth": 2,
     "SPOJ": 18,
-    "HackerRank": 7,
     "VJudge": 347,
     "Uva": 7
   },
@@ -23,7 +22,6 @@
     "CSES": "2026-01-15",
     "HackerEarth": "2026-01-15",
     "SPOJ": "2026-01-16",
-    "HackerRank": "2026-01-17",
     "VJudge": "2026-01-24",
     "Uva": "2026-01-24"
   },
@@ -37,7 +35,6 @@
     "CSES": "manual",
     "HackerEarth": "manual",
     "SPOJ": "manual",
-    "HackerRank": "manual",
     "VJudge": "automatic",
     "Uva": "automatic"
   },
@@ -51,7 +48,6 @@
     "CSES": "2025-08-18",
     "HackerEarth": "1970-01-01",
     "SPOJ": "2025-05-06",
-    "HackerRank": "1970-01-01",
     "VJudge": "1970-01-01",
     "Uva": "1970-01-01"
   },
@@ -64,16 +60,9 @@
     "Toph": "MishkatIT",
     "LightOJ": "mishkatit",
     "SPOJ": "mishkatit",
-    "HackerRank": "MishkatIT",
     "HackerEarth": "MishkatIT",
     "Uva": "1615470",
-    "VJudge": "MishkatIT",
-    "Kattis": "MishkatIT",
-    "CSAcademy": "MishkatIT",
-    "Toki": "MishkatIT",
-    "DMOJ": "MishkatIT",
-    "OmegaUp": "MishkatIT",
-    "Beecrowd": "MishkatIT"
+    "VJudge": "MishkatIT"
   },
   "ratings": {
     "Codeforces": {

@@ -6,30 +6,23 @@
         "AtCoder": "MishkatIT",
         "CSES": "165802",
         "HackerEarth": "MishkatIT",
-        "HackerRank": "MishkatIT",
         "LightOJ": "mishkatit",
         "Toph": "MishkatIT",
         "Uva": "1615470",
         "VJudge": "MishkatIT",
-        "SPOJ": "mishkatit",
-        "Kattis": "MishkatIT",
-        "CSAcademy": "MishkatIT",
-        "Toki": "MishkatIT",
-        "DMOJ": "MishkatIT",
-        "OmegaUp": "MishkatIT",
-        "Beecrowd": "MishkatIT"
+        "SPOJ": "mishkatit"
     },
     "PROFILE_DISPLAY_NAMES": {
         "Codeforces": "MishkatIT",
         "LeetCode": "MishkatIT",
         "CodeChef": "MishkatIT",
         "AtCoder": "MishkatIT",
-        "CSES": "165802",
+        "CSES": "MishkatIT",
         "HackerEarth": "MishkatIT",
         "HackerRank": "MishkatIT",
         "LightOJ": "mishkatit",
         "Toph": "MishkatIT",
-        "Uva": "1615470",
+        "Uva": "MishkatIT",
         "VJudge": "MishkatIT",
         "SPOJ": "mishkatit",
         "Kattis": "MishkatIT",
@@ -46,18 +39,11 @@
         "AtCoder": "https://atcoder.jp/users/{username}",
         "CSES": "https://cses.fi/user/{username}/",
         "HackerEarth": "https://www.hackerearth.com/@{username}/",
-        "HackerRank": "https://www.hackerrank.com/profile/{username}",
         "LightOJ": "https://lightoj.com/user/{username}",
         "Toph": "https://toph.co/u/{username}",
         "Uva": "https://uhunt.onlinejudge.org/id/{username}",
         "VJudge": "https://vjudge.net/user/{username}",
-        "SPOJ": "https://www.spoj.com/users/{username}/",
-        "Kattis": "https://open.kattis.com/users/{username}",
-        "CSAcademy": "https://csacademy.com/user/{username}",
-        "Toki": "https://tlx.toki.id/profiles/{username}",
-        "DMOJ": "https://dmoj.ca/user/{username}",
-        "OmegaUp": "https://omegaup.com/profile/{username}/",
-        "Beecrowd": "https://www.beecrowd.com.br/judge/en/profile/{username}"
+        "SPOJ": "https://www.spoj.com/users/{username}/"
     },
     "PLATFORM_LOGOS": {
         "Codeforces": [
@@ -84,10 +70,6 @@
             "https://www.google.com/s2/favicons?domain=www.hackerearth.com&sz=16",
             true
         ],
-        "HackerRank": [
-            "https://www.google.com/s2/favicons?domain=www.hackerrank.com&sz=16",
-            true
-        ],
         "LightOJ": [
             "https://www.google.com/s2/favicons?domain=lightoj.com&sz=16",
             true
@@ -107,47 +89,16 @@
         "SPOJ": [
             "https://www.google.com/s2/favicons?domain=www.spoj.com&sz=16",
             true
-        ],
-        "Kattis": [
-            "https://www.google.com/s2/favicons?domain=open.kattis.com&sz=16",
-            true
-        ],
-        "CSAcademy": [
-            "https://www.google.com/s2/favicons?domain=csacademy.com&sz=16",
-            true
-        ],
-        "Toki": [
-            "https://www.google.com/s2/favicons?domain=tlx.toki.id&sz=16",
-            true
-        ],
-        "DMOJ": [
-            "https://www.google.com/s2/favicons?domain=dmoj.ca&sz=16",
-            true
-        ],
-        "OmegaUp": [
-            "https://www.google.com/s2/favicons?domain=omegaup.com&sz=16",
-            true
-        ],
-        "Beecrowd": [
-            "https://www.google.com/s2/favicons?domain=www.beecrowd.com.br&sz=16",
-            true
         ]
     },
     "PLATFORM_COLORS": [
         "A00000",
-        "B00000",
         "C00000",
-        "DF0000",
         "FF0000",
-        "FF4600",
         "FF8C00",
-        "FF8C00",
-        "D44655",
         "FF8C00",
         "AA00AA",
-        "5500D4",
         "0000FF",
-        "0154CE",
         "03A89E",
         "01944F",
         "008000",
@@ -155,20 +106,13 @@
     ],
     "ALL_PLATFORMS": [
         "AtCoder",
-        "Beecrowd",
-        "CSAcademy",
         "CSES",
         "CodeChef",
         "Codeforces",
-        "DMOJ",
         "HackerEarth",
-        "HackerRank",
-        "Kattis",
         "LeetCode",
         "LightOJ",
-        "OmegaUp",
         "SPOJ",
-        "Toki",
         "Toph",
         "Uva",
         "VJudge"

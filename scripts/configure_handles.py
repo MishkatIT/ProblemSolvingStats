@@ -172,7 +172,7 @@ def main():
                 print(f"Warning: Could not set logo for {platform} (no template)")
 
     # Update config with all validated data
-    update_config_file(new_user_config, new_platform_logos, new_templates_full)
+    update_config_file(new_user_config, new_platform_logos, new_templates_full, new_display_names)
     
     # Try to update user info from GitHub (optional, won't break if it fails)
     print("Attempting to update user information from GitHub...")

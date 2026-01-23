@@ -454,7 +454,7 @@ def get_platform_urls():
     return get_platform_urls._cached_urls
 
 
-def update_config_file(new_user_config, new_platform_logos, new_templates):
+def update_config_file(new_user_config, new_platform_logos, new_templates, new_display_names=None):
     """Update the config.json file with new configuration."""
     config_path = os.path.join(os.path.dirname(__file__), 'config.json')
 
@@ -561,9 +561,10 @@ def update_config_file(new_user_config, new_platform_logos, new_templates):
                     break
 
     # Create config dict
+    display_names = new_display_names if new_display_names is not None else {platform: new_user_config[platform] for platform in new_user_config}
     config = {
         'USER_CONFIG': new_user_config,
-        'PROFILE_DISPLAY_NAMES': {platform: new_user_config[platform] for platform in new_user_config},
+        'PROFILE_DISPLAY_NAMES': display_names,
         'PLATFORM_URL_TEMPLATES': {platform: new_templates[platform] for platform in new_user_config if new_templates.get(platform)},
         'PLATFORM_LOGOS': {platform: new_platform_logos.get(platform, ('', False)) for platform in new_user_config},
         'PLATFORM_COLORS': platform_colors,
