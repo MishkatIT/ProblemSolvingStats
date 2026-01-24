@@ -14,18 +14,18 @@
         "SPOJ": "mishkatit"
     },
     "PROFILE_DISPLAY_NAMES": {
-        "CSES": "165802",
         "Codeforces": "MishkatIT",
-        "AtCoder": "MishkatIT",
-        "CodeChef": "MishkatIT",
-        "SPOJ": "mishkatit",
         "LeetCode": "MishkatIT",
-        "Uva": "1615470",
-        "LightOJ": "mishkatit",
-        "HackerRank": "MishkatIT",
-        "VJudge": "MishkatIT",
+        "CodeChef": "MishkatIT",
+        "AtCoder": "MishkatIT",
+        "CSES": "MishkatIT",
         "HackerEarth": "MishkatIT",
-        "Toph": "MishkatIT"
+        "HackerRank": "MishkatIT",
+        "LightOJ": "mishkatit",
+        "Toph": "MishkatIT",
+        "Uva": "MishkatIT",
+        "VJudge": "MishkatIT",
+        "SPOJ": "mishkatit"
     },
     "PLATFORM_URL_TEMPLATES": {
         "Codeforces": "https://codeforces.com/profile/{username}",

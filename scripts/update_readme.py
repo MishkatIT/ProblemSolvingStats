@@ -294,7 +294,7 @@ def generate_platform_last_solved_table(last_known_info):
             # Add platform with logo (matching main stats table format)
             logo_url, use_onerror = PLATFORM_LOGOS.get(platform, ('', False))
             onerror_attr = ' onerror="this.style.display=\'none\'"' if use_onerror else ''
-            platform_cell = f'<img src="{logo_url}" alt="{platform}" width="16" height="16"{onerror_attr}/> <strong>{platform}</strong>'
+            platform_cell = f'<img src="{logo_url}" width="16" height="16"{onerror_attr}/> <strong>{platform}</strong>'
             rows.append(f'    <tr><td>{platform_cell}</td><td align="right" data-date="{date}">{formatted_date}</td></tr>')
     
     if not rows:
@@ -417,7 +417,7 @@ def generate_platform_statistics_table(effective_counts, current_date, today_iso
         mode_color = 'F44336' if platform_mode == 'manual' else '2196F3'
         
         # Create markdown table row
-        logo_md = f'<img src="{logo_url}" width="16" height="16" alt="{platform} logo"/>' if logo_url else '🏆'
+        logo_md = f'<img src="{logo_url}" width="16" height="16"/>' if logo_url else '🏆'
         progress_badge = f'![Progress](https://img.shields.io/badge/Progress-{percentage}%25-{color}?style=flat-square)'
         mode_badge = f'![{mode_display}](https://img.shields.io/badge/{mode_display}-{mode_color}?style=flat)'
         
