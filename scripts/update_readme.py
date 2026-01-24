@@ -441,7 +441,9 @@ def generate_philosophical_status(last_known_info):
     
     last_solved_dates = last_known_info.get('last_solved_dates', {})
     if not last_solved_dates:
-        return "<p align='center'><span style='color: red;'>Inactive: In the quiet moments, the mind prepares for new challenges.</span></p>"
+        return """<p align="center">
+  <span style="color: red;">No activity data available yet. The journey begins with the first problem.</span>
+</p>"""
     
     # Get the most recent solve date
     dates = []
@@ -453,7 +455,9 @@ def generate_philosophical_status(last_known_info):
                 pass
     
     if not dates:
-        return "<p align='center'><span style='color: red;'>Inactive: In the quiet moments, the mind prepares for new challenges.</span></p>"
+        return """<p align="center">
+  <span style="color: red;">No recent activity found. Every expert was once a beginner.</span>
+</p>"""
     
     max_date = max(dates)
     one_year_ago = datetime.now() - timedelta(days=365)
@@ -463,28 +467,43 @@ def generate_philosophical_status(last_known_info):
         if days_since == 0:
             status_text = "Active%20Today"
             color = "brightgreen"
+            message = "Solving problems today - the mind stays sharp through consistent practice."
         elif days_since == 1:
             status_text = "Active%201%20day%20ago"
             color = "green"
+            message = "Active just yesterday - maintaining momentum in the coding journey."
         elif days_since < 7:
             status_text = f"Active%20{days_since}%20days%20ago"
             color = "green"
+            message = "Recently active - the path of mastery requires regular dedication."
         elif days_since < 30:
             weeks = days_since // 7
             status_text = f"Active%20{weeks}%20week{'s' if weeks > 1 else ''}%20ago"
             color = "yellowgreen"
+            message = "Keeping the problem-solving spirit alive through consistent effort."
         else:
             months = days_since // 30
             status_text = f"Active%20{months}%20month{'s' if months > 1 else ''}%20ago"
             color = "orange"
-        return f"<p align='center'>![Active](https://img.shields.io/badge/{status_text}-{color}?style=flat-square) The journey of problem-solving continues.</p>"
+            message = "The foundation of skill is built through persistent practice over time."
+        return f"""<p align="center">
+  <img src="https://img.shields.io/badge/{status_text}-{color}?style=flat-square" alt="Active Badge">
+  <br>
+  {message}
+</p>"""
     else:
         years_inactive = (datetime.now() - max_date).days // 365
         if years_inactive > 1:
             status_text = f"Inactive%20{years_inactive}%20years"
+            message = f"The coding journey paused {years_inactive} years ago, but wisdom gained endures."
         else:
             status_text = "Inactive%201%20year"
-        return f"<p align='center'>![Inactive](https://img.shields.io/badge/{status_text}-red?style=flat-square) In the quiet moments, the mind prepares for new challenges.</p>"
+            message = "A year since the last challenge - skills may fade, but knowledge remains."
+        return f"""<p align="center">
+  <img src="https://img.shields.io/badge/{status_text}-red?style=flat-square" alt="Inactive Badge">
+  <br>
+  {message}
+</p>"""
 
 
 def update_readme(stats, last_known_info=None, update_source=None):
