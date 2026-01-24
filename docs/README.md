@@ -1,124 +1,124 @@
 <div align="center">
 
-[![🏆 Problem Solving Statistics](https://img.shields.io/badge/🏆_Problem_Solving_Statistics-77DDBB?style=for-the-badge)](.)
+<h1 align="center" style="font-size: 2.5em; font-weight: bold; margin-bottom: 0.5em;">🏆 Problem Solving Statistics</h1>
 
 [![Last Updated](https://img.shields.io/badge/Last%20Updated-24%20January%202026-blue?style=for-the-badge)](https://github.com/MishkatIT/ProblemSolvingStats)
 [![Total Problems](https://img.shields.io/badge/Total%20Solved-3812-success?style=for-the-badge)](https://github.com/MishkatIT/ProblemSolvingStats)
 [![Platforms](https://img.shields.io/badge/Platforms-13+-orange?style=for-the-badge)](https://github.com/MishkatIT/ProblemSolvingStats)
 
 <!-- UPDATE_METADATA_START -->
-<p align="center"><strong>Updated:</strong> 24 January 2026 at 02:29:54 PM • Unknown</p>
+<p align="center"><strong>Updated:</strong> 24 January 2026 at 02:32:32 PM • Unknown</p>
 <!-- UPDATE_METADATA_END -->
 
 <!-- AUTO_GENERATED_SECTION_START: STATS_TABLE -->
-<table align="center" border="1">
+<table align="center" border="1" style="border-collapse: collapse; width: 100%; max-width: 800px;">
   <thead>
-    <tr>
-      <th>🎯 Platform</th>
-      <th>👤 Profile</th>
-      <th>✅ Solved</th>
-      <th>📈 Progress</th>
-      <th>📅 Updated On</th>
-      <th>🔄 Mode</th>
+    <tr style="background-color: #f6f8fa;">
+      <th style="border: 1px solid #d1d9e0; padding: 8px;">🎯 Platform</th>
+      <th style="border: 1px solid #d1d9e0; padding: 8px;">👤 Profile</th>
+      <th style="border: 1px solid #d1d9e0; padding: 8px;">✅ Solved</th>
+      <th style="border: 1px solid #d1d9e0; padding: 8px;">📈 Progress</th>
+      <th style="border: 1px solid #d1d9e0; padding: 8px;">📅 Updated On</th>
+      <th style="border: 1px solid #d1d9e0; padding: 8px;">🔄 Mode</th>
     </tr>
   </thead>
   <tbody>
     <tr>
-      <td><img src="https://www.google.com/s2/favicons?domain=codeforces.com&sz=16" width="16" height="16" onerror="this.style.display='none'"/> <strong>Codeforces</strong></td>
-      <td><a href="https://codeforces.com/profile/MishkatIT">MishkatIT</a></td>
-      <td align="center" data-value="2609"><strong>2609</strong></td>
-      <td><img src="https://img.shields.io/badge/Progress-68.4%25-AA0000?style=flat-square" alt="Codeforces Progress"/></td>
-      <td align="left" data-date="2026-01-24">24 January 2026</td>
-      <td align="center"><img src="https://img.shields.io/badge/Automatic-2196F3?style=flat" alt="Automatic"/></td>
+      <td style="border: 1px solid #d1d9e0; padding: 8px;"><img src="https://www.google.com/s2/favicons?domain=codeforces.com&sz=16" width="16" height="16" onerror="this.style.display='none'"/> <strong>Codeforces</strong></td>
+      <td style="border: 1px solid #d1d9e0; padding: 8px;"><a href="https://codeforces.com/profile/MishkatIT">MishkatIT</a></td>
+      <td align="center" style="border: 1px solid #d1d9e0; padding: 8px;" data-value="2609"><strong>2609</strong></td>
+      <td style="border: 1px solid #d1d9e0; padding: 8px;"><img src="https://img.shields.io/badge/Progress-68.4%25-AA0000?style=flat-square" alt="Codeforces Progress"/></td>
+      <td align="left" style="border: 1px solid #d1d9e0; padding: 8px;" data-date="2026-01-24">24 January 2026</td>
+      <td align="center" style="border: 1px solid #d1d9e0; padding: 8px;"><img src="https://img.shields.io/badge/Automatic-2196F3?style=flat" alt="Automatic"/></td>
     </tr>
     <tr>
-      <td><img src="https://www.google.com/s2/favicons?domain=leetcode.com&sz=16" width="16" height="16" onerror="this.style.display='none'"/> <strong>LeetCode</strong></td>
-      <td><a href="https://leetcode.com/u/MishkatIT/">MishkatIT</a></td>
-      <td align="center" data-value="412"><strong>412</strong></td>
-      <td><img src="https://img.shields.io/badge/Progress-10.8%25-FF3333?style=flat-square" alt="LeetCode Progress"/></td>
-      <td align="left" data-date="2026-01-24">24 January 2026</td>
-      <td align="center"><img src="https://img.shields.io/badge/Automatic-2196F3?style=flat" alt="Automatic"/></td>
+      <td style="border: 1px solid #d1d9e0; padding: 8px;"><img src="https://www.google.com/s2/favicons?domain=leetcode.com&sz=16" width="16" height="16" onerror="this.style.display='none'"/> <strong>LeetCode</strong></td>
+      <td style="border: 1px solid #d1d9e0; padding: 8px;"><a href="https://leetcode.com/u/MishkatIT/">MishkatIT</a></td>
+      <td align="center" style="border: 1px solid #d1d9e0; padding: 8px;" data-value="412"><strong>412</strong></td>
+      <td style="border: 1px solid #d1d9e0; padding: 8px;"><img src="https://img.shields.io/badge/Progress-10.8%25-FF3333?style=flat-square" alt="LeetCode Progress"/></td>
+      <td align="left" style="border: 1px solid #d1d9e0; padding: 8px;" data-date="2026-01-24">24 January 2026</td>
+      <td align="center" style="border: 1px solid #d1d9e0; padding: 8px;"><img src="https://img.shields.io/badge/Automatic-2196F3?style=flat" alt="Automatic"/></td>
     </tr>
     <tr>
-      <td><img src="https://www.google.com/s2/favicons?domain=vjudge.net&sz=16" width="16" height="16" onerror="this.style.display='none'"/> <strong>VJudge</strong></td>
-      <td><a href="https://vjudge.net/user/MishkatIT">MishkatIT</a></td>
-      <td align="center" data-value="347"><strong>347</strong></td>
-      <td><img src="https://img.shields.io/badge/Progress-9.1%25-FF7777?style=flat-square" alt="VJudge Progress"/></td>
-      <td align="left" data-date="2026-01-24">24 January 2026</td>
-      <td align="center"><img src="https://img.shields.io/badge/Automatic-2196F3?style=flat" alt="Automatic"/></td>
+      <td style="border: 1px solid #d1d9e0; padding: 8px;"><img src="https://www.google.com/s2/favicons?domain=vjudge.net&sz=16" width="16" height="16" onerror="this.style.display='none'"/> <strong>VJudge</strong></td>
+      <td style="border: 1px solid #d1d9e0; padding: 8px;"><a href="https://vjudge.net/user/MishkatIT">MishkatIT</a></td>
+      <td align="center" style="border: 1px solid #d1d9e0; padding: 8px;" data-value="347"><strong>347</strong></td>
+      <td style="border: 1px solid #d1d9e0; padding: 8px;"><img src="https://img.shields.io/badge/Progress-9.1%25-FF7777?style=flat-square" alt="VJudge Progress"/></td>
+      <td align="left" style="border: 1px solid #d1d9e0; padding: 8px;" data-date="2026-01-24">24 January 2026</td>
+      <td align="center" style="border: 1px solid #d1d9e0; padding: 8px;"><img src="https://img.shields.io/badge/Automatic-2196F3?style=flat" alt="Automatic"/></td>
     </tr>
     <tr>
-      <td><img src="https://www.google.com/s2/favicons?domain=atcoder.jp&sz=16" width="16" height="16" onerror="this.style.display='none'"/> <strong>AtCoder</strong></td>
-      <td><a href="https://atcoder.jp/users/MishkatIT">MishkatIT</a></td>
-      <td align="center" data-value="157"><strong>157</strong></td>
-      <td><img src="https://img.shields.io/badge/Progress-4.1%25-FFBB55?style=flat-square" alt="AtCoder Progress"/></td>
-      <td align="left" data-date="2026-01-24">24 January 2026</td>
-      <td align="center"><img src="https://img.shields.io/badge/Automatic-2196F3?style=flat" alt="Automatic"/></td>
+      <td style="border: 1px solid #d1d9e0; padding: 8px;"><img src="https://www.google.com/s2/favicons?domain=atcoder.jp&sz=16" width="16" height="16" onerror="this.style.display='none'"/> <strong>AtCoder</strong></td>
+      <td style="border: 1px solid #d1d9e0; padding: 8px;"><a href="https://atcoder.jp/users/MishkatIT">MishkatIT</a></td>
+      <td align="center" style="border: 1px solid #d1d9e0; padding: 8px;" data-value="157"><strong>157</strong></td>
+      <td style="border: 1px solid #d1d9e0; padding: 8px;"><img src="https://img.shields.io/badge/Progress-4.1%25-FFBB55?style=flat-square" alt="AtCoder Progress"/></td>
+      <td align="left" style="border: 1px solid #d1d9e0; padding: 8px;" data-date="2026-01-24">24 January 2026</td>
+      <td align="center" style="border: 1px solid #d1d9e0; padding: 8px;"><img src="https://img.shields.io/badge/Automatic-2196F3?style=flat" alt="Automatic"/></td>
     </tr>
     <tr>
-      <td><img src="https://www.google.com/s2/favicons?domain=www.codechef.com&sz=16" width="16" height="16" onerror="this.style.display='none'"/> <strong>CodeChef</strong></td>
-      <td><a href="https://www.codechef.com/users/MishkatIT">MishkatIT</a></td>
-      <td align="center" data-value="126"><strong>126</strong></td>
-      <td><img src="https://img.shields.io/badge/Progress-3.3%25-FFCC88?style=flat-square" alt="CodeChef Progress"/></td>
-      <td align="left" data-date="2026-01-24">24 January 2026</td>
-      <td align="center"><img src="https://img.shields.io/badge/Automatic-2196F3?style=flat" alt="Automatic"/></td>
+      <td style="border: 1px solid #d1d9e0; padding: 8px;"><img src="https://www.google.com/s2/favicons?domain=www.codechef.com&sz=16" width="16" height="16" onerror="this.style.display='none'"/> <strong>CodeChef</strong></td>
+      <td style="border: 1px solid #d1d9e0; padding: 8px;"><a href="https://www.codechef.com/users/MishkatIT">MishkatIT</a></td>
+      <td align="center" style="border: 1px solid #d1d9e0; padding: 8px;" data-value="126"><strong>126</strong></td>
+      <td style="border: 1px solid #d1d9e0; padding: 8px;"><img src="https://img.shields.io/badge/Progress-3.3%25-FFCC88?style=flat-square" alt="CodeChef Progress"/></td>
+      <td align="left" style="border: 1px solid #d1d9e0; padding: 8px;" data-date="2026-01-24">24 January 2026</td>
+      <td align="center" style="border: 1px solid #d1d9e0; padding: 8px;"><img src="https://img.shields.io/badge/Automatic-2196F3?style=flat" alt="Automatic"/></td>
     </tr>
     <tr>
-      <td><img src="https://www.google.com/s2/favicons?domain=cses.fi&sz=16" width="16" height="16" onerror="this.style.display='none'"/> <strong>CSES</strong></td>
-      <td><a href="https://cses.fi/user/165802/">MishkatIT</a></td>
-      <td align="center" data-value="66"><strong>66</strong></td>
-      <td><img src="https://img.shields.io/badge/Progress-1.7%25-FF88FF?style=flat-square" alt="CSES Progress"/></td>
-      <td align="left" data-date="2026-01-15">15 January 2026</td>
-      <td align="center"><img src="https://img.shields.io/badge/Manual-F44336?style=flat" alt="Manual"/></td>
+      <td style="border: 1px solid #d1d9e0; padding: 8px;"><img src="https://www.google.com/s2/favicons?domain=cses.fi&sz=16" width="16" height="16" onerror="this.style.display='none'"/> <strong>CSES</strong></td>
+      <td style="border: 1px solid #d1d9e0; padding: 8px;"><a href="https://cses.fi/user/165802/">MishkatIT</a></td>
+      <td align="center" style="border: 1px solid #d1d9e0; padding: 8px;" data-value="66"><strong>66</strong></td>
+      <td style="border: 1px solid #d1d9e0; padding: 8px;"><img src="https://img.shields.io/badge/Progress-1.7%25-FF88FF?style=flat-square" alt="CSES Progress"/></td>
+      <td align="left" style="border: 1px solid #d1d9e0; padding: 8px;" data-date="2026-01-15">15 January 2026</td>
+      <td align="center" style="border: 1px solid #d1d9e0; padding: 8px;"><img src="https://img.shields.io/badge/Manual-F44336?style=flat" alt="Manual"/></td>
     </tr>
     <tr>
-      <td><img src="https://www.google.com/s2/favicons?domain=toph.co&sz=16" width="16" height="16" onerror="this.style.display='none'"/> <strong>Toph</strong></td>
-      <td><a href="https://toph.co/u/MishkatIT">MishkatIT</a></td>
-      <td align="center" data-value="37"><strong>37</strong></td>
-      <td><img src="https://img.shields.io/badge/Progress-1.0%25-AAAAFF?style=flat-square" alt="Toph Progress"/></td>
-      <td align="left" data-date="2026-01-24">24 January 2026</td>
-      <td align="center"><img src="https://img.shields.io/badge/Automatic-2196F3?style=flat" alt="Automatic"/></td>
+      <td style="border: 1px solid #d1d9e0; padding: 8px;"><img src="https://www.google.com/s2/favicons?domain=toph.co&sz=16" width="16" height="16" onerror="this.style.display='none'"/> <strong>Toph</strong></td>
+      <td style="border: 1px solid #d1d9e0; padding: 8px;"><a href="https://toph.co/u/MishkatIT">MishkatIT</a></td>
+      <td align="center" style="border: 1px solid #d1d9e0; padding: 8px;" data-value="37"><strong>37</strong></td>
+      <td style="border: 1px solid #d1d9e0; padding: 8px;"><img src="https://img.shields.io/badge/Progress-1.0%25-AAAAFF?style=flat-square" alt="Toph Progress"/></td>
+      <td align="left" style="border: 1px solid #d1d9e0; padding: 8px;" data-date="2026-01-24">24 January 2026</td>
+      <td align="center" style="border: 1px solid #d1d9e0; padding: 8px;"><img src="https://img.shields.io/badge/Automatic-2196F3?style=flat" alt="Automatic"/></td>
     </tr>
     <tr>
-      <td><img src="https://www.google.com/s2/favicons?domain=lightoj.com&sz=16" width="16" height="16" onerror="this.style.display='none'"/> <strong>LightOJ</strong></td>
-      <td><a href="https://lightoj.com/user/mishkatit">mishkatit</a></td>
-      <td align="center" data-value="31"><strong>31</strong></td>
-      <td><img src="https://img.shields.io/badge/Progress-0.8%25-90C3DD?style=flat-square" alt="LightOJ Progress"/></td>
-      <td align="left" data-date="2026-01-24">24 January 2026</td>
-      <td align="center"><img src="https://img.shields.io/badge/Automatic-2196F3?style=flat" alt="Automatic"/></td>
+      <td style="border: 1px solid #d1d9e0; padding: 8px;"><img src="https://www.google.com/s2/favicons?domain=lightoj.com&sz=16" width="16" height="16" onerror="this.style.display='none'"/> <strong>LightOJ</strong></td>
+      <td style="border: 1px solid #d1d9e0; padding: 8px;"><a href="https://lightoj.com/user/mishkatit">mishkatit</a></td>
+      <td align="center" style="border: 1px solid #d1d9e0; padding: 8px;" data-value="31"><strong>31</strong></td>
+      <td style="border: 1px solid #d1d9e0; padding: 8px;"><img src="https://img.shields.io/badge/Progress-0.8%25-90C3DD?style=flat-square" alt="LightOJ Progress"/></td>
+      <td align="left" style="border: 1px solid #d1d9e0; padding: 8px;" data-date="2026-01-24">24 January 2026</td>
+      <td align="center" style="border: 1px solid #d1d9e0; padding: 8px;"><img src="https://img.shields.io/badge/Automatic-2196F3?style=flat" alt="Automatic"/></td>
     </tr>
     <tr>
-      <td><img src="https://www.google.com/s2/favicons?domain=www.spoj.com&sz=16" width="16" height="16" onerror="this.style.display='none'"/> <strong>SPOJ</strong></td>
-      <td><a href="https://www.spoj.com/users/mishkatit/">mishkatit</a></td>
-      <td align="center" data-value="18"><strong>18</strong></td>
-      <td><img src="https://img.shields.io/badge/Progress-0.5%25-77DDBB?style=flat-square" alt="SPOJ Progress"/></td>
-      <td align="left" data-date="2026-01-16">16 January 2026</td>
-      <td align="center"><img src="https://img.shields.io/badge/Manual-F44336?style=flat" alt="Manual"/></td>
+      <td style="border: 1px solid #d1d9e0; padding: 8px;"><img src="https://www.google.com/s2/favicons?domain=www.spoj.com&sz=16" width="16" height="16" onerror="this.style.display='none'"/> <strong>SPOJ</strong></td>
+      <td style="border: 1px solid #d1d9e0; padding: 8px;"><a href="https://www.spoj.com/users/mishkatit/">mishkatit</a></td>
+      <td align="center" style="border: 1px solid #d1d9e0; padding: 8px;" data-value="18"><strong>18</strong></td>
+      <td style="border: 1px solid #d1d9e0; padding: 8px;"><img src="https://img.shields.io/badge/Progress-0.5%25-77DDBB?style=flat-square" alt="SPOJ Progress"/></td>
+      <td align="left" style="border: 1px solid #d1d9e0; padding: 8px;" data-date="2026-01-16">16 January 2026</td>
+      <td align="center" style="border: 1px solid #d1d9e0; padding: 8px;"><img src="https://img.shields.io/badge/Manual-F44336?style=flat" alt="Manual"/></td>
     </tr>
     <tr>
-      <td><img src="https://www.google.com/s2/favicons?domain=uhunt.onlinejudge.org&sz=16" width="16" height="16" onerror="this.style.display='none'"/> <strong>Uva</strong></td>
-      <td><a href="https://uhunt.onlinejudge.org/id/1615470">MishkatIT</a></td>
-      <td align="center" data-value="7"><strong>7</strong></td>
-      <td><img src="https://img.shields.io/badge/Progress-0.2%25-77EE99?style=flat-square" alt="Uva Progress"/></td>
-      <td align="left" data-date="2026-01-24">24 January 2026</td>
-      <td align="center"><img src="https://img.shields.io/badge/Automatic-2196F3?style=flat" alt="Automatic"/></td>
+      <td style="border: 1px solid #d1d9e0; padding: 8px;"><img src="https://www.google.com/s2/favicons?domain=uhunt.onlinejudge.org&sz=16" width="16" height="16" onerror="this.style.display='none'"/> <strong>Uva</strong></td>
+      <td style="border: 1px solid #d1d9e0; padding: 8px;"><a href="https://uhunt.onlinejudge.org/id/1615470">MishkatIT</a></td>
+      <td align="center" style="border: 1px solid #d1d9e0; padding: 8px;" data-value="7"><strong>7</strong></td>
+      <td style="border: 1px solid #d1d9e0; padding: 8px;"><img src="https://img.shields.io/badge/Progress-0.2%25-77EE99?style=flat-square" alt="Uva Progress"/></td>
+      <td align="left" style="border: 1px solid #d1d9e0; padding: 8px;" data-date="2026-01-24">24 January 2026</td>
+      <td align="center" style="border: 1px solid #d1d9e0; padding: 8px;"><img src="https://img.shields.io/badge/Automatic-2196F3?style=flat" alt="Automatic"/></td>
     </tr>
     <tr>
-      <td><img src="https://www.google.com/s2/favicons?domain=www.hackerearth.com&sz=16" width="16" height="16" onerror="this.style.display='none'"/> <strong>HackerEarth</strong></td>
-      <td><a href="https://www.hackerearth.com/@MishkatIT/">MishkatIT</a></td>
-      <td align="center" data-value="2"><strong>2</strong></td>
-      <td><img src="https://img.shields.io/badge/Progress-0.1%25-77FF77?style=flat-square" alt="HackerEarth Progress"/></td>
-      <td align="left" data-date="2026-01-15">15 January 2026</td>
-      <td align="center"><img src="https://img.shields.io/badge/Manual-F44336?style=flat" alt="Manual"/></td>
+      <td style="border: 1px solid #d1d9e0; padding: 8px;"><img src="https://www.google.com/s2/favicons?domain=www.hackerearth.com&sz=16" width="16" height="16" onerror="this.style.display='none'"/> <strong>HackerEarth</strong></td>
+      <td style="border: 1px solid #d1d9e0; padding: 8px;"><a href="https://www.hackerearth.com/@MishkatIT/">MishkatIT</a></td>
+      <td align="center" style="border: 1px solid #d1d9e0; padding: 8px;" data-value="2"><strong>2</strong></td>
+      <td style="border: 1px solid #d1d9e0; padding: 8px;"><img src="https://img.shields.io/badge/Progress-0.1%25-77FF77?style=flat-square" alt="HackerEarth Progress"/></td>
+      <td align="left" style="border: 1px solid #d1d9e0; padding: 8px;" data-date="2026-01-15">15 January 2026</td>
+      <td align="center" style="border: 1px solid #d1d9e0; padding: 8px;"><img src="https://img.shields.io/badge/Manual-F44336?style=flat" alt="Manual"/></td>
     </tr>
   </tbody>
   <tfoot>
-    <tr>
-      <td colspan="2" align="center"><strong>🎖️ TOTAL</strong></td>
-      <td align="center"><strong style="font-size: 1.2em;">3812</strong></td>
-      <td align="center"><strong>100%</strong></td>
-      <td align="center">24 January 2026</td>
-      <td></td>
+    <tr style="background-color: #f6f8fa; font-weight: bold;">
+      <td colspan="2" align="center" style="border: 1px solid #d1d9e0; padding: 8px;"><strong>🎖️ TOTAL</strong></td>
+      <td align="center" style="border: 1px solid #d1d9e0; padding: 8px;"><strong style="font-size: 1.2em;">3812</strong></td>
+      <td align="center" style="border: 1px solid #d1d9e0; padding: 8px;"><strong>100%</strong></td>
+      <td align="center" style="border: 1px solid #d1d9e0; padding: 8px;">24 January 2026</td>
+      <td style="border: 1px solid #d1d9e0; padding: 8px;"></td>
     </tr>
   </tfoot>
 </table>
