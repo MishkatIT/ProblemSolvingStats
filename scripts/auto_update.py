@@ -805,7 +805,10 @@ class PlatformStats:
         missing_methods = []
         for platform in self.user_config:
             method_name = f'get_{platform.lower()}'
-            platforms[platform] = getattr(self, method_name)
+            if hasattr(self, method_name):
+                platforms[platform] = getattr(self, method_name)
+            else:
+                missing_methods.append(platform)
         
         if verbose:
             if IS_CI:
@@ -1209,6 +1212,7 @@ def main():
         import os
         env = os.environ.copy()
         env['PYTHONPATH'] = os.getcwd()
+        env['UPDATE_SOURCE'] = 'automatic'
         result = subprocess.run([sys.executable, 'scripts/update_readme.py'], 
                               timeout=30, cwd=os.getcwd(), env=env)
         if result.returncode != 0:

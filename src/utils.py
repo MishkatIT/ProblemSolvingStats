@@ -466,18 +466,18 @@ def update_config_file(new_user_config, new_platform_logos, new_templates, new_d
     except (FileNotFoundError, json.JSONDecodeError):
         pass
 
-    # Codeforces rating colors (core 10 colors from LGM to Newbie)
+    # Codeforces rating colors (from Newbie to Legendary Grandmaster)
     base_cf_colors = [
-        'AA0000',  # Legendary Grandmaster
-        'FF3333',  # International Grandmaster
-        'FF7777',  # Grandmaster
-        'FFBB55',  # International Master
-        'FFCC88',  # Master
-        'FF88FF',  # Candidate Master
-        'AAAAFF',  # Expert
-        '77DDBB',  # Specialist
-        '77FF77',  # Pupil
-        'CCCCCC'   # Newbie
+        'AA0000',  # Legendary Grandmaster (3000+)
+        'FF3333',  # International Grandmaster (2600-2999)
+        'FF7777',  # Grandmaster (2400-2599)
+        'FFBB55',  # International Master (2300-2399)
+        'FFCC88',  # Master (2100-2299)
+        'FF88FF',  # Candidate Master (1900-2099)
+        'AAAAFF',  # Expert (1600-1899)
+        '77DDBB',  # Specialist (1400-1599)
+        '77FF77',  # Pupil (1200-1399)
+        'CCCCCC'   # Newbie (0-1199)
     ]
 
     def interpolate_color(color1, color2, t):
@@ -694,26 +694,26 @@ def get_codeforces_rating_color(max_rating):
         return {'bg': 'FAFAFA', 'border': 'CCCCCC', 'text': '616161'}
     
     # Codeforces rating tiers and their colors (Official with light backgrounds)
-    if max_rating >= 2900:
-        return {'bg': 'FFEBEE', 'border': 'D32F2F', 'text': 'B71C1C'}  # Legendary Grandmaster
+    if max_rating >= 3000:
+        return {'bg': 'FFEBEE', 'border': 'D32F2F', 'text': 'B71C1C'}  # Legendary Grandmaster (3000+)
     elif max_rating >= 2600:
-        return {'bg': 'FFEBEE', 'border': 'D32F2F', 'text': 'B71C1C'}  # International Grandmaster
+        return {'bg': 'FFEBEE', 'border': 'D32F2F', 'text': 'B71C1C'}  # International Grandmaster (2600-2999)
     elif max_rating >= 2400:
-        return {'bg': 'FFEBEE', 'border': 'D32F2F', 'text': 'B71C1C'}  # Grandmaster
+        return {'bg': 'FFEBEE', 'border': 'D32F2F', 'text': 'B71C1C'}  # Grandmaster (2400-2599)
     elif max_rating >= 2300:
-        return {'bg': 'FFF3E0', 'border': 'F57C00', 'text': 'E65100'}  # International Master
-    elif max_rating >= 2200:
-        return {'bg': 'FFF8E1', 'border': 'FBC02D', 'text': 'F57F17'}  # Master
+        return {'bg': 'FFF3E0', 'border': 'F57C00', 'text': 'E65100'}  # International Master (2300-2399)
+    elif max_rating >= 2100:
+        return {'bg': 'FFF8E1', 'border': 'FBC02D', 'text': 'F57F17'}  # Master (2100-2299)
     elif max_rating >= 1900:
-        return {'bg': 'F3E5F5', 'border': 'BA68C8', 'text': '7B1FA2'}  # Candidate Master
+        return {'bg': 'F3E5F5', 'border': 'BA68C8', 'text': '7B1FA2'}  # Candidate Master (1900-2099)
     elif max_rating >= 1600:
-        return {'bg': 'E8EAF6', 'border': '7986CB', 'text': '303F9F'}  # Expert
+        return {'bg': 'E8EAF6', 'border': '7986CB', 'text': '303F9F'}  # Expert (1600-1899)
     elif max_rating >= 1400:
-        return {'bg': 'E0F2F1', 'border': '4DB6AC', 'text': '00695C'}  # Specialist
+        return {'bg': 'E0F2F1', 'border': '4DB6AC', 'text': '00695C'}  # Specialist (1400-1599)
     elif max_rating >= 1200:
-        return {'bg': 'E8F5E8', 'border': '81C784', 'text': '2E7D32'}  # Pupil
+        return {'bg': 'E8F5E8', 'border': '81C784', 'text': '2E7D32'}  # Pupil (1200-1399)
     else:
-        return {'bg': 'FAFAFA', 'border': 'CCCCCC', 'text': '616161'}  # Newbie
+        return {'bg': 'FAFAFA', 'border': 'CCCCCC', 'text': '616161'}  # Newbie (0-1199)
 
 
 def get_interpolated_codeforces_color(rating, base_rating=None):
@@ -737,11 +737,12 @@ def get_interpolated_codeforces_color(rating, base_rating=None):
         (1200, 1399, 'CCCCCC', '77FF77'),   # Newbie to Pupil
         (1400, 1599, '77FF77', '77DDBB'),   # Pupil to Specialist  
         (1600, 1899, '77DDBB', 'AAAAFF'),   # Specialist to Expert
-        (1900, 2199, 'AAAAFF', 'FF88FF'),   # Expert to Candidate Master
-        (2200, 2399, 'FF88FF', 'FFCC88'),   # Candidate Master to Master
-        (2400, 2599, 'FFCC88', 'FF7777'),   # Master to Grandmaster
-        (2600, 2899, 'FF7777', 'FF3333'),   # Grandmaster to International GM
-        (2900, float('inf'), 'FF3333', 'AA0000')  # International GM to Legendary GM
+        (1900, 2099, 'AAAAFF', 'FF88FF'),   # Expert to Candidate Master
+        (2100, 2299, 'FF88FF', 'FFCC88'),   # Candidate Master to Master
+        (2300, 2399, 'FFCC88', 'FFBB55'),   # Master to International Master
+        (2400, 2599, 'FFBB55', 'FF7777'),   # International Master to Grandmaster
+        (2600, 2999, 'FF7777', 'FF3333'),   # Grandmaster to International GM
+        (3000, float('inf'), 'FF3333', 'AA0000')  # International GM to Legendary GM
     ]
     
     # Find the appropriate tier

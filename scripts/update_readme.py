@@ -457,11 +457,34 @@ def generate_philosophical_status(last_known_info):
     
     max_date = max(dates)
     one_year_ago = datetime.now() - timedelta(days=365)
+    days_since = (datetime.now() - max_date).days
     
     if max_date > one_year_ago:
-        return "<p align='center'><span style='color: green;'>User Active: The journey of problem-solving is a path to endless growth.</span></p>"
+        if days_since == 0:
+            status_text = "Active%20Today"
+            color = "brightgreen"
+        elif days_since == 1:
+            status_text = "Active%201%20day%20ago"
+            color = "green"
+        elif days_since < 7:
+            status_text = f"Active%20{days_since}%20days%20ago"
+            color = "green"
+        elif days_since < 30:
+            weeks = days_since // 7
+            status_text = f"Active%20{weeks}%20week{'s' if weeks > 1 else ''}%20ago"
+            color = "yellowgreen"
+        else:
+            months = days_since // 30
+            status_text = f"Active%20{months}%20month{'s' if months > 1 else ''}%20ago"
+            color = "orange"
+        return f"<p align='center'>![Active](https://img.shields.io/badge/{status_text}-{color}?style=flat-square) The journey of problem-solving continues.</p>"
     else:
-        return "<p align='center'><span style='color: red;'>User Inactive: In the quiet moments, the mind prepares for new challenges.</span></p>"
+        years_inactive = (datetime.now() - max_date).days // 365
+        if years_inactive > 1:
+            status_text = f"Inactive%20{years_inactive}%20years"
+        else:
+            status_text = "Inactive%201%20year"
+        return f"<p align='center'>![Inactive](https://img.shields.io/badge/{status_text}-red?style=flat-square) In the quiet moments, the mind prepares for new challenges.</p>"
 
 
 def update_readme(stats, last_known_info=None, update_source=None):
@@ -562,30 +585,40 @@ def update_readme(stats, last_known_info=None, update_source=None):
     from src.utils import get_codeforces_rating_color
     cf_rating_info = last_known_info.get('ratings', {}).get('Codeforces', {})
     max_rating = cf_rating_info.get('max') if cf_rating_info else None
-    rating_colors = get_codeforces_rating_color(max_rating)
     
-    # Add rating-based background styling to the main header
+    def get_banner_style(rating):
+        """Get banner background and font color for a given rating.
+        
+        Returns (bg_color, font_color) tuple.
+        """
+        if rating is None:
+            return ('CCCCCC', '000000')  # Newbie: Light gray bg, black text
+        if rating >= 3000:
+            return ('AA0000', 'FFFFFF')  # Legendary Grandmaster: Dark red bg, white text
+        elif rating >= 2600:
+            return ('FF3333', 'FFFFFF')  # International Grandmaster: Dark red bg, white text
+        elif rating >= 2400:
+            return ('FF7777', 'FFFFFF')  # Grandmaster: Red bg, white text
+        elif rating >= 2300:
+            return ('FFBB55', 'FFFFFF')  # International Master: Orange bg, white text
+        elif rating >= 2100:
+            return ('FFCC88', '000000')  # Master: Light orange bg, black text
+        elif rating >= 1900:
+            return ('FF88FF', 'FFFFFF')  # Candidate Master: Purple bg, white text
+        elif rating >= 1600:
+            return ('AAAAFF', 'FFFFFF')  # Expert: Blue bg, white text
+        elif rating >= 1400:
+            return ('77DDBB', 'FFFFFF')  # Specialist: Cyan bg, white text
+        elif rating >= 1200:
+            return ('77FF77', '000000')  # Pupil: Light green bg, black text
+        else:
+            return ('CCCCCC', '000000')  # Newbie: Light gray bg, black text
+    
+    # Update the banner based on Codeforces rating tier
     if max_rating:
-        # Update the background color
-        readme_content = re.sub(
-            r'background: #[0-9A-Fa-f]{6}',
-            f'background: #{rating_colors["bg"]}',
-            readme_content
-        )
-        
-        # Update the border color to match
-        readme_content = re.sub(
-            r'border: 2px solid #[0-9A-Fa-f]{6}',
-            f'border: 2px solid #{rating_colors["border"]}',
-            readme_content
-        )
-        
-        # Update the text color
-        readme_content = re.sub(
-            r'color: #[0-9A-Fa-f]{6}',
-            f'color: #{rating_colors["text"]}',
-            readme_content
-        )
+        bg_color, font_color = get_banner_style(max_rating)
+        banner_content = f'![Banner](https://capsule-render.vercel.app/api?type=rect&color={bg_color}&text=Problem%20Solving%20Statistics&fontColor={font_color}&fontSize=38)'
+        readme_content = _replace_marked_section(readme_content, 'BANNER', banner_content)
     
     # Add/update the explicit update metadata block (date + manual/automatic)
     readme_content = _upsert_update_metadata_block(
