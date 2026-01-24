@@ -468,16 +468,16 @@ def update_config_file(new_user_config, new_platform_logos, new_templates, new_d
 
     # Codeforces rating colors (core 10 colors from LGM to Newbie)
     base_cf_colors = [
-        'A00000',  # Legendary Grandmaster - Dark Red
-        'C00000',  # International Grandmaster - Dark Red
-        'FF0000',  # Grandmaster - Red
-        'FF8C00',  # International Master - Orange
-        'FF8C00',  # Master - Orange
-        'AA00AA',  # Candidate Master - Purple
-        '0000FF',  # Expert - Blue
-        '03A89E',  # Specialist - Cyan
-        '008000',  # Pupil - Green
-        '808080'   # Newbie - Gray
+        'AA0000',  # Legendary Grandmaster
+        'FF3333',  # International Grandmaster
+        'FF7777',  # Grandmaster
+        'FFBB55',  # International Master
+        'FFCC88',  # Master
+        'FF88FF',  # Candidate Master
+        'AAAAFF',  # Expert
+        '77DDBB',  # Specialist
+        '77FF77',  # Pupil
+        'CCCCCC'   # Newbie
     ]
 
     def interpolate_color(color1, color2, t):
@@ -691,29 +691,29 @@ def get_codeforces_rating_color(max_rating):
         Hex color code for the rating tier
     """
     if max_rating is None:
-        return '808080'  # Gray for unknown
+        return 'CCCCCC'  # Newbie - Light Gray
     
-    # Codeforces rating tiers and their colors (Official from Codeforces blog)
+    # Codeforces rating tiers and their colors (Official)
     if max_rating >= 2900:
-        return 'A00000'  # Legendary Grandmaster - Dark Red
+        return 'AA0000'  # Legendary Grandmaster
     elif max_rating >= 2600:
-        return 'C00000'  # International Grandmaster - Dark Red
+        return 'FF3333'  # International Grandmaster
     elif max_rating >= 2400:
-        return 'FF0000'  # Grandmaster - Red
+        return 'FF7777'  # Grandmaster
     elif max_rating >= 2300:
-        return 'FF8C00'  # International Master - Orange
+        return 'FFBB55'  # International Master
     elif max_rating >= 2200:
-        return 'FF8C00'  # Master - Orange
+        return 'FFCC88'  # Master
     elif max_rating >= 1900:
-        return 'AA00AA'  # Candidate Master - Purple/Violet
+        return 'FF88FF'  # Candidate Master
     elif max_rating >= 1600:
-        return '0000FF'  # Expert - Blue
+        return 'AAAAFF'  # Expert
     elif max_rating >= 1400:
-        return '03A89E'  # Specialist - Cyan
+        return '77DDBB'  # Specialist
     elif max_rating >= 1200:
-        return '008000'  # Pupil - Green
+        return '77FF77'  # Pupil
     else:
-        return '808080'  # Newbie - Gray
+        return 'CCCCCC'  # Newbie
 
 
 def get_interpolated_codeforces_color(rating, base_rating=None):
@@ -733,15 +733,15 @@ def get_interpolated_codeforces_color(rating, base_rating=None):
     
     # Define rating tiers with their ranges and colors
     tiers = [
-        (0, 1199, '808080', '808080'),      # Newbie
-        (1200, 1399, '808080', '008000'),   # Newbie to Pupil
-        (1400, 1599, '008000', '03A89E'),   # Pupil to Specialist  
-        (1600, 1899, '03A89E', '0000FF'),   # Specialist to Expert
-        (1900, 2199, '0000FF', 'AA00AA'),   # Expert to Candidate Master
-        (2200, 2399, 'AA00AA', 'FF8C00'),   # Candidate Master to Master
-        (2400, 2599, 'FF8C00', 'FF0000'),   # Master to Grandmaster
-        (2600, 2899, 'FF0000', 'C00000'),   # Grandmaster to International GM
-        (2900, float('inf'), 'C00000', 'A00000')  # International GM to Legendary GM
+        (0, 1199, 'CCCCCC', 'CCCCCC'),      # Newbie
+        (1200, 1399, 'CCCCCC', '77FF77'),   # Newbie to Pupil
+        (1400, 1599, '77FF77', '77DDBB'),   # Pupil to Specialist  
+        (1600, 1899, '77DDBB', 'AAAAFF'),   # Specialist to Expert
+        (1900, 2199, 'AAAAFF', 'FF88FF'),   # Expert to Candidate Master
+        (2200, 2399, 'FF88FF', 'FFCC88'),   # Candidate Master to Master
+        (2400, 2599, 'FFCC88', 'FF7777'),   # Master to Grandmaster
+        (2600, 2899, 'FF7777', 'FF3333'),   # Grandmaster to International GM
+        (2900, float('inf'), 'FF3333', 'AA0000')  # International GM to Legendary GM
     ]
     
     # Find the appropriate tier

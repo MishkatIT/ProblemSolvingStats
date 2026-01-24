@@ -10,27 +10,22 @@
         "Toph": "MishkatIT",
         "Uva": "1615470",
         "VJudge": "MishkatIT",
-        "SPOJ": "mishkatit"
+        "SPOJ": "mishkatit",
+        "HackerRank": "MishkatIT"
     },
     "PROFILE_DISPLAY_NAMES": {
+        "LightOJ": "mishkatit",
+        "HackerEarth": "MishkatIT",
+        "CSES": "MishkatIT",
+        "VJudge": "MishkatIT",
+        "Uva": "MishkatIT",
+        "HackerRank": "MishkatIT",
+        "AtCoder": "MishkatIT",
         "Codeforces": "MishkatIT",
         "LeetCode": "MishkatIT",
-        "CodeChef": "MishkatIT",
-        "AtCoder": "MishkatIT",
-        "CSES": "MishkatIT",
-        "HackerEarth": "MishkatIT",
-        "HackerRank": "MishkatIT",
-        "LightOJ": "mishkatit",
         "Toph": "MishkatIT",
-        "Uva": "MishkatIT",
-        "VJudge": "MishkatIT",
-        "SPOJ": "mishkatit",
-        "Kattis": "MishkatIT",
-        "CSAcademy": "MishkatIT",
-        "Toki": "MishkatIT",
-        "DMOJ": "MishkatIT",
-        "OmegaUp": "MishkatIT",
-        "Beecrowd": "MishkatIT"
+        "CodeChef": "MishkatIT",
+        "SPOJ": "mishkatit"
     },
     "PLATFORM_URL_TEMPLATES": {
         "Codeforces": "https://codeforces.com/profile/{username}",
@@ -43,7 +38,8 @@
         "Toph": "https://toph.co/u/{username}",
         "Uva": "https://uhunt.onlinejudge.org/id/{username}",
         "VJudge": "https://vjudge.net/user/{username}",
-        "SPOJ": "https://www.spoj.com/users/{username}/"
+        "SPOJ": "https://www.spoj.com/users/{username}/",
+        "HackerRank": "https://www.hackerrank.com/profile/{username}"
     },
     "PLATFORM_LOGOS": {
         "Codeforces": [
@@ -89,20 +85,25 @@
         "SPOJ": [
             "https://www.google.com/s2/favicons?domain=www.spoj.com&sz=16",
             true
+        ],
+        "HackerRank": [
+            "https://www.google.com/s2/favicons?domain=www.hackerrank.com&sz=16",
+            true
         ]
     },
     "PLATFORM_COLORS": [
-        "A00000",
-        "C00000",
-        "FF0000",
-        "FF8C00",
-        "FF8C00",
-        "AA00AA",
-        "0000FF",
-        "03A89E",
-        "01944F",
-        "008000",
-        "808080"
+        "AA0000",
+        "FF3333",
+        "FF7777",
+        "FFBB55",
+        "FFCC88",
+        "FF88FF",
+        "AAAAFF",
+        "90C3DD",
+        "77DDBB",
+        "77EE99",
+        "77FF77",
+        "CCCCCC"
     ],
     "ALL_PLATFORMS": [
         "AtCoder",
@@ -110,6 +111,7 @@
         "CodeChef",
         "Codeforces",
         "HackerEarth",
+        "HackerRank",
         "LeetCode",
         "LightOJ",
         "SPOJ",

@@ -141,12 +141,22 @@ def main():
             else:
                 print(f"Warning: No URL template available for {platform}")
     
-    # Ensure all platforms have display names (usually same as username)
+    # Update display names only for added/changed platforms, remove for removed platforms
     new_display_names = PROFILE_DISPLAY_NAMES_GLOBAL.copy()
-    for platform in new_user_config:
-        if platform not in new_display_names or not new_display_names.get(platform):
-            new_display_names[platform] = new_user_config[platform]
-            print(f"Added display name for {platform}")
+    
+    # Handle added and changed platforms: set/update display name to handle name
+    for platform in added | changed:
+        new_display_names[platform] = new_user_config[platform]
+        action = "Added" if platform in added else "Updated"
+        print(f"{action} display name for {platform}: {new_user_config[platform]}")
+    
+    # Handle removed platforms: remove display name
+    for platform in removed:
+        if platform in new_display_names:
+            del new_display_names[platform]
+            print(f"Removed display name for {platform}")
+    
+    # For existing unchanged platforms: keep display names as they are (don't modify)
     
     # Ensure all platforms have valid logos
     new_platform_logos = PLATFORM_LOGOS_GLOBAL.copy()

@@ -1,17 +1,17 @@
-<div align="center" style="border: 2px solid #03A89E; border-radius: 12px; padding: 20px; margin: 15px 0; background: linear-gradient(135deg, rgba(255,255,255,0.05) 0%, rgba(255,255,255,0.02) 100%);">
+<div align="center">
 
-# 🏆 Problem Solving Statistics
+[![🏆 Problem Solving Statistics](https://img.shields.io/badge/🏆_Problem_Solving_Statistics-77DDBB?style=for-the-badge)](.)
 
 [![Last Updated](https://img.shields.io/badge/Last%20Updated-24%20January%202026-blue?style=for-the-badge)](https://github.com/MishkatIT/ProblemSolvingStats)
 [![Total Problems](https://img.shields.io/badge/Total%20Solved-3812-success?style=for-the-badge)](https://github.com/MishkatIT/ProblemSolvingStats)
-[![Platforms](https://img.shields.io/badge/Platforms-15-orange?style=for-the-badge)](https://github.com/MishkatIT/ProblemSolvingStats)
+[![Platforms](https://img.shields.io/badge/Platforms-13+-orange?style=for-the-badge)](https://github.com/MishkatIT/ProblemSolvingStats)
 
 <!-- UPDATE_METADATA_START -->
-<p align="center"><strong>Updated:</strong> 24 January 2026 at 04:03:53 AM • Unknown</p>
+<p align="center"><strong>Updated:</strong> 24 January 2026 at 02:29:54 PM • Unknown</p>
 <!-- UPDATE_METADATA_END -->
 
 <!-- AUTO_GENERATED_SECTION_START: STATS_TABLE -->
-<table align="center">
+<table align="center" border="1">
   <thead>
     <tr>
       <th>🎯 Platform</th>
@@ -27,7 +27,7 @@
       <td><img src="https://www.google.com/s2/favicons?domain=codeforces.com&sz=16" width="16" height="16" onerror="this.style.display='none'"/> <strong>Codeforces</strong></td>
       <td><a href="https://codeforces.com/profile/MishkatIT">MishkatIT</a></td>
       <td align="center" data-value="2609"><strong>2609</strong></td>
-      <td><img src="https://img.shields.io/badge/Progress-68.4%25-A00000?style=flat-square" alt="Codeforces Progress"/></td>
+      <td><img src="https://img.shields.io/badge/Progress-68.4%25-AA0000?style=flat-square" alt="Codeforces Progress"/></td>
       <td align="left" data-date="2026-01-24">24 January 2026</td>
       <td align="center"><img src="https://img.shields.io/badge/Automatic-2196F3?style=flat" alt="Automatic"/></td>
     </tr>
@@ -35,7 +35,7 @@
       <td><img src="https://www.google.com/s2/favicons?domain=leetcode.com&sz=16" width="16" height="16" onerror="this.style.display='none'"/> <strong>LeetCode</strong></td>
       <td><a href="https://leetcode.com/u/MishkatIT/">MishkatIT</a></td>
       <td align="center" data-value="412"><strong>412</strong></td>
-      <td><img src="https://img.shields.io/badge/Progress-10.8%25-C00000?style=flat-square" alt="LeetCode Progress"/></td>
+      <td><img src="https://img.shields.io/badge/Progress-10.8%25-FF3333?style=flat-square" alt="LeetCode Progress"/></td>
       <td align="left" data-date="2026-01-24">24 January 2026</td>
       <td align="center"><img src="https://img.shields.io/badge/Automatic-2196F3?style=flat" alt="Automatic"/></td>
     </tr>
@@ -43,7 +43,7 @@
       <td><img src="https://www.google.com/s2/favicons?domain=vjudge.net&sz=16" width="16" height="16" onerror="this.style.display='none'"/> <strong>VJudge</strong></td>
       <td><a href="https://vjudge.net/user/MishkatIT">MishkatIT</a></td>
       <td align="center" data-value="347"><strong>347</strong></td>
-      <td><img src="https://img.shields.io/badge/Progress-9.1%25-FF0000?style=flat-square" alt="VJudge Progress"/></td>
+      <td><img src="https://img.shields.io/badge/Progress-9.1%25-FF7777?style=flat-square" alt="VJudge Progress"/></td>
       <td align="left" data-date="2026-01-24">24 January 2026</td>
       <td align="center"><img src="https://img.shields.io/badge/Automatic-2196F3?style=flat" alt="Automatic"/></td>
     </tr>
@@ -51,7 +51,7 @@
       <td><img src="https://www.google.com/s2/favicons?domain=atcoder.jp&sz=16" width="16" height="16" onerror="this.style.display='none'"/> <strong>AtCoder</strong></td>
       <td><a href="https://atcoder.jp/users/MishkatIT">MishkatIT</a></td>
       <td align="center" data-value="157"><strong>157</strong></td>
-      <td><img src="https://img.shields.io/badge/Progress-4.1%25-FF8C00?style=flat-square" alt="AtCoder Progress"/></td>
+      <td><img src="https://img.shields.io/badge/Progress-4.1%25-FFBB55?style=flat-square" alt="AtCoder Progress"/></td>
       <td align="left" data-date="2026-01-24">24 January 2026</td>
       <td align="center"><img src="https://img.shields.io/badge/Automatic-2196F3?style=flat" alt="Automatic"/></td>
     </tr>
@@ -59,7 +59,7 @@
       <td><img src="https://www.google.com/s2/favicons?domain=www.codechef.com&sz=16" width="16" height="16" onerror="this.style.display='none'"/> <strong>CodeChef</strong></td>
       <td><a href="https://www.codechef.com/users/MishkatIT">MishkatIT</a></td>
       <td align="center" data-value="126"><strong>126</strong></td>
-      <td><img src="https://img.shields.io/badge/Progress-3.3%25-FF8C00?style=flat-square" alt="CodeChef Progress"/></td>
+      <td><img src="https://img.shields.io/badge/Progress-3.3%25-FFCC88?style=flat-square" alt="CodeChef Progress"/></td>
       <td align="left" data-date="2026-01-24">24 January 2026</td>
       <td align="center"><img src="https://img.shields.io/badge/Automatic-2196F3?style=flat" alt="Automatic"/></td>
     </tr>
@@ -67,7 +67,7 @@
       <td><img src="https://www.google.com/s2/favicons?domain=cses.fi&sz=16" width="16" height="16" onerror="this.style.display='none'"/> <strong>CSES</strong></td>
       <td><a href="https://cses.fi/user/165802/">MishkatIT</a></td>
       <td align="center" data-value="66"><strong>66</strong></td>
-      <td><img src="https://img.shields.io/badge/Progress-1.7%25-AA00AA?style=flat-square" alt="CSES Progress"/></td>
+      <td><img src="https://img.shields.io/badge/Progress-1.7%25-FF88FF?style=flat-square" alt="CSES Progress"/></td>
       <td align="left" data-date="2026-01-15">15 January 2026</td>
       <td align="center"><img src="https://img.shields.io/badge/Manual-F44336?style=flat" alt="Manual"/></td>
     </tr>
@@ -75,7 +75,7 @@
       <td><img src="https://www.google.com/s2/favicons?domain=toph.co&sz=16" width="16" height="16" onerror="this.style.display='none'"/> <strong>Toph</strong></td>
       <td><a href="https://toph.co/u/MishkatIT">MishkatIT</a></td>
       <td align="center" data-value="37"><strong>37</strong></td>
-      <td><img src="https://img.shields.io/badge/Progress-1.0%25-0000FF?style=flat-square" alt="Toph Progress"/></td>
+      <td><img src="https://img.shields.io/badge/Progress-1.0%25-AAAAFF?style=flat-square" alt="Toph Progress"/></td>
       <td align="left" data-date="2026-01-24">24 January 2026</td>
       <td align="center"><img src="https://img.shields.io/badge/Automatic-2196F3?style=flat" alt="Automatic"/></td>
     </tr>
@@ -83,7 +83,7 @@
       <td><img src="https://www.google.com/s2/favicons?domain=lightoj.com&sz=16" width="16" height="16" onerror="this.style.display='none'"/> <strong>LightOJ</strong></td>
       <td><a href="https://lightoj.com/user/mishkatit">mishkatit</a></td>
       <td align="center" data-value="31"><strong>31</strong></td>
-      <td><img src="https://img.shields.io/badge/Progress-0.8%25-03A89E?style=flat-square" alt="LightOJ Progress"/></td>
+      <td><img src="https://img.shields.io/badge/Progress-0.8%25-90C3DD?style=flat-square" alt="LightOJ Progress"/></td>
       <td align="left" data-date="2026-01-24">24 January 2026</td>
       <td align="center"><img src="https://img.shields.io/badge/Automatic-2196F3?style=flat" alt="Automatic"/></td>
     </tr>
@@ -91,7 +91,7 @@
       <td><img src="https://www.google.com/s2/favicons?domain=www.spoj.com&sz=16" width="16" height="16" onerror="this.style.display='none'"/> <strong>SPOJ</strong></td>
       <td><a href="https://www.spoj.com/users/mishkatit/">mishkatit</a></td>
       <td align="center" data-value="18"><strong>18</strong></td>
-      <td><img src="https://img.shields.io/badge/Progress-0.5%25-01944F?style=flat-square" alt="SPOJ Progress"/></td>
+      <td><img src="https://img.shields.io/badge/Progress-0.5%25-77DDBB?style=flat-square" alt="SPOJ Progress"/></td>
       <td align="left" data-date="2026-01-16">16 January 2026</td>
       <td align="center"><img src="https://img.shields.io/badge/Manual-F44336?style=flat" alt="Manual"/></td>
     </tr>
@@ -99,7 +99,7 @@
       <td><img src="https://www.google.com/s2/favicons?domain=uhunt.onlinejudge.org&sz=16" width="16" height="16" onerror="this.style.display='none'"/> <strong>Uva</strong></td>
       <td><a href="https://uhunt.onlinejudge.org/id/1615470">MishkatIT</a></td>
       <td align="center" data-value="7"><strong>7</strong></td>
-      <td><img src="https://img.shields.io/badge/Progress-0.2%25-008000?style=flat-square" alt="Uva Progress"/></td>
+      <td><img src="https://img.shields.io/badge/Progress-0.2%25-77EE99?style=flat-square" alt="Uva Progress"/></td>
       <td align="left" data-date="2026-01-24">24 January 2026</td>
       <td align="center"><img src="https://img.shields.io/badge/Automatic-2196F3?style=flat" alt="Automatic"/></td>
     </tr>
@@ -107,7 +107,7 @@
       <td><img src="https://www.google.com/s2/favicons?domain=www.hackerearth.com&sz=16" width="16" height="16" onerror="this.style.display='none'"/> <strong>HackerEarth</strong></td>
       <td><a href="https://www.hackerearth.com/@MishkatIT/">MishkatIT</a></td>
       <td align="center" data-value="2"><strong>2</strong></td>
-      <td><img src="https://img.shields.io/badge/Progress-0.1%25-808080?style=flat-square" alt="HackerEarth Progress"/></td>
+      <td><img src="https://img.shields.io/badge/Progress-0.1%25-77FF77?style=flat-square" alt="HackerEarth Progress"/></td>
       <td align="left" data-date="2026-01-15">15 January 2026</td>
       <td align="center"><img src="https://img.shields.io/badge/Manual-F44336?style=flat" alt="Manual"/></td>
     </tr>
@@ -126,6 +126,19 @@
 ---
 
 <!-- AUTO_GENERATED_SECTION_END: STATS_TABLE -->
+
+<!-- AUTO_GENERATED_SECTION_START: KEY_HIGHLIGHTS -->
+<div align="center">
+
+## 🏆 Key Highlights
+
+| 🥇 Top Platform | 🎯 Main Focus | 📚 Platforms Active |
+|:---------------:|:-------------:|:------------------:|
+| **Codeforces** | **Competitive Programming** | **11** |
+| 2609 Problems | Algorithm Mastery | Multi-Platform |
+
+</div>
+<!-- AUTO_GENERATED_SECTION_END: KEY_HIGHLIGHTS -->
 
 </div>
 
@@ -176,14 +189,14 @@
     <tr><td><img src="https://www.google.com/s2/favicons?domain=codeforces.com&sz=16" alt="Codeforces" width="16" height="16" onerror="this.style.display='none'"/> <strong>Codeforces</strong></td><td align="right" data-date="2026-01-23">23 January 2026</td></tr>
     <tr><td><img src="https://www.google.com/s2/favicons?domain=www.codechef.com&sz=16" alt="CodeChef" width="16" height="16" onerror="this.style.display='none'"/> <strong>CodeChef</strong></td><td align="right" data-date="2026-01-17">17 January 2026</td></tr>
     <tr><td><img src="https://www.google.com/s2/favicons?domain=toph.co&sz=16" alt="Toph" width="16" height="16" onerror="this.style.display='none'"/> <strong>Toph</strong></td><td align="right" data-date="2026-01-17">17 January 2026</td></tr>
+    <tr><td><img src="https://www.google.com/s2/favicons?domain=uhunt.onlinejudge.org&sz=16" alt="Uva" width="16" height="16" onerror="this.style.display='none'"/> <strong>Uva</strong></td><td align="right" data-date="2026-01-17">17 January 2026</td></tr>
     <tr><td><img src="https://www.google.com/s2/favicons?domain=leetcode.com&sz=16" alt="LeetCode" width="16" height="16" onerror="this.style.display='none'"/> <strong>LeetCode</strong></td><td align="right" data-date="2026-01-10">10 January 2026</td></tr>
     <tr><td><img src="https://www.google.com/s2/favicons?domain=atcoder.jp&sz=16" alt="AtCoder" width="16" height="16" onerror="this.style.display='none'"/> <strong>AtCoder</strong></td><td align="right" data-date="2025-11-29">29 November 2025</td></tr>
+    <tr><td><img src="https://www.google.com/s2/favicons?domain=vjudge.net&sz=16" alt="VJudge" width="16" height="16" onerror="this.style.display='none'"/> <strong>VJudge</strong></td><td align="right" data-date="2025-10-02">02 October 2025</td></tr>
     <tr><td><img src="https://www.google.com/s2/favicons?domain=cses.fi&sz=16" alt="CSES" width="16" height="16" onerror="this.style.display='none'"/> <strong>CSES</strong></td><td align="right" data-date="2025-08-18">18 August 2025</td></tr>
     <tr><td><img src="https://www.google.com/s2/favicons?domain=www.spoj.com&sz=16" alt="SPOJ" width="16" height="16" onerror="this.style.display='none'"/> <strong>SPOJ</strong></td><td align="right" data-date="2025-05-06">06 May 2025</td></tr>
     <tr><td><img src="https://www.google.com/s2/favicons?domain=lightoj.com&sz=16" alt="LightOJ" width="16" height="16" onerror="this.style.display='none'"/> <strong>LightOJ</strong></td><td align="right" data-date="2023-08-12">12 August 2023</td></tr>
     <tr><td><img src="https://www.google.com/s2/favicons?domain=www.hackerearth.com&sz=16" alt="HackerEarth" width="16" height="16" onerror="this.style.display='none'"/> <strong>HackerEarth</strong></td><td align="right" data-date="1970-01-01">01 January 1970</td></tr>
-    <tr><td><img src="https://www.google.com/s2/favicons?domain=uhunt.onlinejudge.org&sz=16" alt="Uva" width="16" height="16" onerror="this.style.display='none'"/> <strong>Uva</strong></td><td align="right" data-date="1970-01-01">01 January 1970</td></tr>
-    <tr><td><img src="https://www.google.com/s2/favicons?domain=vjudge.net&sz=16" alt="VJudge" width="16" height="16" onerror="this.style.display='none'"/> <strong>VJudge</strong></td><td align="right" data-date="1970-01-01">01 January 1970</td></tr>
   </tbody>
 </table>
 
@@ -205,34 +218,38 @@
 
 ### ✨ Transform Your GitHub Profile ✨
 
-</div>
 
 | Feature | Benefit |
 |:-------:|:-------:|
 | 🚀 **Automated Updates** | Never manually update again |
-| 📊 **15 Platforms** | Codeforces, LeetCode, AtCoder & more |
+| 📊 **13+ Platforms** | Codeforces, LeetCode, AtCoder & more |
 | 🎨 **Beautiful Design** | Professional badges & tables |
 | ⚡ **5-Minute Setup** | Get started instantly |
 
 ---
 
+</div>
+
+
 ## 📚 Setup and Usage
 
 ### 🚀 Quick Start Guide
 
-<div align="center">
 
 **Ready to showcase your problem-solving journey?**  
 **Follow these simple steps to get your automated stats tracker!**
 
-</div>
 
 #### 📋 Prerequisites
 - Python 3.8+
 - GitHub account
 - pip package manager
 
-#### 🛠️ Installation Steps
+<div align="center">
+
+## 🛠️ Installation Steps
+
+</div>
 
 | Step | Action | Command/Description |
 |:----:|:------:|:-------------------|
@@ -243,7 +260,11 @@
 | **5** | 🧪 **Test Setup** | `python scripts/auto_update.py` |
 | **6** | 🤖 **Enable Automation** | Go to **Actions** tab → Enable workflows |
 
+<div align="center">
+
 #### 🎮 Available Scripts
+
+</div>
 
 | Script | Purpose | When to Use |
 |:------:|:-------:|:-----------:|
@@ -258,6 +279,8 @@
 
 <div align="center">
 
+<br>
+
 **⭐ If you found this project helpful, please consider giving it a star!**
 
 [![GitHub](https://img.shields.io/badge/GitHub-MishkatIT-181717?style=for-the-badge&logo=github)](https://github.com/MishkatIT)
@@ -269,12 +292,12 @@
 
 <div align="center">
 
-**Made with ❤️ by [Md Mishkatul Islam](https://github.com/MishkatIT)**
+**Made with ❤️ by [Md Mishkatul Islam](https://codeforces.com/profile/MishkatIT)**
 
 </div>
 
 <div align="center">
 
-<sub><sub>v2.1.0</sub></sub>
+<sub>v2.1.0</suv>
 
 </div>

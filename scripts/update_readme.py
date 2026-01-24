@@ -408,7 +408,7 @@ def generate_platform_statistics_table(effective_counts, current_date, today_iso
         rows.append(row)
     
     # Build complete table
-    table = f'''<table align="center">
+    table = f'''<table align="center" border="1">
   <thead>
     <tr>
       <th>🎯 Platform</th>
@@ -544,9 +544,14 @@ def update_readme(stats, last_known_info=None, update_source=None):
     max_rating = cf_rating_info.get('max') if cf_rating_info else None
     rating_color = get_codeforces_rating_color(max_rating)
     
-    # Add rating-based border styling to the main header and stats table
+    # Add rating-based background styling to the main header
     if max_rating:
-        # Update the existing border div with the new rating color
+        # Update the background color
+        rating_bg_pattern = r'background: #[0-9A-Fa-f]{6}'
+        new_bg_style = f'background: #{rating_color}'
+        readme_content = re.sub(rating_bg_pattern, new_bg_style, readme_content)
+        
+        # Update the border color to match
         rating_border_pattern = r'border: 2px solid #[0-9A-Fa-f]{6}'
         new_border_style = f'border: 2px solid #{rating_color}'
         readme_content = re.sub(rating_border_pattern, new_border_style, readme_content)
@@ -557,6 +562,19 @@ def update_readme(stats, last_known_info=None, update_source=None):
         current_date_human=current_date_with_time,
         update_source=update_source,
     )
+
+    # Update the title badge color based on Codeforces rating
+    cf_rating_info = last_known_info.get('ratings', {}).get('Codeforces', {})
+    max_rating = cf_rating_info.get('max') if cf_rating_info else None
+    if max_rating:
+        from src.utils import get_codeforces_rating_color
+        rating_color = get_codeforces_rating_color(max_rating)
+        # Update the color in the title badge
+        readme_content = re.sub(
+            r'badge/🏆_Problem_Solving_Statistics-[0-9A-Fa-f]{6}',
+            f'badge/🏆_Problem_Solving_Statistics-{rating_color}',
+            readme_content
+        )
 
     # Regenerate the main platform statistics table (sorted by solve count)
     new_table = generate_platform_statistics_table(effective_counts, current_date, today_iso, stats, last_known_info)
@@ -585,6 +603,8 @@ def update_readme(stats, last_known_info=None, update_source=None):
         # Generate Key Highlights section
         key_highlights = f"""<div align="center">
 
+## 🏆 Key Highlights
+
 | 🥇 Top Platform | 🎯 Main Focus | 📚 Platforms Active |
 |:---------------:|:-------------:|:------------------:|
 | **{top_platform}** | **Competitive Programming** | **{active_platforms}** |
@@ -594,6 +614,8 @@ def update_readme(stats, last_known_info=None, update_source=None):
     else:
         # Fallback when no valid statistics exist
         key_highlights = f"""<div align="center">
+
+## 🏆 Key Highlights
 
 | 🥇 Top Platform | 🎯 Main Focus | 📚 Platforms Active |
 |:---------------:|:-------------:|:------------------:|

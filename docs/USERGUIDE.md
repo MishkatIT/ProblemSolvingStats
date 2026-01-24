@@ -2,13 +2,13 @@
 
 ## Overview
 
-The Problem Solving Statistics Tracker is a comprehensive tool that automatically tracks and displays your competitive programming progress across 15 platforms. It fetches statistics from various competitive programming websites and generates a beautiful, automatically updated GitHub README showcasing your achievements.
+The Problem Solving Statistics Tracker is a comprehensive tool that automatically tracks and displays your competitive programming progress across 13+ platforms. It fetches statistics from various competitive programming websites and generates a beautiful, automatically updated GitHub README showcasing your achievements.
 
 ## Features
 
 ### 🚀 Automated Tracking
 - **Daily Updates**: Automatically fetches latest statistics every day
-- **Multi-Platform Support**: Tracks progress on 15 competitive programming platforms
+- **Multi-Platform Support**: Tracks progress on 13+ competitive programming platforms
 - **Smart Scheduling**: Adapts update frequency based on your solving activity
 - **GitHub Actions Integration**: Runs automatically in your GitHub repository
 
