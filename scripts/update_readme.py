@@ -88,8 +88,8 @@ def _upsert_update_metadata_block(readme_content, *, current_date_human, update_
 
     block = (
         '<!-- UPDATE_METADATA_START -->\n'
-        f'<p align="center"><small><strong>Updated:</strong> {current_date_human} '
-        f'• {update_source_title}</small></p>\n'
+        f'<p align="center"><sub><strong>Updated:</strong> {current_date_human} '
+        f'• {update_source_title}</sub></p>\n'
         '<!-- UPDATE_METADATA_END -->'
     )
 
