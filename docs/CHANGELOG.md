@@ -2,6 +2,23 @@
 
 All notable changes to this project will be documented in this file.
 
+## [2.1.1] - 2026-01-24
+
+### ✨ Added
+
+#### Windows Batch File Support
+- **`spark.bat`** - Interactive batch file for Windows users
+  - One-click access to all scripts through a user-friendly menu
+  - Automatic virtual environment creation and activation
+  - Dependency checking and installation
+  - Simplified workflow for beginners and Windows users
+  - No command-line knowledge required
+
+#### Documentation Updates
+- Updated `README.md` with batch file instructions
+- Enhanced `USERGUIDE.md` with detailed batch file usage
+- Added Windows-specific setup guidance
+
 ## [2.1.0] - 2026-01-23
 
 ### 🎯 Configuration Migration Release

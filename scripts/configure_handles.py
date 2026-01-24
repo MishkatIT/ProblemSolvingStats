@@ -56,29 +56,91 @@ def main():
             # File is empty or whitespace-only - silently reinitialize
             content = []
         else:
-            content = json.loads(file_content)
+            data = json.loads(file_content)
+            # Handle both old array format and new object format
+            if isinstance(data, list):
+                content = data
+            elif isinstance(data, dict) and 'urls' in data:
+                content = data['urls']
+            else:
+                content = []
     except json.JSONDecodeError as e:
         # JSON syntax errors - show error and stop
         print(f"[ERROR] Syntax error in handles.json: {e}")
         print("[ERROR] handles.json should look like this:")
-        print('[')
-        print('  "https://codeforces.com/profile/your_username",')
-        print('  "https://leetcode.com/your_username",')
-        print('  "https://atcoder.jp/users/your_username"')
-        print(']')
+        print('{')
+        print('  "urls": [')
+        print('    "https://cses.fi/user/your_username/",')
+        print('    "https://codeforces.com/profile/your_username"')
+        print('  ],')
+        print('  "_comment": "Complete URLs to your profiles on each platform at above section"')
+        print('}')
+        print("See _examples field in existing handles.json for all supported platforms")
         sys.exit(1)  # Stop immediately on syntax error
 
     if not content:
         print("handles.json is empty")
         print("[INIT] Initializing handles.json with sample format...")
-        sample_handles = [
-            "https://codeforces.com/profile/your_username",
-            "https://atcoder.jp/users/your_username",
-            "https://www.codechef.com/users/your_username"
-        ]
+        sample_data = {
+            "urls": [
+                "https://cses.fi/user/your_username/",
+                "https://codeforces.com/profile/your_username",
+                "https://atcoder.jp/users/your_username",
+                "https://www.codechef.com/users/your_username"
+            ],
+            "_comment": "Complete URLs to your profiles on each platform at above section. Format: https://platform.com/path/your_username",
+            "_examples": {
+                "CSES": "https://cses.fi/user/your_username/",
+                "Codeforces": "https://codeforces.com/profile/your_username",
+                "LeetCode": "https://leetcode.com/u/your_username/",
+                "AtCoder": "https://atcoder.jp/users/your_username",
+                "CodeChef": "https://www.codechef.com/users/your_username",
+                "HackerRank": "https://www.hackerrank.com/profile/your_username",
+                "HackerEarth": "https://www.hackerearth.com/@your_username/",
+                "SPOJ": "https://www.spoj.com/users/your_username/",
+                "UVA": "https://uhunt.onlinejudge.org/id/your_username",
+                "Timus": "https://acm.timus.ru/author.aspx?id=your_username",
+                "TopCoder": "https://www.topcoder.com/members/your_username",
+                "Kattis": "https://open.kattis.com/users/your_username",
+                "DMOJ": "https://dmoj.ca/user/your_username",
+                "Toph": "https://toph.co/u/your_username",
+                "LightOJ": "https://lightoj.com/user/your_username",
+                "VJudge": "https://vjudge.net/user/your_username",
+                "CSAcademy": "https://csacademy.com/user/your_username",
+                "Toki": "https://tlx.toki.id/profiles/your_username",
+                "OmegaUp": "https://omegaup.com/profile/your_username/",
+                "Beecrowd": "https://www.beecrowd.com.br/judge/en/profile/your_username",
+                "POJ": "http://poj.org/userstatus?user_id=your_username",
+                "ZOJ": "https://zoj.pintia.cn/user/your_username",
+                "HDU": "http://acm.hdu.edu.cn/userstatus.php?user=your_username",
+                "FZU": "http://acm.fzu.edu.cn/user.php?uname=your_username",
+                "SGU": "http://acm.sgu.ru/teaminfo.php?id=your_username",
+                "AOJ": "https://judge.u-aizu.ac.jp/onlinejudge/user.jsp?id=your_username",
+                "Yukicoder": "https://yukicoder.me/users/your_username",
+                "ProjectEuler": "https://projecteuler.net/profile/your_username.png",
+                "COJ": "https://coj.uci.cu/user/useraccount.xhtml?username=your_username",
+                "InfoArena": "https://www.infoarena.ro/utilizator/your_username",
+                "KTH": "https://www.kth.se/profile/your_username/",
+                "MSU": "https://acm.msu.ru/user/your_username",
+                "WCIPEG": "https://wcipeg.com/user/your_username",
+                "COCI": "https://hsin.hr/coci/user.php?username=your_username",
+                "BOI": "https://boi.cses.fi/users/your_username",
+                "IOI": "https://ioinformatics.org/user/your_username",
+                "CodeJam": "https://codejam.googleapis.com/scoreboard/your_username",
+                "HackerCup": "https://www.facebook.com/hackercup/user/your_username",
+                "AtCoderABC": "https://atcoder.jp/users/your_username?contestType=algo",
+                "CodeforcesGym": "https://codeforces.com/profile/your_username?gym=true",
+                "LeetCodeCN": "https://leetcode.cn/u/your_username/",
+                "NowCoder": "https://ac.nowcoder.com/acm/contest/profile/your_username",
+                "Luogu": "https://www.luogu.com.cn/user/your_username",
+                "LibreOJ": "https://loj.ac/user/your_username",
+                "UniversalOJ": "https://uoj.ac/user/profile/your_username",
+                "QDUOJ": "https://qduoj.com/user/your_username"
+            }
+        }
         try:
             with open(handles_path, 'w', encoding='utf-8') as f:
-                json.dump(sample_handles, f, indent=2)
+                json.dump(sample_data, f, indent=2)
             print("[OK] Created handles.json with sample handles")
             print("[INFO] Please edit handles.json and replace 'your_username' with your actual usernames")
             print("[INIT] Run this script again after updating handles.json")

@@ -36,15 +36,27 @@ def load_handles_urls():
     if os.path.exists(handles_file):
         try:
             with open(handles_file, 'r', encoding='utf-8') as f:
-                urls = json.load(f)
+                data = json.load(f)
+            
+            # Handle both old array format and new object format
+            if isinstance(data, list):
+                urls = data
+            elif isinstance(data, dict) and 'urls' in data:
+                urls = data['urls']
+            else:
+                urls = []
+                
         except json.JSONDecodeError as e:
             print(f"[ERROR] Syntax error in handles.json: {e}")
             print("[ERROR] handles.json should look like this:")
-            print('[')
-            print('  "https://codeforces.com/profile/your_username",')
-            print('  "https://leetcode.com/your_username",')
-            print('  "https://atcoder.jp/users/your_username"')
-            print(']')
+            print('{')
+            print('  "_comment": "Complete URLs to your profiles on each platform",')
+            print('  "urls": [')
+            print('    "https://codeforces.com/profile/your_username",')
+            print('    "https://cses.fi/user/your_username/"')
+            print('  ]')
+            print('}')
+            print("See _examples field in existing handles.json for all supported platforms")
             sys.exit(1)
         return urls
     return []
@@ -73,7 +85,7 @@ def get_manual_stats():
         mode = last_known['modes'].get(platform, 'unknown')
         # Build info for this platform
         info_lines = []
-        info_lines.append(f"[bold white]{platform}[/bold white]")
+        info_lines.append(f"[bold magenta]{platform}[/bold magenta]")
         info_lines.append(f"[bold white]🔗 {url}[/bold white]")
         if current_count is not None:
             info_lines.append(f"[bold white]Current:[/bold white] [bold]{current_count}[/bold] problems [bold cyan](last updated: {last_update}, mode: {mode})[/bold cyan]")
@@ -89,8 +101,8 @@ def get_manual_stats():
                     console.print(Panel("→ Skipped", border_style="yellow", expand=False))
                     break
                 count = int(user_input)
-                if count < 0:
-                    console.print(Panel("[ERROR] Count cannot be negative. Please try again.", border_style="red", expand=False))
+                if count <= 0:
+                    console.print(Panel("[ERROR] Count must be positive. Please try again.", border_style="red", expand=False))
                     continue
                 if count > MAX_REASONABLE_COUNT:
                     confirm = input(f"  [WARNING] Count {count} seems very high. Continue? (y/n): ").strip().lower()

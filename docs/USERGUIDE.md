@@ -2,7 +2,7 @@
 
 ## Overview
 
-The Problem Solving Statistics Tracker is a comprehensive tool that automatically tracks and displays your competitive programming progress across 13+ platforms. It fetches statistics from various competitive programming websites and generates a beautiful, automatically updated GitHub README showcasing your achievements.
+The Problem Solving Statistics Tracker is a comprehensive tool that automatically tracks and displays your competitive programming progress across 12+ platforms. It fetches statistics from various competitive programming websites and generates a beautiful, automatically updated GitHub README showcasing your achievements.
 
 ## Features
 
@@ -84,23 +84,14 @@ Then run the configuration script:
 python scripts/configure_handles.py
 ```
 
-#### Option B: Manual Configuration
-
-Edit `src/config.json` directly:
-
-```json
-{
-  "USER_CONFIG": {
-    "Codeforces": "YourUsername",
-    "AtCoder": "YourUsername",
-    "CodeChef": "YourUsername"
-  }
-}
-```
 
 ### 4. Test the Setup
 
 ```bash
+# For Windows users (recommended):
+spark.bat
+
+# Or run scripts directly:
 # Run automatic update
 python scripts/auto_update.py
 
@@ -125,7 +116,41 @@ python scripts/manual_update.py
 | `update_readme.py` | Generate/update README with current stats | After fetching new data |
 | `configure_handles.py` | Setup and manage platform usernames | Initial setup, adding platforms |
 
-### Automatic Updates (`auto_update.py`)
+### Windows Batch File (`spark.bat`)
+
+For Windows users, we've created a convenient batch file that simplifies running all scripts.
+
+**Features:**
+- Interactive menu system
+- Automatic virtual environment management
+- Dependency checking and installation
+- One-click access to all functionality
+- Beginner-friendly interface
+
+**Usage:**
+```cmd
+# Double-click spark.bat in Windows Explorer, or:
+spark.bat
+# or
+.\spark.bat
+```
+
+**What it does automatically:**
+- Creates Python virtual environment if needed
+- Activates the virtual environment
+- Installs/updates all required dependencies
+- Provides a numbered menu to choose any script
+- Handles environment cleanup on exit
+
+**Menu Options:**
+1. **Auto Update** - Run `auto_update.py`
+2. **Manual Update** - Run `manual_update.py`
+3. **Configure Handles** - Run `configure_handles.py`
+4. **Update README** - Run `update_readme.py`
+5. **Install Dependencies** - Update Python packages
+6. **Exit** - Close the batch file
+
+> 💡 **Recommended for:** Windows users, beginners, or anyone who wants a simplified experience without command-line knowledge.
 
 This is the main script that fetches statistics from all supported platforms.
 
@@ -213,16 +238,34 @@ Central configuration file containing:
 ```json
 {
   "USER_CONFIG": {
-    "PlatformName": "YourUsername"
+    "Codeforces": "YourUsername",
+    "LeetCode": "YourUsername",
+    "CodeChef": "YourUsername"
+  },
+  "PROFILE_DISPLAY_NAMES": {
+    "Codeforces": "🏆 Competitive Programmer",
+    "LeetCode": "💻 Algorithm Expert",
+    "CodeChef": "👨‍🍳 CodeChef Master"
   },
   "PLATFORM_URL_TEMPLATES": {
-    "PlatformName": "https://example.com/user/{username}"
+    "Codeforces": "https://codeforces.com/profile/{username}",
+    "LeetCode": "https://leetcode.com/u/{username}/",
+    "CodeChef": "https://www.codechef.com/users/{username}"
   },
   "PLATFORM_LOGOS": {
-    "PlatformName": ["https://favicon.url", true]
+    "Codeforces": ["https://www.google.com/s2/favicons?domain=codeforces.com&sz=16", true],
+    "LeetCode": ["https://www.google.com/s2/favicons?domain=leetcode.com&sz=16", true],
+    "CodeChef": ["https://www.google.com/s2/favicons?domain=www.codechef.com&sz=16", true]
   },
-  "PLATFORM_COLORS": ["color1", "color2", ...],
-  "ALL_PLATFORMS": ["Platform1", "Platform2", ...]
+  "PLATFORM_COLORS": ["AA0000", "FF3333", "FF7777", "FFBB55", "FFCC88"],
+  "ALL_PLATFORMS": ["Codeforces", "LeetCode", "CodeChef", "AtCoder", "CSES"],
+  "LAST_KNOWN_FILE": "data/last_known_counts.json",
+  "STATS_FILE": "data/stats.json",
+  "README_FILE": "docs/README.md",
+  "USER_INFO": {
+    "name": "Your Name",
+    "email": "your.email@example.com"
+  }
 }
 ```
 
@@ -231,11 +274,15 @@ Central configuration file containing:
 Simple list of profile URLs for easy configuration:
 
 ```json
-[
-  "https://codeforces.com/profile/YourUsername",
-  "https://atcoder.jp/users/YourUsername",
-  "https://www.codechef.com/users/YourUsername"
-]
+{
+  "urls": [
+    "https://codeforces.com/profile/YourUsername",
+    "https://leetcode.com/u/YourUsername/",
+    "https://www.codechef.com/users/YourUsername",
+    "https://atcoder.jp/users/YourUsername",
+    "https://cses.fi/user/YourUsername/"
+  ]
+}
 ```
 
 ### `data/stats.json`
@@ -244,9 +291,18 @@ Current statistics data:
 
 ```json
 {
-  "Codeforces": 3465,
-  "AtCoder": 317,
-  "CodeChef": 371
+  "Codeforces": 2609,
+  "LeetCode": 412,
+  "AtCoder": 157,
+  "CodeChef": 126,
+  "CSES": 22,
+  "LightOJ": 31,
+  "Toph": 37,
+  "VJudge": 347,
+  "Uva": 7,
+  "HackerEarth": 2,
+  "HackerRank": null,
+  "SPOJ": null
 }
 ```
 
@@ -257,16 +313,25 @@ Historical data with timestamps and modes:
 ```json
 {
   "counts": {
-    "Codeforces": 3465,
-    "AtCoder": 317
+    "Codeforces": 2609,
+    "LeetCode": 412,
+    "AtCoder": 157,
+    "CodeChef": 126,
+    "CSES": 22
   },
   "dates": {
-    "Codeforces": "2026-01-23",
-    "AtCoder": "2026-01-23"
+    "Codeforces": "2026-01-24",
+    "LeetCode": "2026-01-24",
+    "AtCoder": "2026-01-24",
+    "CodeChef": "2026-01-24",
+    "CSES": "2026-01-24"
   },
   "modes": {
     "Codeforces": "automatic",
-    "AtCoder": "automatic"
+    "LeetCode": "automatic",
+    "AtCoder": "automatic",
+    "CodeChef": "automatic",
+    "CSES": "manual"
   }
 }
 ```
@@ -308,7 +373,7 @@ You can customize how your profile names appear in the README table by editing t
 
 The repository includes a GitHub Actions workflow (`.github/workflows/update-stats.yml`) that:
 
-1. Runs daily at 11:35 PM BDT
+1. Runs daily at 11:00 PM BDT
 2. Executes `auto_update.py`
 3. Commits changes back to the repository
 4. Adapts schedule based on solving activity
@@ -479,6 +544,12 @@ A: Completely free - uses GitHub Actions free tier.
 
 ### Q: Can I customize the appearance?
 A: Yes, modify the templates in `update_readme.py`.
+
+### Q: Is there an easy way to run this on Windows?
+A: Yes! Use `spark.bat` - it provides an interactive menu and handles everything automatically.
+
+### Q: What platforms are currently supported?
+A: 12 platforms: Codeforces, AtCoder, CodeChef, LeetCode, LightOJ, Toph, VJudge, UVa, SPOJ, HackerRank, HackerEarth, and CSES.
 
 ## Support
 

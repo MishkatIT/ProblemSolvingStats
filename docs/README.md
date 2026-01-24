@@ -1,32 +1,33 @@
 <div align="center">
 
-<table align="center"><tr><td bgcolor="#e8f5e8" align="center" style="padding: 20px; border: 2px solid #4CAF50;">
-<h1 align="center" style="font-size: 2.5em; font-weight: bold; margin: 0; color: #2E7D32;">🏆 Problem Solving Statistics</h1>
+<table align="center"><tr><td style="background: #E8F5E8; padding: 20px; border: 2px solid #81C784;" align="center">
+<h1 align="center" style="font-size: 2.5em; font-weight: bold; margin: 0; color: #2E7D32;">Problem Solving Statistics</h1>
 </td></tr></table>
 
-[![Last Updated](https://img.shields.io/badge/Last%20Updated-24%20January%202026-blue?style=for-the-badge)](https://github.com/MishkatIT/ProblemSolvingStats)
-[![Total Problems](https://img.shields.io/badge/Total%20Solved-3812-success?style=for-the-badge)](https://github.com/MishkatIT/ProblemSolvingStats)
-[![Platforms](https://img.shields.io/badge/Platforms-13+-orange?style=for-the-badge)](https://github.com/MishkatIT/ProblemSolvingStats)
+<!-- DYNAMIC_BADGES_START -->
+![Last Updated](https://img.shields.io/badge/Last%20Updated-24%20January%202026-blue?style=for-the-badge)
+![Total Problems](https://img.shields.io/badge/Total%20Solved-2723-success?style=for-the-badge)
+![Platforms](https://img.shields.io/badge/Platforms-10-orange?style=for-the-badge)
+<!-- DYNAMIC_BADGES_END -->
 
 <!-- UPDATE_METADATA_START -->
-<p align="center"><strong>Updated:</strong> 24 January 2026 at 03:02:41 PM • Unknown</p>
+<p align="center"><strong>Updated:</strong> 24 January 2026 at 21:08:36 • Unknown</p>
 <!-- UPDATE_METADATA_END -->
 
 <!-- AUTO_GENERATED_SECTION_START: STATS_TABLE -->
 | 🎯 Platform | 👤 Profile | ✅ Solved | 📈 Progress | 📅 Updated On | 🔄 Mode |
 |-------------|------------|-----------|-------------|---------------|----------|
-| <img src="https://www.google.com/s2/favicons?domain=codeforces.com&sz=16" width="16" height="16" alt="Codeforces logo"/> **Codeforces** | [MishkatIT](https://codeforces.com/profile/MishkatIT) | **2609** | ![Progress](https://img.shields.io/badge/Progress-68.4%25-AA0000?style=flat-square) | 24 January 2026 | ![Automatic](https://img.shields.io/badge/Automatic-2196F3?style=flat) |
-| <img src="https://www.google.com/s2/favicons?domain=leetcode.com&sz=16" width="16" height="16" alt="LeetCode logo"/> **LeetCode** | [MishkatIT](https://leetcode.com/u/MishkatIT/) | **412** | ![Progress](https://img.shields.io/badge/Progress-10.8%25-FF3333?style=flat-square) | 24 January 2026 | ![Automatic](https://img.shields.io/badge/Automatic-2196F3?style=flat) |
-| <img src="https://www.google.com/s2/favicons?domain=vjudge.net&sz=16" width="16" height="16" alt="VJudge logo"/> **VJudge** | [MishkatIT](https://vjudge.net/user/MishkatIT) | **347** | ![Progress](https://img.shields.io/badge/Progress-9.1%25-FF7777?style=flat-square) | 24 January 2026 | ![Automatic](https://img.shields.io/badge/Automatic-2196F3?style=flat) |
-| <img src="https://www.google.com/s2/favicons?domain=atcoder.jp&sz=16" width="16" height="16" alt="AtCoder logo"/> **AtCoder** | [MishkatIT](https://atcoder.jp/users/MishkatIT) | **157** | ![Progress](https://img.shields.io/badge/Progress-4.1%25-FFBB55?style=flat-square) | 24 January 2026 | ![Automatic](https://img.shields.io/badge/Automatic-2196F3?style=flat) |
-| <img src="https://www.google.com/s2/favicons?domain=www.codechef.com&sz=16" width="16" height="16" alt="CodeChef logo"/> **CodeChef** | [MishkatIT](https://www.codechef.com/users/MishkatIT) | **126** | ![Progress](https://img.shields.io/badge/Progress-3.3%25-FFCC88?style=flat-square) | 24 January 2026 | ![Automatic](https://img.shields.io/badge/Automatic-2196F3?style=flat) |
-| <img src="https://www.google.com/s2/favicons?domain=cses.fi&sz=16" width="16" height="16" alt="CSES logo"/> **CSES** | [MishkatIT](https://cses.fi/user/165802/) | **66** | ![Progress](https://img.shields.io/badge/Progress-1.7%25-FF88FF?style=flat-square) | 15 January 2026 | ![Manual](https://img.shields.io/badge/Manual-F44336?style=flat) |
-| <img src="https://www.google.com/s2/favicons?domain=toph.co&sz=16" width="16" height="16" alt="Toph logo"/> **Toph** | [MishkatIT](https://toph.co/u/MishkatIT) | **37** | ![Progress](https://img.shields.io/badge/Progress-1.0%25-AAAAFF?style=flat-square) | 24 January 2026 | ![Automatic](https://img.shields.io/badge/Automatic-2196F3?style=flat) |
-| <img src="https://www.google.com/s2/favicons?domain=lightoj.com&sz=16" width="16" height="16" alt="LightOJ logo"/> **LightOJ** | [mishkatit](https://lightoj.com/user/mishkatit) | **31** | ![Progress](https://img.shields.io/badge/Progress-0.8%25-90C3DD?style=flat-square) | 24 January 2026 | ![Automatic](https://img.shields.io/badge/Automatic-2196F3?style=flat) |
-| <img src="https://www.google.com/s2/favicons?domain=www.spoj.com&sz=16" width="16" height="16" alt="SPOJ logo"/> **SPOJ** | [mishkatit](https://www.spoj.com/users/mishkatit/) | **18** | ![Progress](https://img.shields.io/badge/Progress-0.5%25-77DDBB?style=flat-square) | 16 January 2026 | ![Manual](https://img.shields.io/badge/Manual-F44336?style=flat) |
-| <img src="https://www.google.com/s2/favicons?domain=uhunt.onlinejudge.org&sz=16" width="16" height="16" alt="Uva logo"/> **Uva** | [MishkatIT](https://uhunt.onlinejudge.org/id/1615470) | **7** | ![Progress](https://img.shields.io/badge/Progress-0.2%25-77EE99?style=flat-square) | 24 January 2026 | ![Automatic](https://img.shields.io/badge/Automatic-2196F3?style=flat) |
-| <img src="https://www.google.com/s2/favicons?domain=www.hackerearth.com&sz=16" width="16" height="16" alt="HackerEarth logo"/> **HackerEarth** | [MishkatIT](https://www.hackerearth.com/@MishkatIT/) | **2** | ![Progress](https://img.shields.io/badge/Progress-0.1%25-77FF77?style=flat-square) | 15 January 2026 | ![Manual](https://img.shields.io/badge/Manual-F44336?style=flat) |
-| 🎖️ **TOTAL** | | **3812** | **100%** | 24 January 2026 | |
+| <img src="https://www.google.com/s2/favicons?domain=codeforces.com&sz=16" width="16" height="16" alt="Codeforces logo"/> **Codeforces** | [ayon](https://codeforces.com/profile/ayon) | **1582** | ![Progress](https://img.shields.io/badge/Progress-58.1%25-AA0000?style=flat-square) | 24 January 2026 | ![Automatic](https://img.shields.io/badge/Automatic-2196F3?style=flat) |
+| <img src="https://www.google.com/s2/favicons?domain=leetcode.com&sz=16" width="16" height="16" alt="LeetCode logo"/> **LeetCode** | [MishkatIT](https://leetcode.com/u/MishkatIT/) | **412** | ![Progress](https://img.shields.io/badge/Progress-15.1%25-FF3333?style=flat-square) | 24 January 2026 | ![Automatic](https://img.shields.io/badge/Automatic-2196F3?style=flat) |
+| <img src="https://www.google.com/s2/favicons?domain=vjudge.net&sz=16" width="16" height="16" alt="VJudge logo"/> **VJudge** | [MishkatIT](https://vjudge.net/user/MishkatIT) | **347** | ![Progress](https://img.shields.io/badge/Progress-12.7%25-FF7777?style=flat-square) | 24 January 2026 | ![Automatic](https://img.shields.io/badge/Automatic-2196F3?style=flat) |
+| <img src="https://www.google.com/s2/favicons?domain=atcoder.jp&sz=16" width="16" height="16" alt="AtCoder logo"/> **AtCoder** | [MishkatIT](https://atcoder.jp/users/MishkatIT) | **157** | ![Progress](https://img.shields.io/badge/Progress-5.8%25-FFBB55?style=flat-square) | 24 January 2026 | ![Automatic](https://img.shields.io/badge/Automatic-2196F3?style=flat) |
+| <img src="https://www.google.com/s2/favicons?domain=www.codechef.com&sz=16" width="16" height="16" alt="CodeChef logo"/> **CodeChef** | [MishkatIT](https://www.codechef.com/users/MishkatIT) | **126** | ![Progress](https://img.shields.io/badge/Progress-4.6%25-FFCC88?style=flat-square) | 24 January 2026 | ![Automatic](https://img.shields.io/badge/Automatic-2196F3?style=flat) |
+| <img src="https://www.google.com/s2/favicons?domain=toph.co&sz=16" width="16" height="16" alt="Toph logo"/> **Toph** | [MishkatIT](https://toph.co/u/MishkatIT) | **37** | ![Progress](https://img.shields.io/badge/Progress-1.4%25-FF88FF?style=flat-square) | 24 January 2026 | ![Automatic](https://img.shields.io/badge/Automatic-2196F3?style=flat) |
+| <img src="https://www.google.com/s2/favicons?domain=lightoj.com&sz=16" width="16" height="16" alt="LightOJ logo"/> **LightOJ** | [mishkatit](https://lightoj.com/user/mishkatit) | **31** | ![Progress](https://img.shields.io/badge/Progress-1.1%25-AAAAFF?style=flat-square) | 24 January 2026 | ![Automatic](https://img.shields.io/badge/Automatic-2196F3?style=flat) |
+| <img src="https://www.google.com/s2/favicons?domain=cses.fi&sz=16" width="16" height="16" alt="CSES logo"/> **CSES** | [165802](https://cses.fi/user/165802/) | **22** | ![Progress](https://img.shields.io/badge/Progress-0.8%25-90C3DD?style=flat-square) | 24 January 2026 | ![Manual](https://img.shields.io/badge/Manual-F44336?style=flat) |
+| <img src="https://www.google.com/s2/favicons?domain=uhunt.onlinejudge.org&sz=16" width="16" height="16" alt="Uva logo"/> **Uva** | [1615470](https://uhunt.onlinejudge.org/id/1615470) | **7** | ![Progress](https://img.shields.io/badge/Progress-0.3%25-77DDBB?style=flat-square) | 24 January 2026 | ![Automatic](https://img.shields.io/badge/Automatic-2196F3?style=flat) |
+| <img src="https://www.google.com/s2/favicons?domain=www.hackerearth.com&sz=16" width="16" height="16" alt="HackerEarth logo"/> **HackerEarth** | [MishkatIT](https://www.hackerearth.com/@MishkatIT/) | **2** | ![Progress](https://img.shields.io/badge/Progress-0.1%25-77EE99?style=flat-square) | 24 January 2026 | ![Automatic](https://img.shields.io/badge/Automatic-2196F3?style=flat) |
+| 🎖️ **TOTAL** | | **2723** | **100%** | 24 January 2026 | |
 
 ---
 
@@ -39,8 +40,8 @@
 
 | 🥇 Top Platform | 🎯 Main Focus | 📚 Platforms Active |
 |:---------------:|:-------------:|:------------------:|
-| **Codeforces** | **Competitive Programming** | **11** |
-| 2609 Problems | Algorithm Mastery | Multi-Platform |
+| **Codeforces** | **Competitive Programming** | **10** |
+| 1582 Problems | Algorithm Mastery | Multi-Platform |
 
 </div>
 <!-- AUTO_GENERATED_SECTION_END: KEY_HIGHLIGHTS -->
@@ -59,9 +60,9 @@
 <!-- AUTO_GENERATED_SECTION_START: LATEST_SOLVE -->
 <div align="center">
 
-| 📅 Last Solved | 🏆 Platform |
+| 📅 Last Solved | 🏆 Platforms |
 |:-------------:|:-------------:|
-| **23 January 2026** | **Codeforces** |
+| **24 January 2026** | **AtCoder**, **CSES**, **CodeChef**, and **Codeforces** |
 
 </div>
 
@@ -91,17 +92,16 @@
     </tr>
   </thead>
   <tbody>
-    <tr><td><img src="https://www.google.com/s2/favicons?domain=codeforces.com&sz=16" alt="Codeforces" width="16" height="16" onerror="this.style.display='none'"/> <strong>Codeforces</strong></td><td align="right" data-date="2026-01-23">23 January 2026</td></tr>
-    <tr><td><img src="https://www.google.com/s2/favicons?domain=www.codechef.com&sz=16" alt="CodeChef" width="16" height="16" onerror="this.style.display='none'"/> <strong>CodeChef</strong></td><td align="right" data-date="2026-01-17">17 January 2026</td></tr>
-    <tr><td><img src="https://www.google.com/s2/favicons?domain=toph.co&sz=16" alt="Toph" width="16" height="16" onerror="this.style.display='none'"/> <strong>Toph</strong></td><td align="right" data-date="2026-01-17">17 January 2026</td></tr>
-    <tr><td><img src="https://www.google.com/s2/favicons?domain=uhunt.onlinejudge.org&sz=16" alt="Uva" width="16" height="16" onerror="this.style.display='none'"/> <strong>Uva</strong></td><td align="right" data-date="2026-01-17">17 January 2026</td></tr>
-    <tr><td><img src="https://www.google.com/s2/favicons?domain=leetcode.com&sz=16" alt="LeetCode" width="16" height="16" onerror="this.style.display='none'"/> <strong>LeetCode</strong></td><td align="right" data-date="2026-01-10">10 January 2026</td></tr>
-    <tr><td><img src="https://www.google.com/s2/favicons?domain=atcoder.jp&sz=16" alt="AtCoder" width="16" height="16" onerror="this.style.display='none'"/> <strong>AtCoder</strong></td><td align="right" data-date="2025-11-29">29 November 2025</td></tr>
-    <tr><td><img src="https://www.google.com/s2/favicons?domain=vjudge.net&sz=16" alt="VJudge" width="16" height="16" onerror="this.style.display='none'"/> <strong>VJudge</strong></td><td align="right" data-date="2025-10-02">02 October 2025</td></tr>
-    <tr><td><img src="https://www.google.com/s2/favicons?domain=cses.fi&sz=16" alt="CSES" width="16" height="16" onerror="this.style.display='none'"/> <strong>CSES</strong></td><td align="right" data-date="2025-08-18">18 August 2025</td></tr>
-    <tr><td><img src="https://www.google.com/s2/favicons?domain=www.spoj.com&sz=16" alt="SPOJ" width="16" height="16" onerror="this.style.display='none'"/> <strong>SPOJ</strong></td><td align="right" data-date="2025-05-06">06 May 2025</td></tr>
-    <tr><td><img src="https://www.google.com/s2/favicons?domain=lightoj.com&sz=16" alt="LightOJ" width="16" height="16" onerror="this.style.display='none'"/> <strong>LightOJ</strong></td><td align="right" data-date="2023-08-12">12 August 2023</td></tr>
+    <tr><td><img src="https://www.google.com/s2/favicons?domain=atcoder.jp&sz=16" alt="AtCoder" width="16" height="16" onerror="this.style.display='none'"/> <strong>AtCoder</strong></td><td align="right" data-date="2026-01-24">24 January 2026</td></tr>
+    <tr><td><img src="https://www.google.com/s2/favicons?domain=cses.fi&sz=16" alt="CSES" width="16" height="16" onerror="this.style.display='none'"/> <strong>CSES</strong></td><td align="right" data-date="2026-01-24">24 January 2026</td></tr>
+    <tr><td><img src="https://www.google.com/s2/favicons?domain=www.codechef.com&sz=16" alt="CodeChef" width="16" height="16" onerror="this.style.display='none'"/> <strong>CodeChef</strong></td><td align="right" data-date="2026-01-24">24 January 2026</td></tr>
+    <tr><td><img src="https://www.google.com/s2/favicons?domain=codeforces.com&sz=16" alt="Codeforces" width="16" height="16" onerror="this.style.display='none'"/> <strong>Codeforces</strong></td><td align="right" data-date="2026-01-24">24 January 2026</td></tr>
     <tr><td><img src="https://www.google.com/s2/favicons?domain=www.hackerearth.com&sz=16" alt="HackerEarth" width="16" height="16" onerror="this.style.display='none'"/> <strong>HackerEarth</strong></td><td align="right" data-date="1970-01-01">01 January 1970</td></tr>
+    <tr><td><img src="https://www.google.com/s2/favicons?domain=leetcode.com&sz=16" alt="LeetCode" width="16" height="16" onerror="this.style.display='none'"/> <strong>LeetCode</strong></td><td align="right" data-date="1970-01-01">01 January 1970</td></tr>
+    <tr><td><img src="https://www.google.com/s2/favicons?domain=lightoj.com&sz=16" alt="LightOJ" width="16" height="16" onerror="this.style.display='none'"/> <strong>LightOJ</strong></td><td align="right" data-date="1970-01-01">01 January 1970</td></tr>
+    <tr><td><img src="https://www.google.com/s2/favicons?domain=toph.co&sz=16" alt="Toph" width="16" height="16" onerror="this.style.display='none'"/> <strong>Toph</strong></td><td align="right" data-date="1970-01-01">01 January 1970</td></tr>
+    <tr><td><img src="https://www.google.com/s2/favicons?domain=uhunt.onlinejudge.org&sz=16" alt="Uva" width="16" height="16" onerror="this.style.display='none'"/> <strong>Uva</strong></td><td align="right" data-date="1970-01-01">01 January 1970</td></tr>
+    <tr><td><img src="https://www.google.com/s2/favicons?domain=vjudge.net&sz=16" alt="VJudge" width="16" height="16" onerror="this.style.display='none'"/> <strong>VJudge</strong></td><td align="right" data-date="1970-01-01">01 January 1970</td></tr>
   </tbody>
 </table>
 
@@ -178,6 +178,21 @@
 | **`python scripts/configure_handles.py`** | ⚙️ **Setup/Config**<br>Configure profiles | Adding/removing platforms |
 | **`python scripts/update_readme.py`** | 📝 **README Only**<br>Regenerate README | Using existing data |
 
+<div align="center">
+
+#### 🪟 Windows Batch File (Easy Mode)
+
+</div>
+
+For Windows users, we've created a convenient batch file that handles everything automatically:
+
+| Method | Command | Description |
+|:------:|:-------:|:-----------:|
+| **Interactive Menu** | `spark.bat` | 🖥️ **Recommended for beginners**<br>Double-click or run `.\spark.bat` to open an interactive menu with all options |
+| **Quick Commands** | `.\spark.bat` | 🚀 **All-in-one solution**<br>Uses system Python, installs dependencies, and provides easy access to all scripts |
+
+> 💡 **The batch file automatically:**<br>• Checks and installs dependencies to system Python<br>• Provides a user-friendly menu to run any script
+
 > 📖 **Detailed documentation:** [USERGUIDE.md](USERGUIDE.md)
 
 ---
@@ -203,6 +218,6 @@
 
 <div align="center">
 
-<sub>v2.1.0</suv>
+<sub>v2.1.1</suv>
 
 </div>

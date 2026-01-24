@@ -3,7 +3,7 @@
 Script to fetch and update problem-solving statistics from various competitive programming platforms.
 Author: MishkatIT
 
-This script fetches problem counts from 12 competitive programming platforms using:
+This script fetches problem counts from competitive programming platforms using:
 1. Official APIs where available (primary method)
 2. Web scraping as a fallback when APIs are unavailable or fail
 
@@ -52,7 +52,48 @@ from rich.table import Table
 from rich.panel import Panel
 
 colorama_init(autoreset=True)
-console = Console()
+
+# Check if running in CI environment (GitHub Actions, etc.)
+IS_CI = os.getenv('CI') == 'true' or os.getenv('GITHUB_ACTIONS') == 'true'
+
+if IS_CI:
+    # Use plain text output for CI environments
+    class PlainConsole:
+        def print(self, *args, **kwargs):
+            # Convert Rich objects to plain text
+            messages = []
+            for arg in args:
+                if hasattr(arg, 'plain'):
+                    messages.append(arg.plain)
+                else:
+                    messages.append(str(arg))
+            print(' '.join(messages))
+        
+        def rule(self, title=None, **kwargs):
+            if title:
+                print(f"\n{'='*50}")
+                print(title)
+                print(f"{'='*50}\n")
+            else:
+                print(f"{'='*50}")
+        
+        def status(self, *args, **kwargs):
+            # For status, just print the message without spinner
+            return PlainStatus(*args, **kwargs)
+    
+    class PlainStatus:
+        def __init__(self, message, **kwargs):
+            print(message)
+        
+        def __enter__(self):
+            return self
+        
+        def __exit__(self, *args):
+            pass
+    
+    console = PlainConsole()
+else:
+    console = Console()
 
 
 class PlatformStats:
@@ -72,16 +113,32 @@ class PlatformStats:
         options.add_argument('--headless')
         options.add_argument('--disable-gpu')
         options.add_argument('--no-sandbox')
-        options.add_argument('--window-size=1920,1080')
+        options.add_argument('--disable-images')
+        options.add_argument('--disable-extensions')
+        options.add_argument('--disable-plugins')
+        options.add_argument('--disable-dev-shm-usage')
+        options.add_argument('--window-size=1024,768')
+        # Add user agent to look more like real browser
+        options.add_argument('user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36')
+        # Disable webdriver property to avoid detection
+        options.add_experimental_option("excludeSwitches", ["enable-automation"])
+        options.add_experimental_option('useAutomationExtension', False)
+        
         driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()), options=options)
+        # Execute script to remove webdriver property
+        driver.execute_script("Object.defineProperty(navigator, 'webdriver', {get: () => undefined})")
+        
         driver.get(url)
         if wait_xpath:
             try:
-                WebDriverWait(driver, 15).until(
+                WebDriverWait(driver, 10).until(
                     EC.presence_of_element_located((By.XPATH, wait_xpath))
                 )
             except Exception as e:
                 print(f"Timeout waiting for dynamic content at {url}")
+        # Add a small delay to let dynamic content load
+        import time
+        time.sleep(2)
         html = driver.page_source
         driver.quit()
         return html
@@ -92,7 +149,7 @@ class PlatformStats:
         self.user_agent = USER_AGENT
         self.last_known_counts = DataManager.load_last_known_counts()
 
-    def fetch_url(self, url, use_api=False, platform=None, check_status=True):
+    def fetch_url(self, url, use_api=False, platform=None, check_status=True, fallback_selenium=False):
         """Fetch URL with proper headers, including platform-specific browser headers.
         
         Args:
@@ -100,6 +157,7 @@ class PlatformStats:
             use_api: Whether this is an API call (affects Accept header)
             platform: Platform name for specific headers
             check_status: Whether to explicitly check HTTP status code is 200
+            fallback_selenium: If True, fall back to Selenium if requests fails
             
         Returns:
             Content string if successful, None if failed
@@ -128,20 +186,31 @@ class PlatformStats:
             with urlopen(req, timeout=10) as response:
                 if check_status and response.getcode() != 200:
                     print(f"  HTTP {response.getcode()} for {url}")
+                    if fallback_selenium:
+                        print(f"  Falling back to Selenium for {url}")
+                        return self.fetch_with_selenium(url)
                     return None
                     
                 content = response.read()
                 if use_api:
                     return json.loads(content.decode('utf-8'))
-                return content.decode('utf-8')
-        except HTTPError as e:
-            if check_status:
-                print(f"  HTTP {e.code} error for {url}")
+                html = content.decode('utf-8')
+                # If fallback_selenium is True and this looks like JS-rendered content (no expected text), try Selenium
+                if fallback_selenium and "Problems Solved" not in html and "<!DOCTYPE html>" in html:
+                    print(f"  Content appears JS-rendered, falling back to Selenium for {url}")
+                    return self.fetch_with_selenium(url)
+                return html
+        except (HTTPError, URLError) as e:
+            if fallback_selenium:
+                print(f"  Requests failed ({e}), falling back to Selenium for {url}")
+                return self.fetch_with_selenium(url)
+            if isinstance(e, HTTPError):
+                if check_status:
+                    print(f"  HTTP {e.code} error for {url}")
+                else:
+                    print(f"Error fetching {url}: {e}")
             else:
-                print(f"Error fetching {url}: {e}")
-            return None
-        except URLError as e:
-            print(f"  Network error fetching {url}: {e}")
+                print(f"  Network error fetching {url}: {e}")
             return None
     
     def get_codeforces(self):
@@ -383,7 +452,7 @@ class PlatformStats:
         """Fetch CodeChef statistics using web scraping."""
         try:
             url = f"https://www.codechef.com/users/{self.user_config['CodeChef']}"
-            html = self.fetch_url(url)
+            html = self.fetch_url(url, fallback_selenium=True)
             if not html:
                 return None
                 
@@ -444,30 +513,36 @@ class PlatformStats:
         return None
     
     def get_cses(self):
-        """Fetch CSES statistics."""
-        try:
-            url = f"https://cses.fi/user/{self.user_config['CSES']}/"
-            html = self.fetch_url(url)
-            if not html:
-                return None
-                
-            # Try multiple patterns for tasks solved
-            patterns = [
-                r'(\d+)\s+/\s+\d+\s+task',
-                r'Solved:\s*(\d+)',
-                r'<td[^>]*>(\d+)</td>\s*<td[^>]*>/\s*\d+\s+task',
-                r'"solved"\s*:\s*(\d+)',
-                r'data-solved["\s:=]+(\d+)',
-            ]
-            for pattern in patterns:
-                match = re.search(pattern, html, re.IGNORECASE)
-                if match:
-                    count = int(match.group(1))
-                    if 0 < count < MAX_REASONABLE_COUNT:
-                        return count
-        except Exception as e:
-            print(f"  Error getting CSES stats: {e}")
-        return None
+        """Fetch CSES statistics.
+
+        NOTE: CSES user profile pages don't display solved problem counts.
+        Only submission counts and dates are shown. This method cannot work
+        with the current CSES website structure.
+        """
+        return (None, "CSES profile pages don't display solved problem counts")
+        # try:
+        #     url = f"https://cses.fi/user/{self.user_config['CSES']}/"
+        #     html = self.fetch_url(url)
+        #     if not html:
+        #         return None
+        #
+        #     # Try multiple patterns for tasks solved
+        #     patterns = [
+        #         r'(\d+)\s+/\s+\d+\s+task',
+        #         r'Solved:\s*(\d+)',
+        #         r'<td[^>]*>(\d+)</td>\s*<td[^>]*>/\s*\d+\s+task',
+        #         r'"solved"\s*:\s*(\d+)',
+        #         r'data-solved["\s:=]+(\d+)',
+        #     ]
+        #     for pattern in patterns:
+        #         match = re.search(pattern, html, re.IGNORECASE)
+        #         if match:
+        #             count = int(match.group(1))
+        #             if 0 < count < MAX_REASONABLE_COUNT:
+        #                 return count
+        # except Exception as e:
+        #     print(f"  Error getting CSES stats: {e}")
+        # return None
     
     def get_toph(self):
         """Fetch Toph statistics."""
@@ -513,53 +588,60 @@ class PlatformStats:
         return None
     
     def get_spoj(self):
-        """Fetch SPOJ statistics."""
-        try:
-            url = f"https://www.spoj.com/users/{USER_CONFIG['SPOJ']}/"
-            html = self.fetch_url(url)
-            if html:
-                # Try multiple patterns for problems solved
-                patterns = [
-                    r'Problems\s+solved[:\s]*(\d+)',
-                    r'<td[^>]*>Problems\s+solved[:\s]*</td>\s*<td[^>]*>(\d+)',
-                    r'solved[:\s]*</td>\s*<td[^>]*>(\d+)',
-                    r'Solved[:\s]*(\d+)',
-                    r'"solved"\s*:\s*(\d+)',
-                    r'data-solved["\s:=]+(\d+)',
-                ]
-                for pattern in patterns:
-                    match = re.search(pattern, html, re.IGNORECASE)
-                    if match:
-                        count = int(match.group(1))
-                        if 0 < count < MAX_REASONABLE_COUNT:
-                            return count
-        except Exception as e:
-            print(f"  Error getting SPOJ stats: {e}")
-        return None
+        """Fetch SPOJ statistics using Selenium for Cloudflare protection."""
+        return (None, "SPOJ blocked by Cloudflare protection")
+        # try:
+        #     url = f"https://www.spoj.com/users/{USER_CONFIG['SPOJ']}/"
+        #     # Use Selenium to bypass Cloudflare, wait for page to load
+        #     html = self.fetch_with_selenium(url, wait_xpath="//body")
+        #     if html:
+        #         # Try multiple patterns for problems solved
+        #         patterns = [
+        #             r'<dt[^>]*>Problems\s+solved</dt>\s*<dd[^>]*>(\d+)</dd>',
+        #             r'Problems\s+solved[:\s]*(\d+)',
+        #             r'<td[^>]*>Problems\s+solved[:\s]*</td>\s*<td[^>]*>(\d+)',
+        #             r'solved[:\s]*</td>\s*<td[^>]*>(\d+)',
+        #             r'Solved[:\s]*(\d+)',
+        #             r'"solved"\s*:\s*(\d+)',
+        #             r'data-solved["\s:=]+(\d+)',
+        #         ]
+        #         for pattern in patterns:
+        #             match = re.search(pattern, html, re.IGNORECASE)
+        #             if match:
+        #                 count = int(match.group(1))
+        #                 if 0 < count < MAX_REASONABLE_COUNT:
+        #                     return count
+        # except Exception as e:
+        #     print(f"  Error getting SPOJ stats: {e}")
+        # return None
     
     def get_hackerrank(self):
-        """Fetch HackerRank statistics."""
-        try:
-            url = f"https://www.hackerrank.com/{self.user_config['HackerRank']}"
-            html = self.fetch_url(url)
-            if html:
-                # Try multiple patterns for challenges solved
-                patterns = [
-                    r'(\d+)\s+challenges?\s+solved',
-                    r'challenges?\s+solved[:\s]*(\d+)',
-                    r'<span[^>]*>(\d+)</span>\s*<[^>]*>\s*challenges?\s+solved',
-                    r'"challengesSolved"\s*:\s*(\d+)',
-                    r'data-challenges["\s:=]+(\d+)',
-                ]
-                for pattern in patterns:
-                    match = re.search(pattern, html, re.IGNORECASE)
-                    if match:
-                        count = int(match.group(1))
-                        if 0 < count < MAX_REASONABLE_COUNT:
-                            return count
-        except Exception as e:
-            print(f"  Error getting HackerRank stats: {e}")
-        return None
+        """Fetch HackerRank statistics using Selenium for JS-rendered content."""
+        return (None, "HackerRank profile pages don't display solved problem counts")
+        # try:
+        #     url = f"https://www.hackerrank.com/profile/{self.user_config['HackerRank']}"
+        #     # Use Selenium to load JS-rendered content
+        #     html = self.fetch_with_selenium(url)
+        #     if html:
+        #         # Try multiple patterns for challenges solved
+        #         patterns = [
+        #             r'(\d+)\s+challenges?\s+solved',
+        #             r'challenges?\s+solved[:\s]*(\d+)',
+        #             r'<span[^>]*>(\d+)</span>\s*<[^>]*>\s*challenges?\s+solved',
+        #             r'"challengesSolved"\s*:\s*(\d+)',
+        #             r'data-challenges["\s:=]+(\d+)',
+        #             r'(\d+)\s+problems?\s+solved',
+        #             r'Problems\s+solved[:\s]*(\d+)',
+        #         ]
+        #         for pattern in patterns:
+        #             match = re.search(pattern, html, re.IGNORECASE)
+        #             if match:
+        #                 count = int(match.group(1))
+        #                 if 0 < count < MAX_REASONABLE_COUNT:
+        #                     return count
+        # except Exception as e:
+        #     print(f"  Error getting HackerRank stats: {e}")
+        # return None
     
     def get_uva(self):
         """Fetch UVa statistics."""
@@ -607,21 +689,27 @@ class PlatformStats:
         return None
     
     def get_hackerearth(self):
-        """Fetch HackerEarth statistics."""
+        """Fetch HackerEarth statistics using Selenium for JS-rendered content."""
         try:
             url = f"https://www.hackerearth.com/@{self.user_config['HackerEarth']}"
-            html = self.fetch_url(url)
+            # Fetch without waiting, as content may load quickly enough
+            html = self.fetch_with_selenium(url)
             if html:
                 # Try multiple patterns for problems solved
                 patterns = [
+                    r'<div class="text-xl font-semibold leading-none">(\d+)</div><div class="text-sm text-muted-foreground mt-2 w-full whitespace-nowrap">Problems Solved</div>',
+                    r'<div class="rounded-xl[^"]*bg-card[^"]*text-card-foreground[^"]*">.*?<div class="text-xl[^"]*">(\d+)</div>.*?<div class="text-sm[^"]*">Problems Solved</div>.*?<svg[^>]*class="lucide lucide-square-check-big',
                     r'(\d+)\s+problem',
                     r'Problems\s+Solved[:\s]*(\d+)',
                     r'<span[^>]*>(\d+)</span>\s*<[^>]*>\s*problem',
                     r'"problemsSolved"\s*:\s*(\d+)',
                     r'data-problems["\s:=]+(\d+)',
+                    r'(\d+)\s+problems?\s+solved',
+                    r'Solved[:\s]*(\d+)',
+                    r'__NEXT_DATA__.*?"problemsSolved"\s*:\s*(\d+)',
                 ]
                 for pattern in patterns:
-                    match = re.search(pattern, html, re.IGNORECASE)
+                    match = re.search(pattern, html, re.IGNORECASE | re.DOTALL)
                     if match:
                         count = int(match.group(1))
                         if 0 < count < MAX_REASONABLE_COUNT:
@@ -657,9 +745,8 @@ class PlatformStats:
         """Fetch CSAcademy statistics using Selenium for JS-rendered content."""
         try:
             url = f"https://csacademy.com/user/{self.user_config['CSAcademy']}"
-            # Wait for the profile username to appear (unique to loaded profile)
-            wait_xpath = f"//h1[contains(text(), '{self.user_config['CSAcademy']}')]"
-            html = self.fetch_with_selenium(url, wait_xpath=wait_xpath)
+            # Fetch without waiting, as content may load quickly enough
+            html = self.fetch_with_selenium(url)
             if html:
                 patterns = [
                     r'<span style="font-size: 1\.3em; margin-bottom: 10px;">Problems solved:\s*(\d+)</span>',
@@ -684,9 +771,8 @@ class PlatformStats:
         """Fetch Toki statistics using Selenium for JS-rendered content."""
         try:
             url = f"https://tlx.toki.id/profiles/{self.user_config['Toki']}"
-            # Wait for the AC label to appear (unique to loaded profile)
-            wait_xpath = "//b[text()='AC']"
-            html = self.fetch_with_selenium(url, wait_xpath=wait_xpath)
+            # Fetch without waiting, as content may load quickly enough
+            html = self.fetch_with_selenium(url)
             if html:
                 patterns = [
                     r'<li[^>]*>.*?<b[^>]*>AC</b>.*?:.*?(\d+).*?</li>',
@@ -719,35 +805,36 @@ class PlatformStats:
         missing_methods = []
         for platform in self.user_config:
             method_name = f'get_{platform.lower()}'
-            if hasattr(self, method_name):
-                platforms[platform] = getattr(self, method_name)
-            else:
-                missing_methods.append(platform)
+            platforms[platform] = getattr(self, method_name)
         
         if verbose:
-            from rich.live import Live
-            funny_messages = [
-                "[ROBOT] Machines think, we build their minds...",
-                "[COFFEE] Waiting as computers wake from sleep...",
-                "[TARGET] Chasing perfect answers in numbers...",
-                "[ROCKET] Sending questions to the digital stars...",
-                "[BRAIN] Training smart machines to think...",
-                "[CLOCK] Time moves fast when gathering info...",
-                "[CIRCUS] Many places, one big show...",
-                "[HERO] Hero saves the day with data...",
-                "[STAR] Collecting bright points from code space...",
-                "[ART] Drawing pictures with solve numbers...",
-                "[DETECTIVE] Exploring strange computer answers...",
-                "[CIRCUS] Balancing many computer requests...",
-                "[WIZARD] Using magic to get information...",
-                "[MASK] Pretending to be different for each site...",
-                "[UNICORN] Magic and math working as one...",
-                "[CIRCUS] Big celebration of different places...",
-                "[HEROINE] Hero puts together all the info...",
-                "[RAINBOW] Looking for treasure in solve numbers...",
-                "[CIRCUS] Playing tricks to get web data...",
-                "[HERO] Fixing things, one computer call at a time...",
-                "[ROBOT] Computer rules greet us...",
+            if IS_CI:
+                # Simple progress display for CI
+                print("Fetching statistics from all platforms (parallel processing)...")
+                funny_messages = []  # Skip funny messages in CI
+            else:
+                from rich.live import Live
+                funny_messages = [
+                    "[ROBOT] Machines think, we build their minds...",
+                    "[COFFEE] Waiting as computers wake from sleep...",
+                    "[TARGET] Chasing perfect answers in numbers...",
+                    "[ROCKET] Sending questions to the digital stars...",
+                    "[BRAIN] Training smart machines to think...",
+                    "[CLOCK] Time moves fast when gathering info...",
+                    "[CIRCUS] Many places, one big show...",
+                    "[HERO] Hero saves the day with data...",
+                    "[STAR] Collecting bright points from code space...",
+                    "[ART] Drawing pictures with solve numbers...",
+                    "[DETECTIVE] Exploring strange computer answers...",
+                    "[CIRCUS] Balancing many computer requests...",
+                    "[WIZARD] Using magic to get information...",
+                    "[MASK] Pretending to be different for each site...",
+                    "[UNICORN] Magic and math working as one...",
+                    "[CIRCUS] Big celebration of different places...",
+                    "[HEROINE] Hero puts together all the info...",
+                    "[RAINBOW] Looking for treasure in solve numbers...",
+                    "[CIRCUS] Playing tricks to get web data...",
+                    "[HERO] Fixing things, one computer call at a time...",
                 "[COFFEE] Making new solve numbers...",
                 "[TARGET] Hit the target, almost have the info...",
                 "[ROCKET] Going far, getting more data...",
@@ -804,12 +891,21 @@ class PlatformStats:
                     fetch_time = end_time - start_time
                     
                     # Handle both old format (just count) and new format (dict with count and rating)
+                    # Also handle custom message format: (None, "custom message")
+                    custom_message = None
                     if isinstance(result, dict):
                         count = result.get('count')
                         rating_info = result.get('rating')
+                    elif isinstance(result, tuple) and len(result) == 2 and result[0] is None:
+                        count = None
+                        custom_message = result[1]
                     else:
                         count = result
                         rating_info = None
+                    
+                    if custom_message is not None:
+                        # Custom failure message - still try to use cached data but with specific reason
+                        count = None
                     
                     if count is not None:
                         # Data successfully fetched - update count, date, and mode to 'automatic'
@@ -831,11 +927,15 @@ class PlatformStats:
                             last_mode = DataManager.get_last_known_mode(self.last_known_counts, platform)
                             end_time = time.time()
                             fetch_time = end_time - start_time
-                            return platform, last_known, f"Fetch failed - Using cached count: {last_known} (from {last_date}, mode: {last_mode})", False, fetch_time  # False for is_fresh
+                            # Use custom message if available, otherwise generic message
+                            reason = custom_message if custom_message else f"Fetch failed - Using cached count: {last_known} (from {last_date}, mode: {last_mode})"
+                            return platform, last_known, reason, False, fetch_time  # False for is_fresh
                         else:
                             end_time = time.time()
                             fetch_time = end_time - start_time
-                            return platform, None, "Fetch failed - No cached data available", False, fetch_time
+                            # Use custom message if available, otherwise generic message
+                            reason = custom_message if custom_message else "Fetch failed - No cached data available"
+                            return platform, None, reason, False, fetch_time
                 except Exception as e:
                     # Try to use last known count
                     last_known = DataManager.get_last_known(self.last_known_counts, platform)
@@ -851,40 +951,16 @@ class PlatformStats:
                         fetch_time = end_time - start_time
                         return platform, None, f"Exception occurred - No cached data available", False, fetch_time
             
-            # Use ThreadPoolExecutor for parallel fetching with Live display
-            with Live(current_display, console=console, refresh_per_second=2) as live:
+            # Use ThreadPoolExecutor for parallel fetching
+            if IS_CI:
+                # Simple progress for CI
+                print("Starting parallel fetching...")
                 with ThreadPoolExecutor(max_workers=max_workers) as executor:
                     future_to_platform = {executor.submit(fetch_single_platform, platform): platform for platform in platforms}
                     
-                    # # Start funny message Live display with blank screen initially
-                    funny_message_display = Panel("", expand=False)  # Start with empty display
-                    funny_live = Live(funny_message_display, console=console, refresh_per_second=1)
-                    funny_live.start()
-                    
-                    # Start funny message printing thread
-                    funny_printing_running = True
-                    def print_funny_messages():
-                        time.sleep(3.0)  # Wait 3 seconds before starting messages
-                        while funny_printing_running:
-                            funny_message = random.choice(funny_messages)
-                            # Update the funny message display
-                            new_display = Panel(f"[bold bright_magenta]🎭 {funny_message}[/bold bright_magenta]", expand=False)
-                            funny_live.update(new_display)
-                            time.sleep(4.0)  # Print every 4 seconds
-                    
-                    funny_thread = threading.Thread(target=print_funny_messages, daemon=True)
-                    funny_thread.start()
-                    
-                    funny_thread = threading.Thread(target=print_funny_messages, daemon=True)
-                    funny_thread.start()
-                    
-                    completed_count = 0
                     for future in as_completed(future_to_platform):
                         platform = future_to_platform[future]
-                        
-                        # Update display to show current platform being fetched
-                        current_display = Panel(f"[bold cyan]Fetching statistics from all platforms...[/bold cyan]\n[bold bright_blue]Currently fetching: {platform}[/bold bright_blue]", expand=False)
-                        live.update(current_display)
+                        print(f"Fetching: {platform}")
                         
                         try:
                             platform_name, count, message, is_fresh, fetch_time = future.result()
@@ -895,34 +971,95 @@ class PlatformStats:
                                 if is_fresh:
                                     working_count += 1
                                 fresh_fetches[platform_name] = is_fresh
+                                print(f"✓ {platform_name}: {count} problems")
+                            else:
+                                print(f"✗ {platform_name}: Failed")
                         except Exception as e:
                             results[platform] = None
                             messages[platform] = f"Unexpected error: {e}"
+                            print(f"✗ {platform}: Error - {e}")
+                
+                print("Fetching completed!")
+            else:
+                # Rich Live display for interactive use
+                with Live(current_display, console=console, refresh_per_second=2) as live:
+                    with ThreadPoolExecutor(max_workers=max_workers) as executor:
+                        future_to_platform = {executor.submit(fetch_single_platform, platform): platform for platform in platforms}
                         
-                        completed_count += 1
-                        # Add small delay to make the process visible
-                        time.sleep(0.1)
-                
-                # Stop the funny message Live display
-                funny_printing_running = False
-                funny_thread.join(timeout=1.0)
-                funny_live.stop()
-                
-                # Show completion message
-                time.sleep(1.0)  # Brief pause
-                completion_display = Panel("[bold green]Fetching completed![/bold green]", expand=False)
-                live.update(completion_display)
+                        # # Start funny message Live display with blank screen initially
+                        funny_message_display = Panel("", expand=False)  # Start with empty display
+                        funny_live = Live(funny_message_display, console=console, refresh_per_second=1)
+                        funny_live.start()
+                        
+                        # Start funny message printing thread
+                        funny_printing_running = True
+                        def print_funny_messages():
+                            time.sleep(3.0)  # Wait 3 seconds before starting messages
+                            while funny_printing_running:
+                                funny_message = random.choice(funny_messages)
+                                # Update the funny message display
+                                new_display = Panel(f"[bold bright_magenta]🎭 {funny_message}[/bold bright_magenta]", expand=False)
+                                funny_live.update(new_display)
+                                time.sleep(4.0)  # Print every 4 seconds
+                        
+                        funny_thread = threading.Thread(target=print_funny_messages, daemon=True)
+                        funny_thread.start()
+                        
+                        funny_thread = threading.Thread(target=print_funny_messages, daemon=True)
+                        funny_thread.start()
+                        
+                        completed_count = 0
+                        for future in as_completed(future_to_platform):
+                            platform = future_to_platform[future]
+                            
+                            # Update display to show current platform being fetched
+                            current_display = Panel(f"[bold cyan]Fetching statistics from all platforms...[/bold cyan]\n[bold bright_blue]Currently fetching: {platform}[/bold bright_blue]", expand=False)
+                            live.update(current_display)
+                            
+                            try:
+                                platform_name, count, message, is_fresh, fetch_time = future.result()
+                                results[platform_name] = count
+                                messages[platform_name] = message
+                                fetch_times[platform_name] = fetch_time
+                                if count is not None:
+                                    if is_fresh:
+                                        working_count += 1
+                                    fresh_fetches[platform_name] = is_fresh
+                            except Exception as e:
+                                results[platform] = None
+                                messages[platform] = f"Unexpected error: {e}"
+                            
+                            completed_count += 1
+                            # Add small delay to make the process visible
+                            time.sleep(0.1)
+                    
+                    # Stop the funny message Live display
+                    funny_printing_running = False
+                    funny_thread.join(timeout=1.0)
+                    funny_live.stop()
+                    
+                    # Show completion message
+                    time.sleep(1.0)  # Brief pause
+                    completion_display = Panel("[bold green]Fetching completed![/bold green]", expand=False)
+                    live.update(completion_display)
             
             # Now print all platform results after the Live display
             # (Removed - results will be shown in summary table instead)
         
         # Handle platforms without implemented fetch methods
         for platform in missing_methods:
-            results[platform] = None
-            messages[platform] = "No method implemented - Try manual update"
-            fresh_fetches[platform] = False  # Not fresh since no fetch method
-            if verbose:
-                console.print(f"{platform:<12} [bold bright_red][NO METHOD][/bold bright_red] [dim red]└─ No method implemented - Try manual update[/dim red]")
+            # Try to use cached data if available
+            cached_count = DataManager.get_last_known(self.last_known_counts, platform)
+            if cached_count is not None:
+                results[platform] = cached_count
+                last_date = self.last_known_counts.get('dates', {}).get(platform, 'unknown date')
+                last_mode = DataManager.get_last_known_mode(self.last_known_counts, platform)
+                messages[platform] = f"No method implemented - Using cached count: {cached_count} (from {last_date}, mode: {last_mode})"
+                fresh_fetches[platform] = False  # Not fresh since using cached data
+            else:
+                results[platform] = None
+                messages[platform] = "No method implemented - Try manual update"
+                fresh_fetches[platform] = False  # Not fresh since no fetch method
         
         # Save the updated last known counts
         DataManager.save_last_known_counts(self.last_known_counts)
@@ -966,36 +1103,73 @@ def main():
     
     fetcher = PlatformStats()
     stats, messages, fresh_fetches, fetch_times = fetcher.fetch_all_stats()
-    console.rule("[bold magenta]SUMMARY OF PROBLEM SOLVING STATISTICS[/bold magenta]", style="magenta")
-    from rich import box
-    table = Table(show_header=True, header_style="bold blue", box=box.SIMPLE, show_lines=True, padding=(0,1))
-    table.add_column("[cyan]Platform[/cyan]", style="bold cyan", justify="left")
-    table.add_column("[green]Count[/green]", style="bold green", justify="right")
-    table.add_column("[yellow]Source[/yellow]", style="yellow", justify="center")
-    table.add_column("[blue]Time[/blue]", style="cyan", justify="right")
-    table.add_column("[white]Status/Reason[/white]", style="dim", justify="left")
-    total = 0
-    for platform, count in stats.items():
-        fetch_time = fetch_times.get(platform, 0)
-        # Format time nicely
-        if fetch_time < 1.0:
-            time_str = f"{fetch_time*1000:.0f}ms"
-        else:
-            time_str = f"{fetch_time:.1f}s"
-        
-        if count is not None:
-            source = "[bold green][FRESH][/bold green]" if fresh_fetches.get(platform, False) else "[yellow][CACHED][/yellow]"
-            reason = messages.get(platform, '')
-            table.add_row(f"[bold]{platform}[/bold]", f"[bold]{count}[/bold]", source, f"[cyan]{time_str}[/cyan]", reason)
-            total += count
-        else:
-            reason = messages.get(platform, 'Unknown reason')
-            table.add_row(f"[bold]{platform}[/bold]", "-", "[red][FAILED][/red]", f"[cyan]{time_str}[/cyan]", f"[red]Failed to fetch[/red] - {reason}")
-    console.print(table)
-    console.print(Panel(f"[bold green]TOTAL:[/bold green] [bold yellow]{total} problems[/bold yellow]", border_style="green", expand=False))
-    fresh_count = sum(1 for is_fresh in fresh_fetches.values() if is_fresh)
-    cached_count = sum(1 for is_fresh in fresh_fetches.values() if not is_fresh)
-    console.print(Panel(f"[cyan]Fresh:[/cyan] [bold]{fresh_count}[/bold]   [yellow]Cached:[/yellow] [bold]{cached_count}[/bold]", border_style="cyan", expand=False))
+    
+    if IS_CI:
+        # Simple text output for CI
+        print("\n" + "="*60)
+        print("SUMMARY OF PROBLEM SOLVING STATISTICS")
+        print("="*60)
+        print(f"{'Platform':<15} {'Count':<8} {'Source':<8} {'Time':<8} {'Status'}")
+        print("-"*60)
+        total = 0
+        for platform, count in stats.items():
+            fetch_time = fetch_times.get(platform, 0)
+            if fetch_time < 0.001:
+                time_str = "<1ms"
+            elif fetch_time < 1.0:
+                time_str = f"{fetch_time*1000:.0f}ms"
+            else:
+                time_str = f"{fetch_time:.1f}s"
+            
+            if count is not None:
+                source = "FRESH" if fresh_fetches.get(platform, False) else "CACHED"
+                reason = messages.get(platform, '')
+                print(f"{platform:<15} {count:<8} {source:<8} {time_str:<8} {reason}")
+                total += count
+            else:
+                reason = messages.get(platform, 'Unknown reason')
+                print(f"{platform:<15} {'-':<8} {'FAILED':<8} {time_str:<8} Failed - {reason}")
+        print("-"*60)
+        print(f"TOTAL: {total} problems")
+        fresh_count = sum(1 for is_fresh in fresh_fetches.values() if is_fresh)
+        cached_count = sum(1 for is_fresh in fresh_fetches.values() if not is_fresh)
+        print(f"Fresh: {fresh_count}, Cached: {cached_count}")
+    else:
+        # Rich formatting for interactive use
+        console.rule("[bold magenta]SUMMARY OF PROBLEM SOLVING STATISTICS[/bold magenta]", style="magenta")
+        from rich import box
+        table = Table(show_header=True, header_style="bold blue", box=box.SIMPLE, show_lines=True, padding=(0,1))
+        table.add_column("[cyan]Platform[/cyan]", style="bold cyan", justify="left")
+        table.add_column("[green]Count[/green]", style="bold green", justify="right")
+        table.add_column("[yellow]Source[/yellow]", style="yellow", justify="center")
+        table.add_column("[blue]Time[/blue]", style="cyan", justify="right")
+        table.add_column("[white]Status/Reason[/white]", style="dim", justify="left")
+        total = 0
+        for platform, count in stats.items():
+            fetch_time = fetch_times.get(platform, 0)
+            # Format time nicely
+            if fetch_time < 0.001:
+                time_str = "<1ms"
+            elif fetch_time < 1.0:
+                time_str = f"{fetch_time*1000:.0f}ms"
+            else:
+                time_str = f"{fetch_time:.1f}s"
+            
+            if count is not None:
+                source = "[bold green][FRESH][/bold green]" if fresh_fetches.get(platform, False) else "[yellow][CACHED][/yellow]"
+                reason = messages.get(platform, '')
+                table.add_row(f"[bold]{platform}[/bold]", f"[bold]{count}[/bold]", source, f"[cyan]{time_str}[/cyan]", reason)
+                total += count
+            else:
+                reason = messages.get(platform, 'Unknown reason')
+                table.add_row(f"[bold]{platform}[/bold]", "-", "[red][FAILED][/red]", f"[cyan]{time_str}[/cyan]", f"[red]Failed to fetch[/red] - {reason}")
+        console.print(table)
+        console.print(Panel(f"[bold green]TOTAL:[/bold green] [bold yellow]{total} problems[/bold yellow]", border_style="green", expand=False))
+        fresh_count = sum(1 for is_fresh in fresh_fetches.values() if is_fresh)
+        cached_count = sum(1 for is_fresh in fresh_fetches.values() if not is_fresh)
+        console.print(Panel(f"[cyan]Fresh:[/cyan] [bold]{fresh_count}[/bold]   [yellow]Cached:[/yellow] [bold]{cached_count}[/bold]", border_style="cyan", expand=False))
+    
+    console.print(f"{'Platform':<12} [bold bright_red][NO METHOD][/bold bright_red] [dim red]└─ Try manual update - No method implemented. For some sites, API and scraping are not possible. If you think it's possible to add, implement the method in scripts/auto_update.py[/dim red]")
     
     # Check for slow platforms and provide suggestions
     slow_threshold = 10.0  # 10 seconds threshold for "slow"
@@ -1003,10 +1177,27 @@ def main():
     if slow_platforms:
         slow_platforms.sort(key=lambda x: x[1], reverse=True)  # Sort by time descending
         slow_list = ", ".join([f"{platform} ({time:.1f}s)" for platform, time in slow_platforms[:3]])  # Top 3 slowest
-        console.print(Panel(f"[yellow][SLOW PLATFORMS][/yellow] {slow_list} took unusually long to fetch.\n"
-                           f"Consider updating these manually if you're not actively solving there - no need to check daily!\n"
-                           f"Use: [cyan]python scripts/manual_update.py[/cyan]", 
-                           border_style="yellow", expand=False))
+        
+        if IS_CI:
+            # Simple text message for CI
+            print(f"\nSLOW PLATFORMS: {slow_list} took unusually long to fetch.")
+            print("\nWhat to do:")
+            print("• For occasional updates: Run python scripts/manual_update.py")
+            print("  (Opens each platform in browser, lets you enter current counts)")
+            print("• For permanent skip: Find the method def get_platformname(self): in this file")
+            print("  and add # before the def to comment out the entire method")
+            print("• Keep automatic: If you solve there regularly, ignore this message")
+            print("\nManual updates are faster and work offline!")
+        else:
+            # Rich formatting for interactive use
+            console.print(Panel(f"[yellow][SLOW PLATFORMS][/yellow] {slow_list} took unusually long to fetch.\n\n"
+                               f"[bold]What to do:[/bold]\n"
+                               f"• [cyan]For occasional updates:[/cyan] Run [bold]python scripts/manual_update.py[/bold]\n"
+                               f"  (Opens each platform in browser, lets you enter current counts)\n"
+                               f"• [cyan]For permanent skip:[/cyan] For example, find the method [bold]def get_{slow_platforms[0][0].lower()}(self):[/bold] in the file [bold]scripts/auto_update.py[/bold]\n"
+                               f"  and add [bold]#[/bold] before the [bold]def[/bold] to comment out the entire method\n"
+                               f"• [cyan]Keep automatic:[/cyan] If you solve there regularly, ignore this message\n\n" 
+                               ))
     
     # Persist stats for README updater and repo tracking
     DataManager.save_stats(stats)

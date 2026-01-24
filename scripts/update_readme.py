@@ -19,7 +19,26 @@ from rich.console import Console
 from rich.panel import Panel
 
 colorama_init(autoreset=True)
-console = Console()
+
+# Check if running in CI environment (GitHub Actions, etc.)
+IS_CI = os.getenv('CI') == 'true' or os.getenv('GITHUB_ACTIONS') == 'true'
+
+if IS_CI:
+    # Use plain text output for CI environments
+    class PlainConsole:
+        def print(self, *args, **kwargs):
+            # Convert Rich objects to plain text
+            messages = []
+            for arg in args:
+                if hasattr(arg, 'plain'):
+                    messages.append(arg.plain)
+                else:
+                    messages.append(str(arg))
+            print(' '.join(messages))
+    
+    console = PlainConsole()
+else:
+    console = Console()
 # Import shared modules
 from src import (
     USER_CONFIG, PROFILE_DISPLAY_NAMES, PLATFORM_LOGOS, 
@@ -517,24 +536,56 @@ def update_readme(stats, last_known_info=None, update_source=None):
         f'Total%20Solved-{total}-success',
         readme_content
     )
+
+    # Update platforms badge
+    active_platforms = len([p for p in effective_counts.values() if isinstance(p, int) and p > 0])
+    readme_content = re.sub(
+        r'Platforms-\d+\+?-orange',
+        f'Platforms-{active_platforms}-orange',
+        readme_content
+    )
+    
+    # Generate dynamic badges section (no links for simplicity)
+    badges_section = f'''![Last Updated](https://img.shields.io/badge/Last%20Updated-{current_date.replace(" ", "%20")}-blue?style=for-the-badge)
+![Total Problems](https://img.shields.io/badge/Total%20Solved-{total}-success?style=for-the-badge)
+![Platforms](https://img.shields.io/badge/Platforms-{active_platforms}-orange?style=for-the-badge)'''
+    
+    # Insert dynamic badges
+    readme_content = re.sub(
+        r'<!-- DYNAMIC_BADGES_START -->.*<!-- DYNAMIC_BADGES_END -->',
+        f'<!-- DYNAMIC_BADGES_START -->\n{badges_section}\n<!-- DYNAMIC_BADGES_END -->',
+        readme_content,
+        flags=re.DOTALL
+    )
     
     # Add dynamic Codeforces rating styling
     from src.utils import get_codeforces_rating_color
     cf_rating_info = last_known_info.get('ratings', {}).get('Codeforces', {})
     max_rating = cf_rating_info.get('max') if cf_rating_info else None
-    rating_color = get_codeforces_rating_color(max_rating)
+    rating_colors = get_codeforces_rating_color(max_rating)
     
     # Add rating-based background styling to the main header
     if max_rating:
         # Update the background color
-        rating_bg_pattern = r'background: #[0-9A-Fa-f]{6}'
-        new_bg_style = f'background: #{rating_color}'
-        readme_content = re.sub(rating_bg_pattern, new_bg_style, readme_content)
+        readme_content = re.sub(
+            r'background: #[0-9A-Fa-f]{6}',
+            f'background: #{rating_colors["bg"]}',
+            readme_content
+        )
         
         # Update the border color to match
-        rating_border_pattern = r'border: 2px solid #[0-9A-Fa-f]{6}'
-        new_border_style = f'border: 2px solid #{rating_color}'
-        readme_content = re.sub(rating_border_pattern, new_border_style, readme_content)
+        readme_content = re.sub(
+            r'border: 2px solid #[0-9A-Fa-f]{6}',
+            f'border: 2px solid #{rating_colors["border"]}',
+            readme_content
+        )
+        
+        # Update the text color
+        readme_content = re.sub(
+            r'color: #[0-9A-Fa-f]{6}',
+            f'color: #{rating_colors["text"]}',
+            readme_content
+        )
     
     # Add/update the explicit update metadata block (date + manual/automatic)
     readme_content = _upsert_update_metadata_block(
@@ -542,19 +593,6 @@ def update_readme(stats, last_known_info=None, update_source=None):
         current_date_human=current_date_with_time,
         update_source=update_source,
     )
-
-    # Update the title badge color based on Codeforces rating
-    cf_rating_info = last_known_info.get('ratings', {}).get('Codeforces', {})
-    max_rating = cf_rating_info.get('max') if cf_rating_info else None
-    if max_rating:
-        from src.utils import get_codeforces_rating_color
-        rating_color = get_codeforces_rating_color(max_rating)
-        # Update the color in the title badge
-        readme_content = re.sub(
-            r'badge/🏆_Problem_Solving_Statistics-[0-9A-Fa-f]{6}',
-            f'badge/🏆_Problem_Solving_Statistics-{rating_color}',
-            readme_content
-        )
 
     # Regenerate the main platform statistics table (sorted by solve count)
     new_table = generate_platform_statistics_table(effective_counts, current_date, today_iso, stats, last_known_info)

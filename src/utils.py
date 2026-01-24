@@ -682,38 +682,38 @@ def update_user_info_in_config():
 
 def get_codeforces_rating_color(max_rating):
     """
-    Get the color associated with a Codeforces rating.
+    Get the color scheme associated with a Codeforces rating.
     
     Args:
         max_rating: The user's maximum Codeforces rating
         
     Returns:
-        Hex color code for the rating tier
+        Dict with 'bg', 'border', 'text' hex color codes
     """
     if max_rating is None:
-        return 'CCCCCC'  # Newbie - Light Gray
+        return {'bg': 'FAFAFA', 'border': 'CCCCCC', 'text': '616161'}
     
-    # Codeforces rating tiers and their colors (Official)
+    # Codeforces rating tiers and their colors (Official with light backgrounds)
     if max_rating >= 2900:
-        return 'AA0000'  # Legendary Grandmaster
+        return {'bg': 'FFEBEE', 'border': 'D32F2F', 'text': 'B71C1C'}  # Legendary Grandmaster
     elif max_rating >= 2600:
-        return 'FF3333'  # International Grandmaster
+        return {'bg': 'FFEBEE', 'border': 'D32F2F', 'text': 'B71C1C'}  # International Grandmaster
     elif max_rating >= 2400:
-        return 'FF7777'  # Grandmaster
+        return {'bg': 'FFEBEE', 'border': 'D32F2F', 'text': 'B71C1C'}  # Grandmaster
     elif max_rating >= 2300:
-        return 'FFBB55'  # International Master
+        return {'bg': 'FFF3E0', 'border': 'F57C00', 'text': 'E65100'}  # International Master
     elif max_rating >= 2200:
-        return 'FFCC88'  # Master
+        return {'bg': 'FFF8E1', 'border': 'FBC02D', 'text': 'F57F17'}  # Master
     elif max_rating >= 1900:
-        return 'FF88FF'  # Candidate Master
+        return {'bg': 'F3E5F5', 'border': 'BA68C8', 'text': '7B1FA2'}  # Candidate Master
     elif max_rating >= 1600:
-        return 'AAAAFF'  # Expert
+        return {'bg': 'E8EAF6', 'border': '7986CB', 'text': '303F9F'}  # Expert
     elif max_rating >= 1400:
-        return '77DDBB'  # Specialist
+        return {'bg': 'E0F2F1', 'border': '4DB6AC', 'text': '00695C'}  # Specialist
     elif max_rating >= 1200:
-        return '77FF77'  # Pupil
+        return {'bg': 'E8F5E8', 'border': '81C784', 'text': '2E7D32'}  # Pupil
     else:
-        return 'CCCCCC'  # Newbie
+        return {'bg': 'FAFAFA', 'border': 'CCCCCC', 'text': '616161'}  # Newbie
 
 
 def get_interpolated_codeforces_color(rating, base_rating=None):
