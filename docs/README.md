@@ -1,8 +1,8 @@
 <div align="center">
 
-<div align="center" style="background-color: #e8f5e8; padding: 20px; border-radius: 10px; margin: 20px 0; border: 2px solid #4CAF50;">
+<table align="center"><tr><td bgcolor="#e8f5e8" align="center" style="padding: 20px; border: 2px solid #4CAF50;">
 <h1 align="center" style="font-size: 2.5em; font-weight: bold; margin: 0; color: #2E7D32;">🏆 Problem Solving Statistics</h1>
-</div>
+</td></tr></table>
 
 [![Last Updated](https://img.shields.io/badge/Last%20Updated-24%20January%202026-blue?style=for-the-badge)](https://github.com/MishkatIT/ProblemSolvingStats)
 [![Total Problems](https://img.shields.io/badge/Total%20Solved-3812-success?style=for-the-badge)](https://github.com/MishkatIT/ProblemSolvingStats)
