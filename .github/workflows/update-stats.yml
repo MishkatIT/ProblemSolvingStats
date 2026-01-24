@@ -2,9 +2,15 @@ name: Update Problem Solving Statistics
 
 on:
   schedule:
-    # Run every day at 11:00 PM BDT (17:00 UTC)
+    # 11:00 PM Bangladesh Time = 17:00 UTC
     - cron: '0 17 * * *'
   workflow_dispatch:
+
+# ==========================
+# GLOBAL TIMEZONE (BDT)
+# ==========================
+env:
+  TZ: Asia/Dhaka
 
 jobs:
   update-stats:
@@ -58,7 +64,7 @@ jobs:
           git config --local user.email "$USERNAME@users.noreply.github.com"
 
       # ==========================
-      # COMMIT WITH BDT TIME
+      # COMMIT + PUSH (BDT TIME)
       # ==========================
 
       - name: Commit and push if changed
@@ -78,7 +84,7 @@ jobs:
 
             git commit \
             --author="$GITHUB_ACTOR <$GITHUB_ACTOR@users.noreply.github.com>" \
-            -m "Auto-update: Problem solving statistics ($(TZ='Asia/Dhaka' date +'%Y-%m-%d %H:%M:%S'))"
+            -m "Auto-update: Problem solving statistics ($(date +'%Y-%m-%d %H:%M:%S'))"
 
             git push
           fi

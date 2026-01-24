@@ -579,10 +579,10 @@ def update_config_file(new_user_config, new_platform_logos, new_templates, new_d
     }
 
     # Preserve sections that are not managed by this function (like GITHUB_USERINFO)
-    preserved_keys = ['GITHUB_USERINFO']  # Add other keys here as needed
-    for key in preserved_keys:
-        if key in existing_config:
-            config[key] = existing_config[key]
+    # preserved_keys = ['GITHUB_USERINFO']  # Add other keys here as needed
+    # for key in preserved_keys:
+    #     if key in existing_config:
+    #         config[key] = existing_config[key]
 
     with open(config_path, 'w') as f:
         json.dump(config, f, indent=4)
@@ -607,78 +607,82 @@ def cleanup_removed_platforms(removed_platforms):
     DataManager.save_last_known_counts(last_known)
 
 
-def extract_github_user_info():
-    """Extract GitHub user information from git remote and GitHub API.
-    
-    Returns:
-        dict: Dictionary containing 'name', 'email', and 'username' from GitHub
-    """
-    import subprocess
-    
-    try:
-        # Get the remote URL
-        result = subprocess.run(['git', 'remote', 'get-url', 'origin'], 
-                              capture_output=True, text=True, cwd='.')
-        if result.returncode != 0:
-            return None
-            
-        remote_url = result.stdout.strip()
-        
-        # Extract username from GitHub URL
-        # Format: https://github.com/username/repo.git
-        if 'github.com' in remote_url:
-            parts = remote_url.split('github.com/')[1].split('/')[0]
-            username = parts
-            
-            # Fetch user info from GitHub API
-            api_url = f"https://api.github.com/users/{username}"
-            response = requests.get(api_url, timeout=10)
-            
-            if response.status_code == 200:
-                user_data = response.json()
-                name = user_data.get('name', '')
-                
-                # Get email from git config if GitHub API doesn't provide it
-                email = user_data.get('email')
-                if not email:
-                    email_result = subprocess.run(['git', 'config', '--global', 'user.email'], 
-                                                capture_output=True, text=True, cwd='.')
-                    if email_result.returncode == 0:
-                        email = email_result.stdout.strip()
-                
-                return {
-                    'name': name.strip() if name else '',
-                    'email': email,
-                    'username': username
-                }
-    
-    except Exception as e:
-        print(f"Error extracting GitHub user info: {e}")
-    
-    return None
+# def extract_github_user_info():
+#     """Extract GitHub user information from git remote and GitHub API.
+#     
+#     Returns:
+#         dict: Dictionary containing 'name', 'email', and 'username' from GitHub
+#     """
+#     import subprocess
+#     
+#     try:
+#         # Get the remote URL
+#         result = subprocess.run(['git', 'remote', 'get-url', 'origin'], 
+#                               capture_output=True, text=True, cwd='.')
+#         if result.returncode != 0:
+#             return None
+#             
+#         remote_url = result.stdout.strip()
+#         
+#         # Extract username from GitHub URL
+#         # Format: https://github.com/username/repo.git
+#         if 'github.com' in remote_url:
+#             parts = remote_url.split('github.com/')[1].split('/')[0]
+#             username = parts
+#             
+#             # Fetch user info from GitHub API
+#             api_url = f"https://api.github.com/users/{username}"
+#             response = requests.get(api_url, timeout=10)
+#             
+#             if response.status_code == 200:
+#                 user_data = response.json()
+#                 name = user_data.get('name', '')
+#                 
+#                 # Get email from git config if GitHub API doesn't provide it
+#                 email = user_data.get('email')
+#                 if not email:
+#                     email_result = subprocess.run(['git', 'config', '--global', 'user.email'], 
+#                                                 capture_output=True, text=True, cwd='.')
+#                     if email_result.returncode == 0:
+#                         email = email_result.stdout.strip()
+#                 
+#                 return {
+#                     'name': name.strip() if name else '',
+#                     'email': email,
+#                     'username': username
+#                 }
+#     
+#     except Exception as e:
+#         print(f"Error extracting GitHub user info: {e}")
+#     
+#     return None
 
 
-def update_user_info_in_config():
-    """Update GITHUB_USERINFO in config.json with GitHub user information."""
-    user_info = extract_github_user_info()
-    if user_info:
-        config_path = os.path.join(os.path.dirname(__file__), 'config.json')
-        # Load current config
-        with open(config_path, 'r') as f:
-            config = json.load(f)
-        
-        # Update GITHUB_USERINFO
-        config['GITHUB_USERINFO'] = user_info
-        
-        # Save back to config
-        with open(config_path, 'w') as f:
-            json.dump(config, f, indent=4)
-        
-        print(f"Updated GITHUB_USERINFO in config.json: {user_info}")
-        return True
-    
-    print("Could not extract GitHub user information")
-    return False
+
+
+# def update_user_info_in_config():
+#     """Update GITHUB_USERINFO in config.json with GitHub user information."""
+#     user_info = extract_github_user_info()
+#     if user_info:
+#         config_path = os.path.join(os.path.dirname(__file__), 'config.json')
+#         # Load current config
+#         with open(config_path, 'r') as f:
+#             config = json.load(f)
+#         
+#         # Update GITHUB_USERINFO
+#         config['GITHUB_USERINFO'] = user_info
+#         
+#         # Save back to config
+#         with open(config_path, 'w') as f:
+#             json.dump(config, f, indent=4)
+#         
+#         print(f"Updated GITHUB_USERINFO in config.json: {user_info}")
+#         return True
+#     
+#     print("Could not extract GitHub user information")
+#     return False
+
+
 
 
 def get_codeforces_rating_color(max_rating):

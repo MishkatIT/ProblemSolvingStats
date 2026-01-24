@@ -35,7 +35,7 @@ def get_config_with_fallback(key, default, description=""):
     
     return config.get(key, default)
 
-GITHUB_USERINFO = get_config_with_fallback('GITHUB_USERINFO', {'name': 'Unknown', 'email': 'unknown@example.com', 'username': 'unknown'}, "GitHub user information (name, email, username)")
+# GITHUB_USERINFO = get_config_with_fallback('GITHUB_USERINFO', {'name': 'Unknown', 'email': 'unknown@example.com', 'username': 'unknown'}, "GitHub user information (name, email, username)")
 USER_CONFIG = get_config_with_fallback('USER_CONFIG', {}, "Platform usernames configuration")
 PROFILE_DISPLAY_NAMES = get_config_with_fallback('PROFILE_DISPLAY_NAMES', {}, "Display names for platforms")
 PLATFORM_URL_TEMPLATES = get_config_with_fallback('PLATFORM_URL_TEMPLATES', {}, "URL templates for platforms")
@@ -54,22 +54,23 @@ from .utils import (
     get_profile_url, get_current_bdt_date, format_human_date,
     extract_first_int, calculate_percentage, calculate_total,
     format_platform_list, read_text_file, get_platform_badge_info,
-    parse_url, update_config_file, cleanup_removed_platforms, get_favicon_url, get_platform_urls,
-    extract_github_user_info, update_user_info_in_config
+    parse_url, update_config_file, cleanup_removed_platforms, get_favicon_url, get_platform_urls
+    # extract_github_user_info, update_user_info_in_config
 )
 from .data_manager import DataManager
 
 __all__ = [
     # Config
-    'GITHUB_USERINFO', 'USER_CONFIG', 'PROFILE_DISPLAY_NAMES', 'PLATFORM_URL_TEMPLATES', 'PLATFORM_LOGOS', 'PLATFORM_COLORS',
+    # 'GITHUB_USERINFO', 'USER_CONFIG', 'PROFILE_DISPLAY_NAMES', 'PLATFORM_URL_TEMPLATES', 'PLATFORM_LOGOS', 'PLATFORM_COLORS',
+    'USER_CONFIG', 'PROFILE_DISPLAY_NAMES', 'PLATFORM_URL_TEMPLATES', 'PLATFORM_LOGOS', 'PLATFORM_COLORS',
     'ALL_PLATFORMS', 'LAST_KNOWN_FILE', 'STATS_FILE', 'README_FILE',
     'MAX_REASONABLE_COUNT', 'BDT_TIMEZONE', 'USER_AGENT', 'DEFAULT_FUNNY_DATE',
     # Utils
     'get_profile_url', 'get_current_bdt_date', 'format_human_date',
     'extract_first_int', 'calculate_percentage', 'calculate_total',
     'format_platform_list', 'read_text_file', 'get_platform_badge_info',
-    'parse_url', 'update_config_file', 'cleanup_removed_platforms', 'get_favicon_url', 'get_platform_urls',
-    'extract_github_user_info', 'update_user_info_in_config',
+    'parse_url', 'update_config_file', 'cleanup_removed_platforms', 'get_favicon_url', 'get_platform_urls'
+    # 'extract_github_user_info', 'update_user_info_in_config',
     # Data Manager
     'DataManager'
 ]

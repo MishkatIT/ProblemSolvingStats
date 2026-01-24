@@ -16,8 +16,9 @@ print("sys.path[:3]:", sys.path[:3])
 import json
 
 # Import src module and functions
-from src import (parse_url, update_config_file, get_favicon_url, 
-                update_user_info_in_config)
+from src import (parse_url, update_config_file, get_favicon_url
+                # update_user_info_in_config
+                )
 
 # Import config variables with aliases to avoid scoping issues
 from src import USER_CONFIG as USER_CONFIG_GLOBAL
@@ -249,11 +250,12 @@ def main():
     # Try to update user info from GitHub (optional, won't break if it fails)
     print("Attempting to update user information from GitHub...")
     try:
-        user_info_success = update_user_info_in_config()
-        if user_info_success:
-            print("[OK] User information updated successfully!")
-        else:
-            print("[WARNING] Could not update user information (this is optional)")
+        # user_info_success = update_user_info_in_config()
+        # if user_info_success:
+        #     print("[OK] User information updated successfully!")
+        # else:
+        #     print("[WARNING] Could not update user information (this is optional)")
+        print("[INFO] GitHub user info update is commented out")
     except Exception as e:
         print(f"[WARNING] Failed to update user information: {e} (this is optional)")
     
