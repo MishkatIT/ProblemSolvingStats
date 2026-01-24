@@ -1,14 +1,14 @@
 {
+  "Codeforces": null,
+  "LeetCode": null,
+  "CodeChef": null,
+  "AtCoder": null,
+  "CSES": null,
+  "HackerEarth": null,
   "HackerRank": null,
-  "CSES": 22,
-  "LeetCode": 412,
-  "AtCoder": 157,
-  "CodeChef": 126,
-  "Toph": 37,
-  "SPOJ": null,
-  "VJudge": 347,
-  "Codeforces": 1582,
-  "LightOJ": 31,
-  "Uva": 7,
-  "HackerEarth": 2
+  "LightOJ": null,
+  "Toph": null,
+  "Uva": null,
+  "VJudge": null,
+  "SPOJ": null
 }

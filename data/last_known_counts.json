@@ -1,7 +1,7 @@
 {
   "counts": {
     "CSES": 22,
-    "Codeforces": 1582,
+    "Codeforces": 2609,
     "CodeChef": 126,
     "AtCoder": 157,
     "LeetCode": 412,
@@ -49,7 +49,7 @@
   },
   "usernames": {
     "CSES": "165802",
-    "Codeforces": "ayon",
+    "Codeforces": "MishkatIT",
     "AtCoder": "MishkatIT",
     "CodeChef": "MishkatIT",
     "LeetCode": "MishkatIT",
@@ -63,10 +63,10 @@
   },
   "ratings": {
     "Codeforces": {
-      "current": 1135,
-      "max": 1291,
-      "rank": "newbie",
-      "max_rank": "pupil"
+      "current": 1330,
+      "max": 1443,
+      "rank": "pupil",
+      "max_rank": "specialist"
     }
   }
 }

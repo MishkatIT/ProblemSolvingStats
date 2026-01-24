@@ -41,23 +41,24 @@ jobs:
           echo "Checking if README was modified:"
           git diff docs/README.md | head -20
       
-      - name: Extract user info from config
-        id: user_info
+      - name: Configure Git
         run: |
-          if [ -f "src/config.json" ]; then
-            USER_NAME=$(python3 -c "import json, sys; data=json.load(open('src/config.json')); print(data.get('USER_INFO', {}).get('name', '${{ github.actor }}'))" 2>/dev/null || echo "${{ github.actor }}")
-            USER_EMAIL=$(python3 -c "import json, sys; data=json.load(open('src/config.json')); print(data.get('USER_INFO', {}).get('email', '${{ github.actor }}@users.noreply.github.com'))" 2>/dev/null || echo "${{ github.actor }}@users.noreply.github.com")
+          # Try to get author info from src/config.json, fallback to defaults
+          if [ -f src/config.json ]; then
+            AUTHOR_NAME=$(python3 -c "import json; data=json.load(open('src/config.json')); print(data.get('USER_INFO', {}).get('name', 'GitHub Actions'))" 2>/dev/null || echo "GitHub Actions")
+            AUTHOR_EMAIL=$(python3 -c "import json; data=json.load(open('src/config.json')); print(data.get('USER_INFO', {}).get('email', 'actions@github.com'))" 2>/dev/null || echo "actions@github.com")
           else
-            USER_NAME="${{ github.actor }}"
-            USER_EMAIL="${{ github.actor }}@users.noreply.github.com"
+            AUTHOR_NAME="GitHub Actions"
+            AUTHOR_EMAIL="actions@github.com"
           fi
-          echo "user_name=$USER_NAME" >> $GITHUB_OUTPUT
-          echo "user_email=$USER_EMAIL" >> $GITHUB_OUTPUT
+          
+          echo "🔧 Configuring git with author: $AUTHOR_NAME <$AUTHOR_EMAIL>"
+          git config --global user.name "$AUTHOR_NAME"
+          git config --global user.email "$AUTHOR_EMAIL"
+          echo "✅ Git configured successfully"
       
       - name: Commit and push if changed
         run: |
-          git config --global user.name '${{ steps.user_info.outputs.user_name }}'
-          git config --global user.email '${{ steps.user_info.outputs.user_email }}'
           echo "Checking for changes..."
           git status
           git add docs/README.md data/last_known_counts.json .github/workflows/update-stats.yml
