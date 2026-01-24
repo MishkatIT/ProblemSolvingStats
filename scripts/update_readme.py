@@ -326,7 +326,7 @@ def generate_platform_last_solved_table(last_known_info):
 
 
 def generate_platform_statistics_table(effective_counts, current_date, today_iso, stats, last_known_info):
-    """Generate the main platform statistics table sorted by solve count.
+    """Generate the main platform statistics table as markdown (GitHub-compatible with borders).
     
     Args:
         effective_counts: Dictionary of effective counts for each platform
@@ -336,7 +336,7 @@ def generate_platform_statistics_table(effective_counts, current_date, today_iso
         last_known_info: Last known information
         
     Returns:
-        String containing the HTML table for platform statistics
+        String containing the markdown table for platform statistics
     """
     # Sort platforms by effective count (descending)
     sorted_platforms = sorted(
@@ -397,41 +397,21 @@ def generate_platform_statistics_table(effective_counts, current_date, today_iso
         mode_display = platform_mode.capitalize() if platform_mode else 'Unknown'
         mode_color = 'F44336' if platform_mode == 'manual' else '2196F3'
         
-        row = f'''    <tr>
-      <td><img src="{logo_url}" width="16" height="16"{onerror_attr}/> <strong>{platform}</strong></td>
-      <td><a href="{profile_url}">{display_name}</a></td>
-      <td align="center" data-value="{count}"><strong>{count}</strong></td>
-      <td><img src="https://img.shields.io/badge/Progress-{percentage}%25-{color}?style=flat-square" alt="{platform} Progress"/></td>
-      <td align="left" data-date="{raw_date if raw_date else ''}">{date_str}</td>
-      <td align="center"><img src="https://img.shields.io/badge/{mode_display}-{mode_color}?style=flat" alt="{mode_display}"/></td>
-    </tr>'''
+        # Create markdown table row
+        logo_md = f'<img src="{logo_url}" width="16" height="16" alt="{platform} logo"/>' if logo_url else '🏆'
+        progress_badge = f'![Progress](https://img.shields.io/badge/Progress-{percentage}%25-{color}?style=flat-square)'
+        mode_badge = f'![{mode_display}](https://img.shields.io/badge/{mode_display}-{mode_color}?style=flat)'
+        
+        row = f'| {logo_md} **{platform}** | [{display_name}]({profile_url}) | **{count}** | {progress_badge} | {date_str} | {mode_badge} |'
         rows.append(row)
     
-    # Build complete table - simplified for GitHub compatibility
-    table = f'''<table border="1" align="center">
-  <thead>
-    <tr bgcolor="#f6f8fa">
-      <th>🎯 Platform</th>
-      <th>👤 Profile</th>
-      <th>✅ Solved</th>
-      <th>📈 Progress</th>
-      <th>📅 Updated On</th>
-      <th>🔄 Mode</th>
-    </tr>
-  </thead>
-  <tbody>
+    # Build markdown table
+    table = f'''| 🎯 Platform | 👤 Profile | ✅ Solved | 📈 Progress | 📅 Updated On | 🔄 Mode |
+|-------------|------------|-----------|-------------|---------------|----------|
 {chr(10).join(rows)}
-  </tbody>
-  <tfoot>
-    <tr bgcolor="#f6f8fa">
-      <td colspan="2" align="center"><strong>🎖️ TOTAL</strong></td>
-      <td align="center"><strong style="font-size: 1.2em;">{total}</strong></td>
-      <td align="center"><strong>100%</strong></td>
-      <td align="center">{current_date}</td>
-      <td></td>
-    </tr>
-  </tfoot>
-</table>'''
+| 🎖️ **TOTAL** | | **{total}** | **100%** | {current_date} | |'''
+    
+    return table + '\n\n---\n'
     
     return table + '\n\n---\n'
 
