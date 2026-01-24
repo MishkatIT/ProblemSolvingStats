@@ -398,37 +398,37 @@ def generate_platform_statistics_table(effective_counts, current_date, today_iso
         mode_color = 'F44336' if platform_mode == 'manual' else '2196F3'
         
         row = f'''    <tr>
-      <td style="border: 1px solid #d1d9e0; padding: 8px;"><img src="{logo_url}" width="16" height="16"{onerror_attr}/> <strong>{platform}</strong></td>
-      <td style="border: 1px solid #d1d9e0; padding: 8px;"><a href="{profile_url}">{display_name}</a></td>
-      <td align="center" style="border: 1px solid #d1d9e0; padding: 8px;" data-value="{count}"><strong>{count}</strong></td>
-      <td style="border: 1px solid #d1d9e0; padding: 8px;"><img src="https://img.shields.io/badge/Progress-{percentage}%25-{color}?style=flat-square" alt="{platform} Progress"/></td>
-      <td align="left" style="border: 1px solid #d1d9e0; padding: 8px;" data-date="{raw_date if raw_date else ''}">{date_str}</td>
-      <td align="center" style="border: 1px solid #d1d9e0; padding: 8px;"><img src="https://img.shields.io/badge/{mode_display}-{mode_color}?style=flat" alt="{mode_display}"/></td>
+      <td><img src="{logo_url}" width="16" height="16"{onerror_attr}/> <strong>{platform}</strong></td>
+      <td><a href="{profile_url}">{display_name}</a></td>
+      <td align="center" data-value="{count}"><strong>{count}</strong></td>
+      <td><img src="https://img.shields.io/badge/Progress-{percentage}%25-{color}?style=flat-square" alt="{platform} Progress"/></td>
+      <td align="left" data-date="{raw_date if raw_date else ''}">{date_str}</td>
+      <td align="center"><img src="https://img.shields.io/badge/{mode_display}-{mode_color}?style=flat" alt="{mode_display}"/></td>
     </tr>'''
         rows.append(row)
     
-    # Build complete table
-    table = f'''<table align="center" border="1" style="border-collapse: collapse; width: 100%; max-width: 800px;">
+    # Build complete table - simplified for GitHub compatibility
+    table = f'''<table border="1" align="center">
   <thead>
-    <tr style="background-color: #f6f8fa;">
-      <th style="border: 1px solid #d1d9e0; padding: 8px;">🎯 Platform</th>
-      <th style="border: 1px solid #d1d9e0; padding: 8px;">👤 Profile</th>
-      <th style="border: 1px solid #d1d9e0; padding: 8px;">✅ Solved</th>
-      <th style="border: 1px solid #d1d9e0; padding: 8px;">📈 Progress</th>
-      <th style="border: 1px solid #d1d9e0; padding: 8px;">📅 Updated On</th>
-      <th style="border: 1px solid #d1d9e0; padding: 8px;">🔄 Mode</th>
+    <tr bgcolor="#f6f8fa">
+      <th>🎯 Platform</th>
+      <th>👤 Profile</th>
+      <th>✅ Solved</th>
+      <th>📈 Progress</th>
+      <th>📅 Updated On</th>
+      <th>🔄 Mode</th>
     </tr>
   </thead>
   <tbody>
 {chr(10).join(rows)}
   </tbody>
   <tfoot>
-    <tr style="background-color: #f6f8fa; font-weight: bold;">
-      <td colspan="2" align="center" style="border: 1px solid #d1d9e0; padding: 8px;"><strong>🎖️ TOTAL</strong></td>
-      <td align="center" style="border: 1px solid #d1d9e0; padding: 8px;"><strong style="font-size: 1.2em;">{total}</strong></td>
-      <td align="center" style="border: 1px solid #d1d9e0; padding: 8px;"><strong>100%</strong></td>
-      <td align="center" style="border: 1px solid #d1d9e0; padding: 8px;">{current_date}</td>
-      <td style="border: 1px solid #d1d9e0; padding: 8px;"></td>
+    <tr bgcolor="#f6f8fa">
+      <td colspan="2" align="center"><strong>🎖️ TOTAL</strong></td>
+      <td align="center"><strong style="font-size: 1.2em;">{total}</strong></td>
+      <td align="center"><strong>100%</strong></td>
+      <td align="center">{current_date}</td>
+      <td></td>
     </tr>
   </tfoot>
 </table>'''
