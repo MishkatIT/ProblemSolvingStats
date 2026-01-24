@@ -578,8 +578,8 @@ def update_config_file(new_user_config, new_platform_logos, new_templates, new_d
         'DEFAULT_FUNNY_DATE': "1970-01-01"
     }
 
-    # Preserve sections that are not managed by this function (like USER_INFO)
-    preserved_keys = ['USER_INFO']  # Add other keys here as needed
+    # Preserve sections that are not managed by this function (like GITHUB_USERINFO)
+    preserved_keys = ['GITHUB_USERINFO']  # Add other keys here as needed
     for key in preserved_keys:
         if key in existing_config:
             config[key] = existing_config[key]
@@ -611,7 +611,7 @@ def extract_github_user_info():
     """Extract GitHub user information from git remote and GitHub API.
     
     Returns:
-        dict: Dictionary containing 'name' and 'email' from GitHub
+        dict: Dictionary containing 'name', 'email', and 'username' from GitHub
     """
     import subprocess
     
@@ -648,7 +648,8 @@ def extract_github_user_info():
                 
                 return {
                     'name': name.strip() if name else '',
-                    'email': email
+                    'email': email,
+                    'username': username
                 }
     
     except Exception as e:
@@ -658,7 +659,7 @@ def extract_github_user_info():
 
 
 def update_user_info_in_config():
-    """Update USER_INFO in config.json with GitHub user information."""
+    """Update GITHUB_USERINFO in config.json with GitHub user information."""
     user_info = extract_github_user_info()
     if user_info:
         config_path = os.path.join(os.path.dirname(__file__), 'config.json')
@@ -666,14 +667,14 @@ def update_user_info_in_config():
         with open(config_path, 'r') as f:
             config = json.load(f)
         
-        # Update USER_INFO
-        config['USER_INFO'] = user_info
+        # Update GITHUB_USERINFO
+        config['GITHUB_USERINFO'] = user_info
         
         # Save back to config
         with open(config_path, 'w') as f:
             json.dump(config, f, indent=4)
         
-        print(f"Updated USER_INFO in config.json: {user_info}")
+        print(f"Updated GITHUB_USERINFO in config.json: {user_info}")
         return True
     
     print("Could not extract GitHub user information")

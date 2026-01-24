@@ -126,8 +126,9 @@
     "BDT_TIMEZONE_hours": 6,
     "USER_AGENT": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36",
     "DEFAULT_FUNNY_DATE": "1970-01-01",
-    "USER_INFO": {
+    "GITHUB_USERINFO": {
         "name": "Md Mishkatul Islam",
-        "email": "mishkatcse1@gmail.com"
+        "email": "mishkatcse1@gmail.com",
+        "username": "MishkatIT"
     }
 }

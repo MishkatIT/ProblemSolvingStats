@@ -2,72 +2,77 @@ name: Update Problem Solving Statistics
 
 on:
   schedule:
-    # Run every day at 11:00 PM BDT (17:00 UTC)
+    # 11:00 PM BDT = 17:00 UTC (change via TZ_OFFSET if needed)
     - cron: '0 17 * * *'
-  workflow_dispatch:  # Allow manual trigger
+  workflow_dispatch:
+
+env:
+  TZ_NAME: Asia/Dhaka
+  PY_VER: '3.12'
+  README_PATH: docs/README.md
+  COUNT_PATH: data/last_known_counts.json
+  WORKFLOW_PATH: .github/workflows/update-stats.yml
 
 jobs:
   update-stats:
     runs-on: ubuntu-latest
     permissions:
-      contents: write  # Required to push changes to repository
-    
+      contents: write
+
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
-      
+
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
-          python-version: '3.12'
+          python-version: ${{ env.PY_VER }}
 
       - name: Install dependencies
         run: |
           python3 -m pip install --upgrade pip
           pip install -r requirements.txt
-      
+
+      - name: Get GitHub username from config
+        run: |
+          python3 -c "
+          import sys
+          sys.path.append('src')
+          from src import GITHUB_USERINFO
+          print(f'GIT_USER_USERNAME={GITHUB_USERINFO[\"username\"]}')
+          " >> $GITHUB_ENV
+
       - name: Check and adjust schedule based on activity
         run: |
           python3 scripts/check_and_adjust_schedule.py
-      
+
       - name: Fetch latest statistics and update README
-        id: fetch_stats
         run: |
-          echo "Before update - README last modified:"
-          stat -c '%y' docs/README.md || ls -l docs/README.md
-          python3 scripts/auto_update.py 2>&1 | tee stats_output.txt
-          echo "After update - README last modified:"
-          stat -c '%y' docs/README.md || ls -l docs/README.md
-          echo "Checking if README was modified:"
-          git diff docs/README.md | head -20
-      
+          echo "Before update:"
+          stat -c '%y' $README_PATH || ls -l $README_PATH
+
+          python3 scripts/auto_update.py
+
+          echo "After update:"
+          stat -c '%y' $README_PATH || ls -l $README_PATH
+
+          git diff $README_PATH | head -20
+
       - name: Configure Git
         run: |
-          # Try to get author info from src/config.json, fallback to defaults
-          if [ -f src/config.json ]; then
-            AUTHOR_NAME=$(python3 -c "import json; data=json.load(open('src/config.json')); print(data.get('USER_INFO', {}).get('name', 'GitHub Actions'))" 2>/dev/null || echo "GitHub Actions")
-            AUTHOR_EMAIL=$(python3 -c "import json; data=json.load(open('src/config.json')); print(data.get('USER_INFO', {}).get('email', 'actions@github.com'))" 2>/dev/null || echo "actions@github.com")
-          else
-            AUTHOR_NAME="GitHub Actions"
-            AUTHOR_EMAIL="actions@github.com"
-          fi
-          
-          echo "🔧 Configuring git with author: $AUTHOR_NAME <$AUTHOR_EMAIL>"
-          git config --global user.name "$AUTHOR_NAME"
-          git config --global user.email "$AUTHOR_EMAIL"
-          echo "✅ Git configured successfully"
-      
+          git config --local user.name "${{ env.GIT_USER_USERNAME }}"
+          git config --local user.email "${{ env.GIT_USER_USERNAME }}@users.noreply.github.com"
+
       - name: Commit and push if changed
         run: |
-          echo "Checking for changes..."
-          git status
-          git add docs/README.md data/last_known_counts.json .github/workflows/update-stats.yml
-          echo "Files staged. Checking diff..."
-          git diff --staged --stat
+          git add $README_PATH $COUNT_PATH $WORKFLOW_PATH
+
           if git diff --staged --quiet; then
-            echo "No changes to commit"
+            echo "No changes"
           else
-            echo "Changes detected, committing..."
-            git commit -m "Auto-update: Problem solving statistics ($(date +'%Y-%m-%d'))"
+            git commit \
+            --author="${{ env.GIT_USER_USERNAME }} <${{ env.GIT_USER_USERNAME }}@users.noreply.github.com>" \
+            -m "Auto-update: Problem solving statistics ($(TZ='${{ env.TZ_NAME }}' date +'%Y-%m-%d %H:%M:%S'))"
+
             git push
           fi
