@@ -6,29 +6,30 @@
 
 <!-- DYNAMIC_BADGES_START -->
 ![Last Updated](https://img.shields.io/badge/Last%20Updated-26%20January%202026-blue?style=for-the-badge)
-![Total Problems](https://img.shields.io/badge/Total%20Solved-3806-success?style=for-the-badge)
-![Platforms](https://img.shields.io/badge/Platforms-11-orange?style=for-the-badge)
+![Total Problems](https://img.shields.io/badge/Total%20Solved-3824-success?style=for-the-badge)
+![Platforms](https://img.shields.io/badge/Platforms-12-orange?style=for-the-badge)
 <!-- DYNAMIC_BADGES_END -->
 
 <!-- UPDATE_METADATA_START -->
-<p align="center"><sub><strong>Updated:</strong> 26 January 2026 at 02:28:47 AM • Automatic</sub></p>
+<p align="center"><sub><strong>Updated:</strong> 26 January 2026 at 02:43:26 AM • Automatic</sub></p>
 <!-- UPDATE_METADATA_END -->
 
 <!-- AUTO_GENERATED_SECTION_START: STATS_TABLE -->
 | 🎯 Platform | 👤 Profile | ✅ Solved | 📈 Progress | 📅 Updated On | 🔄 Mode |
 |-------------|------------|-----------|-------------|---------------|----------|
-| <img src="https://www.google.com/s2/favicons?domain=codeforces.com&sz=16" width="16" height="16"/> **Codeforces** | [MishkatIT](https://codeforces.com/profile/MishkatIT) | **2614** | ![Progress](https://img.shields.io/badge/Progress-68.7%25-AA0000?style=flat-square) | 26 January 2026 | ![Automatic](https://img.shields.io/badge/Automatic-2196F3?style=flat) |
+| <img src="https://www.google.com/s2/favicons?domain=codeforces.com&sz=16" width="16" height="16"/> **Codeforces** | [MishkatIT](https://codeforces.com/profile/MishkatIT) | **2614** | ![Progress](https://img.shields.io/badge/Progress-68.4%25-AA0000?style=flat-square) | 26 January 2026 | ![Automatic](https://img.shields.io/badge/Automatic-2196F3?style=flat) |
 | <img src="https://www.google.com/s2/favicons?domain=leetcode.com&sz=16" width="16" height="16"/> **LeetCode** | [MishkatIT](https://leetcode.com/u/MishkatIT/) | **412** | ![Progress](https://img.shields.io/badge/Progress-10.8%25-FF3333?style=flat-square) | 26 January 2026 | ![Automatic](https://img.shields.io/badge/Automatic-2196F3?style=flat) |
 | <img src="https://www.google.com/s2/favicons?domain=vjudge.net&sz=16" width="16" height="16"/> **VJudge** | [MishkatIT](https://vjudge.net/user/MishkatIT) | **347** | ![Progress](https://img.shields.io/badge/Progress-9.1%25-FF7777?style=flat-square) | 26 January 2026 | ![Automatic](https://img.shields.io/badge/Automatic-2196F3?style=flat) |
 | <img src="https://www.google.com/s2/favicons?domain=atcoder.jp&sz=16" width="16" height="16"/> **AtCoder** | [MishkatIT](https://atcoder.jp/users/MishkatIT) | **157** | ![Progress](https://img.shields.io/badge/Progress-4.1%25-FFBB55?style=flat-square) | 26 January 2026 | ![Automatic](https://img.shields.io/badge/Automatic-2196F3?style=flat) |
 | <img src="https://www.google.com/s2/favicons?domain=www.codechef.com&sz=16" width="16" height="16"/> **CodeChef** | [MishkatIT](https://www.codechef.com/users/MishkatIT) | **126** | ![Progress](https://img.shields.io/badge/Progress-3.3%25-FFCC88?style=flat-square) | 26 January 2026 | ![Automatic](https://img.shields.io/badge/Automatic-2196F3?style=flat) |
-| <img src="https://www.google.com/s2/favicons?domain=cses.fi&sz=16" width="16" height="16"/> **CSES** | [165802](https://cses.fi/user/165802/) | **66** | ![Progress](https://img.shields.io/badge/Progress-1.7%25-FF88FF?style=flat-square) | 15 January 2026 | ![Manual](https://img.shields.io/badge/Manual-F44336?style=flat) |
+| <img src="https://www.google.com/s2/favicons?domain=cses.fi&sz=16" width="16" height="16"/> **CSES** | [MishkatIT](https://cses.fi/user/165802/) | **66** | ![Progress](https://img.shields.io/badge/Progress-1.7%25-FF88FF?style=flat-square) | 15 January 2026 | ![Manual](https://img.shields.io/badge/Manual-F44336?style=flat) |
 | <img src="https://www.google.com/s2/favicons?domain=toph.co&sz=16" width="16" height="16"/> **Toph** | [MishkatIT](https://toph.co/u/MishkatIT) | **37** | ![Progress](https://img.shields.io/badge/Progress-1.0%25-D499FF?style=flat-square) | 26 January 2026 | ![Automatic](https://img.shields.io/badge/Automatic-2196F3?style=flat) |
 | <img src="https://www.google.com/s2/favicons?domain=lightoj.com&sz=16" width="16" height="16"/> **LightOJ** | [mishkatit](https://lightoj.com/user/mishkatit) | **31** | ![Progress](https://img.shields.io/badge/Progress-0.8%25-AAAAFF?style=flat-square) | 26 January 2026 | ![Automatic](https://img.shields.io/badge/Automatic-2196F3?style=flat) |
-| <img src="https://www.google.com/s2/favicons?domain=www.hackerrank.com&sz=16" width="16" height="16"/> **HackerRank** | [MishkatIT](https://www.hackerrank.com/profile/MishkatIT) | **7** | ![Progress](https://img.shields.io/badge/Progress-0.2%25-90C3DD?style=flat-square) | 17 January 2026 | ![Manual](https://img.shields.io/badge/Manual-F44336?style=flat) |
-| <img src="https://www.google.com/s2/favicons?domain=uhunt.onlinejudge.org&sz=16" width="16" height="16"/> **UVa** | [1615470](https://uhunt.onlinejudge.org/id/1615470) | **7** | ![Progress](https://img.shields.io/badge/Progress-0.2%25-77DDBB?style=flat-square) | 26 January 2026 | ![Automatic](https://img.shields.io/badge/Automatic-2196F3?style=flat) |
-| <img src="https://www.google.com/s2/favicons?domain=www.hackerearth.com&sz=16" width="16" height="16"/> **HackerEarth** | [MishkatIT](https://www.hackerearth.com/@MishkatIT/) | **2** | ![Progress](https://img.shields.io/badge/Progress-0.1%25-77EE99?style=flat-square) | 26 January 2026 | ![Automatic](https://img.shields.io/badge/Automatic-2196F3?style=flat) |
-| 🎖️ **TOTAL** | | **3806** | **100%** | 26 January 2026 | |
+| <img src="https://www.google.com/s2/favicons?domain=www.spoj.com&sz=16" width="16" height="16"/> **SPOJ** | [mishkatit](https://www.spoj.com/users/mishkatit) | **18** | ![Progress](https://img.shields.io/badge/Progress-0.5%25-90C3DD?style=flat-square) | 16 January 2026 | ![Manual](https://img.shields.io/badge/Manual-F44336?style=flat) |
+| <img src="https://www.google.com/s2/favicons?domain=www.hackerrank.com&sz=16" width="16" height="16"/> **HackerRank** | [MishkatIT](https://www.hackerrank.com/profile/MishkatIT) | **7** | ![Progress](https://img.shields.io/badge/Progress-0.2%25-77DDBB?style=flat-square) | 17 January 2026 | ![Manual](https://img.shields.io/badge/Manual-F44336?style=flat) |
+| <img src="https://www.google.com/s2/favicons?domain=uhunt.onlinejudge.org&sz=16" width="16" height="16"/> **UVa** | [MishkatIT](https://uhunt.onlinejudge.org/id/1615470) | **7** | ![Progress](https://img.shields.io/badge/Progress-0.2%25-77EE99?style=flat-square) | 26 January 2026 | ![Automatic](https://img.shields.io/badge/Automatic-2196F3?style=flat) |
+| <img src="https://www.google.com/s2/favicons?domain=www.hackerearth.com&sz=16" width="16" height="16"/> **HackerEarth** | [MishkatIT](https://www.hackerearth.com/@MishkatIT/) | **2** | ![Progress](https://img.shields.io/badge/Progress-0.1%25-77FF77?style=flat-square) | 26 January 2026 | ![Automatic](https://img.shields.io/badge/Automatic-2196F3?style=flat) |
+| 🎖️ **TOTAL** | | **3824** | **100%** | 26 January 2026 | |
 
 ---
 
@@ -41,7 +42,7 @@
 
 | 🥇 Top Platform | 🎯 Main Focus | 📚 Platforms Active |
 |:---------------:|:-------------:|:------------------:|
-| **Codeforces** | **Competitive Programming** | **11** |
+| **Codeforces** | **Competitive Programming** | **12** |
 | 2614 Problems | Algorithm Mastery | Multi-Platform |
 
 </div>
@@ -99,6 +100,7 @@
     <tr><td><img src="https://www.google.com/s2/favicons?domain=leetcode.com&sz=16" width="16" height="16" onerror="this.style.display='none'"/> <strong>LeetCode</strong></td><td align="right" data-date="2026-01-10">10 January 2026</td></tr>
     <tr><td><img src="https://www.google.com/s2/favicons?domain=atcoder.jp&sz=16" width="16" height="16" onerror="this.style.display='none'"/> <strong>AtCoder</strong></td><td align="right" data-date="2025-11-29">29 November 2025</td></tr>
     <tr><td><img src="https://www.google.com/s2/favicons?domain=cses.fi&sz=16" width="16" height="16" onerror="this.style.display='none'"/> <strong>CSES</strong></td><td align="right" data-date="2025-08-18">18 August 2025</td></tr>
+    <tr><td><img src="https://www.google.com/s2/favicons?domain=www.spoj.com&sz=16" width="16" height="16" onerror="this.style.display='none'"/> <strong>SPOJ</strong></td><td align="right" data-date="2025-05-06">06 May 2025</td></tr>
     <tr><td><img src="https://www.google.com/s2/favicons?domain=vjudge.net&sz=16" width="16" height="16" onerror="this.style.display='none'"/> <strong>VJudge</strong></td><td align="right" data-date="2025-05-02">02 May 2025</td></tr>
     <tr><td><img src="https://www.google.com/s2/favicons?domain=lightoj.com&sz=16" width="16" height="16" onerror="this.style.display='none'"/> <strong>LightOJ</strong></td><td align="right" data-date="2023-08-12">12 August 2023</td></tr>
     <tr><td><img src="https://www.google.com/s2/favicons?domain=www.hackerearth.com&sz=16" width="16" height="16" onerror="this.style.display='none'"/> <strong>HackerEarth</strong></td><td align="right" data-date="1970-01-01">01 January 1970</td></tr>

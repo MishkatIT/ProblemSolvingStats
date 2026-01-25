@@ -1140,6 +1140,11 @@ def main():
             if count is not None:
                 source = "FRESH" if fresh_fetches.get(platform, False) else "CACHED"
                 reason = messages.get(platform, '')
+                if not reason:
+                    if fresh_fetches.get(platform, False):
+                        reason = "Success"
+                    else:
+                        reason = "Using cached data"
                 print(f"{platform:<15} {count:<8} {source:<8} {time_str:<8} {reason}")
                 total += count
             else:
@@ -1174,6 +1179,11 @@ def main():
             if count is not None:
                 source = "[bold green][FRESH][/bold green]" if fresh_fetches.get(platform, False) else "[yellow][CACHED][/yellow]"
                 reason = messages.get(platform, '')
+                if not reason:
+                    if fresh_fetches.get(platform, False):
+                        reason = "Success"
+                    else:
+                        reason = "Using cached data"
                 table.add_row(f"[bold]{platform}[/bold]", f"[bold]{count}[/bold]", source, f"[cyan]{time_str}[/cyan]", reason)
                 total += count
             else:
