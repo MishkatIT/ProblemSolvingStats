@@ -427,7 +427,7 @@ def get_favicon_url(url):
     google_favicon = f"https://www.google.com/s2/favicons?domain={parsed.netloc}&sz=16"
     # Always try Google first, fallback only on exception
     try:
-        requests.get(google_favicon, timeout=3)
+        requests.get(google_favicon, timeout=10)
         return google_favicon
     except Exception:
         pass
