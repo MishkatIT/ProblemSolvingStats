@@ -82,18 +82,20 @@ class DataManager:
         return last_known_counts
     
     @staticmethod
-    def load_last_known_counts():
+    def load_last_known_counts(user_config=None):
         """Load the last known good counts from file.
         
+        Args:
+            user_config: Current user config (uses global if None)
+            
         Returns:
             Dictionary with counts, dates, modes, and last_solved_dates
         """
         try:
             with open(LAST_KNOWN_FILE, 'r') as f:
                 data = json.load(f)
-                # Use the centralized cleanup method
-                return DataManager.cleanup_cached_data(data, force_save=True)
-        except FileNotFoundError:
+            # Use the centralized cleanup method
+            return DataManager.cleanup_cached_data(data, force_save=True, user_config=user_config)
             pass
         except (json.JSONDecodeError, IOError) as e:
             print(f"Warning: Could not load last known counts: {e}")

@@ -10,10 +10,10 @@ import requests
 from datetime import datetime
 from urllib.parse import urlparse
 from . import (
-    USER_CONFIG, PLATFORM_URL_TEMPLATES, BDT_TIMEZONE,
-    PLATFORM_LOGOS, PLATFORM_COLORS, ALL_PLATFORMS
+    USER_CONFIG, ALL_PLATFORMS, BDT_TIMEZONE,
+    PLATFORM_LOGOS, PLATFORM_COLORS
 )
-from .data_manager import DataManager
+from scripts.known_platforms import PLATFORM_URL_TEMPLATES
 
 
 def get_profile_url(platform):
@@ -200,7 +200,7 @@ def parse_url(url):
         'HackerRank': [
             'https://www.hackerrank.com/profile/{username}'
         ],
-        'Uva': [
+        'UVa': [
             'https://uhunt.onlinejudge.org/id/{username}'
         ],
         'HackerEarth': [
@@ -351,7 +351,7 @@ def parse_url(url):
         'lightoj.com': 'LightOJ',
         'spoj.com': 'SPOJ',
         'hackerrank.com': 'HackerRank',
-        'onlinejudge.org': 'Uva',
+        'onlinejudge.org': 'UVa',
         'hackerearth.com': 'HackerEarth',
         'open.kattis.com': 'Kattis',
         'csacademy.com': 'CSAcademy',

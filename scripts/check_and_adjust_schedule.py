@@ -19,15 +19,43 @@ from colorama import init as colorama_init
 from rich.console import Console
 from rich.panel import Panel
 colorama_init(autoreset=True, convert=True, strip=False)
-# Force Windows ANSI support
-import os
-if os.name == 'nt':
-    os.system('')
-    # Additional Windows ANSI enable
-    import ctypes
-    kernel32 = ctypes.windll.kernel32
-    kernel32.SetConsoleMode(kernel32.GetStdHandle(-11), 7)
-console = Console(force_terminal=True)
+
+# Check if running in CI environment (GitHub Actions, etc.)
+IS_CI = os.getenv('CI') == 'true' or os.getenv('GITHUB_ACTIONS') == 'true'
+
+if IS_CI:
+    # Use plain text output for CI environments
+    import io
+    from rich.console import Console as RichConsole
+    
+    class PlainConsole:
+        def print(self, *args, **kwargs):
+            # Convert Rich objects to plain text
+            messages = []
+            for arg in args:
+                if hasattr(arg, 'renderable'):
+                    # Panel object - extract the inner content
+                    messages.append(str(arg.renderable))
+                elif hasattr(arg, '__rich_console__') or hasattr(arg, 'render'):
+                    # Other Rich renderable objects
+                    output = io.StringIO()
+                    plain_console = RichConsole(file=output, width=120, no_color=True, force_terminal=False, legacy_windows=True)
+                    plain_console.print(arg)
+                    messages.append(output.getvalue().strip())
+                else:
+                    messages.append(str(arg))
+            print(' '.join(messages))
+    
+    console = PlainConsole()
+else:
+    # Force Windows ANSI support
+    if os.name == 'nt':
+        os.system('')
+        # Additional Windows ANSI enable
+        import ctypes
+        kernel32 = ctypes.windll.kernel32
+        kernel32.SetConsoleMode(kernel32.GetStdHandle(-11), 7)
+    console = Console(force_terminal=True)
 
 
 def load_last_known_counts():

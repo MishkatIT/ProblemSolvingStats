@@ -1,14 +1,15 @@
 {
-  "HackerRank": 7,
+  "SPOJ": null,
   "CSES": 66,
-  "LeetCode": 412,
-  "CodeChef": 126,
-  "Toph": 37,
+  "HackerRank": 7,
   "VJudge": 347,
-  "SPOJ": 18,
+  "LeetCode": 412,
+  "Toph": 37,
+  "Kattis": null,
+  "CodeChef": 126,
   "AtCoder": 157,
   "LightOJ": 31,
-  "Codeforces": 2609,
-  "Uva": 7,
+  "Codeforces": 2614,
+  "UVa": 7,
   "HackerEarth": 2
 }

@@ -25,13 +25,23 @@ IS_CI = os.getenv('CI') == 'true' or os.getenv('GITHUB_ACTIONS') == 'true'
 
 if IS_CI:
     # Use plain text output for CI environments
+    import io
+    from rich.console import Console as RichConsole
+    
     class PlainConsole:
         def print(self, *args, **kwargs):
             # Convert Rich objects to plain text
             messages = []
             for arg in args:
-                if hasattr(arg, 'plain'):
-                    messages.append(arg.plain)
+                if hasattr(arg, 'renderable'):
+                    # Panel object - extract the inner content
+                    messages.append(str(arg.renderable))
+                elif hasattr(arg, '__rich_console__') or hasattr(arg, 'render'):
+                    # Other Rich renderable objects
+                    output = io.StringIO()
+                    plain_console = RichConsole(file=output, width=120, no_color=True, force_terminal=False, legacy_windows=True)
+                    plain_console.print(arg)
+                    messages.append(output.getvalue().strip())
                 else:
                     messages.append(str(arg))
             print(' '.join(messages))
@@ -518,7 +528,7 @@ def update_readme(stats, last_known_info=None, update_source=None):
     # Validate that ALL_PLATFORMS and PLATFORM_COLORS are properly synchronized
     if len(ALL_PLATFORMS) != len(PLATFORM_COLORS):
         print(f"Warning: ALL_PLATFORMS ({len(ALL_PLATFORMS)}) and PLATFORM_COLORS ({len(PLATFORM_COLORS)}) lengths don't match!")
-        print("This may cause color assignment issues. Run configure_handles.py to fix.")
+        print("This may cause color assignment issues. Run sync_profiles.py to fix.")
     
     # Read current README
     try:

@@ -92,7 +92,7 @@ This release focuses on migrating from Python-based configuration to JSON-based 
 
 #### Configuration Improvements
 - **New configuration format**: JSON-based (more maintainable)
-- **Platform support**: 13 platforms with improved reliability
+- **Platform support**: 12+ platforms with improved reliability
 - **Error handling**: 95%+ improvement in graceful failure handling
 - **User experience**: Simplified setup process
 
@@ -124,7 +124,7 @@ docs/                     # Documentation folder
 auto_update.py            → scripts/auto_update.py
 manual_update.py          → scripts/manual_update.py
 update_readme.py          → scripts/update_readme.py
-configure_handles.py      → scripts/configure_handles.py
+sync_profiles.py          → scripts/sync_profiles.py
 check_and_adjust_schedule.py → scripts/check_and_adjust_schedule.py
 handles.json              → config/handles.json
 stats.json                → data/stats.json
@@ -139,7 +139,7 @@ USERGUIDE.md              → docs/USERGUIDE.md
 ```
 src/config.json           (Updated file paths for new structure)
 .github/workflows/update-stats.yml (Updated file paths in git commands)
-scripts/configure_handles.py (Updated imports and file paths)
+scripts/sync_profiles.py  (Updated imports and file paths)
 scripts/check_and_adjust_schedule.py (Updated imports and file paths)
 .gitignore                (Updated paths for data files)
 docs/CONTRIBUTING.md      (Updated project structure documentation)
@@ -157,7 +157,7 @@ src/config.py             (Migrated to config.json)
 No migration needed! The system automatically detects and uses the new configuration format:
 
 - Existing `handles.json` configurations still work
-- `configure_handles.py` script updated to work with new format
+- `sync_profiles.py` script updated to work with new format
 - All scripts maintain backward compatibility
 - GitHub Actions workflows continue to work unchanged
 
@@ -197,8 +197,8 @@ This release represents a comprehensive refactoring of the entire codebase to el
 
 ### ✨ Added
 
-#### New Shared Modules (`src/` directory)
-- **`src/config.py`** - Centralized configuration for all constants
+-#### New Shared Modules (`src/` directory)
+- **`src/config.json`** - Centralized configuration for all constants
   - USER_CONFIG (platform usernames)
   - PLATFORM_URL_TEMPLATES (profile URLs for all platforms)
   - PLATFORM_LOGOS (logo URLs and settings)
@@ -302,7 +302,7 @@ All scripts have been tested and verified:
 ```
 src/
 ├── __init__.py          (110 lines)
-├── config.py           (86 lines)
+├── config.json         (86 lines)
 ├── data_manager.py     (188 lines)
 └── utils.py            (154 lines)
 ```
@@ -324,7 +324,7 @@ If you have local changes:
 ### 🤝 Contributing
 
 The new structure makes it easier to contribute:
-- Configuration changes: Edit `src/config.py`
+- Configuration changes: Edit `src/config.json`
 - Add utilities: Add to `src/utils.py`
 - Modify data operations: Edit `src/data_manager.py`
 - Add platforms: Update configurations in one place
@@ -344,7 +344,7 @@ The new structure makes it easier to contribute:
 Previous changes were not formally tracked in a changelog. This is the first documented release with comprehensive version tracking.
 
 ### Key Features from Previous Versions
-- Multi-platform statistics tracking (12 platforms)
+- Multi-platform statistics tracking (12+ platforms)
 - Automatic updates via GitHub Actions
 - Manual update capability
 - Web scraping with API fallback

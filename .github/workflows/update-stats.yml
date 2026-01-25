@@ -21,7 +21,20 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
-      
+
+      # ==========================
+      # AUTO GITHUB USER CONFIG (MOVED UP)
+      # ==========================
+
+      - name: Configure Git Identity
+        run: |
+          USERNAME="${GITHUB_ACTOR}"
+
+          echo "Using GitHub username: $USERNAME"
+
+          git config --local user.name "$USERNAME"
+          git config --local user.email "$USERNAME@users.noreply.github.com"
+
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
@@ -31,10 +44,6 @@ jobs:
         run: |
           python3 -m pip install --upgrade pip
           pip install -r requirements.txt
-      
-      - name: Check and adjust schedule based on activity
-        run: |
-          python3 scripts/check_and_adjust_schedule.py
       
       - name: Fetch latest statistics and update README
         id: fetch_stats
@@ -49,19 +58,6 @@ jobs:
 
           echo "Checking if README was modified:"
           git diff docs/README.md | head -20
-
-      # ==========================
-      # AUTO GITHUB USER CONFIG
-      # ==========================
-
-      - name: Configure Git Identity
-        run: |
-          USERNAME="${GITHUB_ACTOR}"
-
-          echo "Using GitHub username: $USERNAME"
-
-          git config --local user.name "$USERNAME"
-          git config --local user.email "$USERNAME@users.noreply.github.com"
 
       # ==========================
       # COMMIT + PUSH (BDT TIME)

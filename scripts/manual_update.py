@@ -15,6 +15,7 @@ sys.path.insert(0, os.path.dirname(os.path.dirname(__file__)))
 
 from src import USER_CONFIG, MAX_REASONABLE_COUNT
 from src.data_manager import DataManager
+from src.utils import get_profile_url
 
 # Color and rich output
 from colorama import init as colorama_init
@@ -30,38 +31,6 @@ if os.name == 'nt':
 console = Console()
 
 
-def load_handles_urls():
-    """Load URLs directly from handles.json instead of generating them."""
-    handles_file = os.path.join(os.path.dirname(__file__), '..', 'config', 'handles.json')
-    if os.path.exists(handles_file):
-        try:
-            with open(handles_file, 'r', encoding='utf-8') as f:
-                data = json.load(f)
-            
-            # Handle both old array format and new object format
-            if isinstance(data, list):
-                urls = data
-            elif isinstance(data, dict) and 'urls' in data:
-                urls = data['urls']
-            else:
-                urls = []
-                
-        except json.JSONDecodeError as e:
-            print(f"[ERROR] Syntax error in handles.json: {e}")
-            print("[ERROR] handles.json should look like this:")
-            print('{')
-            print('  "_comment": "Complete URLs to your profiles on each platform",')
-            print('  "urls": [')
-            print('    "https://codeforces.com/profile/your_username",')
-            print('    "https://cses.fi/user/your_username/"')
-            print('  ]')
-            print('}')
-            print("See _examples field in existing handles.json for all supported platforms")
-            sys.exit(1)
-        return urls
-    return []
-
-
 def get_manual_stats():
     """Manually input statistics for each platform."""
     console.print(Panel(
@@ -69,17 +38,18 @@ def get_manual_stats():
         border_style="cyan", expand=False)
     )
     
-    # Load URLs directly from handles.json
-    urls = load_handles_urls()
+    # Generate URLs using config templates
     
     # Load last known counts to show current values
-    last_known = DataManager.load_last_known_counts()
+    last_known = DataManager.load_last_known_counts(user_config=USER_CONFIG)
     
     stats = {}
     
-    # Iterate through platforms and match with URLs
-    for i, platform in enumerate(USER_CONFIG.keys()):
-        url = urls[i] if i < len(urls) else f"https://{platform.lower()}.com"
+    # Iterate through platforms
+    for platform in USER_CONFIG.keys():
+        url = get_profile_url(platform)
+        if not url or url == '#':
+            url = f"https://{platform.lower()}.com"
         current_count = last_known['counts'].get(platform)
         last_update = last_known['dates'].get(platform, 'never')
         mode = last_known['modes'].get(platform, 'unknown')
@@ -123,15 +93,15 @@ def main():
     console.print(Panel("Configuring handles from handles.json...", border_style="blue", expand=False))
     try:
         import subprocess
-        result = subprocess.run([sys.executable, 'scripts/configure_handles.py'], 
+        result = subprocess.run([sys.executable, 'scripts/sync_profiles.py'], 
                               capture_output=True, text=True, timeout=30)
         if result.returncode != 0:
-            console.print(Panel(f"[red]ERROR: configure_handles failed: {result.stdout}\nCannot continue with invalid handles.json[/red]", border_style="red", expand=False))
+            console.print(Panel(f"[red]ERROR: sync_profiles failed: {result.stdout}\nCannot continue with invalid handles.json[/red]", border_style="red", expand=False))
             console.print(Panel("[red]Please fix the syntax error in handles.json and try again.[/red]", border_style="red", expand=False))
             return 1  # Exit with error code
         elif result.stdout.strip():
             console.print(Panel(result.stdout.strip(), border_style="green", expand=False))
-        # Reload configuration after configure_handles potentially updated it
+        # Reload configuration after sync_profiles potentially updated it
         console.print(Panel("Reloading configuration...", border_style="blue", expand=False))
         import importlib
         import src
@@ -145,7 +115,7 @@ def main():
         globals()['MAX_REASONABLE_COUNT'] = MAX_REASONABLE_COUNT
         
     except Exception as e:
-        console.print(Panel(f"Warning: configure_handles or config reload failed: {e}\nContinuing with existing configuration...", border_style="yellow", expand=False))
+        console.print(Panel(f"Warning: sync_profiles or config reload failed: {e}\nContinuing with existing configuration...", border_style="yellow", expand=False))
     
     console.print(Panel("[bold magenta]This script helps you manually update problem-solving statistics.[/bold magenta]\n[bold white]You'll need to visit each platform and enter the current solve count.[/bold white]", border_style="magenta", expand=False))
     
@@ -176,7 +146,7 @@ def main():
     update = input("Your choice (y/n): ").strip().lower()
     if update == 'y':
         import update_readme
-        last_known_info = DataManager.load_last_known_counts()
+        last_known_info = DataManager.load_last_known_counts(user_config=USER_CONFIG)
         success = update_readme.update_readme(stats, last_known_info=last_known_info, update_source='manual')
         if success:
             console.print(Panel(f"[green][OK] README.md has been updated successfully!\n  Last updated: {datetime.now(BDT_TIMEZONE).strftime('%d %B %Y')}[/green]", border_style="green", expand=False))

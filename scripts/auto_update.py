@@ -58,13 +58,26 @@ IS_CI = os.getenv('CI') == 'true' or os.getenv('GITHUB_ACTIONS') == 'true'
 
 if IS_CI:
     # Use plain text output for CI environments
+    import io
+    from rich.console import Console as RichConsole
+    
     class PlainConsole:
+        def __init__(self):
+            self._plain_console = RichConsole(file=io.StringIO(), width=120, no_color=True, force_terminal=False, legacy_windows=True)
+        
         def print(self, *args, **kwargs):
             # Convert Rich objects to plain text
             messages = []
             for arg in args:
-                if hasattr(arg, 'plain'):
-                    messages.append(arg.plain)
+                if hasattr(arg, 'renderable'):
+                    # Panel object - extract the inner content
+                    messages.append(str(arg.renderable))
+                elif hasattr(arg, '__rich_console__') or hasattr(arg, 'render'):
+                    # Other Rich renderable objects
+                    output = io.StringIO()
+                    plain_console = RichConsole(file=output, width=120, no_color=True, force_terminal=False, legacy_windows=True)
+                    plain_console.print(arg)
+                    messages.append(output.getvalue().strip())
                 else:
                     messages.append(str(arg))
             print(' '.join(messages))
@@ -147,7 +160,7 @@ class PlatformStats:
         self.user_config = user_config or USER_CONFIG
         self.stats = {}
         self.user_agent = USER_AGENT
-        self.last_known_counts = DataManager.load_last_known_counts()
+        self.last_known_counts = DataManager.load_last_known_counts(user_config=self.user_config)
 
     def fetch_url(self, url, use_api=False, platform=None, check_status=True, fallback_selenium=False):
         """Fetch URL with proper headers, including platform-specific browser headers.
@@ -213,7 +226,7 @@ class PlatformStats:
                 print(f"  Network error fetching {url}: {e}")
             return None
     
-    def get_codeforces(self):
+    def get_Codeforces(self):
         """Fetch Codeforces statistics and rating."""
         try:
             # First get rating information
@@ -279,7 +292,7 @@ class PlatformStats:
             print(f"  Error getting Codeforces stats: {e}")
         return None
     
-    def get_leetcode(self):
+    def get_LeetCode(self):
         """Fetch LeetCode statistics."""
         try:
             # Try LeetCode GraphQL API first
@@ -345,7 +358,7 @@ class PlatformStats:
         
         return None
     
-    def get_vjudge(self):
+    def get_VJudge(self):
         """Fetch Vjudge statistics."""
         try:
             url = f"https://vjudge.net/user/{self.user_config['VJudge']}"
@@ -377,7 +390,7 @@ class PlatformStats:
             print(f"  Error getting Vjudge stats: {e}")
         return None
     
-    def get_atcoder(self):
+    def get_AtCoder(self):
         """Fetch AtCoder statistics."""
         try:
             # Try API first (requests handles gzip/deflate reliably)
@@ -448,7 +461,7 @@ class PlatformStats:
             print(f"  Error getting AtCoder stats: {e}")
         return None
     
-    def get_codechef(self):
+    def get_CodeChef(self):
         """Fetch CodeChef statistics using web scraping."""
         try:
             url = f"https://www.codechef.com/users/{self.user_config['CodeChef']}"
@@ -512,7 +525,7 @@ class PlatformStats:
             print(f"  Error getting CodeChef stats: {e}")
         return None
     
-    def get_cses(self):
+    def get_CSES(self):
         """Fetch CSES statistics.
 
         NOTE: CSES user profile pages don't display solved problem counts.
@@ -544,7 +557,7 @@ class PlatformStats:
         #     print(f"  Error getting CSES stats: {e}")
         # return None
     
-    def get_toph(self):
+    def get_Toph(self):
         """Fetch Toph statistics."""
         try:
             url = f"https://toph.co/u/{self.user_config['Toph']}"
@@ -563,7 +576,7 @@ class PlatformStats:
             print(f"  Error getting Toph stats: {e}")
         return None
     
-    def get_lightoj(self):
+    def get_LightOJ(self):
         """Fetch LightOJ statistics."""
         try:
             url = f"https://lightoj.com/user/{self.user_config['LightOJ']}"
@@ -587,7 +600,7 @@ class PlatformStats:
             print(f"  Error getting LightOJ stats: {e}")
         return None
     
-    def get_spoj(self):
+    def get_SPOJ(self):
         """Fetch SPOJ statistics using Selenium for Cloudflare protection."""
         return (None, "SPOJ blocked by Cloudflare protection")
         # try:
@@ -615,7 +628,7 @@ class PlatformStats:
         #     print(f"  Error getting SPOJ stats: {e}")
         # return None
     
-    def get_hackerrank(self):
+    def get_HackerRank(self):
         """Fetch HackerRank statistics using Selenium for JS-rendered content."""
         return (None, "HackerRank profile pages don't display solved problem counts")
         # try:
@@ -643,17 +656,17 @@ class PlatformStats:
         #     print(f"  Error getting HackerRank stats: {e}")
         # return None
     
-    def get_uva(self):
+    def get_UVa(self):
         """Fetch UVa statistics."""
         try:
             # Check if user exists by fetching profile page
-            profile_url = f"https://uhunt.onlinejudge.org/id/{self.user_config['Uva']}"
+            profile_url = f"https://uhunt.onlinejudge.org/id/{self.user_config['UVa']}"
             html = self.fetch_url(profile_url, check_status=True)
             if not html:
                 return None
             
             # Try uhunt API
-            url = f"https://uhunt.onlinejudge.org/api/subs-user/{self.user_config['Uva']}"
+            url = f"https://uhunt.onlinejudge.org/api/subs-user/{self.user_config['UVa']}"
             data = self.fetch_url(url, use_api=True, check_status=True)
             if data and 'subs' in data:
                 solved = set()
@@ -667,7 +680,7 @@ class PlatformStats:
         # Fallback to web scraping uhunt profile
         try:
             print("  Trying web scraping...")
-            url = f"https://uhunt.onlinejudge.org/id/{self.user_config['Uva']}"
+            url = f"https://uhunt.onlinejudge.org/id/{self.user_config['UVa']}"
             html = self.fetch_url(url, check_status=True)
             if html:
                 # Try multiple patterns for solved count
@@ -688,7 +701,7 @@ class PlatformStats:
         
         return None
     
-    def get_hackerearth(self):
+    def get_HackerEarth(self):
         """Fetch HackerEarth statistics using Selenium for JS-rendered content."""
         try:
             url = f"https://www.hackerearth.com/@{self.user_config['HackerEarth']}"
@@ -718,7 +731,7 @@ class PlatformStats:
             print(f"  Error getting HackerEarth stats: {e}")
         return None
     
-    def get_kattis(self):
+    def get_Kattis(self):
         """Fetch Kattis statistics."""
         try:
             url = f"https://open.kattis.com/users/{self.user_config['Kattis']}"
@@ -741,7 +754,7 @@ class PlatformStats:
             print(f"  Error getting Kattis stats: {e}")
         return None
     
-    def get_csacademy(self):
+    def get_CSAcademy(self):
         """Fetch CSAcademy statistics using Selenium for JS-rendered content."""
         try:
             url = f"https://csacademy.com/user/{self.user_config['CSAcademy']}"
@@ -767,7 +780,7 @@ class PlatformStats:
             print(f"  Error getting CSAcademy stats: {e}")
         return None
     
-    def get_toki(self):
+    def get_Toki(self):
         """Fetch Toki statistics using Selenium for JS-rendered content."""
         try:
             url = f"https://tlx.toki.id/profiles/{self.user_config['Toki']}"
@@ -799,12 +812,12 @@ class PlatformStats:
             print(f"  Error getting Toki stats: {e}")
         return None
     
-    def fetch_all_stats(self, verbose=True, max_workers=6):
+    def fetch_all_stats(self, verbose=True, max_workers=10):
         """Fetch statistics from all platforms using parallel processing."""
         platforms = {}
         missing_methods = []
         for platform in self.user_config:
-            method_name = f'get_{platform.lower()}'
+            method_name = f'get_{platform}'
             if hasattr(self, method_name):
                 platforms[platform] = getattr(self, method_name)
             else:
@@ -1081,15 +1094,15 @@ def main():
     with console.status("[bold blue]Configuring handles from handles.json...[/bold blue]", spinner="dots"):
         try:
             import subprocess
-            result = subprocess.run([sys.executable, 'scripts/configure_handles.py'], 
+            result = subprocess.run([sys.executable, 'scripts/sync_profiles.py'], 
                                   capture_output=True, text=True, timeout=30)
             if result.returncode != 0:
-                console.print(Panel(f"[red]ERROR: configure_handles failed: {result.stdout}\nCannot continue with invalid handles.json[/red]", border_style="red", expand=False))
+                console.print(Panel(f"[red]ERROR: sync_profiles failed: {result.stdout}\nCannot continue with invalid handles.json[/red]", border_style="red", expand=False))
                 console.print(Panel("[red]Please fix the syntax error in handles.json and try again.[/red]", border_style="red", expand=False))
                 return  # Exit main function
             elif result.stdout.strip():
                 console.print(Panel(f"[green][OK] {result.stdout.strip()}[/green]", border_style="green", expand=False))
-            # Reload configuration after configure_handles potentially updated it
+            # Reload configuration after sync_profiles potentially updated it
             with console.status("[bold blue]Reloading configuration...[/bold blue]", spinner="dots"):
                 import importlib
                 import src
@@ -1102,7 +1115,7 @@ def main():
                 globals()['MAX_REASONABLE_COUNT'] = MAX_REASONABLE_COUNT  
                 globals()['USER_AGENT'] = USER_AGENT
         except Exception as e:
-            console.print(Panel(f"[yellow]WARNING: configure_handles or config reload failed: {e}\nContinuing with existing configuration...[/yellow]", border_style="yellow", expand=False))
+            console.print(Panel(f"[yellow]WARNING: sync_profiles or config reload failed: {e}\nContinuing with existing configuration...[/yellow]", border_style="yellow", expand=False))
     
     fetcher = PlatformStats()
     stats, messages, fresh_fetches, fetch_times = fetcher.fetch_all_stats()

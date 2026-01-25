@@ -6,12 +6,10 @@ Script to configure handles from handles.json and update USER_CONFIG dynamically
 import sys
 import os
 
-print("sys.executable:", sys.executable)
 
 # Add project root to path for imports
 project_root = os.path.dirname(os.path.dirname(__file__))
 sys.path.insert(0, project_root)
-print("sys.path[:3]:", sys.path[:3])
 
 import json
 
@@ -26,22 +24,34 @@ from src import PLATFORM_URL_TEMPLATES as PLATFORM_URL_TEMPLATES_GLOBAL
 from src import PROFILE_DISPLAY_NAMES as PROFILE_DISPLAY_NAMES_GLOBAL  
 from src import PLATFORM_LOGOS as PLATFORM_LOGOS_GLOBAL
 
-print(f"Imported USER_CONFIG: {type(USER_CONFIG_GLOBAL)}, length: {len(USER_CONFIG_GLOBAL) if hasattr(USER_CONFIG_GLOBAL, '__len__') else 'N/A'}")
 
 try:
     from src.data_manager import DataManager
-    print("Imports successful")
+    print("DataManager Imports successful\n")
 except Exception as e:
-    print("Import error:", e)
+    print("DataManager Import error:\n", e)
     import sys
     sys.exit(1)
 
 
 def main():
-    # Use imported config values (already loaded by src/__init__.py)
-    # No need to reload config.json as src module handles this
-    print("USER_CONFIG:", USER_CONFIG_GLOBAL)
-    print("Length:", len(USER_CONFIG_GLOBAL))
+    # Reload config values to get latest state (important when called multiple times in same process)
+    import importlib
+    import src
+    importlib.reload(src)
+    
+    # Re-import current config values
+    from src import USER_CONFIG as USER_CONFIG_CURRENT
+    from src import PLATFORM_URL_TEMPLATES as PLATFORM_URL_TEMPLATES_CURRENT
+    from src import PROFILE_DISPLAY_NAMES as PROFILE_DISPLAY_NAMES_CURRENT
+    from src import PLATFORM_LOGOS as PLATFORM_LOGOS_CURRENT
+    
+    # Use current values instead of global imports
+    global USER_CONFIG_GLOBAL, PLATFORM_URL_TEMPLATES_GLOBAL, PROFILE_DISPLAY_NAMES_GLOBAL, PLATFORM_LOGOS_GLOBAL
+    USER_CONFIG_GLOBAL = USER_CONFIG_CURRENT
+    PLATFORM_URL_TEMPLATES_GLOBAL = PLATFORM_URL_TEMPLATES_CURRENT
+    PROFILE_DISPLAY_NAMES_GLOBAL = PROFILE_DISPLAY_NAMES_CURRENT
+    PLATFORM_LOGOS_GLOBAL = PLATFORM_LOGOS_CURRENT
 
     # Read and check handles.json
     handles_path = os.path.join(os.path.dirname(__file__), '..', 'config', 'handles.json')
@@ -55,41 +65,41 @@ def main():
         
         if not file_content:
             # File is empty or whitespace-only - silently reinitialize
-            content = []
+            content = {}
         else:
             data = json.loads(file_content)
             # Handle both old array format and new object format
             if isinstance(data, list):
                 content = data
             elif isinstance(data, dict) and 'urls' in data:
-                content = data['urls']
+                urls_data = data['urls']
+                if isinstance(urls_data, dict):
+                    # New key-value pair format
+                    content = urls_data
+                else:
+                    # Old array format
+                    content = urls_data if isinstance(urls_data, list) else []
             else:
-                content = []
+                content = {}
     except json.JSONDecodeError as e:
         # JSON syntax errors - show error and stop
         print(f"[ERROR] Syntax error in handles.json: {e}")
         print("[ERROR] handles.json should look like this:")
         print('{')
-        print('  "urls": [')
-        print('    "https://cses.fi/user/your_username/",')
-        print('    "https://codeforces.com/profile/your_username"')
-        print('  ],')
-        print('  "_comment": "Complete URLs to your profiles on each platform at above section"')
+        print('  "urls": {')
+        print('    "Codeforces": "https://codeforces.com/profile/your_username",')
+        print('    "AtCoder": "https://atcoder.jp/users/your_username"')
+        print('  }')
         print('}')
-        print("See _examples field in existing handles.json for all supported platforms")
+        print("See _examples field in existing handles.json for all supported platforms\n")
         sys.exit(1)  # Stop immediately on syntax error
 
     if not content:
         print("handles.json is empty")
         print("[INIT] Initializing handles.json with sample format...")
         sample_data = {
-            "urls": [
-                "https://cses.fi/user/your_username/",
-                "https://codeforces.com/profile/your_username",
-                "https://atcoder.jp/users/your_username",
-                "https://www.codechef.com/users/your_username"
-            ],
-            "_comment": "Complete URLs to your profiles on each platform at above section. Format: https://platform.com/path/your_username",
+            "urls": {},
+            "_comment": "Complete URLs to your profiles on each platform. Format: https://platform.com/path/your_username",
             "_examples": {
                 "CSES": "https://cses.fi/user/your_username/",
                 "Codeforces": "https://codeforces.com/profile/your_username",
@@ -99,7 +109,7 @@ def main():
                 "HackerRank": "https://www.hackerrank.com/profile/your_username",
                 "HackerEarth": "https://www.hackerearth.com/@your_username/",
                 "SPOJ": "https://www.spoj.com/users/your_username/",
-                "UVA": "https://uhunt.onlinejudge.org/id/your_username",
+                "UVa": "https://uhunt.onlinejudge.org/id/your_username",
                 "Timus": "https://acm.timus.ru/author.aspx?id=your_username",
                 "TopCoder": "https://www.topcoder.com/members/your_username",
                 "Kattis": "https://open.kattis.com/users/your_username",
@@ -144,32 +154,37 @@ def main():
                 json.dump(sample_data, f, indent=2)
             print("[OK] Created handles.json with sample handles")
             print("[INFO] Please edit handles.json and replace 'your_username' with your actual usernames")
-            print("[INIT] Run this script again after updating handles.json")
-            return  # Exit early, let user configure first
+            print("[INIT] Run this script again after updating handles.json\n")
+            # Don't exit early - continue to sync with the empty configuration
+            # This ensures config.json is updated to reflect no platforms configured
+            content = {}  # Empty dict for sync process
+            urls = content  # Set urls for the sync process
         except Exception as e:
             print(f"[ERROR] Failed to create sample handles.json: {e}")
-            urls = []
+            urls = {}
             return
     else:
-        # Validate that content is a list
-        if not isinstance(content, list):
-            print("[ERROR] handles.json should be a JSON array (list) of URLs")
-            print("[INFO] Example: [\"https://codeforces.com/profile/username\"]")
-            urls = []
+        # Validate that content is a dict
+        if not isinstance(content, dict):
+            print("[ERROR] handles.json urls should be a JSON object (dict) of platform->URL pairs")
+            print("[INFO] Example: {\"Codeforces\": \"https://codeforces.com/profile/username\"}")
+            urls = {}
         else:
             urls = content
-        urls = content
 
     # Parse URLs to get new config
     new_user_config = {}
     url_dict = {}
-    for url in urls:
-        platform, username = parse_url(url)
-        if platform:
-            new_user_config[platform] = username
-            url_dict[platform] = url
+    for platform, url in urls.items():
+        if url and url.strip():  # Skip empty URLs
+            parsed_platform, username = parse_url(url)
+            if parsed_platform:
+                new_user_config[parsed_platform] = username
+                url_dict[parsed_platform] = url
+            else:
+                print(f"Warning: Could not parse URL: {url}")
         else:
-            print(f"Warning: Could not parse URL: {url}")
+            print(f"Warning: Empty URL for platform {platform}")
 
     # Build new_templates
     new_templates = {}
@@ -190,9 +205,10 @@ def main():
     print(f"Added platforms: {added}")
     print(f"Removed platforms: {removed}")
     print(f"Changed platforms: {changed}")
+    
 
-    # Comprehensive config validation and repair for all platforms
-    print("Validating and repairing all config fields for all platforms...")
+    # Ensure config consistency for current platforms
+    print("Ensuring config consistency for current platforms...")
     
     # Ensure all platforms have URL templates
     new_templates_full = PLATFORM_URL_TEMPLATES_GLOBAL.copy()
@@ -266,7 +282,7 @@ def main():
     from src import USER_CONFIG
 
     # Update usernames in last_known_counts for all current platforms first
-    last_known = DataManager.load_last_known_counts()
+    last_known = DataManager.load_last_known_counts(user_config=USER_CONFIG)
     for platform, username in USER_CONFIG.items():
         last_known['usernames'][platform] = username
     
@@ -277,6 +293,8 @@ def main():
     
     print("Configuration and cache cleanup completed successfully!")
 
+    print("USER_CONFIG:", USER_CONFIG)
+    print("Length:", len(USER_CONFIG))
 
 if __name__ == "__main__":
     main()

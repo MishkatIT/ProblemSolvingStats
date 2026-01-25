@@ -90,8 +90,8 @@ ProblemSolvingStats/
 ├── scripts/                    # Executable scripts
 │   ├── auto_update.py         # Main statistics fetcher
 │   ├── manual_update.py       # Manual input script
+│   ├── change_display_name.py # Display name customization
 │   ├── update_readme.py       # README generator
-│   ├── configure_handles.py   # Configuration setup
 │   └── check_and_adjust_schedule.py # Schedule management
 ├── config/                     # Configuration files
 │   └── handles.json           # User profile URLs

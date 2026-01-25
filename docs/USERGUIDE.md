@@ -8,7 +8,7 @@ The Problem Solving Statistics Tracker is a comprehensive tool that automaticall
 
 ### 🚀 Automated Tracking
 - **Daily Updates**: Automatically fetches latest statistics every day
-- **Multi-Platform Support**: Tracks progress on 13+ competitive programming platforms
+- **Multi-Platform Support**: Tracks progress on 13 competitive programming platforms
 - **Smart Scheduling**: Adapts update frequency based on your solving activity
 - **GitHub Actions Integration**: Runs automatically in your GitHub repository
 
@@ -26,23 +26,23 @@ The Problem Solving Statistics Tracker is a comprehensive tool that automaticall
 
 ## Supported Platforms
 
-| Platform | Method | Status |
-|----------|--------|--------|
-| Codeforces | API + Web Scraping | ✅ Active |
-| AtCoder | API + Web Scraping | ✅ Active |
-| CodeChef | Web Scraping | ✅ Active |
-| LightOJ | Web Scraping | ✅ Active |
-| Toph | Web Scraping | ✅ Active |
-| VJudge | Web Scraping | ✅ Active |
-| UVa | API + Web Scraping | ✅ Active |
-| SPOJ | Web Scraping | ✅ Active |
-| HackerRank | Web Scraping | ✅ Active |
-| HackerEarth | Web Scraping | ✅ Active |
-| LeetCode | GraphQL API + Web Scraping | ✅ Active |
-| CSES | Web Scraping | ✅ Active |
-| Kattis | Web Scraping | ✅ Active |
-| CSAcademy | Web Scraping | ✅ Active |
-| Toki | Web Scraping | ✅ Active |
+| Platform | Method | Status | Auto Update |
+|----------|--------|--------|-------------|
+| Codeforces | API + Web Scraping | ✅ Active | Yes |
+| AtCoder | API + Web Scraping | ✅ Active | Yes |
+| CodeChef | Web Scraping | ✅ Active | Yes |
+| LightOJ | Web Scraping | ✅ Active | Yes |
+| Toph | Web Scraping | ✅ Active | Yes |
+| VJudge | Web Scraping | ✅ Active | Yes |
+| UVa | API + Web Scraping | ✅ Active | Yes |
+| SPOJ | Web Scraping | ✅ Active | No |
+| HackerRank | Web Scraping | ✅ Active | No |
+| HackerEarth | Web Scraping | ✅ Active | Yes |
+| LeetCode | GraphQL API + Web Scraping | ✅ Active | Yes |
+| CSES | Web Scraping | ✅ Active | No |
+| Kattis | Web Scraping | ✅ Active | Yes |
+| CSAcademy | Web Scraping | ✅ Active | Optional |
+| Toki | Web Scraping | ✅ Active | Optional |
 
 ## Quick Start
 
@@ -62,42 +62,10 @@ cd ProblemSolvingStats
 pip install -r requirements.txt
 ```
 
-### 3. Configure Your Usernames
+### 3. run bat
 
-#### Option A: Using URLs (Recommended)
+.\spark.bat
 
-Add your profile URLs to `config/handles.json`:
-
-```json
-[
-  "https://codeforces.com/profile/YourUsername",
-  "https://atcoder.jp/users/YourUsername",
-  "https://www.codechef.com/users/YourUsername",
-  "https://vjudge.net/user/YourUsername",
-  "https://toph.co/u/YourUsername"
-]
-```
-
-Then run the configuration script:
-
-```bash
-python scripts/configure_handles.py
-```
-
-
-### 4. Test the Setup
-
-```bash
-# For Windows users (recommended):
-spark.bat
-
-# Or run scripts directly:
-# Run automatic update
-python scripts/auto_update.py
-
-# Or run manual update for specific platforms
-python scripts/manual_update.py
-```
 
 ### 5. Enable GitHub Actions
 
@@ -113,8 +81,12 @@ python scripts/manual_update.py
 |--------|---------|-------------|
 | `auto_update.py` | Fetch stats from all platforms automatically | Daily updates, GitHub Actions |
 | `manual_update.py` | Interactive manual statistics input | When automatic fetching fails |
+| `change_display_name.py` | Change profile display names | Personalizing README appearance |
 | `update_readme.py` | Generate/update README with current stats | After fetching new data |
-| `configure_handles.py` | Setup and manage platform usernames | Initial setup, adding platforms |
+| `manage_handle.py` | Add, edit, or delete platform handles | Setting up or changing usernames |
+| `sync_profiles.py` | Sync handles from URLs to configuration | After updating handles.json |
+| `check_and_adjust_schedule.py` | Adjust GitHub Actions schedule based on activity | Automated workflow management |
+| `known_platforms.py` | Display known platform URL templates | Reference for supported platforms |
 
 ### Windows Batch File (`spark.bat`)
 
@@ -145,10 +117,11 @@ spark.bat
 **Menu Options:**
 1. **Auto Update** - Run `auto_update.py`
 2. **Manual Update** - Run `manual_update.py`
-3. **Configure Handles** - Run `configure_handles.py`
-4. **Update README** - Run `update_readme.py`
-5. **Install Dependencies** - Update Python packages
-6. **Exit** - Close the batch file
+3. **Add or Delete Handles** - Run `manage_handle.py`
+4. **Change Display Name** - Run `change_display_name.py`
+5. **Update README** - Run `update_readme.py`
+6. **Install Dependencies** - Update Python packages
+7. **Exit** - Close the batch file
 
 > 💡 **Recommended for:** Windows users, beginners, or anyone who wants a simplified experience without command-line knowledge.
 
@@ -213,21 +186,87 @@ python scripts/update_readme.py
 python scripts/update_readme.py --source automatic
 ```
 
-### Configuration Management (`configure_handles.py`)
+### Handle Management (`manage_handle.py`)
 
-Manages platform usernames and settings.
+Interactive script for managing your platform handles and usernames.
 
 **Features:**
-- Parses URLs to extract usernames
-- Validates platform formats
-- Updates configuration files
-- Handles multiple URL formats
-- Provides configuration summary
+- Add new platform handles
+- Edit existing usernames
+- Delete unused handles
+- Validate handle formats
+- Update configuration automatically
 
 **Usage:**
 ```bash
-python scripts/configure_handles.py
+python scripts/manage_handle.py
 ```
+
+**When to use:**
+- Setting up the project for the first time
+- Adding support for new platforms
+- Changing usernames on existing platforms
+- Removing platforms you no longer use
+
+### Profile Synchronization (`sync_profiles.py`)
+
+Synchronizes handle configurations from `config/handles.json` to the main configuration files.
+
+**Features:**
+- Parses URLs to extract usernames
+- Updates `src/config.json` with new handles
+- Maintains display name consistency
+- Validates platform support
+
+**Usage:**
+```bash
+python scripts/sync_profiles.py
+```
+
+**When to use:**
+- After manually editing `config/handles.json`
+- When adding new handles via URLs
+- Ensuring configuration consistency
+
+### Schedule Adjustment (`check_and_adjust_schedule.py`)
+
+Automatically adjusts GitHub Actions workflow schedule based on solving activity.
+
+**Features:**
+- Monitors solving activity over time
+- Switches from daily to monthly updates when inactive
+- Resumes daily updates when activity returns
+- Updates workflow files automatically
+
+**Usage:**
+```bash
+python scripts/check_and_adjust_schedule.py
+```
+
+**When to use:**
+- As part of automated workflows
+- To optimize GitHub Actions usage
+- When activity patterns change
+
+### Known Platforms Reference (`known_platforms.py`)
+
+Displays information about supported platforms and URL templates.
+
+**Features:**
+- Lists all known platform templates
+- Shows URL generation patterns
+- Helps with handle configuration
+- Reference for platform support
+
+**Usage:**
+```bash
+python scripts/known_platforms.py
+```
+
+**When to use:**
+- Checking platform availability
+- Understanding URL formats
+- Adding new platform support
 
 ## Configuration Files
 
@@ -257,84 +296,84 @@ Central configuration file containing:
     "LeetCode": ["https://www.google.com/s2/favicons?domain=leetcode.com&sz=16", true],
     "CodeChef": ["https://www.google.com/s2/favicons?domain=www.codechef.com&sz=16", true]
   },
-  "PLATFORM_COLORS": ["AA0000", "FF3333", "FF7777", "FFBB55", "FFCC88"],
-  "ALL_PLATFORMS": ["Codeforces", "LeetCode", "CodeChef", "AtCoder", "CSES"],
+  "PLATFORM_COLORS": ["AA0000", "FF3333", "FF7777", "FFBB55", "FFCC88", "FF88FF", "D499FF", "AAAAFF", "90C3DD", "77DDBB", "77EE99", "77FF77", "CCCCCC"],
+  "ALL_PLATFORMS": ["AtCoder", "CSES", "CodeChef", "Codeforces", "HackerEarth", "HackerRank", "Kattis", "LeetCode", "LightOJ", "SPOJ", "Toph", "UVa", "VJudge"],
   "LAST_KNOWN_FILE": "data/last_known_counts.json",
   "STATS_FILE": "data/stats.json",
   "README_FILE": "docs/README.md",
-  "USER_INFO": {
-    "name": "Your Name",
-    "email": "your.email@example.com"
-  }
+  "MAX_REASONABLE_COUNT": 20000,
+  "BDT_TIMEZONE_hours": 6,
+  "USER_AGENT": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36"
 }
 ```
 
 ### `handles.json`
 
-Simple list of profile URLs for easy configuration:
+Canonical mapping of profile URLs for easy configuration (stored in `config/handles.json`):
 
 ```json
 {
-  "urls": [
-    "https://codeforces.com/profile/YourUsername",
-    "https://leetcode.com/u/YourUsername/",
-    "https://www.codechef.com/users/YourUsername",
-    "https://atcoder.jp/users/YourUsername",
-    "https://cses.fi/user/YourUsername/"
-  ]
+  "urls": {
+    "Codeforces": "https://codeforces.com/profile/YourUsername",
+    "LeetCode": "https://leetcode.com/u/YourUsername/",
+    "CodeChef": "https://www.codechef.com/users/YourUsername",
+    "AtCoder": "https://atcoder.jp/users/YourUsername",
+    "CSES": "https://cses.fi/user/YourUsername/",
+    "VJudge": "https://vjudge.net/user/YourUsername",
+    "Toph": "https://toph.co/u/YourUsername",
+    "LightOJ": "https://lightoj.com/user/YourUsername",
+    "SPOJ": "https://www.spoj.com/users/YourUsername",
+    "HackerRank": "https://www.hackerrank.com/profile/YourUsername",
+    "HackerEarth": "https://www.hackerearth.com/@YourUsername/",
+    "Kattis": "https://open.kattis.com/users/YourUsername",
+    "UVa": "https://uhunt.onlinejudge.org/id/YourUsername"
+  }
 }
 ```
 
 ### `data/stats.json`
 
-Current statistics data:
+Current statistics data structure:
 
 ```json
 {
-  "Codeforces": 2609,
-  "LeetCode": 412,
-  "AtCoder": 157,
-  "CodeChef": 126,
-  "CSES": 22,
-  "LightOJ": 31,
-  "Toph": 37,
-  "VJudge": 347,
-  "Uva": 7,
-  "HackerEarth": 2,
-  "HackerRank": null,
-  "SPOJ": null
+  "Codeforces": "solved_count",
+  "LeetCode": "solved_count",
+  "AtCoder": "solved_count",
+  "...": "..."
 }
 ```
 
+*Note: Contains solved problem counts for all 13 supported platforms.*
+
 ### `last_known_counts.json`
 
-Historical data with timestamps and modes:
+Historical data structure with timestamps and modes:
 
 ```json
 {
   "counts": {
-    "Codeforces": 2609,
-    "LeetCode": 412,
-    "AtCoder": 157,
-    "CodeChef": 126,
-    "CSES": 22
+    "Codeforces": "solved_count",
+    "LeetCode": "solved_count",
+    "AtCoder": "solved_count",
+    "...": "..."
   },
   "dates": {
-    "Codeforces": "2026-01-24",
-    "LeetCode": "2026-01-24",
-    "AtCoder": "2026-01-24",
-    "CodeChef": "2026-01-24",
-    "CSES": "2026-01-24"
+    "Codeforces": "YYYY-MM-DD",
+    "LeetCode": "YYYY-MM-DD",
+    "AtCoder": "YYYY-MM-DD",
+    "...": "..."
   },
   "modes": {
-    "Codeforces": "automatic",
-    "LeetCode": "automatic",
-    "AtCoder": "automatic",
-    "CodeChef": "automatic",
-    "CSES": "manual"
+    "Codeforces": "automatic_or_manual",
+    "LeetCode": "automatic_or_manual",
+    "AtCoder": "automatic_or_manual",
+    "...": "..."
   }
 }
 ```
+
+*Note: Contains historical data for all 13 supported platforms.*
 
 ## Customization Options
 
@@ -373,7 +412,7 @@ You can customize how your profile names appear in the README table by editing t
 
 The repository includes a GitHub Actions workflow (`.github/workflows/update-stats.yml`) that:
 
-1. Runs daily at 11:00 PM BDT
+1. Runs daily at 11:35 PM BDT (17:35 UTC)
 2. Executes `auto_update.py`
 3. Commits changes back to the repository
 4. Adapts schedule based on solving activity
@@ -432,8 +471,11 @@ cat data/stats.json
 
 **Solutions:**
 ```bash
-# Re-run configuration
-python scripts/configure_handles.py
+# For manual display name setup:
+# 1. Edit src/config.json
+# 2. Modify the PROFILE_DISPLAY_NAMES section
+# 3. Add entries like: "PlatformName": "Your Custom Display Name"
+# 4. Run: python scripts/update_readme.py
 
 # Verify config.json is valid JSON
 python -m json.tool src/config.json
@@ -497,7 +539,7 @@ Modify `.github/workflows/update-stats.yml`:
 ```yaml
 on:
   schedule:
-    - cron: '35 17 * * *'  # 11:35 PM BDT
+    - cron: '0 0 * * *'  # 00:00 UTC (6:00 AM BDT)
   workflow_dispatch:        # Manual trigger
 ```
 
@@ -549,7 +591,7 @@ A: Yes, modify the templates in `update_readme.py`.
 A: Yes! Use `spark.bat` - it provides an interactive menu and handles everything automatically.
 
 ### Q: What platforms are currently supported?
-A: 12 platforms: Codeforces, AtCoder, CodeChef, LeetCode, LightOJ, Toph, VJudge, UVa, SPOJ, HackerRank, HackerEarth, and CSES.
+A: 12+ platforms: Codeforces, AtCoder, CodeChef, LeetCode, LightOJ, Toph, VJudge, UVa, SPOJ, HackerRank, HackerEarth, CSES, and Kattis.
 
 ## Support
 
@@ -559,5 +601,5 @@ A: 12 platforms: Codeforces, AtCoder, CodeChef, LeetCode, LightOJ, Toph, VJudge,
 
 ## License
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.</content>
-<parameter name="filePath">d:\ProblemSolvingStats\USERGUIDE.md
+ThThis project is licensed under the MIT License - see the [LICENSE](/LICENSE) file for details.</content>
+<parameter name="filePath">d:\ProblemSolvingStats\docs\USERGUIDE.md

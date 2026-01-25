@@ -4,7 +4,7 @@ Interactive script to manually update profile display names.
 Use this to customize how your profiles appear in the README.
 
 NOTE: This script only changes DISPLAY NAMES, not your actual usernames/handles.
-To change your actual usernames/handles, edit the config/handles.json file directly.
+To change your actual usernames/handles, use: python scripts/manage_handle.py
 """
 
 
@@ -33,7 +33,7 @@ if os.name == 'nt':
 console = Console()
 
 
-def get_manual_display_names():
+def get_change_display_name():
     """Manually input display names for each platform."""
     console.print(Panel(
         "[bold white]Enter custom display names for each platform.[/bold white]\n[bold white]These will be shown in the README instead of usernames.[/bold white]\n[bold white]Press Enter to keep current display name.[/bold white]\n\n[bold yellow]REMINDER: This only changes display names, not actual handles/usernames.[/bold yellow]",
@@ -70,12 +70,12 @@ def get_manual_display_names():
 
 def main():
     """Main function for manual display name updates."""
-    console.print(Panel("[bold magenta]Profile Display Name Manager[/bold magenta]\n[bold white]Update your profile display names for the README.[/bold white]\n\n[bold yellow]NOTE: This only changes DISPLAY NAMES, not your actual usernames/handles.[/bold yellow]\n[bold yellow]To change actual handles, edit config/handles.json directly.[/bold yellow]", border_style="magenta", expand=False))
+    console.print(Panel("[bold magenta]Profile Display Name Manager[/bold magenta]\n[bold white]Update your profile display names for the README.[/bold white]\n\n[bold yellow]NOTE: This only changes DISPLAY NAMES, not your actual usernames/handles.[/bold yellow]\n[bold yellow]To change actual handles, use: python scripts/manage_handle.py[/bold yellow]", border_style="magenta", expand=False))
 
     input("Press Enter to continue...")
 
     # Get display names
-    display_names = get_manual_display_names()
+    display_names = get_change_display_name()
 
     # Update config with new display names
     from src.utils import update_config_file
@@ -106,7 +106,7 @@ def main():
         importlib.reload(update_readme)
         # Load current stats to update README with existing data but new display names
         current_stats = DataManager.load_stats()
-        last_known_info = DataManager.load_last_known_counts()
+        last_known_info = DataManager.load_last_known_counts(user_config=USER_CONFIG)
         success = update_readme.update_readme(current_stats, last_known_info=last_known_info, update_source='manual')
         if success:
             console.print(Panel(f"[green][OK] README.md has been updated![/green]", border_style="green", expand=False))
