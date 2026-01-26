@@ -102,14 +102,30 @@ def read_workflow_file():
         return None
 
 
+import re
+
+def get_schedule_type(content):
+    """Get the type of schedule: DAILY, MONTHLY, or CUSTOM."""
+    cron_match = re.search(r"cron:\s*['\"]([^'\"]+)['\"]", content)
+    if cron_match:
+        fields = cron_match.group(1).split()
+        if len(fields) == 5:
+            if fields[2] == "*":
+                return "DAILY"
+            else:
+                return "MONTHLY"
+    return "CUSTOM"
+
+
+# Legacy functions for backward compatibility
 def is_daily_schedule(content):
     """Check if workflow is on daily schedule."""
-    return "cron: '0 17 * * *'" in content or 'cron: "0 17 * * *"' in content
+    return get_schedule_type(content) == "DAILY"
 
 
 def is_monthly_schedule(content):
     """Check if workflow is on monthly schedule."""
-    return "cron: '0 17 1 * *'" in content or 'cron: "0 17 1 * *"' in content
+    return get_schedule_type(content) == "MONTHLY"
 
 
 def switch_to_monthly():
@@ -124,22 +140,50 @@ def switch_to_monthly():
             print("Already on monthly schedule. No change needed.")
             return False
         
-        # Replace daily cron with monthly (1st day of month)
-        new_content = content.replace(
-            "# 11:00 PM Bangladesh Time (BDT) = 17:00 UTC (daily)\n    - cron: '0 17 * * *'",
-            "# 11:00 PM Bangladesh Time (BDT) = 17:00 UTC (monthly)\n    - cron: '0 17 1 * *'"
-        )
-        
-        if new_content != content:
-            with open(workflow_path, 'w') as f:
-                f.write(new_content)
-            
-            print("[OK] Workflow schedule changed from DAILY to MONTHLY")
-            print("  Reason: No problem count updates detected for 90+ days")
-            return True
-        else:
-            print("Warning: Could not find daily schedule pattern to replace")
+        # Extract current time from cron
+        cron_match = re.search(r"cron:\s*['\"]([^'\"]+)['\"]", content)
+        if not cron_match:
+            print("Warning: Could not find cron expression")
             return False
+            
+        current_cron = cron_match.group(1)
+        fields = current_cron.split()
+        if len(fields) != 5:
+            print("Warning: Invalid cron format")
+            return False
+            
+        # Create monthly schedule (1st of month, same time)
+        fields[2] = "1"  # day-of-month = 1
+        monthly_cron = " ".join(fields)
+        
+        # Replace the schedule section with correct indentation
+        monthly_schedule = """# DYNAMIC_SCHEDULE_START
+  schedule:
+    - cron: '{monthly_cron}'
+  # DYNAMIC_SCHEDULE_END""".format(monthly_cron=monthly_cron)
+        
+        # Find and replace between markers
+        start_marker = "# DYNAMIC_SCHEDULE_START"
+        end_marker = "# DYNAMIC_SCHEDULE_END"
+        
+        start_idx = content.find(start_marker)
+        end_idx = content.find(end_marker)
+        
+        if start_idx == -1 or end_idx == -1:
+            print("Warning: Could not find schedule markers")
+            return False
+            
+        # Replace the content between markers
+        before = content[:start_idx]
+        after = content[end_idx + len(end_marker):]
+        new_content = before + monthly_schedule + after
+        
+        with open(workflow_path, 'w') as f:
+            f.write(new_content)
+        
+        print("[OK] Workflow schedule changed from DAILY to MONTHLY")
+        print("  Reason: No problem count updates detected for 90+ days")
+        return True
             
     except Exception as e:
         print(f"Error switching to monthly schedule: {e}")
@@ -158,22 +202,50 @@ def switch_to_daily():
             print("Already on daily schedule. No change needed.")
             return False
         
-        # Replace monthly cron with daily
-        new_content = content.replace(
-            "# 11:00 PM Bangladesh Time (BDT) = 17:00 UTC (monthly)\n    - cron: '0 17 1 * *'",
-            "# 11:00 PM Bangladesh Time (BDT) = 17:00 UTC (daily)\n    - cron: '0 17 * * *'"
-        )
-        
-        if new_content != content:
-            with open(workflow_path, 'w') as f:
-                f.write(new_content)
-            
-            print("[OK] Workflow schedule changed from MONTHLY to DAILY")
-            print("  Reason: Recent problem solving activity detected")
-            return True
-        else:
-            print("Warning: Could not find monthly schedule pattern to replace")
+        # Extract current time from cron
+        cron_match = re.search(r"cron:\s*['\"]([^'\"]+)['\"]", content)
+        if not cron_match:
+            print("Warning: Could not find cron expression")
             return False
+            
+        current_cron = cron_match.group(1)
+        fields = current_cron.split()
+        if len(fields) != 5:
+            print("Warning: Invalid cron format")
+            return False
+            
+        # Create daily schedule (any day, same time)
+        fields[2] = "*"  # day-of-month = *
+        daily_cron = " ".join(fields)
+        
+        # Replace the schedule section with correct indentation
+        daily_schedule = """# DYNAMIC_SCHEDULE_START
+  schedule:
+    - cron: '{daily_cron}'
+  # DYNAMIC_SCHEDULE_END""".format(daily_cron=daily_cron)
+        
+        # Find and replace between markers
+        start_marker = "# DYNAMIC_SCHEDULE_START"
+        end_marker = "# DYNAMIC_SCHEDULE_END"
+        
+        start_idx = content.find(start_marker)
+        end_idx = content.find(end_marker)
+        
+        if start_idx == -1 or end_idx == -1:
+            print("Warning: Could not find schedule markers")
+            return False
+            
+        # Replace the content between markers
+        before = content[:start_idx]
+        after = content[end_idx + len(end_marker):]
+        new_content = before + daily_schedule + after
+        
+        with open(workflow_path, 'w') as f:
+            f.write(new_content)
+        
+        print("[OK] Workflow schedule changed from MONTHLY to DAILY")
+        print("  Reason: Recent problem solving activity detected")
+        return True
             
     except Exception as e:
         print(f"Error switching to daily schedule: {e}")
@@ -217,9 +289,16 @@ def main():
         console.print("[bold red]Error reading workflow file.[/bold red]")
         return
     
-    current_schedule = "DAILY" if is_daily_schedule(workflow_content) else "MONTHLY"
-    schedule_color = "green" if current_schedule == "DAILY" else "blue"
-    console.print(f"[bold white]Current schedule:[/bold white] [bold {schedule_color}]{current_schedule}[/bold {schedule_color}]")
+    current_schedule = get_schedule_type(workflow_content)
+    if current_schedule == "CUSTOM":
+        schedule_color = "red"
+        console.print(f"[bold white]Current schedule:[/bold white] [bold {schedule_color}]{current_schedule}[/bold {schedule_color}] (unrecognized pattern)")
+        console.print("[bold yellow]WARNING:[/bold yellow] Custom schedule detected. Automatic switching disabled.")
+        console.print("[dim]Only DAILY (*) and MONTHLY (specific day) schedules are supported for automatic adjustment.[/dim]")
+        return
+    else:
+        schedule_color = "green" if current_schedule == "DAILY" else "blue"
+        console.print(f"[bold white]Current schedule:[/bold white] [bold {schedule_color}]{current_schedule}[/bold {schedule_color}]")
     console.print()
     
     # Decision logic

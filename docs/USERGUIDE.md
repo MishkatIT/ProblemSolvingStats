@@ -412,7 +412,7 @@ You can customize how your profile names appear in the README table by editing t
 
 The repository includes a GitHub Actions workflow (`.github/workflows/update-stats.yml`) that:
 
-1. Runs daily at 11:35 PM BDT (17:35 UTC)
+1. Runs daily at 10:35 PM BDT (16:35 UTC)
 2. Executes `auto_update.py`
 3. Commits changes back to the repository
 4. Adapts schedule based on solving activity
