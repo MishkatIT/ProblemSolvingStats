@@ -709,7 +709,7 @@ def update_readme(stats, last_known_info=None, update_source=None):
         console.print(f"[bold yellow]  Total problems:[/bold yellow] [bold]{total}[/bold]")
         console.print(f"[bold cyan]  Updated on {current_date}[/bold cyan]")
         console.print(Panel("[yellow][NOTE] Some platforms might be missing. Consider manual update.[/yellow]", border_style="yellow", expand=False))
-        console.print(Panel("[white]Run the following command to manually update:\n  [bold]python scripts/manual_update.py[/bold][/white]", border_style="white", expand=False))
+        console.print(Panel("[white]Run the following command to manually update:\n  [bold]python scripts/manual_update.py[/bold] or \n  [bold]spark.bat[/bold] (for Windows user)[/white]", border_style="white", expand=False))
         return True
     except Exception as e:
         console.print(Panel(f"[red]Error writing README.md: {e}[/red]", border_style="red", expand=False))
