@@ -10,7 +10,7 @@
     "SPOJ": 18,
     "HackerRank": 7,
     "VJudge": 347,
-    "Codeforces": 2613,
+    "Codeforces": 2614,
     "UVa": 7
   },
   "dates": {
@@ -52,7 +52,7 @@
     "SPOJ": "2025-05-06",
     "HackerRank": "1970-01-01",
     "VJudge": "2025-05-02",
-    "Codeforces": "2026-01-25",
+    "Codeforces": "2026-01-26",
     "UVa": "1970-01-01"
   },
   "usernames": {
@@ -72,7 +72,7 @@
   },
   "ratings": {
     "Codeforces": {
-      "current": 1330,
+      "current": 1327,
       "max": 1443,
       "rank": "pupil",
       "max_rank": "specialist"
