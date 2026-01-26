@@ -578,19 +578,6 @@ def update_readme(stats, last_known_info=None, update_source=None):
     # Update platforms badge count for badges section
     active_platforms = len([p for p in effective_counts.values() if isinstance(p, int) and p > 0])
     
-    # Generate dynamic badges section using comment markers
-    badges_section = f'''![Last Updated](https://img.shields.io/badge/Last%20Updated-{current_date.replace(" ", "%20")}-28a745?style=for-the-badge)
-![Total Problems](https://img.shields.io/badge/Total%20Solved-{total}-28a745?style=for-the-badge)
-![Platforms](https://img.shields.io/badge/Platforms-{active_platforms}-28a745?style=for-the-badge)'''
-    
-    # Insert dynamic badges using comment markers
-    readme_content = re.sub(
-        r'<!-- DYNAMIC_BADGES_START -->.*<!-- DYNAMIC_BADGES_END -->',
-        f'<!-- DYNAMIC_BADGES_START -->\n{badges_section}\n<!-- DYNAMIC_BADGES_END -->',
-        readme_content,
-        flags=re.DOTALL
-    )
-    
     # Add dynamic Codeforces rating styling
     from src.utils import get_codeforces_rating_color
     cf_rating_info = last_known_info.get('ratings', {}).get('Codeforces', {})
@@ -623,6 +610,22 @@ def update_readme(stats, last_known_info=None, update_source=None):
             return ('77FF77', '000000')  # Pupil: Light green bg, black text
         else:
             return ('CCCCCC', '000000')  # Newbie: Light gray bg, black text
+    
+    # Get the banner color for badges (same as banner background)
+    badge_color = get_banner_style(max_rating)[0] if max_rating else 'CCCCCC'
+    
+    # Generate dynamic badges section using comment markers
+    badges_section = f'''![Last Updated](https://img.shields.io/badge/Last%20Updated-{current_date.replace(" ", "%20")}-{badge_color}?style=for-the-badge)
+![Total Problems](https://img.shields.io/badge/Total%20Solved-{total}-{badge_color}?style=for-the-badge)
+![Platforms](https://img.shields.io/badge/Platforms-{active_platforms}-{badge_color}?style=for-the-badge)'''
+    
+    # Insert dynamic badges using comment markers
+    readme_content = re.sub(
+        r'<!-- DYNAMIC_BADGES_START -->.*<!-- DYNAMIC_BADGES_END -->',
+        f'<!-- DYNAMIC_BADGES_START -->\n{badges_section}\n<!-- DYNAMIC_BADGES_END -->',
+        readme_content,
+        flags=re.DOTALL
+    )
     
     # Update the banner based on Codeforces rating tier
     if max_rating:

@@ -5,13 +5,13 @@
 <!-- AUTO_GENERATED_SECTION_END: BANNER -->
 
 <!-- DYNAMIC_BADGES_START -->
-![Last Updated](https://img.shields.io/badge/Last%20Updated-26%20January%202026-28a745?style=for-the-badge)
-![Total Problems](https://img.shields.io/badge/Total%20Solved-3823-28a745?style=for-the-badge)
-![Platforms](https://img.shields.io/badge/Platforms-12-28a745?style=for-the-badge)
+![Last Updated](https://img.shields.io/badge/Last%20Updated-26%20January%202026-77DDBB?style=for-the-badge)
+![Total Problems](https://img.shields.io/badge/Total%20Solved-3823-77DDBB?style=for-the-badge)
+![Platforms](https://img.shields.io/badge/Platforms-12-77DDBB?style=for-the-badge)
 <!-- DYNAMIC_BADGES_END -->
 
 <!-- UPDATE_METADATA_START -->
-<p align="center"><sub><strong>Updated:</strong> 26 January 2026 at 05:38:52 PM • Automatic</sub></p>
+<p align="center"><sub><strong>Updated:</strong> 26 January 2026 at 05:44:18 PM • Automatic</sub></p>
 <!-- UPDATE_METADATA_END -->
 
 <!-- AUTO_GENERATED_SECTION_START: STATS_TABLE -->
