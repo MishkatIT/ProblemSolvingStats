@@ -149,7 +149,7 @@
 ## 📚 Setup and Usage
 
 <details>
-<summary>🆕 <strong> Complete Setup Guide for Newbie Users</strong> (Click to expand)</summary>
+<summary><strong>🟢 🆕 Complete Setup Guide for Newbie Users</strong></summary>
 
 <div align="center">
 
