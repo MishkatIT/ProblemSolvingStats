@@ -1,6 +1,4 @@
-<a name="top"></a>
-<!-- Invisible anchor for GitHub TOC -->
-
+<a name="top"></a> <sub><sup>[Top](#top)</sup></sub>
 
 <div align="center">
 
@@ -15,7 +13,7 @@
 <!-- DYNAMIC_BADGES_END -->
 
 <!-- UPDATE_METADATA_START -->
-<p align="center"><sub><strong>Updated:</strong> 26 January 2026 at 10:06:55 PM • Unknown</sub></p>
+<p align="center"><sub><strong>Updated:</strong> 26 January 2026 at 10:08:35 PM • Unknown</sub></p>
 <!-- UPDATE_METADATA_END -->
 
 <!-- AUTO_GENERATED_SECTION_START: STATS_TABLE -->
@@ -169,14 +167,13 @@
 </div>
 
 | Step | Action | Command/Description |
-|:----:|:------|:-------------------|
+|:----:|:------:|:-------------------|
 | **1** | 🍴 **Fork Repository** | Visit [MishkatIT/ProblemSolvingStats](https://github.com/MishkatIT/ProblemSolvingStats) and click **Fork** |
-| **2** | 📦 **Clone Your Fork** | `git clone https://github.com/YOUR_USERNAME/ProblemSolvingStats.git`<br>`cd ProblemSolvingStats`<br>💡 **Run in terminal/command prompt** |
-| **3** | 🖥️ **Windows Users** | 1. Run `spark.bat`<br>2. If first time: Select option to install requirements<br>3. Follow the menu to configure usernames and test setup<br>4. Done! Everything is automated from here |
-| **4** | 📥 **Install Dependencies** | `pip install -r requirements.txt` |
-| **5** | ⚙️ **Configure Usernames** | `python scripts/manage_handle.py`<br>💡 **Optional:** `python scripts/change_display_name.py` for display names |
-| **6** | 🧪 **Test Setup** | `python scripts/auto_update.py` |
-| **7** | 🤖 **Enable Automation** | Go to your GitHub repository → **Actions** tab → Click "I understand my workflows, go ahead and enable them" to activate automated updates |
+| **2** | 📦 **Clone Your Fork** | `git clone https://github.com/YOUR_USERNAME/ProblemSolvingStats.git`<br>`cd ProblemSolvingStats` |
+| **3** | 📥 **Install Dependencies** | `pip install -r requirements.txt` |
+| **4** | ⚙️ **Configure Usernames** | Edit `src/config.json` → `USER_CONFIG` with your usernames<br>💡 **Optional:** Customize display names with `python scripts/change_display_name.py` |
+| **5** | 🧪 **Test Setup** | `python scripts/auto_update.py` |
+| **6** | 🤖 **Enable Automation** | Go to **Actions** tab → Enable workflows |
 
 <div align="center">
 
@@ -188,11 +185,8 @@
 |:------:|:-------:|:-----------:|
 | **`python scripts/auto_update.py`** | 🔄 **Full Automation**<br>Fetch + Update README | Daily automated runs |
 | **`python scripts/manual_update.py`** | ✏️ **Manual Entry**<br>Enter stats manually | API failures or new platforms |
-| **`python scripts/manage_handle.py`** | 👤 **Manage Handles**<br>Configure usernames | Setting up platform usernames |
 | **`python scripts/change_display_name.py`** | 🎨 **Display Names**<br>Change profile names | Personalizing README appearance |
 | **`python scripts/update_readme.py`** | 📝 **README Only**<br>Regenerate README | Using existing data |
-| **`python scripts/check_and_adjust_schedule.py`** | 📅 **Schedule Check**<br>Review update timing | Optimizing automation schedule |
-| **`python scripts/sync_profiles.py`** | 🔗 **Sync Profiles**<br>Synchronize platform data | Ensuring data consistency |
 
 <div align="center">
 
