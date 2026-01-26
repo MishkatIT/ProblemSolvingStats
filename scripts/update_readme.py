@@ -575,34 +575,15 @@ def update_readme(stats, last_known_info=None, update_source=None):
     # (URLs, configuration, or other metadata might have changed)
     console.print(Panel(f"[bold blue]Updating README with [yellow]{total}[/yellow] total problems...[/bold blue]", border_style="blue", expand=False))
 
-    # Update last updated badge
-    readme_content = re.sub(
-        r'Last%20Updated-[^-]+-2563eb',
-        f'Last%20Updated-{current_date.replace(" ", "%20")}-28a745',
-        readme_content
-    )
-
-    # Update total problems badge
-    readme_content = re.sub(
-        r'Total%20Solved-\d+-2563eb',
-        f'Total%20Solved-{total}-28a745',
-        readme_content
-    )
-
-    # Update platforms badge
+    # Update platforms badge count for badges section
     active_platforms = len([p for p in effective_counts.values() if isinstance(p, int) and p > 0])
-    readme_content = re.sub(
-        r'Platforms-\d+\+?-2563eb',
-        f'Platforms-{active_platforms}-28a745',
-        readme_content
-    )
     
-    # Generate dynamic badges section (no links for simplicity)
+    # Generate dynamic badges section using comment markers
     badges_section = f'''![Last Updated](https://img.shields.io/badge/Last%20Updated-{current_date.replace(" ", "%20")}-28a745?style=for-the-badge)
 ![Total Problems](https://img.shields.io/badge/Total%20Solved-{total}-28a745?style=for-the-badge)
 ![Platforms](https://img.shields.io/badge/Platforms-{active_platforms}-28a745?style=for-the-badge)'''
     
-    # Insert dynamic badges
+    # Insert dynamic badges using comment markers
     readme_content = re.sub(
         r'<!-- DYNAMIC_BADGES_START -->.*<!-- DYNAMIC_BADGES_END -->',
         f'<!-- DYNAMIC_BADGES_START -->\n{badges_section}\n<!-- DYNAMIC_BADGES_END -->',
