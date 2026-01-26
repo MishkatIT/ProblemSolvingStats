@@ -601,5 +601,4 @@ A: 12+ platforms: Codeforces, AtCoder, CodeChef, LeetCode, LightOJ, Toph, VJudge
 
 ## License
 
-ThThis project is licensed under the MIT License - see the [LICENSE](/LICENSE) file for details.</content>
-<parameter name="filePath">d:\ProblemSolvingStats\docs\USERGUIDE.md
+ThThis project is licensed under the MIT License - see the [LICENSE](/LICENSE)
