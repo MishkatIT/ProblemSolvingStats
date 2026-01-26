@@ -2,7 +2,7 @@ name: Update Problem Solving Statistics
 
 on:
   schedule:
-    # 11:00 PM Bangladesh Time = 17:00 UTC
+    # 11:00 PM Bangladesh Time (BDT) = 17:00 UTC (daily)
     - cron: '0 17 * * *'
   workflow_dispatch:
 

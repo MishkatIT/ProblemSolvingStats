@@ -162,7 +162,7 @@ class PlatformStats:
         self.user_agent = USER_AGENT
         self.last_known_counts = DataManager.load_last_known_counts(user_config=self.user_config)
 
-    def fetch_url(self, url, use_api=False, platform=None, check_status=True, fallback_selenium=False):
+    def fetch_url(self, url, use_api=False, platform=None, check_status=True, fallback_selenium=True):
         """Fetch URL with proper headers, including platform-specific browser headers.
         
         Args:
@@ -170,7 +170,7 @@ class PlatformStats:
             use_api: Whether this is an API call (affects Accept header)
             platform: Platform name for specific headers
             check_status: Whether to explicitly check HTTP status code is 200
-            fallback_selenium: If True, fall back to Selenium if requests fails
+            fallback_selenium: If True, fall back to Selenium if requests fails or content appears JS-rendered or content appears JS-rendered
             
         Returns:
             Content string if successful, None if failed
@@ -465,7 +465,7 @@ class PlatformStats:
         """Fetch CodeChef statistics using web scraping."""
         try:
             url = f"https://www.codechef.com/users/{self.user_config['CodeChef']}"
-            html = self.fetch_url(url, fallback_selenium=True)
+            html = self.fetch_url(url)
             if not html:
                 return None
                 
@@ -702,65 +702,67 @@ class PlatformStats:
         return None
     
     def get_HackerEarth(self):
-        """Fetch HackerEarth statistics using Selenium for JS-rendered content."""
+        """Fetch HackerEarth statistics using web scraping with Selenium fallback for JS-rendered content."""
         try:
             url = f"https://www.hackerearth.com/@{self.user_config['HackerEarth']}"
-            # Fetch without waiting, as content may load quickly enough
-            html = self.fetch_with_selenium(url)
-            if html:
-                # Try multiple patterns for problems solved
-                patterns = [
-                    r'<div class="text-xl font-semibold leading-none">(\d+)</div><div class="text-sm text-muted-foreground mt-2 w-full whitespace-nowrap">Problems Solved</div>',
-                    r'<div class="rounded-xl[^"]*bg-card[^"]*text-card-foreground[^"]*">.*?<div class="text-xl[^"]*">(\d+)</div>.*?<div class="text-sm[^"]*">Problems Solved</div>.*?<svg[^>]*class="lucide lucide-square-check-big',
-                    r'(\d+)\s+problem',
-                    r'Problems\s+Solved[:\s]*(\d+)',
-                    r'<span[^>]*>(\d+)</span>\s*<[^>]*>\s*problem',
-                    r'"problemsSolved"\s*:\s*(\d+)',
-                    r'data-problems["\s:=]+(\d+)',
-                    r'(\d+)\s+problems?\s+solved',
-                    r'Solved[:\s]*(\d+)',
-                    r'__NEXT_DATA__.*?"problemsSolved"\s*:\s*(\d+)',
-                ]
-                for pattern in patterns:
-                    match = re.search(pattern, html, re.IGNORECASE | re.DOTALL)
-                    if match:
-                        count = int(match.group(1))
-                        if 0 < count < MAX_REASONABLE_COUNT:
-                            return count
+            html = self.fetch_url(url)
+            if not html:
+                return None
+                
+            # Try multiple patterns for problems solved
+            patterns = [
+                r'<div class="text-xl font-semibold leading-none">(\d+)</div><div class="text-sm text-muted-foreground mt-2 w-full whitespace-nowrap">Problems Solved</div>',
+                r'<div class="rounded-xl[^"]*bg-card[^"]*text-card-foreground[^"]*">.*?<div class="text-xl[^"]*">(\d+)</div>.*?<div class="text-sm[^"]*">Problems Solved</div>.*?<svg[^>]*class="lucide lucide-square-check-big',
+                r'(\d+)\s+problem',
+                r'Problems\s+Solved[:\s]*(\d+)',
+                r'<span[^>]*>(\d+)</span>\s*<[^>]*>\s*problem',
+                r'"problemsSolved"\s*:\s*(\d+)',
+                r'data-problems["\s:=]+(\d+)',
+                r'(\d+)\s+problems?\s+solved',
+                r'Solved[:\s]*(\d+)',
+                r'__NEXT_DATA__.*?"problemsSolved"\s*:\s*(\d+)',
+            ]
+            for pattern in patterns:
+                match = re.search(pattern, html, re.IGNORECASE | re.DOTALL)
+                if match:
+                    count = int(match.group(1))
+                    if 0 < count < MAX_REASONABLE_COUNT:
+                        return count
         except Exception as e:
             print(f"  Error getting HackerEarth stats: {e}")
         return None
     
     def get_Kattis(self):
         """Fetch Kattis statistics."""
-        try:
-            url = f"https://open.kattis.com/users/{self.user_config['Kattis']}"
-            html = self.fetch_url(url)
-            if html:
-                # Look for solved problems count
-                patterns = [
-                    r'(\d+)\s+problems?\s+solved',
-                    r'Solved[:\s]*(\d+)',
-                    r'Problems\s+solved[:\s]*(\d+)',
-                    r'data-solved["\s:=]+(\d+)',
-                ]
-                for pattern in patterns:
-                    match = re.search(pattern, html, re.IGNORECASE)
-                    if match:
-                        count = int(match.group(1))
-                        if 0 < count < MAX_REASONABLE_COUNT:
-                            return count
-        except Exception as e:
-            print(f"  Error getting Kattis stats: {e}")
-        return None
+        return (None, "Kattis profile pages don't display solved problem counts")
+        # try:
+        #     url = f"https://open.kattis.com/users/{self.user_config['Kattis']}"
+        #     html = self.fetch_url(url)
+        #     if html:
+        #         # Look for solved problems count
+        #         patterns = [
+        #             r'(\d+)\s+problems?\s+solved',
+        #             r'Solved[:\s]*(\d+)',
+        #             r'Problems\s+solved[:\s]*(\d+)',
+        #             r'data-solved["\s:=]+(\d+)',
+        #         ]
+        #         for pattern in patterns:
+        #             match = re.search(pattern, html, re.IGNORECASE)
+        #             if match:
+        #                 count = int(match.group(1))
+        #                 if 0 < count < MAX_REASONABLE_COUNT:
+        #                     return count
+        # except Exception as e:
+        #     print(f"  Error getting Kattis stats: {e}")
+        # return None
     
     def get_CSAcademy(self):
-        """Fetch CSAcademy statistics using Selenium for JS-rendered content."""
+        """Fetch CSAcademy statistics using web scraping with Selenium fallback for JS-rendered content."""
         try:
             url = f"https://csacademy.com/user/{self.user_config['CSAcademy']}"
-            # Fetch without waiting, as content may load quickly enough
-            html = self.fetch_with_selenium(url)
-            if html:
+            html = self.fetch_url(url)
+            if not html:
+                return None
                 patterns = [
                     r'<span style="font-size: 1\.3em; margin-bottom: 10px;">Problems solved:\s*(\d+)</span>',
                     r'(\d+)\s+problems?\s+solved',
@@ -781,12 +783,12 @@ class PlatformStats:
         return None
     
     def get_Toki(self):
-        """Fetch Toki statistics using Selenium for JS-rendered content."""
+        """Fetch Toki statistics using web scraping with Selenium fallback for JS-rendered content."""
         try:
             url = f"https://tlx.toki.id/profiles/{self.user_config['Toki']}"
-            # Fetch without waiting, as content may load quickly enough
-            html = self.fetch_with_selenium(url)
-            if html:
+            html = self.fetch_url(url)
+            if not html:
+                return None
                 patterns = [
                     r'<li[^>]*>.*?<b[^>]*>AC</b>.*?:.*?(\d+).*?</li>',
                     r'<li[^>]*>\s*<b[^>]*>\s*AC\s*</b>\s*:\s*(\d+)\s*</li>',

@@ -6,18 +6,18 @@
 
 <!-- DYNAMIC_BADGES_START -->
 ![Last Updated](https://img.shields.io/badge/Last%20Updated-26%20January%202026-blue?style=for-the-badge)
-![Total Problems](https://img.shields.io/badge/Total%20Solved-3824-success?style=for-the-badge)
+![Total Problems](https://img.shields.io/badge/Total%20Solved-3823-success?style=for-the-badge)
 ![Platforms](https://img.shields.io/badge/Platforms-12-orange?style=for-the-badge)
 <!-- DYNAMIC_BADGES_END -->
 
 <!-- UPDATE_METADATA_START -->
-<p align="center"><sub><strong>Updated:</strong> 26 January 2026 at 02:43:26 AM • Automatic</sub></p>
+<p align="center"><sub><strong>Updated:</strong> 26 January 2026 at 04:54:17 PM • Automatic</sub></p>
 <!-- UPDATE_METADATA_END -->
 
 <!-- AUTO_GENERATED_SECTION_START: STATS_TABLE -->
 | 🎯 Platform | 👤 Profile | ✅ Solved | 📈 Progress | 📅 Updated On | 🔄 Mode |
 |-------------|------------|-----------|-------------|---------------|----------|
-| <img src="https://www.google.com/s2/favicons?domain=codeforces.com&sz=16" width="16" height="16"/> **Codeforces** | [MishkatIT](https://codeforces.com/profile/MishkatIT) | **2614** | ![Progress](https://img.shields.io/badge/Progress-68.4%25-AA0000?style=flat-square) | 26 January 2026 | ![Automatic](https://img.shields.io/badge/Automatic-2196F3?style=flat) |
+| <img src="https://www.google.com/s2/favicons?domain=codeforces.com&sz=16" width="16" height="16"/> **Codeforces** | [MishkatIT](https://codeforces.com/profile/MishkatIT) | **2613** | ![Progress](https://img.shields.io/badge/Progress-68.3%25-AA0000?style=flat-square) | 26 January 2026 | ![Automatic](https://img.shields.io/badge/Automatic-2196F3?style=flat) |
 | <img src="https://www.google.com/s2/favicons?domain=leetcode.com&sz=16" width="16" height="16"/> **LeetCode** | [MishkatIT](https://leetcode.com/u/MishkatIT/) | **412** | ![Progress](https://img.shields.io/badge/Progress-10.8%25-FF3333?style=flat-square) | 26 January 2026 | ![Automatic](https://img.shields.io/badge/Automatic-2196F3?style=flat) |
 | <img src="https://www.google.com/s2/favicons?domain=vjudge.net&sz=16" width="16" height="16"/> **VJudge** | [MishkatIT](https://vjudge.net/user/MishkatIT) | **347** | ![Progress](https://img.shields.io/badge/Progress-9.1%25-FF7777?style=flat-square) | 26 January 2026 | ![Automatic](https://img.shields.io/badge/Automatic-2196F3?style=flat) |
 | <img src="https://www.google.com/s2/favicons?domain=atcoder.jp&sz=16" width="16" height="16"/> **AtCoder** | [MishkatIT](https://atcoder.jp/users/MishkatIT) | **157** | ![Progress](https://img.shields.io/badge/Progress-4.1%25-FFBB55?style=flat-square) | 26 January 2026 | ![Automatic](https://img.shields.io/badge/Automatic-2196F3?style=flat) |
@@ -29,7 +29,7 @@
 | <img src="https://www.google.com/s2/favicons?domain=www.hackerrank.com&sz=16" width="16" height="16"/> **HackerRank** | [MishkatIT](https://www.hackerrank.com/profile/MishkatIT) | **7** | ![Progress](https://img.shields.io/badge/Progress-0.2%25-77DDBB?style=flat-square) | 17 January 2026 | ![Manual](https://img.shields.io/badge/Manual-F44336?style=flat) |
 | <img src="https://www.google.com/s2/favicons?domain=uhunt.onlinejudge.org&sz=16" width="16" height="16"/> **UVa** | [MishkatIT](https://uhunt.onlinejudge.org/id/1615470) | **7** | ![Progress](https://img.shields.io/badge/Progress-0.2%25-77EE99?style=flat-square) | 26 January 2026 | ![Automatic](https://img.shields.io/badge/Automatic-2196F3?style=flat) |
 | <img src="https://www.google.com/s2/favicons?domain=www.hackerearth.com&sz=16" width="16" height="16"/> **HackerEarth** | [MishkatIT](https://www.hackerearth.com/@MishkatIT/) | **2** | ![Progress](https://img.shields.io/badge/Progress-0.1%25-77FF77?style=flat-square) | 26 January 2026 | ![Automatic](https://img.shields.io/badge/Automatic-2196F3?style=flat) |
-| 🎖️ **TOTAL** | | **3824** | **100%** | 26 January 2026 | |
+| 🎖️ **TOTAL** | | **3823** | **100%** | 26 January 2026 | |
 
 ---
 
@@ -43,7 +43,7 @@
 | 🥇 Top Platform | 🎯 Main Focus | 📚 Platforms Active |
 |:---------------:|:-------------:|:------------------:|
 | **Codeforces** | **Competitive Programming** | **12** |
-| 2614 Problems | Algorithm Mastery | Multi-Platform |
+| 2613 Problems | Algorithm Mastery | Multi-Platform |
 
 </div>
 <!-- AUTO_GENERATED_SECTION_END: KEY_HIGHLIGHTS -->
