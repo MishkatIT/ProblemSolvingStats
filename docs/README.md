@@ -13,7 +13,7 @@
 <!-- DYNAMIC_BADGES_END -->
 
 <!-- UPDATE_METADATA_START -->
-<p align="center"><sub><strong>Updated:</strong> 27 January 2026 at 02:49:24 AM • Automatic</sub></p>
+<p align="center"><sub><strong>Updated:</strong> 27 January 2026 at 02:56:11 AM • Automatic</sub></p>
 <!-- UPDATE_METADATA_END -->
 
 <!-- AUTO_GENERATED_SECTION_START: STATS_TABLE -->
@@ -25,12 +25,12 @@
 | <img src="https://www.google.com/s2/favicons?domain=atcoder.jp&sz=16" width="16" height="16"/> **AtCoder** | [MishkatIT](https://atcoder.jp/users/MishkatIT) | **157** | ![Progress](https://img.shields.io/badge/Progress-4.1%25-FFBB55?style=flat-square) | 27 January 2026 | ![Automatic](https://img.shields.io/badge/Automatic-2E7D32?style=flat) |
 | <img src="https://www.google.com/s2/favicons?domain=www.codechef.com&sz=16" width="16" height="16"/> **CodeChef** | [MishkatIT](https://www.codechef.com/users/MishkatIT) | **126** | ![Progress](https://img.shields.io/badge/Progress-3.3%25-FFCC88?style=flat-square) | 27 January 2026 | ![Automatic](https://img.shields.io/badge/Automatic-2E7D32?style=flat) |
 | <img src="https://www.google.com/s2/favicons?domain=cses.fi&sz=16" width="16" height="16"/> **CSES** | [MishkatIT](https://cses.fi/user/165802/) | **66** | ![Progress](https://img.shields.io/badge/Progress-1.7%25-FF88FF?style=flat-square) | 15 January 2026 | ![Manual](https://img.shields.io/badge/Manual-E65100?style=flat) |
-| <img src="https://www.google.com/s2/favicons?domain=toph.co&sz=16" width="16" height="16"/> **Toph** | [MishkatIT](https://toph.co/u/MishkatIT) | **37** | ![Progress](https://img.shields.io/badge/Progress-1.0%25-D499FF?style=flat-square) | 27 January 2026 | ![Automatic](https://img.shields.io/badge/Automatic-2E7D32?style=flat) |
+| <img src="https://www.google.com/s2/favicons?domain=toph.co&sz=16" width="16" height="16"/> **Toph** | [MishkatIT](https://toph.co/u/MishkatIT) | **37** | ![Progress](https://img.shields.io/badge/Progress-1.0%25-D499FF?style=flat-square) | 26 January 2026 | ![Automatic](https://img.shields.io/badge/Automatic-2E7D32?style=flat) |
 | <img src="https://www.google.com/s2/favicons?domain=lightoj.com&sz=16" width="16" height="16"/> **LightOJ** | [mishkatit](https://lightoj.com/user/mishkatit) | **31** | ![Progress](https://img.shields.io/badge/Progress-0.8%25-AAAAFF?style=flat-square) | 27 January 2026 | ![Automatic](https://img.shields.io/badge/Automatic-2E7D32?style=flat) |
 | <img src="https://www.google.com/s2/favicons?domain=www.spoj.com&sz=16" width="16" height="16"/> **SPOJ** | [mishkatit](https://www.spoj.com/users/mishkatit) | **18** | ![Progress](https://img.shields.io/badge/Progress-0.5%25-90C3DD?style=flat-square) | 16 January 2026 | ![Manual](https://img.shields.io/badge/Manual-E65100?style=flat) |
 | <img src="https://www.google.com/s2/favicons?domain=www.hackerrank.com&sz=16" width="16" height="16"/> **HackerRank** | [MishkatIT](https://www.hackerrank.com/profile/MishkatIT) | **7** | ![Progress](https://img.shields.io/badge/Progress-0.2%25-77DDBB?style=flat-square) | 17 January 2026 | ![Manual](https://img.shields.io/badge/Manual-E65100?style=flat) |
 | <img src="https://www.google.com/s2/favicons?domain=uhunt.onlinejudge.org&sz=16" width="16" height="16"/> **UVa** | [MishkatIT](https://uhunt.onlinejudge.org/id/1615470) | **7** | ![Progress](https://img.shields.io/badge/Progress-0.2%25-77EE99?style=flat-square) | 27 January 2026 | ![Automatic](https://img.shields.io/badge/Automatic-2E7D32?style=flat) |
-| <img src="https://www.google.com/s2/favicons?domain=www.hackerearth.com&sz=16" width="16" height="16"/> **HackerEarth** | [MishkatIT](https://www.hackerearth.com/@MishkatIT/) | **2** | ![Progress](https://img.shields.io/badge/Progress-0.1%25-77FF77?style=flat-square) | 27 January 2026 | ![Automatic](https://img.shields.io/badge/Automatic-2E7D32?style=flat) |
+| <img src="https://www.google.com/s2/favicons?domain=www.hackerearth.com&sz=16" width="16" height="16"/> **HackerEarth** | [MishkatIT](https://www.hackerearth.com/@MishkatIT/) | **2** | ![Progress](https://img.shields.io/badge/Progress-0.1%25-77FF77?style=flat-square) | 26 January 2026 | ![Automatic](https://img.shields.io/badge/Automatic-2E7D32?style=flat) |
 | 🎖️ **TOTAL** | | **3824** | **100%** | 27 January 2026 | |
 
 ---
