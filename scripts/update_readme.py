@@ -424,7 +424,7 @@ def generate_platform_statistics_table(effective_counts, current_date, today_iso
                 date_str = current_date if isinstance(count, int) else 'unknown'
         
         mode_display = platform_mode.capitalize() if platform_mode else 'Unknown'
-        mode_color = 'F44336' if platform_mode == 'manual' else '2196F3'
+        mode_color = 'E65100' if platform_mode == 'manual' else '2E7D32'
         
         # Create markdown table row
         logo_md = f'<img src="{logo_url}" width="16" height="16"/>' if logo_url else '🏆'
@@ -436,7 +436,7 @@ def generate_platform_statistics_table(effective_counts, current_date, today_iso
     
     # Build markdown table
     table = f'''| 🎯 Platform | 👤 Profile | ✅ Solved | 📈 Progress | 📅 Updated On | 🔄 Mode |
-|-------------|------------|-----------|-------------|---------------|----------|
+|:-------------|:------------:|:-----------:|:-------------|---------------:|:----------:|
 {chr(10).join(rows)}
 | 🎖️ **TOTAL** | | **{total}** | **100%** | {current_date} | |'''
     
@@ -577,30 +577,30 @@ def update_readme(stats, last_known_info=None, update_source=None):
 
     # Update last updated badge
     readme_content = re.sub(
-        r'Last%20Updated-[^-]+-blue',
-        f'Last%20Updated-{current_date.replace(" ", "%20")}-blue',
+        r'Last%20Updated-[^-]+-2563eb',
+        f'Last%20Updated-{current_date.replace(" ", "%20")}-28a745',
         readme_content
     )
 
     # Update total problems badge
     readme_content = re.sub(
-        r'Total%20Solved-\d+-success',
-        f'Total%20Solved-{total}-success',
+        r'Total%20Solved-\d+-2563eb',
+        f'Total%20Solved-{total}-28a745',
         readme_content
     )
 
     # Update platforms badge
     active_platforms = len([p for p in effective_counts.values() if isinstance(p, int) and p > 0])
     readme_content = re.sub(
-        r'Platforms-\d+\+?-orange',
-        f'Platforms-{active_platforms}-orange',
+        r'Platforms-\d+\+?-2563eb',
+        f'Platforms-{active_platforms}-28a745',
         readme_content
     )
     
     # Generate dynamic badges section (no links for simplicity)
-    badges_section = f'''![Last Updated](https://img.shields.io/badge/Last%20Updated-{current_date.replace(" ", "%20")}-blue?style=for-the-badge)
-![Total Problems](https://img.shields.io/badge/Total%20Solved-{total}-success?style=for-the-badge)
-![Platforms](https://img.shields.io/badge/Platforms-{active_platforms}-orange?style=for-the-badge)'''
+    badges_section = f'''![Last Updated](https://img.shields.io/badge/Last%20Updated-{current_date.replace(" ", "%20")}-28a745?style=for-the-badge)
+![Total Problems](https://img.shields.io/badge/Total%20Solved-{total}-28a745?style=for-the-badge)
+![Platforms](https://img.shields.io/badge/Platforms-{active_platforms}-28a745?style=for-the-badge)'''
     
     # Insert dynamic badges
     readme_content = re.sub(
