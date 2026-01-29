@@ -3,7 +3,7 @@ name: Update Problem Solving Statistics
 on:
   # DYNAMIC_SCHEDULE_START
   schedule:
-    - cron: '35 22 * * *'
+    - cron: '35 16 * * *'
   # DYNAMIC_SCHEDULE_END
   workflow_dispatch:
 
