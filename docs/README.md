@@ -258,7 +258,7 @@ git push origin main
 |:----:|:------|:-------------------|
 | **1** | 🍴 **Fork Repository** | Visit [MishkatIT/ProblemSolvingStats](https://github.com/MishkatIT/ProblemSolvingStats) and click **Fork** |
 | **2** | 📦 **Clone Your Fork** | `git clone https://github.com/YOUR_USERNAME/ProblemSolvingStats.git`<br>`cd ProblemSolvingStats`<br>💡 **Run in terminal/command prompt** |
-| **3** | 🖥️ **Windows Users** | 1. Run `spark.bat`<br>2. If first time: Select option to install requirements<br>3. Follow the menu to configure usernames and test setup<br>4. **Push to GitHub:** `git add . && git commit -m "Configure usernames" && git push origin main`<br>5. Done! Everything is automated from here |
+| **3** | 🖥️ **Windows Users** | 1. Run `spark.bat`<br>2. If first time: Select option to install requirements<br>3. Follow the menu to configure usernames and test setup<br>4. **Push to GitHub:** `git add . && git commit -m "Configure usernames" && git push origin main`<br>5. Done! Everything is automated from here. ✅ Skip Steps 4–7, follow 8 |
 | **4** | 📥 **Install Dependencies** | `pip install -r requirements.txt` |
 | **5** | ⚙️ **Configure Usernames** | `python scripts/manage_handle.py`<br>💡 **Optional:** `python scripts/change_display_name.py` for display names |
 | **6** | 📤 **Push to GitHub** | `git add .`<br>`git commit -m "Configure my usernames"`<br>`git push origin main`<br>💡 **Required!** GitHub Actions need your usernames to work |
