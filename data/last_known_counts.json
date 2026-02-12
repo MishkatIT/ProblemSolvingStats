@@ -14,18 +14,18 @@
     "UVa": 7
   },
   "dates": {
-    "LeetCode": "2026-02-11",
-    "AtCoder": "2026-02-11",
-    "CodeChef": "2026-02-11",
-    "Toph": "2026-02-11",
-    "LightOJ": "2026-02-11",
+    "LeetCode": "2026-02-12",
+    "AtCoder": "2026-02-12",
+    "CodeChef": "2026-02-12",
+    "Toph": "2026-02-12",
+    "LightOJ": "2026-02-12",
     "CSES": "2026-01-15",
     "HackerEarth": "2026-02-11",
     "SPOJ": "2026-01-16",
     "HackerRank": "2026-01-17",
     "VJudge": "2026-02-11",
-    "Codeforces": "2026-02-11",
-    "UVa": "2026-02-11"
+    "Codeforces": "2026-02-12",
+    "UVa": "2026-02-12"
   },
   "modes": {
     "LeetCode": "automatic",
@@ -72,7 +72,7 @@
   },
   "ratings": {
     "Codeforces": {
-      "current": 1325,
+      "current": 1252,
       "max": 1443,
       "rank": "pupil",
       "max_rank": "specialist"
