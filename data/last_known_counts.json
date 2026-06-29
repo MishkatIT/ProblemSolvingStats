@@ -10,22 +10,22 @@
     "SPOJ": 18,
     "HackerRank": 7,
     "VJudge": 347,
-    "Codeforces": 2543,
+    "Codeforces": 2753,
     "UVa": 7
   },
   "dates": {
-    "LeetCode": "2026-06-28",
-    "AtCoder": "2026-06-28",
-    "CodeChef": "2026-06-28",
+    "LeetCode": "2026-06-30",
+    "AtCoder": "2026-06-30",
+    "CodeChef": "2026-06-30",
     "Toph": "2026-06-28",
-    "LightOJ": "2026-06-28",
+    "LightOJ": "2026-06-30",
     "CSES": "2026-01-15",
     "HackerEarth": "2026-06-27",
     "SPOJ": "2026-01-16",
     "HackerRank": "2026-01-17",
     "VJudge": "2026-05-16",
-    "Codeforces": "2026-06-28",
-    "UVa": "2026-06-28"
+    "Codeforces": "2026-06-30",
+    "UVa": "2026-06-30"
   },
   "modes": {
     "LeetCode": "automatic",
@@ -52,7 +52,7 @@
     "SPOJ": "2025-05-06",
     "HackerRank": "1970-01-01",
     "VJudge": "2025-05-02",
-    "Codeforces": "2026-06-27",
+    "Codeforces": "2026-06-30",
     "UVa": "1970-01-01"
   },
   "usernames": {
